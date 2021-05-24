@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd" identifier="TST-Test_toets" title="Test_toets" toolName="Questify Builder" toolVersion="2.9" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2">
+	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration identifier="SCORE_CAT_1" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration identifier="SCORE_CAT_2" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration identifier="SCORE_CAT_COMBINED" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<testPart identifier="RES-d81e9621-1560-49f9-97fa-d17c5e87286a" navigationMode="nonlinear" submissionMode="simultaneous">
+		<assessmentSection identifier="RES-96f2d76d-7ab1-4c81-a2fc-2d897afc0cc1" title="Taak Taal 1" visible="true" keepTogether="false">
+			<assessmentItemRef identifier="ITM-SN02945" href="SN02945.xml" category="1">
+				<weight identifier="WEIGHT" value="1" />
+			</assessmentItemRef>
+			<assessmentItemRef identifier="ITM-SN02946" href="SN02946.xml" category="2">
+				<weight identifier="WEIGHT" value="0" />
+			</assessmentItemRef>
+		</assessmentSection>
+	</testPart>
+
+	<outcomeProcessing>
+		<setOutcomeValue identifier="SCORE">
+			<sum>
+				<testVariables variableIdentifier="SCORE" />
+			</sum>
+		</setOutcomeValue>
+		<setOutcomeValue identifier="SCORE_CAT_1">
+			<sum>
+				<testVariables variableIdentifier="SCORE" includeCategory="1" />
+			</sum>
+		</setOutcomeValue>
+		<setOutcomeValue identifier="SCORE_CAT_2">
+			<sum>
+				<testVariables variableIdentifier="SCORE" includeCategory="2" />
+			</sum>
+		</setOutcomeValue>
+		<setOutcomeValue identifier="SCORE_CAT_COMBINED">
+			<sum>
+				<testVariables variableIdentifier="SCORE" includeCategory="1 2" />
+			</sum>
+		</setOutcomeValue>
+	</outcomeProcessing>
+</assessmentTest>

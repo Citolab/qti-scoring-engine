@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd" identifier="TST-P-Reken-MiniToets-001" title="P-Reken-MiniToets-001" toolName="Questify Builder" toolVersion="3.0" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2">
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <testPart identifier="RES-cb4611c9-b7a4-4099-bb94-5e9466b06c07" navigationMode="linear" submissionMode="simultaneous">
+    <assessmentSection identifier="RES-f0298afc-a13a-45c6-8f69-640e7502cda8" title="Makelijke vragen" visible="true" keepTogether="false">
+      <assessmentItemRef identifier="ITM-PM001" href="ITM-PM001.xml" category="ACET _8001 _8060">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentSection identifier="RES-1d050c83-f94b-4b6f-86db-7974439bf5f4" title="Maklijke subsectie1" visible="true" keepTogether="false">
+        <assessmentItemRef identifier="ITM-PM002" href="ITM-PM002.xml" category="ACET _8001 _8060">
+          <weight identifier="WEIGHT" value="1" />
+        </assessmentItemRef>
+        <assessmentItemRef identifier="ITM-PM003" href="ITM-PM003.xml" category="ACET _8001 _8060">
+          <weight identifier="WEIGHT" value="1" />
+        </assessmentItemRef>
+      </assessmentSection>
+      <assessmentSection identifier="RES-be732a15-bcb5-4619-b728-0684871ea48c" title="Makelijke subsectie 2" visible="true" keepTogether="false">
+        <assessmentItemRef identifier="ITM-PM004" href="ITM-PM004.xml" category="ACET _8001 _8060">
+          <weight identifier="WEIGHT" value="1" />
+        </assessmentItemRef>
+        <assessmentItemRef identifier="ITM-SN02945" href="ITM-SN02945.xml" category="ACET _8001 _8060">
+          <weight identifier="WEIGHT" value="1" />
+        </assessmentItemRef>
+      </assessmentSection>
+    </assessmentSection>
+  </testPart>
+  <testPart identifier="RES-90841c81-c226-4e46-a10c-ed4dd0edb992" navigationMode="linear" submissionMode="simultaneous">
+    <assessmentSection identifier="RES-b25121a7-e28c-4796-a432-a945f15ce500" title="Iets moeilijker vragen" visible="true" keepTogether="false">
+      <assessmentItemRef identifier="ITM-PM006" href="ITM-PM006.xml" category="ACET _8001 _8060 _8063">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentItemRef identifier="ITM-PM007" href="ITM-PM007.xml" category="ACET _8001 _8060 _8063">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentItemRef identifier="ITM-PM008" href="ITM-PM008.xml" category="ACET _8001 _8060 _8063">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentSection identifier="RES-61f88031-19a5-439d-80ca-92d2265aab89" title="En zelfs nog moeilijker vragen" visible="true" keepTogether="false">
+        <assessmentItemRef identifier="ITM-PM009" href="ITM-PM009.xml" category="ACET _8001 _8060 _8063">
+          <weight identifier="WEIGHT" value="1" />
+        </assessmentItemRef>
+      </assessmentSection>
+      <assessmentSection identifier="RES-66b63faa-6364-4c92-b41b-92f84698070b" title="De moeilijkste vraag" visible="true" keepTogether="false">
+        <assessmentItemRef identifier="ITM-SN02946" href="ITM-SN02946.xml" category="ACET _8001 _8060 _8063">
+          <weight identifier="WEIGHT" value="8" />
+        </assessmentItemRef>
+      </assessmentSection>
+    </assessmentSection>
+  </testPart>
+  <outcomeProcessing>
+    <setOutcomeValue identifier="SCORE">
+      <sum>
+        <variable identifier="ITM-PM002.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM003.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM004.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM005.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM001.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM009.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM010.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM006.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM007.SCORE" weightIdentifier="WEIGHT" />
+        <variable identifier="ITM-PM008.SCORE" weightIdentifier="WEIGHT" />
+      </sum>
+    </setOutcomeValue>
+  </outcomeProcessing>
+</assessmentTest>

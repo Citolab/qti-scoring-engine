@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 http://www.imsglobal.org/xsd/qti/qtiv2p2/imsqti_v2p2.xsd" identifier="ITM-50069" title="True/False" label="True/False" xml:lang="en-US" adaptive="false" timeDependent="false" toolName="TAO" toolVersion="3.3.0-sprint73">
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value><![CDATA[B]]></value>
+    </correctResponse>
+    <mapping defaultValue="0" lowerBound="0" upperBound="1">
+      <mapEntry mapKey="B" mappedValue="1"/>
+      <mapEntry mapKey="C" mappedValue="2"/>
+    </mapping>
+  </responseDeclaration>
+  <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="MAXSCORE" cardinality="single" baseType="float">
+    <defaultValue>
+      <value>1</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <stylesheet href="style/custom/tao-user-styles.css" type="text/css" media="all" title=""/>
+  <responseProcessing template="http://www.imsglobal.org/question/qti_v2p2/rptemplates/map_response"/>
+  <modalFeedback identifier="correct" outcomeIdentifier="FEEDBACK" showHide="show" title="modal feedback title">correct</modalFeedback>
+  <modalFeedback identifier="incorrect" outcomeIdentifier="FEEDBACK" showHide="show" title="modal feedback title">incorrect</modalFeedback>
+</assessmentItem>
