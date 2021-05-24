@@ -13,7 +13,7 @@ Response Processing:
 
 - And
 - Gte
-- IsNull,
+- IsNull
 - LookupOutcomeValue
 - Match
 - Member
