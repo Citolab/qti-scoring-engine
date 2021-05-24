@@ -13,7 +13,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name { get => "member"; }
 
-        bool IExecuteReponseProcessing.Execute(XElement qtiElement, ResponseProcessingContext context)
+        bool IExecuteReponseProcessing.Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             return Helper.CompareTwoValues(qtiElement, context);
         }

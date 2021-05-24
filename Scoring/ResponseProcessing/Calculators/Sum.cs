@@ -15,7 +15,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Calculators
     {
         public string Name => "sum";
 
-        public float Calculate(XElement qtiElement, ResponseProcessingContext context)
+        public float Calculate(XElement qtiElement, ResponseProcessorContext context)
         {
             var sum = qtiElement.GetValues(context).Select(value =>
             {

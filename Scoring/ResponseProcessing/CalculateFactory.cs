@@ -11,7 +11,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
     public static class CalculateFactory
     {
         private static Dictionary<string, ICalculateResponseProcessing> _calculators;
-        public static ICalculateResponseProcessing GetCalculator(XElement element, ResponseProcessingContext context, bool logErrorIfNotFound = false)
+        public static ICalculateResponseProcessing GetCalculator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (_calculators == null)
             {

@@ -13,6 +13,6 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
         string Name { get; }
 
         // OperationResult Calculate(XElement qtiElement, OutcomeDeclaration outcomeDeclaration, ProcessingContext context);
-        float Calculate(XElement qtiElement, OutcomeVariable outcomeVariable, OutcomeProcessContext context);
+        float Calculate(XElement qtiElement, OutcomeVariable outcomeVariable, OutcomeProcessorContext context);
     }
 }

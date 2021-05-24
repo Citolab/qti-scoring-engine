@@ -14,7 +14,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name => "setOutcomeValue";
 
-        public bool Execute(XElement qtiElement, ResponseProcessingContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var outcomeIdentifier = qtiElement.Identifier();
             if (string.IsNullOrEmpty(outcomeIdentifier))

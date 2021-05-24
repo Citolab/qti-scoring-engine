@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.OutcomeProcessingTests
+namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
 {
     public class AddedVariablesTests
     {

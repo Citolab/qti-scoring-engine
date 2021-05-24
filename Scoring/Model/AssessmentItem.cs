@@ -30,13 +30,13 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     case "map_response":
                         {
-                            responseProcessing.AddAfterSelf(Templates.MapResponse);
+                            Root.Add(Templates.MapResponse.AddDefaultNamespace(Root.GetDefaultNamespace()));
                             responseProcessing.Remove();
                             break;
                         }
                     case "match_correct":
                         {
-                            responseProcessing.AddAfterSelf(Templates.MatchCorrect);
+                            Root.Add(Templates.MatchCorrect.AddDefaultNamespace(Root.GetDefaultNamespace()));
                             responseProcessing.Remove();
                             break;
                         }
@@ -91,9 +91,9 @@ namespace Citolab.QTI.ScoringEngine.Model
             var correctResponse = el.FindElementsByName("correctResponse")
                 .FirstOrDefault();
             responseDeclaration.CorrectResponseInterpretation = correctResponse?.GetAttributeValue("interpretation");
-            var correctValues =  correctResponse?.FindElementsByName("value").Select(v => v.Value.RemoveXData())?.ToList();
+            var correctValues = correctResponse?.FindElementsByName("value").Select(v => v.Value.RemoveXData())?.ToList();
 
-            responseDeclaration.CorrectResponse = correctValues !=null ? string.Join('&', correctValues.ToArray()) : "";
+            responseDeclaration.CorrectResponse = correctValues != null ? string.Join('&', correctValues.ToArray()) : "";
             responseDeclaration.CorrectResponses = correctValues?.Count > 1 ? correctValues : null;
             var mappingElement = el.FindElementsByName("mapping").FirstOrDefault();
             if (mappingElement != null)

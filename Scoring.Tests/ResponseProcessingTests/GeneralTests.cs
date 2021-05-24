@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.Helper;
 using System;
 
-namespace Scoring.Tests.Business
+namespace Citolab.QTI.ScoringEngine.Tests.Business
 {
     public class GeneralTests
     {
@@ -28,7 +28,7 @@ namespace Scoring.Tests.Business
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Update_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50066.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
@@ -46,7 +46,7 @@ namespace Scoring.Tests.Business
             // make response incorrect
             assessmentResult.ChangeResponse("ITM-50066", "RESPONSE", "A");
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
@@ -64,7 +64,7 @@ namespace Scoring.Tests.Business
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50066.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
@@ -88,7 +88,7 @@ namespace Scoring.Tests.Business
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50066_No_Correct_Response.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
@@ -108,7 +108,7 @@ namespace Scoring.Tests.Business
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_No_Candidate_Response.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50069.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
@@ -130,7 +130,7 @@ namespace Scoring.Tests.Business
             var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Interpolation.xml")));
             var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\083-Verklanking-speciale-tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, mockLogger.Object);
             //No outcome identifier could be found for the raw score to use with interpolation.
             mockLogger.VerifyLog((state, t) => state.ContainsValue("No outcome identifier could be found for the raw score to use with interpolation."), LogLevel.Error, 1);

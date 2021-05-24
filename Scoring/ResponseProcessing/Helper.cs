@@ -36,7 +36,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             return false;
         }
 
-        public static OutcomeVariable GetOutcomeVariable(string id, OutcomeDeclaration outcomeDeclaration, ResponseProcessingContext context, bool createIfNotExists = true)
+        public static OutcomeVariable GetOutcomeVariable(string id, OutcomeDeclaration outcomeDeclaration, ResponseProcessorContext context, bool createIfNotExists = true)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -56,7 +56,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             return context.ItemResult.OutcomeVariables[id];
         }
 
-        public static OutcomeDeclaration GetOutcomeDeclaration(string id, ResponseProcessingContext context)
+        public static OutcomeDeclaration GetOutcomeDeclaration(string id, ResponseProcessorContext context)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -71,7 +71,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             return context.AssessmentItem.OutcomeDeclarations[id];
         }
 
-        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessingContext context)
+        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context)
         {
             var values = qtiElement.GetValues(context);// Helper.GetStringValueOfChildren(qtiElement, context).ToList();
             context.LogInformation($"member check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");

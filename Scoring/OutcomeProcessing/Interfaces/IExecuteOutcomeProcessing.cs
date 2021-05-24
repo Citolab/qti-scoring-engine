@@ -12,6 +12,6 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
     public interface IExecuteOutcomeProcessing
     {
         string Name { get; }
-        bool Execute(XElement qtiElement, OutcomeProcessContext context);
+        bool Execute(XElement qtiElement, OutcomeProcessorContext context);
     }
 }

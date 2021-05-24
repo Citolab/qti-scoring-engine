@@ -111,7 +111,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return new BaseValue { BaseType = outcomeVariable.BaseType, Value = outcomeVariable.Value.ToString(), Identifier = outcomeVariable.Identifier };
         }
 
-        private static IList<BaseValue> GetResponseVariables(this XElement qtiElement, ResponseProcessingContext context)
+        private static IList<BaseValue> GetResponseVariables(this XElement qtiElement, ResponseProcessorContext context)
         {
             var variables = qtiElement.FindElementsByName("variable")
               .Select(childElement =>
@@ -130,7 +130,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
         }
 
 
-        public static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessContext context)
+        public static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessorContext context)
         {
             var itemOutcomes = context.AssessmentResult.ItemResults
                .Select(i => i.Value)
@@ -275,7 +275,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 .ToList();
         }
 
-        public static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessingContext context)
+        public static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
         {
             var baseValues = qtiElement.GetBaseValues();
             var outcomeVariables = context.ItemResult?.OutcomeVariables;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.ResponseProcessingTests
+namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
 {
     public class ChoiceInterationTests
     {
@@ -23,7 +23,7 @@ namespace Scoring.Tests.ResponseProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50069.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
@@ -42,7 +42,7 @@ namespace Scoring.Tests.ResponseProcessingTests
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50066_Multiple_Keys.xml")));
 
             // A = correct
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
             var scoreA = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
             // B = incorrect

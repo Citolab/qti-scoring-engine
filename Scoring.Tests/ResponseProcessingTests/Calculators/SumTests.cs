@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.ResponseProcessingTests.Calculators
+namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.Calculators
 {
     public class SumTests
     {

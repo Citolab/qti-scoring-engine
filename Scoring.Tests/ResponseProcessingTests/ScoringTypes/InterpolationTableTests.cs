@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.ResponseProcessingTests.ScoringTypes
+namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.ScoringTypes
 {
     public class InterpolationTableTests
     {
@@ -28,7 +28,7 @@ namespace Scoring.Tests.ResponseProcessingTests.ScoringTypes
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Interpolation.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\083-Verklanking-speciale-tekens.xml")));
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-083-Verklanking-speciale-tekens", "SCORE");

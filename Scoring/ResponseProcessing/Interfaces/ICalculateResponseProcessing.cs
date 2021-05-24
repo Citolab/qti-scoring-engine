@@ -13,6 +13,6 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces
         string Name { get; }
 
         // OperationResult Calculate(XElement qtiElement, OutcomeDeclaration outcomeDeclaration, ProcessingContext context);
-        float Calculate(XElement qtiElement, ResponseProcessingContext context);
+        float Calculate(XElement qtiElement, ResponseProcessorContext context);
     }
 }

@@ -12,14 +12,14 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
-    public class ResponseProcessingContext
+    public class ResponseProcessorContext
     {
         private readonly ILogger _logger;
         public AssessmentResult AssessmentResult { get; }
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
 
-        public ResponseProcessingContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem)
+        public ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;

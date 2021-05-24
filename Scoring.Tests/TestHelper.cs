@@ -12,14 +12,14 @@ using Citolab.QTI.ScoringEngine.Helper;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System.IO;
 
-namespace Scoring.Tests
+namespace Citolab.QTI.ScoringEngine.Tests
 {
     public static class TestHelper
     {
-        public static ResponseProcessingContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
+        public static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
         {
             var logger = new Mock<ILogger>().Object;
-            var context = new ResponseProcessingContext(logger, GetBasicAssessmentResult(), assessmentItem);
+            var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem);
             if (assessmentItem.OutcomeDeclarations != null)
             {
                 if (context.ItemResult == null)
@@ -89,7 +89,7 @@ namespace Scoring.Tests
             }
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentResultPath}.xml")));
-            var outcomeProcessing = new OutcomeProcessing();
+            var outcomeProcessing = new OutcomeProcessor();
 
             return outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
         }

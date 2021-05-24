@@ -12,7 +12,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name { get => "responseElse"; }
 
-        public bool Execute(XElement qtiElement, ResponseProcessingContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var elements = qtiElement.Elements();
             var maxLoops = elements.Count() >= 100 ? 100 : elements.Count();

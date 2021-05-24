@@ -18,7 +18,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name => "isNull";
 
-        public bool Execute(XElement qtiElement, ResponseProcessingContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var value = qtiElement.GetValues(context).FirstOrDefault();
             return value == null;

@@ -11,7 +11,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
     public static class ExecuteFactory
     {
         private static Dictionary<string, IExecuteOutcomeProcessing> _executors;
-        public static IExecuteOutcomeProcessing GetExecutor(XElement element, OutcomeProcessContext context)
+        public static IExecuteOutcomeProcessing GetExecutor(XElement element, OutcomeProcessorContext context)
         {
             if (_executors == null)
             {

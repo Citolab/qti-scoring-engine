@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.OutcomeProcessingTests
+namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
 {
     public class SumTestVariablesTests
     {
@@ -51,7 +51,7 @@ namespace Scoring.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
-            var outcomeProcessing = new OutcomeProcessing();
+            var outcomeProcessing = new OutcomeProcessor();
             // actt
             outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
             //assert
@@ -70,7 +70,7 @@ namespace Scoring.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
-            var outcomeProcessing = new OutcomeProcessing();
+            var outcomeProcessing = new OutcomeProcessor();
             // actt
             outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
             //assert
@@ -89,7 +89,7 @@ namespace Scoring.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
-            var outcomeProcessing = new OutcomeProcessing();
+            var outcomeProcessing = new OutcomeProcessor();
             // actt
             outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
             //assert
@@ -108,7 +108,7 @@ namespace Scoring.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
-            var outcomeProcessing = new OutcomeProcessing();
+            var outcomeProcessing = new OutcomeProcessor();
             // actt
             outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
             //assert

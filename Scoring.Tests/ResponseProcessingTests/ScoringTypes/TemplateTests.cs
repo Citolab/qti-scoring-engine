@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Scoring.Tests.ResponseProcessingTests.ScoringTypes
+namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.ScoringTypes
 {
     public class TemplateTests
     {
@@ -35,7 +35,7 @@ namespace Scoring.Tests.ResponseProcessingTests.ScoringTypes
             var assessmentResult = new AssessmentResult(logger, assessmentResultXDocument);
             var assessmentItem = new AssessmentItem(logger, assessmentItemXDocument);
 
-            var responseProcessing = new ResponseProcessing();
+            var responseProcessing = new ResponseProcessor();
 
             responseProcessing.Process(assessmentItem, assessmentResult, logger);
             var scoreValueA = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");

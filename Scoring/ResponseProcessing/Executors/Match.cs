@@ -11,7 +11,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name { get => "match"; }
 
-        public bool Execute(XElement qtiElement, ResponseProcessingContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             return Helper.CompareTwoValues(qtiElement, context);
         }

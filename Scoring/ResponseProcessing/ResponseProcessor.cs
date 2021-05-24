@@ -11,11 +11,11 @@ using Citolab.QTI.ScoringEngine.Model;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
-    public class ResponseProcessing
+    public class ResponseProcessor
     {
         public AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger)
         {
-            var context = new ResponseProcessingContext(logger, assessmentResult, assessmentItem);
+            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
             // Reset all values that are recalculated;
             context.ItemResult.OutcomeVariables.Where(o =>
             {

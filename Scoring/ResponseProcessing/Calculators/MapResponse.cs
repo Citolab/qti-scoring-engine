@@ -14,7 +14,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Calculators
     {
         public string Name => "mapResponse";
 
-        public float Calculate(XElement qtiElement, ResponseProcessingContext context)
+        public float Calculate(XElement qtiElement, ResponseProcessorContext context)
         {
             // TODO lower bound and upperbound if response contains multiple value when cardinality = multiple
             var identifier = qtiElement.Identifier();

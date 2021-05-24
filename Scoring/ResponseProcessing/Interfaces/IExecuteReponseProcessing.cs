@@ -12,6 +12,6 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces
     public interface IExecuteReponseProcessing
     {
         string Name { get; }
-        bool Execute(XElement qtiElement, ResponseProcessingContext context);
+        bool Execute(XElement qtiElement, ResponseProcessorContext context);
     }
 }

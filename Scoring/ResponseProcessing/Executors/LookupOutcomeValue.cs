@@ -14,7 +14,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name => "lookupOutcomeValue";
 
-        public bool Execute(XElement qtiElement, ResponseProcessingContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var outcomeIdentifier = qtiElement.Identifier();
             var rawIdentifier = qtiElement.FindElementsByName("variable")

@@ -10,11 +10,11 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 {
-    public class OutcomeProcessing
+    public class OutcomeProcessor
     {
         public AssessmentResult Process(AssessmentTest assessmentTest, AssessmentResult assessmentResult, ILogger logger)
         {
-            var context = new OutcomeProcessContext(assessmentResult, assessmentTest, logger);
+            var context = new OutcomeProcessorContext(assessmentResult, assessmentTest, logger);
             // Reset all values that are recalculated;
             context.TestResult.OutcomeVariables.Where(o =>
             {
