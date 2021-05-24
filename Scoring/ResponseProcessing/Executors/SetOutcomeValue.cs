@@ -33,7 +33,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
                 var outcomeVariable = Helper.GetOutcomeVariable(outcomeIdentifier, outcomeDeclaration, context);
                 // check if there is an operator. check value from baseValue
                 var childElement = qtiElement.Elements().FirstOrDefault();
-                var calculator = CalculateFactory.GetCalculator(childElement, context);
+                var calculator = context.GetCalculator(childElement, context);
                 if (calculator != null)
                 {
                     outcomeVariable.Value = calculator.Calculate(childElement, context);

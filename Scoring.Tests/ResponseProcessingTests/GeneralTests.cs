@@ -135,17 +135,5 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             //No outcome identifier could be found for the raw score to use with interpolation.
             mockLogger.VerifyLog((state, t) => state.ContainsValue("No outcome identifier could be found for the raw score to use with interpolation."), LogLevel.Error, 1);
         }
-
-
-        //        private static string GetTestResultOutcomeVariable(XElement resultReport, string identifier)
-        //        {
-        //            string result = resultReport
-        //                .Descendants().SingleOrDefault(x =>
-        //                    x.Name == Setting.ImsQtiResultReportNamespace + "outcomeVariable" &&
-        //                    x.Attribute("identifier")?.Value == identifier)
-        //                ?.Value;
-
-        //            return result;
-        //        }
     }
 }

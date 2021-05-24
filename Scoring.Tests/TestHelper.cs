@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Helper;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System.IO;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Tests
 {
@@ -20,7 +21,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         {
             var logger = new Mock<ILogger>().Object;
             var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem);
-            if (assessmentItem.OutcomeDeclarations != null)
+            if (assessmentItem?.OutcomeDeclarations != null)
             {
                 if (context.ItemResult == null)
                 {
@@ -51,17 +52,19 @@ namespace Citolab.QTI.ScoringEngine.Tests
             var assessmentResultBase = XDocument.Parse("<assessmentResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_result_v2p2\"><context sourcedId=\"900001\" /></assessmentResult>");
             return new AssessmentResult(logger, assessmentResultBase);
         }
-        public static AssessmentItem CreateAssessmentItem(List<OutcomeDeclaration> outcomes)
+        public static AssessmentItem CreateAssessmentItem(List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations = null)
         {
-            return CreateAssessmentItem("ITM-12345", outcomes);
+            return CreateAssessmentItem("ITM-12345", outcomes, responseDeclarations);
         }
 
-        public static AssessmentItem CreateAssessmentItem(string itemIdentifier, List<OutcomeDeclaration> outcomes)
+        public static AssessmentItem CreateAssessmentItem(string itemIdentifier, List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations)
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentItemDocument = XDocument.Parse($"<assessmentItem xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd\" title=\"test\" identifier=\"{itemIdentifier}\" label=\"32fyz6\" timeDependent=\"false\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p2\">\n<responseProcessing>\n</responseProcessing>\n</assessmentItem>");
             var assessmentItem = new AssessmentItem(logger, asssessmentItemDocument);
             assessmentItem.OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o);
+            assessmentItem.ResponseDeclarations = responseDeclarations == null ? new Dictionary<string, ResponseDeclaration>() :
+                responseDeclarations.ToDictionary(r => r.Identifier, r => r);
             return assessmentItem;
         }
 
@@ -94,4 +97,25 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
         }
     }
+    public class ReturnFalse : IExecuteReponseProcessing
+    {
+        public string Name => "returnFalse";
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
+        {
+            return false;
+        }
+    }
+
+    public class ReturnTrue : IExecuteReponseProcessing
+    {
+        public string Name => "returnTrue";
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
+        {
+            return true;
+        }
+    }
+
 }
+
+
+

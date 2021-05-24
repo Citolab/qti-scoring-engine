@@ -44,7 +44,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
                     {
                         if (float.TryParse(values[0].Value, out var value1) && float.TryParse(values[1].Value, out var value2))
                         {
-                            return value2 >= value1;
+                            return value1 >= value2;
                         }
                         else
                         {

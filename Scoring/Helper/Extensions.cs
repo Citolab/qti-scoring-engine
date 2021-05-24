@@ -277,6 +277,15 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         public static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
         {
+            // List all element to be able to return them in the orginal order
+            var valueElements = qtiElement.Descendants().Where(element =>
+            {
+                return element.Name.LocalName == "baseValue" ||
+                 element.Name.LocalName == "variable" ||
+                 element.Name.LocalName == "correct";
+            }).Select(element => new { Id = element.GetAttributeValue("identifier"), Value = element.Value })
+            .ToList();
+
             var baseValues = qtiElement.GetBaseValues();
             var outcomeVariables = context.ItemResult?.OutcomeVariables;
             var variables = qtiElement.GetOutcomeVariables(outcomeVariables, context.AssessmentItem).Concat(qtiElement.GetResponseVariables(context));
@@ -303,9 +312,24 @@ namespace Citolab.QTI.ScoringEngine.Helper
             })
             .Where(v => v != null)
             .ToList();
-
-            var allValues = baseValues.Concat(variables).Concat(correct).ToList();
-            return allValues;
+            return valueElements.Select(v =>
+            {
+                if (string.IsNullOrEmpty(v.Id))
+                {
+                    return baseValues.FirstOrDefault(b => b.Value == v.Value);
+                }
+                var variable = variables.FirstOrDefault(variable => variable.Identifier == v.Id);
+                if (variable != null)
+                {
+                    return variable;
+                }
+                var cor = correct.FirstOrDefault(c => c.Identifier == v.Id);
+                if (cor != null)
+                {
+                    return cor;
+                }
+                return null;
+            }).ToList();
         }
 
         public static string GetAttributeValue(this XElement el, string name)
@@ -436,6 +460,17 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 BaseType = BaseType.Float,
                 Cardinality = Cardinality.Single,
                 DefaultValue = value
+            };
+        }
+
+        public static ResponseVariable ToResponseVariable(this string value, string identifier = "RESPONSE")
+        {
+            return new ResponseVariable
+            {
+                Identifier = identifier,
+                BaseType = BaseType.Float,
+                Cardinality = Cardinality.Single,
+                Value = value
             };
         }
 

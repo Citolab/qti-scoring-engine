@@ -29,7 +29,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             {
                 foreach (var responseProcessingChild in assessmentItem.ResponseProcessingElement.Elements())
                 {
-                    var executor = ExecuteFactory.GetExecutor(responseProcessingChild, context);
+                    var executor = context.GetExecutor(responseProcessingChild, context);
                     executor?.Execute(responseProcessingChild, context);
                 }
                 assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>

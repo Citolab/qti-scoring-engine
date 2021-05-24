@@ -16,7 +16,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
         {
             foreach (var child in qtiElement.Elements())
             {
-                var executor = ExecuteFactory.GetExecutor(child, context);
+                var executor = context.GetExecutor(child, context);
                 var result = executor?.Execute(child, context);
                 if (result == true) // if handled then exit for;
                 {
