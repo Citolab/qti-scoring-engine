@@ -23,17 +23,18 @@ namespace Scoring.Tests.ResponseProcessingTests.ScoringTypes
         public void ChoiceInteraction_MapEntry_From_Template()
         {
             var logger = new Mock<ILogger>().Object;
-            AssessmentResult assessmentResult = null;
-            AssessmentItem assessmentItem = null;
-            using (var assessmentStream = File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Mapping_A.xml"))
+            XDocument assessmentResultXDocument = null;
+            XDocument assessmentItemXDocument = null;
+            using (var assessmentResultStream = File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Mapping_A.xml"))
             {
                 using (var itemStream = File.OpenRead("Resources\\ResponseProcessing\\ITM-50069_Mapping.xml"))
                 {
-                    assessmentResult = new AssessmentResult(logger, XDocument.Load(assessmentStream));
-                    assessmentItem = new AssessmentItem(logger, XDocument.Load(itemStream));
+                    assessmentResultXDocument = XDocument.Load(assessmentResultStream);
+                    assessmentItemXDocument = XDocument.Load(itemStream);
                 };
             }
-
+            var assessmentResult = new AssessmentResult(logger, assessmentResultXDocument);
+            var assessmentItem = new AssessmentItem(logger, assessmentItemXDocument);
             var responseProcessing = new ResponseProcessing();
 
             responseProcessing.Process(assessmentItem, assessmentResult, logger);

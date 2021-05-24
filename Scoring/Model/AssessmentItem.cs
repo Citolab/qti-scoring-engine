@@ -30,12 +30,14 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     case "map_response":
                         {
-                            responseProcessing.ReplaceWith(Templates.MapResponse);
+                            responseProcessing.AddAfterSelf(Templates.MapResponse);
+                            responseProcessing.Remove();
                             break;
                         }
                     case "match_correct":
                         {
-                            responseProcessing.ReplaceWith(Templates.MatchCorrect);
+                            responseProcessing.AddAfterSelf(Templates.MatchCorrect);
+                            responseProcessing.Remove();
                             break;
                         }
                 }
