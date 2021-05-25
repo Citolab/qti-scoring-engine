@@ -16,13 +16,13 @@ namespace Citolab.QTI.ScoringEngine.Model
         public Dictionary<string, TestResult> TestResults = new Dictionary<string, TestResult>();
         public Dictionary<string, ItemResult> ItemResults = new Dictionary<string, ItemResult>();
 
-        public string SourceId { get; set; }
+        public string SourcedId { get; set; }
 
         private ILogger _logger;
         public AssessmentResult(ILogger logger, XDocument assessmentResult) : base(assessmentResult)
         {
             _logger = logger;
-            SourceId = Root.GetAttributeValue("sourceId");
+            SourcedId = this.FindElementByName("context")?.GetAttributeValue("sourcedId");
             InitItemResults();
             InitTestResults();
         }
@@ -98,7 +98,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             }
             else
             {
-                _logger.LogError($"{SourceId}: - Cannot find itemresult: {itemIdentifier} outcome: {outcomeIdentifier} ");
+                _logger.LogError($"{SourcedId}: - Cannot find itemresult: {itemIdentifier} outcome: {outcomeIdentifier} ");
             }
         }
 
@@ -130,7 +130,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             }
             else
             {
-                _logger.LogError($"{SourceId}: - Cannot find testresult: {testIdentifier} outcome: {outcomeIdentifier} ");
+                _logger.LogError($"{SourcedId}: - Cannot find testresult: {testIdentifier} outcome: {outcomeIdentifier} ");
             }
         }
 

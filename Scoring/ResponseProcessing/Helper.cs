@@ -95,7 +95,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             }
             if (values[0]?.BaseType != values[1]?.BaseType)
             {
-                context.LogWarning($"baseType response and outcome does not match: {values[0]} and {values[1]}. Proceeding with type: {values[1]}");
+                context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
             }
             var equals = CompareTwoChildren(values[0].Value, values[1].Value, values[1].BaseType);
             return equals;

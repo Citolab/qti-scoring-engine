@@ -80,16 +80,16 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 
         public void LogInformation(string value)
         {
-            _logger.LogInformation($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourceId}: {value}");
+            _logger.LogInformation($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
         }
         public void LogWarning(string value)
         {
-            _logger.LogWarning($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourceId}: {value}");
+            _logger.LogWarning($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
         }
 
         public void LogError(string value)
         {
-            _logger.LogError($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourceId}: {value}");
+            _logger.LogError($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
         }
     }
 }
