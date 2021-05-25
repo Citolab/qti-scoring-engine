@@ -1,4 +1,5 @@
 ﻿using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using Citolab.QTI.ScoringEngine.ResponseProcessing;
 using Microsoft.Extensions.Logging;
 using System;
@@ -37,17 +38,23 @@ namespace Console.ScoringEngine
 
             var assessmentTest = new AssessmentTest(_logger, GetDocument(Path.Combine(packageFolder.FullName, manifest.Test.Href)));
             var responseProcessing = new ResponseProcessor();
+            var outcomeProcessing = new OutcomeProcessor();
 
-            // search for assessmentResults
+            // loop assessmentResults
             var assessmentResultFolder = new DirectoryInfo(_settings.AssessmentResultFolderLocation);
             var assessmentResults = new List<AssessmentResult>();
             foreach (var assessmentRefHref in assessmentResultFolder.GetFiles("*.xml"))
             {
                 var assessmentResult = new AssessmentResult(_logger, GetDocument(assessmentRefHref.FullName));
+                // start resposeProcessing
                 foreach (var assessmentItem in assessmentItems)
                 {
                     responseProcessing.Process(assessmentItem, assessmentResult, _logger);
                 }
+                // start outcomeProcessing
+                outcomeProcessing.Process(assessmentTest, assessmentResult, _logger);
+
+                // write the output result
                 var newBaseDir = Path.Combine(assessmentRefHref.DirectoryName, "processed");
                 if (!Directory.Exists(newBaseDir))
                 {
