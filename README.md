@@ -36,7 +36,7 @@ Outcome processing:
 AssessmentTest, AssessmentItem and AssessmentResult should be provided as ```System.Xml.Linq.XDocument```
 
 ``` C#
- var assessmentItem = new AssessmentItem(logger, assesmentItemXDocument);
+var assessmentItem = new AssessmentItem(logger, assesmentItemXDocument);
 var assessmentResult = new AssessmentResult(logger, assesmentResultXDocument);
 
 var responseProcessing = new ResponseProcessing();
@@ -57,4 +57,19 @@ var outcomeProcessing = new OutcomeProcessing();
 outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
 ```
 
-AssessmentTest and AssessmentItems can be used to handle multiple AssessmentResults when processing eesults in batch.
+AssessmentTest and AssessmentItems can be used to handle multiple AssessmentResults when processing results in batch.
+
+## Processing Packages
+
+The project: Console.ScoringEngine contains an example of how to process assessmentResults for a package.
+
+It can be run by the console:
+
+The first argument should be the path to the package and the second argument should be the folder where the assessmentResults are located.
+
+``` bash
+ dotnet run Console.ScoringEngine "C:\\mypackage.zip" "C:\\assessmentResults
+ ```
+ the file/folder settings can also be set from in the appSettings file.
+
+ 

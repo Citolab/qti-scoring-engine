@@ -22,7 +22,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public AssessmentItem(ILogger logger, XDocument assessmentItem) : base(logger, assessmentItem)
         {
             var responseProcessing = this.FindElementByName("responseProcessing");
-            if (!string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
+            if (responseProcessing != null && !string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
             {
                 var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split("/");
                 var templateName = splittedTemplateName[splittedTemplateName.Length - 1];
@@ -62,7 +62,15 @@ namespace Citolab.QTI.ScoringEngine.Model
                 .Select(v => v.Identifier());
             var setOutcomes = responseProcessing?
               .FindElementsByName("setOutComeValue")?
-              .Select(v => v.Identifier());
+              .Select(v => v.Identifier())?.ToList() ;
+            if (setOutcomes == null)
+            {
+                setOutcomes = new List<string>();
+            }
+            if (lookups == null)
+            {
+                lookups = new List<string>();
+            }
             CalculatedOutcomes = setOutcomes.Concat(lookups).Distinct().ToHashSet();
         }
 

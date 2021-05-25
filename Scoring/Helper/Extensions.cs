@@ -79,7 +79,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
               .Select(childElement =>
               {
                   var identifier = childElement.Identifier();
-                  if (outcomeVariables.ContainsKey(identifier))
+                  if (outcomeVariables != null && outcomeVariables.ContainsKey(identifier))
                   {
                       return outcomeVariables[identifier].ToBaseValue();
                   }
@@ -117,7 +117,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
               .Select(childElement =>
               {
                   var identifier = childElement.Identifier();
-                  if (context.ItemResult.ResponseVariables.ContainsKey(identifier))
+                  if (context.ItemResult?.ResponseVariables != null && context.ItemResult.ResponseVariables.ContainsKey(identifier))
                   {
                       var responseVariable = context.ItemResult.ResponseVariables[identifier];
                       return new BaseValue { BaseType = responseVariable.BaseType, Value = responseVariable.Value, Identifier = identifier };
@@ -288,7 +288,9 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
             var baseValues = qtiElement.GetBaseValues();
             var outcomeVariables = context.ItemResult?.OutcomeVariables;
-            var variables = qtiElement.GetOutcomeVariables(outcomeVariables, context.AssessmentItem).Concat(qtiElement.GetResponseVariables(context));
+            var variables = qtiElement
+                .GetOutcomeVariables(outcomeVariables, context.AssessmentItem)
+                .Concat(qtiElement.GetResponseVariables(context));
             var correct = qtiElement.FindElementsByName("correct")
             .Select(childElement =>
             {
@@ -362,6 +364,14 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 .Where(element => element.Attributes()
                     .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
                               a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        public static IEnumerable<XElement> FindElementsByElementAndAttributeThatContainsValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        {
+            return doc.FindElementsByName(elementName)
+                .Where(element => element.Attributes()
+                    .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.Contains(attributeValue, StringComparison.OrdinalIgnoreCase)));
         }
 
         public static IEnumerable<XElement> FindElementsByElementAndAttributeStartValue(this XDocument doc, string elementName, string attributeName, string attributeValue)

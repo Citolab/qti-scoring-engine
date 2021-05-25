@@ -16,8 +16,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         public AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger)
         {
             var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
+            // Skip processing when there is no itemResult
+            if (context.ItemResult == null)
+            {
+                return assessmentResult;
+            }
             // Reset all values that are recalculated;
-            context.ItemResult.OutcomeVariables.Where(o =>
+            context.ItemResult?.OutcomeVariables?.Where(o =>
             {
                 return assessmentItem.CalculatedOutcomes.Contains(o.Key);
             }).ToList()

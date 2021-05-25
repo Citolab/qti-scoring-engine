@@ -74,7 +74,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context)
         {
             var values = qtiElement.GetValues(context);// Helper.GetStringValueOfChildren(qtiElement, context).ToList();
-            context.LogInformation($"member check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
+            context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value !=null).Select(v => v.Value).ToArray())}");
             if (bool.TryParse(qtiElement.GetAttributeValue("caseSensitive"), out var result) && result == true)
             {
                 context.LogInformation($"member check not caseSensitive");
@@ -89,7 +89,11 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                 context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
                 return false;
             }
-            if (values[0].BaseType != values[1].BaseType)
+            if (values[0] ==null || values[1] ==null)
+            {
+                return false; // return false if one of the values is null
+            }
+            if (values[0]?.BaseType != values[1]?.BaseType)
             {
                 context.LogWarning($"baseType response and outcome does not match: {values[0]} and {values[1]}. Proceeding with type: {values[1]}");
             }
