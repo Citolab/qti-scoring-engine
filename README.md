@@ -4,13 +4,15 @@ This library can be used for response and outcome scoring.
 
 It does not support all response and outcome scoring (yet).
 
-Currenly support for:
+Currenly supports:
 
 Response Processing:
 
+Calculators:
 - MapResponse
 - Sum
 
+Executors
 - And
 - Gte
 - IsNull

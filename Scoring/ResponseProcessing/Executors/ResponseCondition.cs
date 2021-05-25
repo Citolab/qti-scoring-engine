@@ -12,7 +12,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
     {
         public string Name { get => "responseCondition"; }
 
-        bool IExecuteReponseProcessing.Execute(XElement qtiElement, ResponseProcessorContext context)
+        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             foreach (var child in qtiElement.Elements())
             {

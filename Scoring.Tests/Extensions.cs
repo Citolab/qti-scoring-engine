@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Executors;
 
 namespace Citolab.QTI.ScoringEngine.Tests
 {
@@ -143,6 +144,24 @@ namespace Citolab.QTI.ScoringEngine.Tests
                 result.Root.Add(itemResult.ToElement().AddDefaultNamespace(result.Root.GetDefaultNamespace()));
             }
             return result;
+        }
+
+        public static XElement GetElementWithValue(this ResponseIf _, bool result, string value, string identifier)
+        {
+            var gte1 = result ? 1 : 0 ;
+            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
+        }
+
+        public static XElement GetElementWithValue(this ResponseElseIf _, bool result, string value, string identifier)
+        {
+            var gte1 = result ? 1 : 0;
+            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
+        }
+
+        public static XElement GetElementWithValue(this ResponseElse _, bool result, string value, string identifier)
+        {
+            var gte1 = result ? 1 : 0;
+            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
         }
 
 

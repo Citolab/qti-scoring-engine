@@ -89,7 +89,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var mockLogger = new Mock<ILogger>();
             var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Invalid_ItemRef", mockLogger);
 
-            mockLogger.VerifyLog((state, t) => state.ContainsValue("TST-Test_toets - : Cannot find assessmentItemRef outcomeVariable: ITM-SN02945.SCORE"), LogLevel.Error, 6);
+            mockLogger.VerifyLog((state, t) => state.ContainsValue("TST-Test_toets - 900001: Cannot find assessmentItemRef outcomeVariable: ITM-SN02945.SCORE"), LogLevel.Error, 6);
         }
 
 

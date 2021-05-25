@@ -44,7 +44,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing.Executors
             var calculator = context.GetCalculator(childElement, context);
             if (calculator != null)
             {
-                outcomeVariable.Value = calculator.Calculate(childElement, outcomeVariable, context);
+                outcomeVariable.Value = calculator.Calculate(childElement, context);
             }
             else
             {

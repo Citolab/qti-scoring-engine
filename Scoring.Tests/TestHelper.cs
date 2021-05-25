@@ -46,6 +46,35 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return context;
         }
 
+        public static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
+        {
+            var logger = new Mock<ILogger>().Object;
+            var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger);
+            if (assessmentTest?.OutcomeDeclarations != null)
+            {
+                if (context.AssessmentResult == null)
+                {
+                    context.TestResult = new TestResult()
+                    {
+                        Identifier = assessmentTest.Identifier,
+                        OutcomeVariables = new Dictionary<string, OutcomeVariable>(),
+                        ResponseVariables = new Dictionary<string, ResponseVariable>()
+                    };
+                }
+                assessmentTest.OutcomeDeclarations.Select(outcomeDeclaration =>
+                {
+                    return outcomeDeclaration.Value.CreateVariable();
+                })
+                    .ToList()
+                .ForEach(outcome =>
+                {
+                    context.TestResult.OutcomeVariables.Add(outcome.Identifier, outcome);
+                });
+            }
+
+            return context;
+        }
+
         public static AssessmentResult GetBasicAssessmentResult()
         {
             var logger = new Mock<ILogger>().Object;
@@ -66,6 +95,15 @@ namespace Citolab.QTI.ScoringEngine.Tests
             assessmentItem.ResponseDeclarations = responseDeclarations == null ? new Dictionary<string, ResponseDeclaration>() :
                 responseDeclarations.ToDictionary(r => r.Identifier, r => r);
             return assessmentItem;
+        }
+
+        public static AssessmentTest CreateAssessmentTest(string testIdentifier, List<OutcomeDeclaration> outcomes)
+        {
+            var logger = new Mock<ILogger>().Object;
+            var asssessmentTestDocument = XDocument.Parse($"<assessmentTest identifier=\"{testIdentifier}\"><outcomeProcessing></outcomeProcessing></assessmentTest>");
+            var assessmentTest = new AssessmentTest(logger, asssessmentTestDocument);
+            assessmentTest.OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o);
+            return assessmentTest;
         }
 
         public static AssessmentResult AddVariablesAndStartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath, Mock<ILogger> mockLogger = null)
@@ -112,6 +150,15 @@ namespace Citolab.QTI.ScoringEngine.Tests
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             return true;
+        }
+    }
+
+    public class ReturnValue: ICalculateResponseProcessing
+    {
+        public string Name => "ReturnValue";
+        public float Calculate(XElement qtiElement, ResponseProcessorContext context)
+        {
+            return float.Parse(qtiElement.GetAttributeValue("value"));
         }
     }
 
