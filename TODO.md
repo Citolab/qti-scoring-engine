@@ -19,8 +19,8 @@ Starting with:
 Optimize for multiple AssessmentResults for the same Assessment:
 
 1. AssessmentTest and AssessmentItems should not inherit from XDocument. 
-2. All executors and calculors must be setup during initialization. 
-3. Combination of outcomesDeclaration and responseVariables can be cached e.g. OUTCOME_DEC=C|VARIABLE=C|SCORE=1. That would make the batch scoring of choiceInteraction super fast.  
+2. All executors, calculors, value etc. must be setup during initialization. 
+
 
 
 ##  QTI 3.0
