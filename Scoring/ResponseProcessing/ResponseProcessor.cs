@@ -19,6 +19,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             // Skip processing when there is no itemResult
             if (context.ItemResult == null)
             {
+                context.LogWarning("Item result not found. Skipping ResponseProcessing");
                 return assessmentResult;
             }
             // Reset all values that are recalculated;

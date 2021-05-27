@@ -12,7 +12,7 @@ using System.Xml.Linq;
 namespace Citolab.QTI.Scoring.OutcomeProcessing
 {
     // Before processing all variables/declarations are s
-    internal class OutcomeProcessorContext
+    internal class OutcomeProcessorContext : IContextLogger
     {
         private readonly ILogger _logger;
         public AssessmentResult AssessmentResult { get; }

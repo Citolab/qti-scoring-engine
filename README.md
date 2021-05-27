@@ -14,6 +14,7 @@ Calculators:
 
 Executors
 - And
+- Equal (toleranceMode: exact only)
 - Gte
 - IsNull
 - LookupOutcomeValue

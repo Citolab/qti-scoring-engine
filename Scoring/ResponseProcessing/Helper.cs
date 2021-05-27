@@ -7,12 +7,14 @@ using System.Xml.Linq;
 using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 using Citolab.QTI.Scoring.Helper;
 using Citolab.QTI.Scoring.Model;
+using Microsoft.Extensions.Logging;
+using Citolab.QTI.Scoring.Interfaces;
 
 namespace Citolab.QTI.Scoring.ResponseProcessing
 {
     internal static class Helper
     {
-        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, bool forceStringCompare = false)
+        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, IContextLogger logContext)
         {
             {
                 switch (baseType)
@@ -21,15 +23,26 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                     case BaseType.String: return value1 == value2;
                     case BaseType.Int:
                         {
-                            var castedValue1 = (int)Convert.ChangeType(value1, typeof(int));
-                            var castedValue2 = (int)Convert.ChangeType(value1, typeof(int));
-                            return castedValue1 == castedValue2;
+                            if (int.TryParse(value1, out var int1) && int.TryParse(value2, out var int2))
+                            {
+                                return int1 == int2;
+                            } else
+                            {
+                                logContext.LogError($"Cannot convert {value1} and/or {value2} to int.");
+                            }
+                            break;
                         }
                     case BaseType.Float:
                         {
-                            var castedValue1 = (float)Convert.ChangeType(value1, typeof(float));
-                            var castedValue2 = (float)Convert.ChangeType(value1, typeof(float));
-                            return castedValue1 == castedValue2;
+                            if (float.TryParse(value1, out var float1) && float.TryParse(value2, out var float2))
+                            {
+                                return float1 == float2;
+                            }
+                            else
+                            {
+                                logContext.LogError($"Cannot convert {value1} and/or {value2} to float.");
+                            }
+                            break;
                         }
                 }
             }
@@ -71,7 +84,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             return context.AssessmentItem.OutcomeDeclarations[id];
         }
 
-        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, bool forceStringCompare = false)
+        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
         {
             var values = qtiElement.GetValues(context);
             context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value !=null).Select(v => v.Value).ToArray())}");
@@ -93,16 +106,16 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             {
                 return false; // return false if one of the values is null
             }
-            if (forceStringCompare)
+            if (forceBaseType != null)
             {
-                values[0].BaseType = BaseType.String;
-                values[1].BaseType = BaseType.String;
+                values[0].BaseType = forceBaseType.Value;
+                values[1].BaseType = forceBaseType.Value;
             }
             if (values[0].BaseType != values[1].BaseType)
             {
                 context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
             }
-            var equals = CompareTwoChildren(values[0].Value, values[1].Value, values[1].BaseType);
+            var equals = CompareTwoChildren(values[0].Value, values[1].Value, values[1].BaseType, context);
             return equals;
         }
     }

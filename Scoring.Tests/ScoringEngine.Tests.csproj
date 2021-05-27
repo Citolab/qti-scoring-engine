@@ -78,6 +78,9 @@
     <None Update="Resources\ResponseProcessing\112505-MR.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\210091-customOperator.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\210091.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

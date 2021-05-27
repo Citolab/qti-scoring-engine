@@ -13,7 +13,7 @@ using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
 namespace Citolab.QTI.Scoring.ResponseProcessing
 {
-    internal class ResponseProcessorContext
+    internal class ResponseProcessorContext : IContextLogger
     {
 
         private readonly ILogger _logger;
@@ -30,10 +30,6 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             if (AssessmentItem != null && AssessmentResult.ItemResults.ContainsKey(AssessmentItem.Identifier))
             {
                 ItemResult = AssessmentResult.ItemResults[AssessmentItem.Identifier];
-            }
-            else
-            {
-                LogWarning("Item result not found. Skipping ResponseProcessing");
             }
         }
 

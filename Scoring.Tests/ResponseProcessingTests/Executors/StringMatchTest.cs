@@ -60,7 +60,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
         }
 
         [Fact]
-        public void inCorrectAnswerCasing()
+        public void IncorrectAnswerCasing()
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
@@ -83,7 +83,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
         }
 
         [Fact]
-        public void IncorrectAnswerCasing()
+        public void IncorrectAnswerCasing2()
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);

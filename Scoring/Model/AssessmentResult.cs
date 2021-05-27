@@ -18,7 +18,7 @@ namespace Citolab.QTI.Scoring.Model
 
         public string SourcedId { get; set; }
 
-        private ILogger _logger;
+        private readonly ILogger _logger;
         public AssessmentResult(ILogger logger, XDocument assessmentResult) : base(assessmentResult)
         {
             _logger = logger;

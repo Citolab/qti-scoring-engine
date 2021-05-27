@@ -17,9 +17,14 @@ namespace Citolab.QTI.Scoring.Tests
 {
     public static class TestHelper
     {
-        internal static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
+        internal static ResponseProcessorContext  GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
         {
-            var logger = new Mock<ILogger>().Object;
+            return GetDefaultResponseProcessingContextAndLogger(assessmentItem).Context;
+        }
+        internal static ( ResponseProcessorContext Context, Mock<ILogger>MockLog) GetDefaultResponseProcessingContextAndLogger(AssessmentItem assessmentItem)
+        {
+            var mockLog = new Mock<ILogger>();
+            var logger = mockLog.Object;
             var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem);
             if (assessmentItem?.OutcomeDeclarations != null)
             {
@@ -43,7 +48,7 @@ namespace Citolab.QTI.Scoring.Tests
                 });
             }
 
-            return context;
+            return (context, mockLog);
         }
 
         internal static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
@@ -92,10 +97,12 @@ namespace Citolab.QTI.Scoring.Tests
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentItemDocument = XDocument.Parse($"<assessmentItem xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd\" title=\"test\" identifier=\"{itemIdentifier}\" label=\"32fyz6\" timeDependent=\"false\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p2\">\n<responseProcessing>\n</responseProcessing>\n</assessmentItem>");
-            var assessmentItem = new AssessmentItem(logger, asssessmentItemDocument);
-            assessmentItem.OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o);
-            assessmentItem.ResponseDeclarations = responseDeclarations == null ? new Dictionary<string, ResponseDeclaration>() :
-                responseDeclarations.ToDictionary(r => r.Identifier, r => r);
+            var assessmentItem = new AssessmentItem(logger, asssessmentItemDocument)
+            {
+                OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o),
+                ResponseDeclarations = responseDeclarations == null ? new Dictionary<string, ResponseDeclaration>() :
+                responseDeclarations.ToDictionary(r => r.Identifier, r => r)
+            };
             return assessmentItem;
         }
 

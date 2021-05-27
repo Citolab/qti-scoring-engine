@@ -16,7 +16,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
         {
             var firstChild = qtiElement.Elements().FirstOrDefault();
             var conditionExecutor = context.GetExecutor(firstChild, context);
-            var result = conditionExecutor != null ? conditionExecutor.Execute(firstChild, context) : false;
+            var result = conditionExecutor != null && conditionExecutor.Execute(firstChild, context);
             if (result == true)
             {
                 var otherChilds = qtiElement.Elements().Skip(1);

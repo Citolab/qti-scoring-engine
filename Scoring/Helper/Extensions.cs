@@ -278,7 +278,7 @@ namespace Citolab.QTI.Scoring.Helper
                 return element.Name.LocalName == "baseValue" ||
                  element.Name.LocalName == "variable" ||
                  element.Name.LocalName == "correct";
-            }).Select(element => new { Id = element.GetAttributeValue("identifier"), Value = element.Value })
+            }).Select(element => new { Id = element.GetAttributeValue("identifier"), element.Value })
             .ToList();
 
             var baseValues = qtiElement.GetBaseValues();

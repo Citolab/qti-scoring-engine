@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd"
                 title="1"
                 identifier="ITM-1"
                 label=""
