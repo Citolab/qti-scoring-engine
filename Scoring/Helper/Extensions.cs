@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Citolab.QTI.Scoring.OutcomeProcessing;
+using Citolab.QTI.Scoring.Interfaces;
+using System.Globalization;
 
 namespace Citolab.QTI.Scoring.Helper
 {
@@ -124,7 +126,6 @@ namespace Citolab.QTI.Scoring.Helper
             return variables;
         }
 
-
         internal static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessorContext context)
         {
             var itemOutcomes = context.AssessmentResult.ItemResults
@@ -144,7 +145,7 @@ namespace Citolab.QTI.Scoring.Helper
                                var itemRef = context.AssessmentTest.AssessmentItemRefs[i.Identifier];
                                if (itemRef.Weights.ContainsKey(weightIdentifier))
                                {
-                                   if (float.TryParse(o.Value.Value.ToString(), out var floatValue))
+                                   if (o.Value.Value.ToString().TryParseFloat(out var floatValue))
                                    {
                                        weightedValue = floatValue * itemRef.Weights[weightIdentifier];
                                    }
@@ -232,13 +233,16 @@ namespace Citolab.QTI.Scoring.Helper
                         {
                             if (assesmentItemRef.Weights != null && assesmentItemRef.Weights.ContainsKey(weightIdentifier))
                             {
-                                return new OutcomeVariable
+                                if (outcome.Value.ToString().TryParseFloat(out var floatValue))
                                 {
-                                    BaseType = outcome.BaseType,
-                                    Cardinality = outcome.Cardinality,
-                                    Identifier = outcome.Identifier,
-                                    Value = float.Parse(outcome.Value.ToString()) * assesmentItemRef.Weights[weightIdentifier]
-                                };
+                                    return new OutcomeVariable
+                                    {
+                                        BaseType = outcome.BaseType,
+                                        Cardinality = outcome.Cardinality,
+                                        Identifier = outcome.Identifier,
+                                        Value = floatValue * assesmentItemRef.Weights[weightIdentifier]
+                                    };
+                                } 
                             }
                             else
                             {
@@ -260,8 +264,8 @@ namespace Citolab.QTI.Scoring.Helper
                         Identifier = "testIdentifier",
                         BaseType = BaseType.Float,
                         Value = qtiValues
-                        .Where(v => float.TryParse(v.Value.ToString(), out var s))
-                        .Sum(v => float.Parse(v.Value.ToString()) * 1).ToString()
+                        .Where(v => v.Value.ToString().TryParseFloat(out var s))
+                        .Sum(v => v.Value.ToString().ParseFloat() * 1).ToString()
                     };
                 });
             return baseValues
@@ -269,6 +273,7 @@ namespace Citolab.QTI.Scoring.Helper
                 .Concat(testVariables)
                 .ToList();
         }
+
 
         internal static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
         {
@@ -278,7 +283,17 @@ namespace Citolab.QTI.Scoring.Helper
                 return element.Name.LocalName == "baseValue" ||
                  element.Name.LocalName == "variable" ||
                  element.Name.LocalName == "correct";
-            }).Select(element => new { Id = element.GetAttributeValue("identifier"), element.Value })
+            }).Select(element =>
+            {
+                var customOperators = new List<ICustomOperator>();
+                ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
+                return new
+                {
+                    Id = element.GetAttributeValue("identifier"),
+                    element.Value,
+                    CustomOperators = customOperators
+                };
+            })
             .ToList();
 
             var baseValues = qtiElement.GetBaseValues();
@@ -286,6 +301,7 @@ namespace Citolab.QTI.Scoring.Helper
             var variables = qtiElement
                 .GetOutcomeVariables(outcomeVariables, context.AssessmentItem)
                 .Concat(qtiElement.GetResponseVariables(context));
+
             var correct = qtiElement.FindElementsByName("correct")
             .Select(childElement =>
             {
@@ -311,22 +327,74 @@ namespace Citolab.QTI.Scoring.Helper
             .ToList();
             return valueElements.Select(v =>
             {
+                BaseValue value = null;
                 if (string.IsNullOrEmpty(v.Id))
                 {
-                    return baseValues.FirstOrDefault(b => b.Value == v.Value);
+                    value = baseValues.FirstOrDefault(b => b.Value == v.Value);
                 }
                 var variable = variables.FirstOrDefault(var1 => var1.Identifier == v.Id);
                 if (variable != null)
                 {
-                    return variable;
+                    value = variable;
                 }
                 var cor = correct.FirstOrDefault(c => c.Identifier == v.Id);
                 if (cor != null)
                 {
-                    return cor;
+                    value = cor;
                 }
-                return null;
+                if (value != null && v.CustomOperators.Any())
+                {
+                    foreach (var customOperator in v.CustomOperators)
+                    {
+                        value = customOperator.Apply(value);
+                    }
+                }
+                return value;
             }).ToList();
+        }
+
+        internal static bool TryParseFloat(this string value, out Single result)
+        {
+            var style = NumberStyles.Float;
+            var culture = CultureInfo.InvariantCulture;
+            if (float.TryParse(value, style, culture, out var floatValue))
+            {
+                result = floatValue;
+                return true;
+            }
+            else
+            {
+                result = default(float);
+                return false;
+            }
+        }
+
+
+        internal static float ParseFloat(this string value)
+        {
+            var style = NumberStyles.AllowDecimalPoint;
+            var culture = CultureInfo.CurrentCulture;
+            if (float.TryParse(value, style, culture, out var floatValue))
+            {
+                return floatValue;
+            }
+            throw new ScoringEngineException($"value: {value} could not be parsed to float");
+        }
+
+        internal static bool TryParseInt(this string value, out Single result)
+        {
+            var style = NumberStyles.AllowDecimalPoint;
+            var culture = CultureInfo.CurrentCulture;
+            if (int.TryParse(value, style, culture, out var intValue))
+            {
+                result = intValue;
+                return true;
+            }
+            else
+            {
+                result = 0;
+                return false;
+            }
         }
 
         internal static string GetAttributeValue(this XElement el, string name)
@@ -495,7 +563,7 @@ namespace Citolab.QTI.Scoring.Helper
         internal static XDocument AddTestOutcomeForCategories(this XDocument assessmentTest, string identifierPrefix, string weightIdentifier)
         {
             var categories = assessmentTest.FindElementsByName("assessmentItemRef")
-               .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category") .Split(' '))
+               .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category").Split(' '))
                .Distinct()
                .ToList();
             categories.ForEach(c =>

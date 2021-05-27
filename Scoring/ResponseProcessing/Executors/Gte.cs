@@ -42,7 +42,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
                 case BaseType.Int:
                 case BaseType.Float:
                     {
-                        if (float.TryParse(values[0].Value, out var value1) && float.TryParse(values[1].Value, out var value2))
+                        if (values[0].Value.TryParseFloat(out var value1) && values[1].Value.TryParseFloat(out var value2))
                         {
                             return value1 >= value2;
                         }

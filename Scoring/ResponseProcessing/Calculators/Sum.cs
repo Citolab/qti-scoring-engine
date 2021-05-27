@@ -19,7 +19,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Calculators
         {
             var sum = qtiElement.GetValues(context).Select(value =>
             {
-                if (float.TryParse(value.Value, out var result))
+                if (value.Value.TryParseFloat(out var result))
                 {
                     return result;
                 }

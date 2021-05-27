@@ -49,7 +49,8 @@ The provided context contains:
 - ```ILogger Logger```: optional, logs the processing steps as informational and log warnings and errors. 
 - ```bool? ProcessParallel```: for bulk processing it can process assessmentResults in parallel. (default: false)
 
-For responseProcessing the context needs a list of items too. ```List<XDocument> AssessmentItems```
+For responseProcessing the context needs a list of items too: ```List<XDocument> AssessmentItems```. Optionally 
+```List<ICustomOperator> CustomOperators`` can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
 
 For outcomeProcessing the context needs a ```Document AssessmentTest``` too.
 
@@ -88,4 +89,35 @@ The first argument should be the path to the package and the second argument sho
  ```
  the file/folder settings can also be set from in the appSettings file.
 
- 
+ ## Custom operators
+
+Because customOperators are often specific to delivery eniges they can be provided.
+
+example: 
+
+ ```C#
+public class Trim : ICustomOperator
+{
+    public string Definition => "depcp:Trim";
+
+    public BaseValue Apply(BaseValue value)
+    {
+        if (value?.Value != null)
+        {
+            value.Value = value.Value.Trim();
+        }
+        return value;
+    }
+}
+ ```
+handles:
+```XML
+<customOperator definition="depcp:Trim">
+    <variable identifier="RESPONSE"/>
+</customOperator>
+```
+
+ There are three example implementations in this Engine:
+ - depcp:Trim: Trims the value
+ - depcp:ToAscii: Handlers diacritics
+ - depcp:ParseCommaDecimal: Replaces , to .

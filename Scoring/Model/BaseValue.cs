@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Citolab.QTI.Scoring.Model
 {
-    internal class BaseValue
+    public class BaseValue
     {
         public string Identifier { get; set; }
         public BaseType BaseType { get; set; }

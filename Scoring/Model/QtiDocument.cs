@@ -57,8 +57,8 @@ namespace Citolab.QTI.Scoring.Model
                         {
                             var entry = new InterpolationTableEntry
                             {
-                                SourceValue = float.Parse(tableEntry.GetAttributeValue("sourceValue")),
-                                TargetValue = float.Parse(tableEntry.GetAttributeValue("targetValue"))
+                                SourceValue = tableEntry.GetAttributeValue("sourceValue").ParseFloat(),
+                                TargetValue = tableEntry.GetAttributeValue("targetValue").ParseFloat()
                             };
                             return entry;
                         }

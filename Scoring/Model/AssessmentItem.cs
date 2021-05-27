@@ -112,7 +112,7 @@ namespace Citolab.QTI.Scoring.Model
                 var upperBoundString = mappingElement.GetAttributeValue("upperBound");
                 if (!string.IsNullOrWhiteSpace(defaultValueString))
                 {
-                    if (!float.TryParse(defaultValueString, out defaultValue))
+                    if (!defaultValueString.TryParseFloat(out defaultValue))
                     {
                         Logger.LogError($"Cannot convert defaulValue: ${defaultValueString} to a float");
                     }
@@ -120,7 +120,7 @@ namespace Citolab.QTI.Scoring.Model
                 var mapping = new Mapping { DefaultValue = defaultValue };
                 if (!string.IsNullOrWhiteSpace(lowerBoundString))
                 {
-                    if (float.TryParse(lowerBoundString, out var lowerBound))
+                    if (lowerBoundString.TryParseFloat(out var lowerBound))
                     {
                         mapping.LowerBound = lowerBound;
                     }
@@ -131,7 +131,7 @@ namespace Citolab.QTI.Scoring.Model
                 }
                 if (!string.IsNullOrWhiteSpace(upperBoundString))
                 {
-                    if (float.TryParse(upperBoundString, out var upperbound))
+                    if (upperBoundString.TryParseFloat(out var upperbound))
                     {
                         mapping.UpperBound = upperbound;
                     }
@@ -142,7 +142,7 @@ namespace Citolab.QTI.Scoring.Model
                 }
                 mapping.MapEntries = mappingElement.FindElementsByName("mapEntry").Select(mapEntryElement =>
                 {
-                    if (float.TryParse(mapEntryElement.GetAttributeValue("mappedValue"), out var mapValue))
+                    if (mapEntryElement.GetAttributeValue("mappedValue").TryParseFloat(out var mapValue))
                     {
                         return new MapEntry
                         {

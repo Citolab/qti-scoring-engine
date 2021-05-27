@@ -62,12 +62,12 @@ namespace Citolab.QTI.Scoring
             if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
             {
                 Parallel.ForEach(ctx.AssessmentmentResults,
-                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger));
+                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
             }
             else
             {
                 ctx.AssessmentmentResults.ForEach(
-                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger));
+                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
             }
             return ctx.AssessmentmentResults;
         }
@@ -86,12 +86,12 @@ namespace Citolab.QTI.Scoring
             OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
         }
 
-        private void AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger)
+        private void AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, List<ICustomOperator> customOperators, ILogger logger)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
             foreach(var assessmentItem in assessmentItems)
             {
-                ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+                ResponseProcessor.Process(assessmentItem, assessmentResult, logger, customOperators);
             }
         }
     }

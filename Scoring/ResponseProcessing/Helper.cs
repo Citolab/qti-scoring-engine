@@ -23,10 +23,11 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                     case BaseType.String: return value1 == value2;
                     case BaseType.Int:
                         {
-                            if (int.TryParse(value1, out var int1) && int.TryParse(value2, out var int2))
+                            if (value1.TryParseInt(out var int1) && value2.TryParseInt(out var int2))
                             {
                                 return int1 == int2;
-                            } else
+                            }
+                            else
                             {
                                 logContext.LogError($"Cannot convert {value1} and/or {value2} to int.");
                             }
@@ -34,13 +35,12 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                         }
                     case BaseType.Float:
                         {
-                            if (float.TryParse(value1, out var float1) && float.TryParse(value2, out var float2))
+                            if (value1.TryParseFloat( out var float1) && value2.TryParseFloat(out var float2))
                             {
                                 return float1 == float2;
-                            }
-                            else
+                            } else
                             {
-                                logContext.LogError($"Cannot convert {value1} and/or {value2} to float.");
+                                logContext.LogError($"couldn't convert {value1} and/or {value2} to float.");
                             }
                             break;
                         }
@@ -61,7 +61,8 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                 if (createIfNotExists)
                 {
                     context.ItemResult.OutcomeVariables.Add(id, outcomeDeclaration.CreateVariable());
-                } else
+                }
+                else
                 {
                     context.LogError($"Outcome {id} couldn't be found.");
                 }
@@ -87,7 +88,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
         public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
         {
             var values = qtiElement.GetValues(context);
-            context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value !=null).Select(v => v.Value).ToArray())}");
+            context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value != null).Select(v => v.Value).ToArray())}");
             if (bool.TryParse(qtiElement.GetAttributeValue("caseSensitive"), out var result) && result == false)
             {
                 context.LogInformation($"member check not caseSensitive");
@@ -102,7 +103,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                 context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
                 return false;
             }
-            if (values[0] ==null || values[1] ==null)
+            if (values[0] == null || values[1] == null)
             {
                 return false; // return false if one of the values is null
             }
@@ -118,6 +119,20 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             var equals = CompareTwoChildren(values[0].Value, values[1].Value, values[1].BaseType, context);
             return equals;
         }
-    }
 
+        internal static void GetCustomOperators(XElement qtiElement, List<ICustomOperator> customOperators, ResponseProcessorContext context)
+        {
+            if (qtiElement != null && qtiElement.Parent != null && 
+                qtiElement.Parent.Name.LocalName.Equals("customOperator", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var definition = qtiElement.Parent.GetAttributeValue("definition");
+                var customOperator = context.GetOperator(qtiElement.Parent, context);
+                if (customOperator!=null)
+                {
+                    customOperators.Insert(0, context.Operators[definition]);
+                    GetCustomOperators(qtiElement.Parent, customOperators, context);
+                }
+            }
+        }
+    }
 }

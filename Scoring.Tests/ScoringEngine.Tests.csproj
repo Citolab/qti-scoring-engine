@@ -120,6 +120,9 @@
     <None Update="Resources\ResponseProcessing\choice_multiple.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\customOperators.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

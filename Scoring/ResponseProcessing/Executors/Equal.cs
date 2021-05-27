@@ -16,9 +16,10 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
         {
             // todo toleranceMode mode, couldn't find any example of absolute or relative.
             var toleranceMode = qtiElement.GetAttributeValue("toleranceMode");
-            if (!string.IsNullOrEmpty(toleranceMode) && toleranceMode != "excat")
+            if (!string.IsNullOrEmpty(toleranceMode) && toleranceMode != "exact")
             {
                 context.LogError($"Unsupported toleranceMode: {toleranceMode}");
+                return false;
             }
             return Helper.CompareTwoValues(qtiElement, context, Model.BaseType.Float);
         }

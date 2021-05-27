@@ -17,17 +17,17 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing.Calculators
         public float Calculate(XElement qtiElement, OutcomeProcessorContext context)
         {
             var sum = qtiElement.GetValues(context).Select(value =>
-            {
-                if (float.TryParse(value.Value, out var result))
-                {
-                    return result;
-                }
-                else
-                {
-                    context.LogError($"Cannot cast outcomeValue: {value.Value} of baseType: {value.BaseType} to a float to sum.");
-                    return 0.0;
-                }
-            }).Sum();
+           {
+               if (float.TryParse(value.Value, out var result))
+               {
+                   return result;
+               }
+               else
+               {
+                   context.LogError($"Cannot cast outcomeValue: {value.Value} of baseType: {value.BaseType} to a float to sum.");
+                   return 0.0;
+               }
+           }).Sum();
             return (float)sum;
         }
     }

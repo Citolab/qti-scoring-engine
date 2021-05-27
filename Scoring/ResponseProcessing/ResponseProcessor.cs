@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.Scoring.Interfaces;
 
 namespace Citolab.QTI.Scoring.ResponseProcessing
 {
     internal static class ResponseProcessor
     {
-        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger)
+        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult,  ILogger logger, List<ICustomOperator> customOperators = null)
         {
-            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
+            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, customOperators);
             // Skip processing when there is no itemResult
             if (context.ItemResult == null)
             {

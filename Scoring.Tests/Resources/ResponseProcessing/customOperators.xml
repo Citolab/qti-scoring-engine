@@ -27,10 +27,6 @@
 			<value>1</value>
 		</defaultValue>
 	</outcomeDeclaration>
-	<stylesheet href="../css/cito_itemstyle.css"
-	            type="text/css"/>
-	<stylesheet href="../css/cito_userstyle.css"
-	            type="text/css"/>
 	<responseProcessing>
 		<responseCondition>
 			<responseIf>

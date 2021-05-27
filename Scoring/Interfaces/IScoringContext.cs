@@ -12,6 +12,7 @@ namespace Citolab.QTI.Scoring.Interfaces
     public interface IResponseProcessingContext : IScoringContextBase
     {
         List<XDocument> AssessmentItems { get; set; }
+        List<ICustomOperator> CustomOperators { get; set; }
     }
     public interface IOutcomeProcessingContext : IScoringContextBase
     {

@@ -17,12 +17,14 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
     {
 
         private readonly ILogger _logger;
+        private bool _initOperators = false;
         public AssessmentResult AssessmentResult { get; }
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
         public Dictionary<string, IExecuteReponseProcessing> Executors;
         public Dictionary<string, ICalculateResponseProcessing> Calculators;
-        internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem)
+        public Dictionary<string, ICustomOperator> Operators;
+        internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, List<ICustomOperator> customOperators)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;
@@ -30,6 +32,13 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             if (AssessmentItem != null && AssessmentResult.ItemResults.ContainsKey(AssessmentItem.Identifier))
             {
                 ItemResult = AssessmentResult.ItemResults[AssessmentItem.Identifier];
+            }
+            if (customOperators != null)
+            {
+                foreach(var customOperator in customOperators)
+                {
+                    Operators.Add(customOperator.Definition, customOperator);
+                }
             }
         }
 
@@ -53,6 +62,31 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             if (logErrorIfNotFound)
             {
                 context.LogError($"Cannot find calculator for tag-name:{element?.Name.LocalName}");
+            }
+            return null;
+        }
+
+        public ICustomOperator GetOperator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
+        {
+            if (_initOperators == false)
+            {
+                var type = typeof(ICustomOperator);
+                var types = AppDomain.CurrentDomain.GetAssemblies()
+                      .SelectMany(s => s.GetTypes())
+                      .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
+                var instances = types.Select(t => (ICustomOperator)Activator.CreateInstance(t));
+
+                Operators = instances.ToDictionary(t => t.Definition, t => t);
+                _initOperators = true;
+            }
+            if (Operators.TryGetValue(element?.GetAttributeValue("definition"), out var customOperator))
+            {
+                context.LogInformation($"Processing {customOperator.Definition}");
+                return customOperator;
+            }
+            if (logErrorIfNotFound)
+            {
+                context.LogError($"Cannot find customOperator of type:{element?.GetAttributeValue("definition")}");
             }
             return null;
         }

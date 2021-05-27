@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Citolab.QTI.Scoring.Model
 {
-    internal enum BaseType
+    public enum BaseType
     {
 
         Identifier,

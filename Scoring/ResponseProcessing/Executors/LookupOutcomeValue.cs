@@ -38,7 +38,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
             {
                 context.LogError("Lookup refers to variable without interpolation table");
             }
-            if (float.TryParse(rawOutcomeVariable.Value.ToString(), out var value))
+            if (rawOutcomeVariable.Value.ToString().TryParseFloat(out var value))
             {
                 var lookupEntry = outcomeDeclaration.InterpolationTable.FirstOrDefault(i => i.SourceValue == value);
                 if (lookupEntry != null)

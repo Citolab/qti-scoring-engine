@@ -75,5 +75,66 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var scoreValue = assessmentResult.GetScoreForItem("ITM-1004", "SCORE");
             Assert.Equal("1", scoreValue);
         }
+
+        //customOperators
+        [Fact]
+        public void TextEntryCustomOperatorAsciiCorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\customOperators.xml")));
+            assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", "tést", BaseType.String, Cardinality.Single);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryCustomOperatorAsciiCorrect2()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\customOperators.xml")));
+            assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", "tḝst", BaseType.String, Cardinality.Single);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryCustomOperatorAsciiAndTrimCorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\customOperators.xml")));
+            assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", " tḝst ", BaseType.String, Cardinality.Single);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryCustomOperatorAsciiAndTrimIncorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\customOperators.xml")));
+            assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", " fout ", BaseType.String, Cardinality.Single);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
     }
 }

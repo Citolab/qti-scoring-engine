@@ -25,7 +25,7 @@ namespace Citolab.QTI.Scoring.Tests
         {
             var mockLog = new Mock<ILogger>();
             var logger = mockLog.Object;
-            var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem);
+            var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem, null);
             if (assessmentItem?.OutcomeDeclarations != null)
             {
                 if (context.ItemResult == null)

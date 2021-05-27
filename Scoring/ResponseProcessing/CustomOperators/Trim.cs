@@ -2,19 +2,20 @@
 using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Citolab.QTI.Scoring.ResponseProcessing.CustomOperators
 {
-    internal class ParseCommaDecimal : ICustomOperator
+    internal class Trim : ICustomOperator
     {
-        public string Definition { get => "depcp:ParseCommaDecimal"; }
+        public string Definition => "depcp:Trim";
 
         public BaseValue Apply(BaseValue value)
         {
-            if (value != null)
+            if (value?.Value != null)
             {
-                value.Value = value.Value.Replace(",", ".");
+                value.Value = value.Value.Trim();
             }
             return value;
         }

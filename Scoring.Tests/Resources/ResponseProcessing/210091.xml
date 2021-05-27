@@ -33,9 +33,7 @@
 		<responseCondition>
 			<responseIf>
 				<equal toleranceMode="exact">
-					<customOperator definition="depcp:ParseCommaDecimal">
-						<variable identifier="RESPONSE" />
-					</customOperator>
+					<variable identifier="RESPONSE" />
 					<baseValue baseType="float">0.63</baseValue>
 				</equal>
 				<setOutcomeValue identifier="SCORE">

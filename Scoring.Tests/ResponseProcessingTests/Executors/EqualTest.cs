@@ -91,7 +91,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
             var result = equal.Execute(equalElement, contextInfo.Context);
 
             //assert
-            contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: Cannot convert nofloat and/or 1,234 to float."), LogLevel.Error, 1);
+            contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: couldn't convert nofloat and/or 1,234 to float."), LogLevel.Error, 1);
         }
 
         [Fact]
