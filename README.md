@@ -39,9 +39,11 @@ The Scoring Engine implement IScoringEngine which contains 3 functions:
 - ProcessOutcomes: executes outcomeProcessing
 - ProcessResponsesAndOutcomes: executes both outcomeProcessing and responseProcessing
 
+The provided list of assessmentResults is updated with scoring info. The functions also return this list of assessmentResults.
+
 The provided context contains:
 
--```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse. For outcomeProcessing it should contain outcomeVariables.
+- ```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse. For outcomeProcessing it should contain outcomeVariables.
 - ```ILogger Logger```: optional, logs the processing steps as informational and log warnings and errors. 
 - ```bool? ProcessParallel```: for bulk processing it can process assessmentResults in parallel. (default: false)
 
