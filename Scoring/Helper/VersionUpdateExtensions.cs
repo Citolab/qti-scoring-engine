@@ -1,5 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Model;
+﻿using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Char;
 
-namespace Citolab.QTI.ScoringEngine.Helper
+namespace Citolab.QTI.Scoring.Helper
 {
-    public static class VersionUpdateExtensions
+    internal static class VersionUpdateExtensions
     {
 
-        public static XElement Convert(this XElement element)
+        internal static XElement Convert(this XElement element)
         {
             var firstElement = element.FirstNode.ToString();
             switch (firstElement)
@@ -32,20 +32,20 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return element;
         }
 
-        public static XElement ConvertAssessmentTest(this XElement element)
+        internal static XElement ConvertAssessmentTest(this XElement element)
         {
 
             return element;
         }
 
-        public static XElement ConvertAssessmentItem(this XElement element)
+        internal static XElement ConvertAssessmentItem(this XElement element)
         {
 
             return element;
         }
 
 
-        public static string ReplaceRunsTabsAndLineBraks(this string text)
+        internal static string ReplaceRunsTabsAndLineBraks(this string text)
         {
             return text
                 .Replace("\n", " ")
@@ -56,11 +56,11 @@ namespace Citolab.QTI.ScoringEngine.Helper
         private static string GetBaseSchema(QtiResourceType resourceType, QtiVersion version)
             => XsdHelper.BaseSchemas[$"{resourceType}-{version}"];
 
-        public static string GetBaseSchemaLocation(QtiResourceType resourceType, QtiVersion version)
-            => XsdHelper.BaseSchemaLocations[$"{resourceType.ToString()}-{version.ToString()}"];
+        internal static string GetBaseSchemaLocation(QtiResourceType resourceType, QtiVersion version)
+            => XsdHelper.BaseSchemaLocations[$"{resourceType}-{version}"];
 
 
-        public static string ReplaceSchemas(this string xml, QtiResourceType resourceType, QtiVersion newVersion, QtiVersion oldVersion, bool localSchema)
+        internal static string ReplaceSchemas(this string xml, QtiResourceType resourceType, QtiVersion newVersion, QtiVersion oldVersion, bool localSchema)
         {
             var tagName = resourceType == QtiResourceType.AssessmentItem ? "assessmentItem" :
                 resourceType == QtiResourceType.AssessmentTest ? "assessmentTest" :
@@ -73,7 +73,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 .Value.Replace(":schemaLocation", "").Trim();
             schemaPrefix = schemaPrefix.Substring(schemaPrefix.LastIndexOf(" ", StringComparison.Ordinal), schemaPrefix.Length - schemaPrefix.LastIndexOf(" ", StringComparison.Ordinal)).Trim();
 
-            var schemaLocations = Regex.Match(qtiParentTag, @$"{schemaPrefix}:schemaLocation=""(.*?)""").Value;
+            var schemaLocations = Regex.Match(qtiParentTag, $@"{schemaPrefix}:schemaLocation=""(.*?)""").Value;
             var extensionSchemas = RemoveSchemaFromLocation(schemaLocations, GetBaseSchema(resourceType, oldVersion));
             if (resourceType == QtiResourceType.Manifest)
             {
@@ -82,9 +82,9 @@ namespace Citolab.QTI.ScoringEngine.Helper
                                    $" {GetBaseSchema(QtiResourceType.AssessmentItem, newVersion)} {GetBaseSchemaLocation(QtiResourceType.AssessmentItem, newVersion)}";
             }
 
-            qtiParentTag = Regex.Replace(qtiParentTag, @$"{schemaPrefix}:schemaLocation=""(.*?)""", "");
-            qtiParentTag = Regex.Replace(qtiParentTag, @$"xmlns:{schemaPrefix}=""(.*?)""", "");
-            qtiParentTag = Regex.Replace(qtiParentTag, @$"xmlns:xsi=""(.*?)""", "");
+            qtiParentTag = Regex.Replace(qtiParentTag, @"{schemaPrefix}:schemaLocation=""(.*?)""", "");
+            qtiParentTag = Regex.Replace(qtiParentTag, $@"xmlns:{schemaPrefix}=""(.*?)""", "");
+            qtiParentTag = Regex.Replace(qtiParentTag, @"xmlns:xsi=""(.*?)""", "");
             qtiParentTag = Regex.Replace(qtiParentTag, @"xmlns=""(.*?)""", "");
 
             var schemaLocation = $"xsi:schemaLocation=\"{baseScheme}  {baseSchemeLocation} ";
@@ -105,7 +105,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         private static string RemoveSchemaFromLocation(string schemaLocations, string schemaToRemove)
         {
-            var schemas = schemaLocations.Split(" ")
+            var schemas = schemaLocations.Split(' ')
                 .Where(s => !string.IsNullOrWhiteSpace(s))
                 .ToList();
             var schemaIndex = schemas.FindIndex(s => s.IndexOf(schemaToRemove, StringComparison.Ordinal) != -1);
@@ -118,12 +118,12 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return extensionSchemas.Trim('"');
         }
 
-        public static string GetElementValue(this XElement el, string name)
+        internal static string GetElementValue(this XElement el, string name)
         {
             return el.FindElementsByName(name).FirstOrDefault()?.Value ?? String.Empty;
         }
 
-        public static bool IsAlphaNumeric(this char strToCheck)
+        internal static bool IsAlphaNumeric(this char strToCheck)
         {
             var rg = new Regex(@"^[a-zA-Z0-9\s,]*$");
             return rg.IsMatch(strToCheck.ToString());
@@ -133,7 +133,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
         /// Force tags to be non-selfclosing
         /// </summary>
         /// <param name="document"></param>
-        public static void ForceTags(this XDocument document)
+        internal static void ForceTags(this XDocument document)
         {
             var allowedSelfClosingTags = new HashSet<string>
             {
@@ -149,7 +149,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
         }
 
 
-        public static string ReplaceAllOccurrenceExceptFirst(this string source, string find, string replace)
+        internal static string ReplaceAllOccurrenceExceptFirst(this string source, string find, string replace)
         {
             var result = source;
             while (result.CountStringOccurrences(find) > 1)
@@ -163,7 +163,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return result;
         }
 
-        public static int CountStringOccurrences(this string text, string pattern)
+        internal static int CountStringOccurrences(this string text, string pattern)
         {
             // Loop through all instances of the string 'text'.
             var count = 0;
@@ -176,7 +176,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return count;
         }
 
-        public static string ToKebabCase(this string source)
+        internal static string ToKebabCase(this string source)
         {
             if (source is null) return null;
 

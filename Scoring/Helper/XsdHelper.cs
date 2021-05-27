@@ -1,13 +1,13 @@
-﻿using Citolab.QTI.ScoringEngine.Model;
+﻿using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Citolab.QTI.ScoringEngine.Helper
+namespace Citolab.QTI.Scoring.Helper
 {
-    public static class XsdHelper
+    internal static class XsdHelper
     {
 
         public static Dictionary<string, string> BaseSchemaLocations = new Dictionary<string, string>

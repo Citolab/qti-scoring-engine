@@ -1,8 +1,8 @@
 ﻿using System;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Executors;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
-using Citolab.QTI.ScoringEngine.Tests;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.ResponseProcessing.Executors;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.Tests;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
@@ -32,7 +32,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
             //assert
             Assert.True(result);
         }
-
+        [Fact]
         public void ZeroSmallerThanOne()
         {
             // arrange
@@ -53,7 +53,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
             //assert
             Assert.False (result);
         }
-
+        [Fact]
         public void EqualReturnsTrue()
         {
             // arrange

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
+namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
 {
-    public class ResponseElseIf : IExecuteReponseProcessing
+    internal class ResponseElseIf : IExecuteReponseProcessing
     {
         public string Name { get => "responseElseIf"; }
 

@@ -1,20 +1,20 @@
-﻿using Citolab.QTI.ScoringEngine.ResponseProcessing;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Model;
+﻿using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
+namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
 {
     /// <summary>
     /// All children should return true
     /// </summary>
-    public class And : IExecuteReponseProcessing
+    internal class And : IExecuteReponseProcessing
     {
         public string Name => "and";
 

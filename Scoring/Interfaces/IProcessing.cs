@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.Model;
 
-namespace Citolab.QTI.ScoringEngine.Interfaces
+namespace Citolab.QTI.Scoring.Interfaces
 {
-    public interface IProcessing
+    internal interface IProcessing
     {
         XDocument Score(XDocument assessmentTest, List<XDocument> AssessmentItems, XDocument AssessmentResult);
     }

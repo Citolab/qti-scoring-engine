@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.ScoringEngine.Model;
-using Citolab.QTI.ScoringEngine.OutcomeProcessing;
+using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.Scoring.OutcomeProcessing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
+namespace Citolab.QTI.Scoring.Tests.OutcomeProcessingTests
 {
     public class SumTestVariablesTests
     {
@@ -51,9 +51,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
-            var outcomeProcessing = new OutcomeProcessor();
+            
             // actt
-            outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
+            OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
             //assert
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_CAT_1"));
@@ -70,9 +70,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
-            var outcomeProcessing = new OutcomeProcessor();
+            
             // actt
-            outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
+            OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
             //assert
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_CAT_1"));
@@ -89,9 +89,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
-            var outcomeProcessing = new OutcomeProcessor();
+            
             // actt
-            outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
+            OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
             //assert
             Assert.Equal("1", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_CAT_1"));
@@ -108,9 +108,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
-            var outcomeProcessing = new OutcomeProcessor();
+            
             // actt
-            outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
+            OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
             //assert
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_CAT_1"));

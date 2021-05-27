@@ -1,6 +1,6 @@
-﻿using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Model;
-using Citolab.QTI.ScoringEngine.OutcomeProcessing.Calculators;
+﻿using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.Scoring.OutcomeProcessing.Calculators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests.Calculators
+namespace Citolab.QTI.Scoring.Tests.OutcomeProcessingTests.Calculators
 {
     public class SumTests
     {
@@ -18,7 +18,6 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests.Calculators
         {
             var outcomeDeclaration = 0.0F.ToOutcomeDeclaration();
             var baseValue = 0.0F.ToBaseValue();
-            var outcomeVariable = outcomeDeclaration.ToVariable();
 
             var assessmentTest = TestHelper.CreateAssessmentTest("test-toets",new List<OutcomeDeclaration> { outcomeDeclaration });
             var context = TestHelper.GetDefaultOutcomeProcessingContext(assessmentTest);
@@ -38,7 +37,6 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests.Calculators
         {
             var outcomeDeclaration = 1.0F.ToOutcomeDeclaration();
             var baseValue = 0.0F.ToBaseValue();
-            var outcomeVariable = outcomeDeclaration.ToVariable();
             var assessmentTest = TestHelper.CreateAssessmentTest("test-toets", new List<OutcomeDeclaration> { outcomeDeclaration });
             var context = TestHelper.GetDefaultOutcomeProcessingContext(assessmentTest);
             var sumElement = XElement.Parse("<sum></sum>");
@@ -56,7 +54,6 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests.Calculators
             var outcomeDeclaration = 2.0F.ToOutcomeDeclaration();
             var baseValue = 0.0F.ToBaseValue();
 
-            var outcomeVariable = outcomeDeclaration.ToVariable();
             var assessmentTest = TestHelper.CreateAssessmentTest("test-toets", new List<OutcomeDeclaration> { outcomeDeclaration });
             var context = TestHelper.GetDefaultOutcomeProcessingContext(assessmentTest);
             var sumElement = XElement.Parse("<sum></sum>");

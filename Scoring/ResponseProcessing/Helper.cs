@@ -4,13 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Model;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing
+namespace Citolab.QTI.Scoring.ResponseProcessing
 {
-    public static class Helper
+    internal static class Helper
     {
         public static bool CompareTwoChildren(string value1, string value2, BaseType baseType)
         {

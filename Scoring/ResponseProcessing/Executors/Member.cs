@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
+namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
 {
-    public class Member : IExecuteReponseProcessing
+    internal class Member : IExecuteReponseProcessing
     {
         public string Name { get => "member"; }
 

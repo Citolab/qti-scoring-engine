@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Interfaces;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.Const;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Interfaces;
+using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing
+namespace Citolab.QTI.Scoring.ResponseProcessing
 {
-    public class ResponseProcessorContext
+    internal class ResponseProcessorContext
     {
 
         private readonly ILogger _logger;
@@ -22,7 +22,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         public ItemResult ItemResult { get; set; }
         public Dictionary<string, IExecuteReponseProcessing> Executors;
         public Dictionary<string, ICalculateResponseProcessing> Calculators;
-        public ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem)
+        internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;

@@ -1,23 +1,23 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.ScoringEngine.Model;
-using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.Scoring.ResponseProcessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.OutcomeProcessing;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.OutcomeProcessing;
 using System.IO;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.Tests
+namespace Citolab.QTI.Scoring.Tests
 {
     public static class TestHelper
     {
-        public static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
+        internal static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
         {
             var logger = new Mock<ILogger>().Object;
             var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem);
@@ -46,7 +46,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return context;
         }
 
-        public static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
+        internal static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
         {
             var logger = new Mock<ILogger>().Object;
             var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger);
@@ -75,18 +75,18 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return context;
         }
 
-        public static AssessmentResult GetBasicAssessmentResult()
+        internal static AssessmentResult GetBasicAssessmentResult()
         {
             var logger = new Mock<ILogger>().Object;
             var assessmentResultBase = XDocument.Parse("<assessmentResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_result_v2p2\"><context sourcedId=\"900001\" /></assessmentResult>");
             return new AssessmentResult(logger, assessmentResultBase);
         }
-        public static AssessmentItem CreateAssessmentItem(List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations = null)
+        internal static AssessmentItem CreateAssessmentItem(List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations = null)
         {
             return CreateAssessmentItem("ITM-12345", outcomes, responseDeclarations);
         }
 
-        public static AssessmentItem CreateAssessmentItem(string itemIdentifier, List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations)
+        internal static AssessmentItem CreateAssessmentItem(string itemIdentifier, List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations)
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentItemDocument = XDocument.Parse($"<assessmentItem xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd\" title=\"test\" identifier=\"{itemIdentifier}\" label=\"32fyz6\" timeDependent=\"false\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p2\">\n<responseProcessing>\n</responseProcessing>\n</assessmentItem>");
@@ -97,45 +97,47 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return assessmentItem;
         }
 
-        public static AssessmentTest CreateAssessmentTest(string testIdentifier, List<OutcomeDeclaration> outcomes)
+        internal static AssessmentTest CreateAssessmentTest(string testIdentifier, List<OutcomeDeclaration> outcomes)
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentTestDocument = XDocument.Parse($"<assessmentTest identifier=\"{testIdentifier}\"><outcomeProcessing></outcomeProcessing></assessmentTest>");
-            var assessmentTest = new AssessmentTest(logger, asssessmentTestDocument);
-            assessmentTest.OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o);
+            var assessmentTest = new AssessmentTest(logger, asssessmentTestDocument)
+            {
+                OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o)
+            };
             return assessmentTest;
         }
 
-        public static AssessmentResult AddVariablesAndStartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath, Mock<ILogger> mockLogger = null)
+        internal static AssessmentResult AddVariablesAndStartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath, Mock<ILogger> mockLogger = null)
         {
             return StartOutcomeProcessing(assessmentTestPath, assessmentResultPath, mockLogger, true);
         }
-        public static AssessmentResult StartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath)
+        internal static AssessmentResult StartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath)
         {
             return StartOutcomeProcessing(assessmentTestPath, assessmentResultPath, null, false);
         }
-        public static AssessmentResult StartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath, Mock<ILogger> mockLogger, bool addVariables)
+        internal static AssessmentResult StartOutcomeProcessing(string assessmentTestPath, string assessmentResultPath, Mock<ILogger> mockLogger, bool addVariables)
         {
             if (mockLogger == null)
             {
                 mockLogger = new Mock<ILogger>();
             }
-            var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentTestPath}.xml")));
+            var assessmentDoc = XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentTestPath}.xml"));
             // add total and and category scores if they are not already in 
             // the assessmentTest.
             if (addVariables)
             {
-                assessmentTest.AddTotalAndCategoryScores();
+                assessmentDoc.AddTotalAndCategoryScores();
             }
-
+            var logger = mockLogger.Object;
+            var assessmentTest = new AssessmentTest(logger, assessmentDoc);
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentResultPath}.xml")));
-            var outcomeProcessing = new OutcomeProcessor();
+            
 
-            return outcomeProcessing.Process(assessmentTest, assessmentResult, logger);
+            return OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
         }
     }
-    public class ReturnFalse : IExecuteReponseProcessing
+    internal class ReturnFalse : IExecuteReponseProcessing
     {
         public string Name => "returnFalse";
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
@@ -144,7 +146,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         }
     }
 
-    public class ReturnTrue : IExecuteReponseProcessing
+    internal class ReturnTrue : IExecuteReponseProcessing
     {
         public string Name => "returnTrue";
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
@@ -153,7 +155,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         }
     }
 
-    public class ReturnValue: ICalculateResponseProcessing
+    internal class ReturnValue: ICalculateResponseProcessing
     {
         public string Name => "ReturnValue";
         public float Calculate(XElement qtiElement, ResponseProcessorContext context)

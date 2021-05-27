@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class BaseValue
+    internal class BaseValue
     {
         public string Identifier { get; set; }
         public BaseType BaseType { get; set; }

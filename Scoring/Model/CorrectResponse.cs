@@ -1,6 +1,6 @@
-﻿namespace Citolab.QTI.ScoringEngine.Model
+﻿namespace Citolab.QTI.Scoring.Model
 {
-    public class CorrectResponse
+    internal class CorrectResponse
     {
         public float Score { get; set; }
         public string Response { get; set; }

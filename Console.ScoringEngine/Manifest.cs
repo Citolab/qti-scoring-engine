@@ -1,4 +1,4 @@
-﻿using Citolab.QTI.ScoringEngine.Helper;
+﻿using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace Console.ScoringEngine
+namespace Console.Scoring
 {
     public class Manifest : XDocument
     {
@@ -39,7 +39,7 @@ namespace Console.ScoringEngine
                 File.Copy(filename, Path.Combine(imagePath, Path.GetFileName(filename)));
                 _genericResources = GetGenericResources();
             }
-            var itemElement = this.FindElementsByElementAndAttributeValue("resource", "type", "imsqti_item_xmlv2p1")
+            var itemElement = Root.FindElementsByElementAndAttributeValue("resource", "type", "imsqti_item_xmlv2p1")
                 .FirstOrDefault(i => i.GetAttributeValue("identifier").Equals(itemId, StringComparison.OrdinalIgnoreCase));
 
             itemElement.FindElementsByName("file").FirstOrDefault()
@@ -70,7 +70,7 @@ namespace Console.ScoringEngine
         private List<ResourceRef> GetGenericResources()
         {
             var genericResources = this.FindElementsByElementAndAttributeThatContainsValue("resource", "type", "learning-application-resource")
-                .Concat(this.FindElementsByElementAndAttributeValue("resource", "type", "webcontent"));
+                .Concat(Root.FindElementsByElementAndAttributeValue("resource", "type", "webcontent"));
             return genericResources.
                 Select(d => new ResourceRef()
                 {

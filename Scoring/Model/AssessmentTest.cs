@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class AssessmentTest : QtiDocument
+    internal class AssessmentTest : QtiDocument
     {
         public Dictionary<string, OutcomeDeclaration> OutcomeDeclarations;
         public Dictionary<string, AssessmentItemRef> AssessmentItemRefs;
@@ -50,7 +50,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                            }
                        }).Where(w => w != null)
                        .ToDictionary(w => w.Identifier, w => w.Value),
-                       Categories = assessmentItemRefElement.GetAttributeValue("category").Split(" ")?.ToHashSet(),
+                       Categories = assessmentItemRefElement.GetAttributeValue("category").Split(' ')?.ToHashSet(),
                    };
                    return assessmentItemRef;
                }).ToDictionary(a => a.Identifier, a => a);

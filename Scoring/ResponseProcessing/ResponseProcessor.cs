@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.ResponseProcessing;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.Model;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing
+namespace Citolab.QTI.Scoring.ResponseProcessing
 {
-    public class ResponseProcessor
+    internal static class ResponseProcessor
     {
-        public AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger)
+        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger)
         {
             var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
             // Skip processing when there is no itemResult

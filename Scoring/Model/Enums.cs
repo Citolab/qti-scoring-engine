@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public enum BaseType
+    internal enum BaseType
     {
 
         Identifier,
@@ -29,7 +29,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         IntOrIdentifier
     }
 
-    public static class EnumHelper
+    internal static class EnumHelper
     {
         public static string GetString(this Cardinality cardinality)
         {
@@ -47,7 +47,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             return "single";
         }
 
-        public static string GetString(this BaseType baseType)
+        internal static string GetString(this BaseType baseType)
         {
             switch (baseType)
             {
@@ -72,7 +72,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         }
 
 
-        public static BaseType ToBaseType(this string baseTypeString)
+        internal static BaseType ToBaseType(this string baseTypeString)
         {
             switch (baseTypeString)
             {
@@ -96,7 +96,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             return BaseType.String;
         }
 
-        public static Cardinality ToCardinality(this string cardinalityString)
+        internal static Cardinality ToCardinality(this string cardinalityString)
         {
             switch (cardinalityString)
             {
@@ -114,7 +114,7 @@ namespace Citolab.QTI.ScoringEngine.Model
     }
 
 
-    public enum Cardinality
+    internal enum Cardinality
     {
         Single,
         Multiple
@@ -127,7 +127,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         Qti30
     }
 
-    public enum QtiResourceType
+    internal enum QtiResourceType
     {
         AssessmentItem,
         AssessmentTest,

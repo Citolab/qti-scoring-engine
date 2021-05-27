@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.Scoring.Const;
+using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class AssessmentItem : QtiDocument
+    internal class AssessmentItem : QtiDocument
     {
         public Dictionary<string, ResponseDeclaration> ResponseDeclarations;
         public Dictionary<string, OutcomeDeclaration> OutcomeDeclarations;
@@ -24,7 +24,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             var responseProcessing = this.FindElementByName("responseProcessing");
             if (responseProcessing != null && !string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
             {
-                var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split("/");
+                var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split('/');
                 var templateName = splittedTemplateName[splittedTemplateName.Length - 1];
                 switch (templateName.Trim())
                 {
@@ -101,7 +101,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             responseDeclaration.CorrectResponseInterpretation = correctResponse?.GetAttributeValue("interpretation");
             var correctValues = correctResponse?.FindElementsByName("value").Select(v => v.Value.RemoveXData())?.ToList();
 
-            responseDeclaration.CorrectResponse = correctValues != null ? string.Join('&', correctValues.ToArray()) : "";
+            responseDeclaration.CorrectResponse = correctValues != null ? string.Join("&", correctValues.ToArray()) : "";
             responseDeclaration.CorrectResponses = correctValues?.Count > 1 ? correctValues : null;
             var mappingElement = el.FindElementsByName("mapping").FirstOrDefault();
             if (mappingElement != null)

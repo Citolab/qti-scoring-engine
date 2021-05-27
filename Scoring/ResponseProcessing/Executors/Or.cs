@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
+namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
 {
     /// <summary>
     /// One of the children should return true
     /// </summary>
-    public class Or : IExecuteReponseProcessing
+    internal class Or : IExecuteReponseProcessing
     {
         public string Name => "or";
 

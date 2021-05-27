@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Executors;
+using Citolab.QTI.Scoring.ResponseProcessing.Executors;
 
-namespace Citolab.QTI.ScoringEngine.Tests
+namespace Citolab.QTI.Scoring.Tests
 {
     public static class LogCheckExtensions
     {
@@ -80,9 +80,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return exists && compare(actualValue);
         }
 
-#pragma warning disable CA1021 // Avoid out parameters
         public static bool GetValue<T>(this object state, string key, out T value)
-#pragma warning restore CA1021 // Avoid out parameters
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
@@ -96,7 +94,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
 
     public static class Extensions
     {
-        public static string GetScoreForItem(this AssessmentResult assessmentResult, string itemIdentifier, string outcomeIdentifier)
+        internal static string GetScoreForItem(this AssessmentResult assessmentResult, string itemIdentifier, string outcomeIdentifier)
         {
             var itemResult = assessmentResult
                 .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
@@ -105,7 +103,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return outcomeVariable?.Value;
         }
 
-        public static string GetScoreForTest(this AssessmentResult assessmentResult, string testIdentifier, string outcomeIdentifier)
+        internal static string GetScoreForTest(this AssessmentResult assessmentResult, string testIdentifier, string outcomeIdentifier)
         {
             var testResult = assessmentResult
                 .FindElementsByElementAndAttributeValue("testResult", "identifier", testIdentifier)
@@ -113,7 +111,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             var outcomeVariable = testResult?.FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", outcomeIdentifier).FirstOrDefault();
             return outcomeVariable?.Value;
         }
-        public static void ChangeResponse(this AssessmentResult assessmentTest, string itemId, string responseIdentifier, string newValue)
+        internal static void ChangeResponse(this AssessmentResult assessmentTest, string itemId, string responseIdentifier, string newValue)
         {
             var itemResult = assessmentTest
             .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemId)
@@ -130,7 +128,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             }
         }
 
-        public static AssessmentResult ChangeItemResult(this AssessmentResult result, string itemIdentifier, string value, string outcomeIdentifier = "SCORE")
+        internal static AssessmentResult ChangeItemResult(this AssessmentResult result, string itemIdentifier, string value, string outcomeIdentifier = "SCORE")
         {
             if (result.ItemResults.ContainsKey(itemIdentifier))
             {
@@ -146,19 +144,19 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return result;
         }
 
-        public static XElement GetElementWithValue(this ResponseIf _, bool result, string value, string identifier)
+        internal static XElement GetElementWithValue(this ResponseIf _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0 ;
             return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
         }
 
-        public static XElement GetElementWithValue(this ResponseElseIf _, bool result, string value, string identifier)
+        internal static XElement GetElementWithValue(this ResponseElseIf _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0;
             return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
         }
 
-        public static XElement GetElementWithValue(this ResponseElse _, bool result, string value, string identifier)
+        internal static XElement GetElementWithValue(this ResponseElse _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0;
             return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");

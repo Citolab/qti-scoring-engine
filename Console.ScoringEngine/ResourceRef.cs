@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Console.ScoringEngine
+namespace Console.Scoring
 {
     public class ResourceRef
     {

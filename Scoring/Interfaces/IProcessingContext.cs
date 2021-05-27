@@ -1,4 +1,4 @@
-﻿using Citolab.QTI.ScoringEngine.Model;
+﻿using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Interfaces
+namespace Citolab.QTI.Scoring.Interfaces
 {
-    public interface IProcessingContext
+    internal interface IProcessingContext
     {
-        public string Identifier { get; }
-        public XDocument AssessmentResult { get; }
-        public Dictionary<string, OutcomeDeclaration> OutcomeDeclarations { get; }
-        public void LogInformation(string value);
-        public void LogWarning(string value);
-
-        public void LogError(string value);
+        string Identifier { get; }
+        XDocument AssessmentResult { get; }
+        Dictionary<string, OutcomeDeclaration> OutcomeDeclarations { get; }
+        void LogInformation(string value);
+        void LogWarning(string value);
+        void LogError(string value);
     }
 }

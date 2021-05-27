@@ -1,4 +1,4 @@
-﻿using Citolab.QTI.ScoringEngine.Interfaces;
+﻿using Citolab.QTI.Scoring.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class TestResult: IQtiResult
+    internal class TestResult: IQtiResult
     {
         public string Identifier { get; set; }
         public Dictionary<string, ResponseVariable> ResponseVariables { get; set; } = new Dictionary<string, ResponseVariable>();

@@ -1,16 +1,16 @@
-﻿using Citolab.QTI.ScoringEngine.ResponseProcessing;
-using Citolab.QTI.ScoringEngine.Helper;
+﻿using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Executors
+namespace Citolab.QTI.Scoring.ResponseProcessing.Executors
 {
-    public class LookupOutcomeValue : IExecuteReponseProcessing
+    internal class LookupOutcomeValue : IExecuteReponseProcessing
     {
         public string Name => "lookupOutcomeValue";
 

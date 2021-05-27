@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.Scoring.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public abstract class QtiDocument : XDocument
+    internal abstract class QtiDocument : XDocument
     {
         public string Identifier { get; set; }
         protected ILogger Logger;

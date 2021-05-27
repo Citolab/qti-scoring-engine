@@ -1,8 +1,8 @@
-﻿using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.ResponseProcessing;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Executors;
-using Citolab.QTI.ScoringEngine.Tests;
-using Citolab.QTI.ScoringEngine.Model;
+﻿using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.ResponseProcessing.Executors;
+using Citolab.QTI.Scoring.Tests;
+using Citolab.QTI.Scoring.Model;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -79,14 +79,19 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Executors
             var logger = new Mock<ILogger>().Object;
             var context = TestHelper.GetDefaultResponseProcessingContext(new AssessmentItem(logger, XDocument.Parse("<asssessmentItem/>")));
 
-            context.AssessmentItem.OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>();
-            context.AssessmentItem.OutcomeDeclarations.Add("UNITTEST_RESULT", new OutcomeDeclaration
+            context.AssessmentItem.OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>
             {
-                BaseType = BaseType.String,
-                Cardinality = Cardinality.Single,
-                Identifier = "UNITTEST_RESULT",
-                DefaultValue = 0
-            });
+                {
+                    "UNITTEST_RESULT",
+                    new OutcomeDeclaration
+                    {
+                        BaseType = BaseType.String,
+                        Cardinality = Cardinality.Single,
+                        Identifier = "UNITTEST_RESULT",
+                        DefaultValue = 0
+                    }
+                }
+            };
 
             var responseConditionElement = XElement.Parse("<responseCondition></responseCondition>");
             responseConditionElement.Add(new ResponseIf().GetElementWithValue(false, "if", "UNITTEST_RESULT"));

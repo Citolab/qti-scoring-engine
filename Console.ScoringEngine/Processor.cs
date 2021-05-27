@@ -1,6 +1,4 @@
-﻿using Citolab.QTI.ScoringEngine.Model;
-using Citolab.QTI.ScoringEngine.OutcomeProcessing;
-using Citolab.QTI.ScoringEngine.ResponseProcessing;
+﻿using Citolab.QTI.Scoring;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Console.ScoringEngine
+namespace Console.Scoring
 {
     public class Processor
     {
@@ -28,44 +26,32 @@ namespace Console.ScoringEngine
         {
             var packageFolder = ExtractPackage(_settings.PackageFileLocation);
             var manifest = GetManifest(packageFolder);
-
-            // setup items and tests
-            var assessmentItems = manifest.Items.Select(itemRef =>
+            var assessmentResults = new DirectoryInfo(_settings.AssessmentResultFolderLocation).GetFiles("*.xml")
+                .Select(file => new { Document = GetDocument(file.FullName), FileName = file.Name }).ToList();
+            var qtiScoringEngine = new ScoringEngine();
+            var scoredAssessmentResults = qtiScoringEngine.ProcessResponsesAndOutcomes(new ScoringContext
             {
-                var assessmentItem = new AssessmentItem(_logger, GetDocument(Path.Combine(packageFolder.FullName, itemRef.Href)));
-                return assessmentItem;
-            }).ToList();
+                AssessmentItems = manifest.Items.Select(itemRef => GetDocument(Path.Combine(packageFolder.FullName, itemRef.Href))).ToList(),
+                AssessmentTest = GetDocument(Path.Combine(packageFolder.FullName, manifest.Test.Href)),
+                AssessmentmentResults = assessmentResults.Select(a => a.Document).ToList(),
+                Logger = _logger
+            });
 
-            var assessmentTest = new AssessmentTest(_logger, GetDocument(Path.Combine(packageFolder.FullName, manifest.Test.Href)));
-            var responseProcessing = new ResponseProcessor();
-            var outcomeProcessing = new OutcomeProcessor();
-
-            // loop assessmentResults
-            var assessmentResultFolder = new DirectoryInfo(_settings.AssessmentResultFolderLocation);
-            var assessmentResults = new List<AssessmentResult>();
-            foreach (var assessmentRefHref in assessmentResultFolder.GetFiles("*.xml"))
+             // write the output result
+             var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
+            if (!Directory.Exists(newBaseDir))
             {
-                var assessmentResult = new AssessmentResult(_logger, GetDocument(assessmentRefHref.FullName));
-                // start resposeProcessing
-                foreach (var assessmentItem in assessmentItems)
-                {
-                    responseProcessing.Process(assessmentItem, assessmentResult, _logger);
-                }
-                // start outcomeProcessing
-                outcomeProcessing.Process(assessmentTest, assessmentResult, _logger);
-
-                // write the output result
-                var newBaseDir = Path.Combine(assessmentRefHref.DirectoryName, "processed");
-                if (!Directory.Exists(newBaseDir))
-                {
-                    Directory.CreateDirectory(newBaseDir);
-                }
-                File.WriteAllText(Path.Combine(newBaseDir, assessmentRefHref.Name), assessmentResult.ToString());
+                Directory.CreateDirectory(newBaseDir);
             }
+            assessmentResults.ForEach(assessmentResult =>
+            {
+                File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), assessmentResult.Document.ToString());
+            });
+          
         }
 
 
-        private Manifest GetManifest(DirectoryInfo packageFolder)
+        private static Manifest GetManifest(DirectoryInfo packageFolder)
         {
             var manifestFile = packageFolder
              .GetFiles("imsmanifest.xml", SearchOption.AllDirectories)
@@ -78,7 +64,7 @@ namespace Console.ScoringEngine
         }
 
 
-        private DirectoryInfo ExtractPackage(string packageRef)
+        private static DirectoryInfo ExtractPackage(string packageRef)
         {
             // extract package
             var extractPath = new DirectoryInfo(Path.Combine(Path.Combine(Path.GetTempPath(), "_temp"), Path.GetFileNameWithoutExtension(Path.GetRandomFileName())));
@@ -92,7 +78,7 @@ namespace Console.ScoringEngine
             return packageFolder;
         }
 
-        private XDocument GetDocument(string file)
+        private static XDocument GetDocument(string file)
         {
             XDocument xDoc = null;
             using (var openRead = File.OpenRead(file))

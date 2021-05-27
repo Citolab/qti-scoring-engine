@@ -1,46 +1,41 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.ResponseProcessing;
-using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using static System.Char;
-using Citolab.QTI.ScoringEngine.Interfaces;
-using Citolab.QTI.ScoringEngine.OutcomeProcessing;
+using Citolab.QTI.Scoring.OutcomeProcessing;
 
-namespace Citolab.QTI.ScoringEngine.Helper
+namespace Citolab.QTI.Scoring.Helper
 {
 
-    public static class Extensions
+    internal static class Extensions
     {
-        public static IEnumerable<XElement> FindElementsByName(this XDocument doc, string name)
+        internal static IEnumerable<XElement> FindElementsByName(this XDocument doc, string name)
         {
             return doc.Descendants().Where(d => d.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public static IEnumerable<XElement> FindElementsByLastPartOfName(this XDocument doc, string name)
+        internal static IEnumerable<XElement> FindElementsByLastPartOfName(this XDocument doc, string name)
         {
             return doc.Descendants().Where(d => d.Name.LocalName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
         }
-        public static IEnumerable<XElement> FindElementsByLastPartOfName(this XElement el, string name)
+        internal static IEnumerable<XElement> FindElementsByLastPartOfName(this XElement el, string name)
         {
             return el.Descendants().Where(d => d.Name.LocalName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
         }
-        public static IEnumerable<XElement> FindElementsByName(this XElement el, string name)
+        internal static IEnumerable<XElement> FindElementsByName(this XElement el, string name)
         {
             return el.Descendants().Where(d => d.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public static XElement FindElementByName(this XDocument doc, string name)
+        internal static XElement FindElementByName(this XDocument doc, string name)
         {
             return doc.FindElementsByName(name).FirstOrDefault();
         }
 
-        public static OutcomeVariable CreateVariable(this OutcomeDeclaration outcomeDeclaration)
+        internal static OutcomeVariable CreateVariable(this OutcomeDeclaration outcomeDeclaration)
         {
             return new OutcomeVariable
             {
@@ -51,7 +46,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
-        public static string Identifier(this XElement element) =>
+        internal static string Identifier(this XElement element) =>
             element.GetAttributeValue("identifier");
 
         private static IList<BaseValue> GetBaseValues(this XElement qtiElement)
@@ -97,7 +92,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return variables;
         }
 
-        public static string RemoveXData(this string value)
+        internal static string RemoveXData(this string value)
         {
             if (value.Contains("<![CDATA["))
             {
@@ -130,7 +125,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
         }
 
 
-        public static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessorContext context)
+        internal static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessorContext context)
         {
             var itemOutcomes = context.AssessmentResult.ItemResults
                .Select(i => i.Value)
@@ -159,7 +154,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                                    context.LogError($"cannot find weight identifier: {weightIdentifier} for item: {i.Identifier}");
                                }
                            }
-                       }                     
+                       }
                        var outcome = new OutcomeVariable
                        {
                            BaseType = o.Value.BaseType,
@@ -195,11 +190,11 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 {
                     var excludedCategoriesString = testVariableElement.GetAttributeValue("excludeCategory");
                     var excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?
-                        excludedCategoriesString.Split(" ") : null;
+                        excludedCategoriesString.Split(' ') : null;
 
                     var includeCategoriesString = testVariableElement.GetAttributeValue("includeCategory");
                     var includeCategories = !string.IsNullOrWhiteSpace(includeCategoriesString) ?
-                    includeCategoriesString.Split(" ") : null;
+                    includeCategoriesString.Split(' ') : null;
                     if (excludedCategories?.Length > 0)
                     {
                         foreach (var excludedCategory in excludedCategories)
@@ -275,7 +270,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 .ToList();
         }
 
-        public static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
+        internal static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
         {
             // List all element to be able to return them in the orginal order
             var valueElements = qtiElement.Descendants().Where(element =>
@@ -320,7 +315,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 {
                     return baseValues.FirstOrDefault(b => b.Value == v.Value);
                 }
-                var variable = variables.FirstOrDefault(variable => variable.Identifier == v.Id);
+                var variable = variables.FirstOrDefault(var1 => var1.Identifier == v.Id);
                 if (variable != null)
                 {
                     return variable;
@@ -334,23 +329,23 @@ namespace Citolab.QTI.ScoringEngine.Helper
             }).ToList();
         }
 
-        public static string GetAttributeValue(this XElement el, string name)
+        internal static string GetAttributeValue(this XElement el, string name)
         {
             return el.GetAttribute(name)?.Value ?? string.Empty;
         }
-        public static XAttribute GetAttribute(this XElement el, string name)
+        internal static XAttribute GetAttribute(this XElement el, string name)
         {
             return el.Attributes()
                 .FirstOrDefault(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
-        public static IEnumerable<XAttribute> GetAttributes(this XDocument doc, string name)
+        internal static IEnumerable<XAttribute> GetAttributes(this XDocument doc, string name)
         {
             var s = doc.Descendants().SelectMany(d => d.Attributes()
                 .Where(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase)));
             return s;
         }
 
-        public static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XElement element, string elementName, string attributeName, string attributeValue)
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XElement element, string elementName, string attributeName, string attributeValue)
         {
             return element.FindElementsByName(elementName)
                 .Where(d => d.Attributes()
@@ -358,7 +353,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                               a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
         }
 
-        public static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
         {
             return doc.FindElementsByName(elementName)
                 .Where(element => element.Attributes()
@@ -366,15 +361,15 @@ namespace Citolab.QTI.ScoringEngine.Helper
                               a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
         }
 
-        public static IEnumerable<XElement> FindElementsByElementAndAttributeThatContainsValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeThatContainsValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
         {
             return doc.FindElementsByName(elementName)
                 .Where(element => element.Attributes()
                     .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
-                              a.Value.Contains(attributeValue, StringComparison.OrdinalIgnoreCase)));
+                              a.Value.ToLower().Contains(attributeValue.ToLower())));
         }
 
-        public static IEnumerable<XElement> FindElementsByElementAndAttributeStartValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeStartValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
         {
             return doc.FindElementsByName(elementName)
                 .Where(element => element.Attributes()
@@ -382,50 +377,50 @@ namespace Citolab.QTI.ScoringEngine.Helper
                               a.Value.ToLower().StartsWith(attributeValue.ToLower())));
         }
 
-        public static string GetElementValue(this XElement el, string name)
+        internal static string GetElementValue(this XElement el, string name)
         {
             return el.FindElementsByName(name).FirstOrDefault()?.Value ?? String.Empty;
         }
         //xmlns
 
-        public static IEnumerable<XElement> GetInteractions(this XDocument doc)
+        internal static IEnumerable<XElement> GetInteractions(this XDocument doc)
         {
             return doc.Document?.Root.GetInteractions();
         }
 
-        public static IEnumerable<XElement> GetInteractions(this XElement el)
+        internal static IEnumerable<XElement> GetInteractions(this XElement el)
         {
             var qti2Elements = el.FindElementsByLastPartOfName("interaction")
-                .Where(d => d.Name.LocalName.Contains("audio", StringComparison.OrdinalIgnoreCase))
+                .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
                 .Where(d => d.Attributes()
                     .Any(a => a.Name.LocalName.Equals("responseIdentifier", StringComparison.OrdinalIgnoreCase) &&
                               a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
             var qti3Elements = el.FindElementsByLastPartOfName("Interaction")
-                .Where(d => d.Name.LocalName.Contains("audio", StringComparison.OrdinalIgnoreCase))
+                .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
                 .Where(d => d.Attributes()
                     .Any(a => a.Name.LocalName.Equals("response-identifier", StringComparison.OrdinalIgnoreCase) &&
                               a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
             return qti2Elements.Concat(qti3Elements);
         }
-        public static XElement GetInteraction(this XElement element)
+        internal static XElement GetInteraction(this XElement element)
         {
             return element.GetInteractions().FirstOrDefault();
         }
-        public static XElement GetInteraction(this XDocument doc)
+        internal static XElement GetInteraction(this XDocument doc)
         {
             return doc.GetInteractions().FirstOrDefault();
         }
-        public static void SetAttributeValue(this XElement el, string name, string value)
+        internal static void SetAttributeValue(this XElement el, string name, string value)
         {
             el.GetAttribute(name)?.SetValue(value);
         }
 
-        public static XElement ToXElement(this BaseValue value)
+        internal static XElement ToXElement(this BaseValue value)
         {
             return XElement.Parse($"<baseValue baseType=\"{value.BaseType.GetString()}\">{value.Value}</baseValue>");
         }
 
-        public static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
+        internal static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
         {
             return new OutcomeVariable
             {
@@ -436,24 +431,31 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
-        public static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
+        internal static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
         {
             return XElement.Parse($"<variable identifier=\"{outcomeDeclaration.Identifier}\" />");
         }
 
-        public static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
+        internal static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
         {
             return XElement.Parse($"<outcomeDeclaration " +
                 $"identifier=\"{outcomeDeclaration.Identifier}\" cardinality=\"{outcomeDeclaration.Cardinality.GetString()}\" " +
                 $"baseType=\"{outcomeDeclaration.BaseType.GetString()}\"><defaultValue><value>{outcomeDeclaration.DefaultValue}</value></defaultValue></outcomeDeclaration>");
         }
 
-        public static XElement ToValueElement(this string value)
+        internal static XElement ToValueElement(this string value)
         {
             return XElement.Parse($"<value>{value}</value>");
         }
 
-        public static XElement AddDefaultNamespace(this XElement element, XNamespace xnamespace)
+        internal static HashSet<T> ToHashSet<T>(
+       this IEnumerable<T> source,
+       IEqualityComparer<T> comparer = null)
+        {
+            return new HashSet<T>(source, comparer);
+        }
+
+        internal static XElement AddDefaultNamespace(this XElement element, XNamespace xnamespace)
         {
             element.Name = xnamespace + element.Name.LocalName;
             foreach (var child in element.Descendants())
@@ -462,7 +464,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             }
             return element;
         }
-        public static OutcomeDeclaration ToOutcomeDeclaration(this float value, string identifier = "SCORE")
+        internal static OutcomeDeclaration ToOutcomeDeclaration(this float value, string identifier = "SCORE")
         {
             return new OutcomeDeclaration
             {
@@ -473,7 +475,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
-        public static ResponseVariable ToResponseVariable(this string value, string identifier = "RESPONSE")
+        internal static ResponseVariable ToResponseVariable(this string value, string identifier = "RESPONSE")
         {
             return new ResponseVariable
             {
@@ -484,7 +486,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
-        public static BaseValue ToBaseValue(this float value, string identifier = "SCORE")
+        internal static BaseValue ToBaseValue(this float value, string identifier = "SCORE")
         {
             return new BaseValue
             {
@@ -493,7 +495,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
-        public static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
+        internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
         {
             return new OutcomeVariable
             {
@@ -508,27 +510,30 @@ namespace Citolab.QTI.ScoringEngine.Helper
         /// </summary>
         /// <param name="assessmentTest"></param>
         /// <returns></returns>
-        public static AssessmentTest AddTotalAndCategoryScores(this AssessmentTest assessmentTest)
+        public static XDocument AddTotalAndCategoryScores(this XDocument assessmentTest)
         {
             var changedTest = assessmentTest
                 .AddTestOutcome("SCORE_TOTAL", "", null)
                 .AddTestOutcome("SCORE_TOTAL_WEIGHTED", "WEIGHT", null)
                 .AddTestOutcomeForCategories("SCORE_TOTAL", "")
                 .AddTestOutcomeForCategories("SCORE_TOTAL_WEIGHTED", "WEIGHT");
-            changedTest.Init();
             return changedTest;
         }
 
-        public static AssessmentTest AddTestOutcomeForCategories(this AssessmentTest assessmentTest, string identifierPrefix, string weightIdentifier)
+        internal static XDocument AddTestOutcomeForCategories(this XDocument assessmentTest, string identifierPrefix, string weightIdentifier)
         {
-            assessmentTest.Categories.ForEach(c =>
+            var categories = assessmentTest.FindElementsByName("assessmentItemRef")
+               .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category") .Split(' '))
+               .Distinct()
+               .ToList();
+            categories.ForEach(c =>
             {
                 assessmentTest = assessmentTest.AddTestOutcome($"{identifierPrefix}_{c}", weightIdentifier, new List<string> { c });
             });
             return assessmentTest;
         }
 
-        public static AssessmentTest AddTestOutcome(this AssessmentTest assessmentTest, string identifier, string weightIdentifier, List<string> includedCategories, bool reInit = false)
+        internal static XDocument AddTestOutcome(this XDocument assessmentTest, string identifier, string weightIdentifier, List<string> includedCategories)
         {
             var outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
             if (outcomeProcessing == null || !outcomeProcessing.FindElementsByElementAndAttributeValue("setOutcomeValue", "identifier", identifier).Any())
@@ -550,10 +555,6 @@ namespace Citolab.QTI.ScoringEngine.Helper
                     outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
                 }
                 outcomeProcessing.Add(testVariableElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
-                if (reInit)
-                {
-                    assessmentTest.Init();
-                }
                 return assessmentTest;
             }
             else

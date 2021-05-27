@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class AssessmentItemRef
+    internal class AssessmentItemRef
     {
         public string Identifier { get; set; }
         public Dictionary<string, int> Weights { get; set; }

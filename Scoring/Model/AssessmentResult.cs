@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Helper;
-using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.Scoring.Const;
+using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.Scoring.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.ScoringEngine.Model
+namespace Citolab.QTI.Scoring.Model
 {
-    public class AssessmentResult : XDocument
+    internal class AssessmentResult : XDocument
     {
         public Dictionary<string, TestResult> TestResults = new Dictionary<string, TestResult>();
         public Dictionary<string, ItemResult> ItemResults = new Dictionary<string, ItemResult>();
@@ -161,7 +161,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         Identifier = responseVariable.Identifier(),
                         BaseType = responseVariable.GetAttributeValue("baseType").ToBaseType(),
-                        Value = string.Join('&', values.ToArray()),
+                        Value = string.Join("&", values.ToArray()),
                         Values = values
                     };
                 }).ToDictionary(r => r.Identifier, r => r)
