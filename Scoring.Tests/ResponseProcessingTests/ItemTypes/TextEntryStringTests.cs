@@ -1,0 +1,79 @@
+﻿using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.Scoring.ResponseProcessing;
+using Citolab.QTI.Scoring.Tests;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Xunit;
+
+namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
+{
+    public class TextEntryStringTests
+    {
+        [Fact]
+        public void TextEntryCorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse("ITM-1004", "RESPONSE", "rek", BaseType.String, Cardinality.Single);
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\1004.xml")));
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1004", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryIncorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse("ITM-1004", "RESPONSE", "fout", BaseType.String, Cardinality.Single);
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\1004.xml")));
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1004", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryIncorrectCasing()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse("ITM-1004", "RESPONSE", "rEK", BaseType.String, Cardinality.Single);
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\1004.xml")));
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1004", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void TextEntryCorrectCasing()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse("ITM-1004", "RESPONSE", "rEK", BaseType.String, Cardinality.Single);
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\1004-caseInsensitive.xml")));
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-1004", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+    }
+}

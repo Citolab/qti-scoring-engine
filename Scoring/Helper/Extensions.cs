@@ -475,34 +475,6 @@ namespace Citolab.QTI.Scoring.Helper
             };
         }
 
-        internal static ResponseVariable ToResponseVariable(this string value, string identifier = "RESPONSE")
-        {
-            return new ResponseVariable
-            {
-                Identifier = identifier,
-                BaseType = BaseType.Float,
-                Cardinality = Cardinality.Single,
-                Value = value
-            };
-        }
-
-        internal static BaseValue ToBaseValue(this float value, string identifier = "SCORE")
-        {
-            return new BaseValue
-            {
-                BaseType = BaseType.Float,
-                Value = value.ToString()
-            };
-        }
-
-        internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
-        {
-            return new OutcomeVariable
-            {
-                BaseType = BaseType.Float,
-                Value = value.ToString()
-            };
-        }
 
         /// <summary>
         /// This adds total and weighted score for all summed items +

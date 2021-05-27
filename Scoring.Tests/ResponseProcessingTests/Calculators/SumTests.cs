@@ -93,7 +93,7 @@ namespace Citolab.QTI.Scoring.Tests.ResponseProcessingTests.Calculators
         public void SumBaseIsThree()
         {
             var baseValue1 = 1.0F.ToBaseValue();
-            var baseValue2 = 2.0F.ToBaseValue("SCORE2");
+            var baseValue2 = 2.0F.ToBaseValue();
 
             var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> {  });
             var context = TestHelper.GetDefaultResponseProcessingContext(assessmentItem);

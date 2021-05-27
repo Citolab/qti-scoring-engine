@@ -12,7 +12,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
 {
     internal static class Helper
     {
-        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType)
+        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, bool forceStringCompare = false)
         {
             {
                 switch (baseType)
@@ -71,11 +71,11 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             return context.AssessmentItem.OutcomeDeclarations[id];
         }
 
-        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context)
+        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, bool forceStringCompare = false)
         {
-            var values = qtiElement.GetValues(context);// Helper.GetStringValueOfChildren(qtiElement, context).ToList();
+            var values = qtiElement.GetValues(context);
             context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value !=null).Select(v => v.Value).ToArray())}");
-            if (bool.TryParse(qtiElement.GetAttributeValue("caseSensitive"), out var result) && result == true)
+            if (bool.TryParse(qtiElement.GetAttributeValue("caseSensitive"), out var result) && result == false)
             {
                 context.LogInformation($"member check not caseSensitive");
                 values = values.Select(v =>
@@ -93,7 +93,12 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             {
                 return false; // return false if one of the values is null
             }
-            if (values[0]?.BaseType != values[1]?.BaseType)
+            if (forceStringCompare)
+            {
+                values[0].BaseType = BaseType.String;
+                values[1].BaseType = BaseType.String;
+            }
+            if (values[0].BaseType != values[1].BaseType)
             {
                 context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
             }

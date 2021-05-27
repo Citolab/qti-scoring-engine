@@ -81,6 +81,8 @@ namespace Citolab.QTI.Scoring.Tests
             var assessmentResultBase = XDocument.Parse("<assessmentResult xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_result_v2p2\"><context sourcedId=\"900001\" /></assessmentResult>");
             return new AssessmentResult(logger, assessmentResultBase);
         }
+
+
         internal static AssessmentItem CreateAssessmentItem(List<OutcomeDeclaration> outcomes, List<ResponseDeclaration> responseDeclarations = null)
         {
             return CreateAssessmentItem("ITM-12345", outcomes, responseDeclarations);

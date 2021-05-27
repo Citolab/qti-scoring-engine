@@ -25,6 +25,7 @@ Executors
 - ResponseIf
 - ResponseElseIf
 - SetOutcomeValue
+- StringMatch
 
 Outcome processing:
 

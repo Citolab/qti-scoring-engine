@@ -163,5 +163,69 @@ namespace Citolab.QTI.Scoring.Tests
         }
 
 
+        internal static ResponseVariable ToResponseVariable(this string value, string identifier = "RESPONSE")
+        {
+            return new ResponseVariable
+            {
+                Identifier = identifier,
+                BaseType = BaseType.Float,
+                Cardinality = Cardinality.Single,
+                Value = value
+            };
+        }
+
+        internal static BaseValue ToBaseValue(this float value)
+        {
+            return new BaseValue
+            {
+                BaseType = BaseType.Float,
+                Value = value.ToString()
+            };
+        }
+
+        internal static BaseValue ToBaseValue(this string value)
+        {
+            return new BaseValue
+            {
+                BaseType = BaseType.String,
+                Value = value
+            };
+        }
+
+        internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
+        {
+            return new OutcomeVariable
+            {
+                Identifier = identifier,
+                BaseType = BaseType.Float,
+                Value = value.ToString()
+            };
+        }
+
+        internal static AssessmentResult AddCandidateResponse(this AssessmentResult assessmentResult, string itemIdentifer, string responseIdentifer, string value, BaseType baseType, Cardinality cardinality)
+        {
+            if (!assessmentResult.ItemResults.ContainsKey(itemIdentifer))
+            {
+                assessmentResult.ItemResults.Add(itemIdentifer, new ItemResult { Identifier = itemIdentifer });
+            }
+            var itemResult = assessmentResult.ItemResults[itemIdentifer];
+            if (!itemResult.ResponseVariables.ContainsKey(responseIdentifer))
+            {
+                itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Value = value });
+            } else
+            {
+                itemResult.ResponseVariables[responseIdentifer].Value = value;
+            }
+            var itemResultElement = assessmentResult.FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifer).FirstOrDefault();
+            if (itemResultElement != null)
+            {
+                itemResultElement.Remove();
+            }
+            itemResultElement = itemResult.ToElement();
+            itemResultElement.Add(XElement.Parse($@"<candidateResponse><value>{value}</value></candidateResponse>"));
+            assessmentResult.Root.Add(itemResultElement);
+            return assessmentResult;
+        }
+
     }
 }
