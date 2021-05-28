@@ -8,11 +8,10 @@ Support for responses of cardinality multiple. This is needed to be able to scor
 
 Starting with:
 
-1. textInteraction: string and numerics (+ handle point, decimal)
-2. choiceInteraction maxChoice > 1
-3. inlineChoiceInteraction
-4. gapMatchInteraction
-5. ....
+1. choiceInteraction maxChoice > 1
+2. inlineChoiceInteraction
+3. gapMatchInteraction
+4. ....
 
 ## Optimize for batch processing:
 

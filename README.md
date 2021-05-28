@@ -1,6 +1,7 @@
 # Citolab QTI Scoring Engine
 
 This library can be used for response and outcome scoring.
+Currenly it supports 2.x packages only.
 
 It does not support all response and outcome scoring (yet).
 
@@ -20,6 +21,7 @@ Executors
 - LookupOutcomeValue
 - Match
 - Member
+- Not
 - Or
 - ResponseCondition
 - ResponseElse
@@ -46,13 +48,17 @@ The provided list of assessmentResults is updated with scoring info. The functio
 The provided context contains:
 
 - ```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse. For outcomeProcessing it should contain outcomeVariables.
-- ```ILogger Logger```: optional, logs the processing steps as informational and log warnings and errors. 
+- ```ILogger Logger``` (optional): logs the processing steps as informational and log warnings and errors. 
 - ```bool? ProcessParallel```: for bulk processing it can process assessmentResults in parallel. (default: false)
 
-For responseProcessing the context needs a list of items too: ```List<XDocument> AssessmentItems```. Optionally 
-```List<ICustomOperator> CustomOperators`` can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
+For responseProcessing the context extends the following properties:
 
-For outcomeProcessing the context needs a ```Document AssessmentTest``` too.
+- ```List<XDocument> AssessmentItems```: List of XDocuments with the assessmentItems.
+- ```List<ICustomOperator> CustomOperators``` (optional): can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
+
+For outcomeProcessing the context extends the following properties:
+
+- ```Document AssessmentTest```: A XDocument with the assessmentTest.
 
 
 ```C#
@@ -80,9 +86,9 @@ var scoredAssessmentResults = qtiScoringEngine.ProcessResponsesAndOutcomes(new S
 
 The project: Console.ScoringEngine contains an example of how to process assessmentResults for a package.
 
-It can be run by the console:
+It can be run in the console:
 
-The first argument should be the path to the package and the second argument should be the folder where the assessmentResults are located.
+The first argument should be the path to the package. The second argument should be the folder where the assessmentResults are located.
 
 ``` bash
  dotnet run Console.Scoring "C:\\mypackage.zip" "C:\\assessmentResults
@@ -91,7 +97,7 @@ The first argument should be the path to the package and the second argument sho
 
  ## Custom operators
 
-Because customOperators are often specific to delivery eniges they can be provided.
+Because customOperators are often specific to delivery eniges they can be provided to this scoring engine.
 
 example: 
 
@@ -117,7 +123,7 @@ handles:
 </customOperator>
 ```
 
- There are three example implementations in this Engine:
+ There are three example implementations in this engine:
  - depcp:Trim: Trims the value
  - depcp:ToAscii: Handlers diacritics
  - depcp:ParseCommaDecimal: Replaces , to .
