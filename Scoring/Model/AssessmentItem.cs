@@ -101,8 +101,13 @@ namespace Citolab.QTI.Scoring.Model
             responseDeclaration.CorrectResponseInterpretation = correctResponse?.GetAttributeValue("interpretation");
             var correctValues = correctResponse?.FindElementsByName("value").Select(v => v.Value.RemoveXData())?.ToList();
 
-            responseDeclaration.CorrectResponse = correctValues != null ? string.Join("&", correctValues.ToArray()) : "";
-            responseDeclaration.CorrectResponses = correctValues?.Count > 1 ? correctValues : null;
+            if (responseDeclaration.Cardinality == Cardinality.Single)
+            {
+                responseDeclaration.CorrectResponse = correctValues?.FirstOrDefault();
+            } else
+            {
+                responseDeclaration.CorrectResponses = correctValues;
+            }
             var mappingElement = el.FindElementsByName("mapping").FirstOrDefault();
             if (mappingElement != null)
             {

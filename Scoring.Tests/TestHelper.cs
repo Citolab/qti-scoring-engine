@@ -146,7 +146,7 @@ namespace Citolab.QTI.Scoring.Tests
             return OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
         }
     }
-    internal class ReturnFalse : IExecuteReponseProcessing
+    internal class ReturnFalse : IResponseProcessingOperator
     {
         public string Name => "returnFalse";
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
@@ -155,7 +155,7 @@ namespace Citolab.QTI.Scoring.Tests
         }
     }
 
-    internal class ReturnTrue : IExecuteReponseProcessing
+    internal class ReturnTrue : IResponseProcessingOperator
     {
         public string Name => "returnTrue";
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
@@ -164,7 +164,7 @@ namespace Citolab.QTI.Scoring.Tests
         }
     }
 
-    internal class ReturnValue: ICalculateResponseProcessing
+    internal class ReturnValue: IResponseProcessingExpression
     {
         public string Name => "ReturnValue";
         public float Calculate(XElement qtiElement, ResponseProcessorContext context)

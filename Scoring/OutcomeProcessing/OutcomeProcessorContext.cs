@@ -19,8 +19,8 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
         public AssessmentTest AssessmentTest{ get; }
 
         public TestResult TestResult { get; set; }
-        public Dictionary<string, ICalculateOutcomeProcessing> Calculators;
-        public Dictionary<string, IExecuteOutcomeProcessing> Executors;
+        public Dictionary<string, IOutcomeProcessingExpression> Calculators;
+        public Dictionary<string, IOutcomeProcessingOperator> Executors;
 
         public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger)
         {
@@ -33,15 +33,15 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
             TestResult = assessmentResult.TestResults[assessmentTest.Identifier];
         }
 
-        public IExecuteOutcomeProcessing GetExecutor(XElement element, OutcomeProcessorContext context)
+        public IOutcomeProcessingOperator GetExecutor(XElement element, OutcomeProcessorContext context)
         {
             if (Executors == null)
             {
-                var type = typeof(IExecuteOutcomeProcessing);
+                var type = typeof(IOutcomeProcessingOperator);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IExecuteOutcomeProcessing)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IOutcomeProcessingOperator)Activator.CreateInstance(t));
 
                 Executors = instances.ToDictionary(t => t.Name, t => t);
             }
@@ -54,15 +54,15 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
             return null;
         }
 
-        public ICalculateOutcomeProcessing GetCalculator(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
+        public IOutcomeProcessingExpression GetCalculator(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (Calculators == null)
             {
-                var type = typeof(ICalculateOutcomeProcessing);
+                var type = typeof(IOutcomeProcessingExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (ICalculateOutcomeProcessing)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IOutcomeProcessingExpression)Activator.CreateInstance(t));
 
                 Calculators = instances.ToDictionary(t => t.Name, t => t);
             }

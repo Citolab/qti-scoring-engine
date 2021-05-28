@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.Scoring.ResponseProcessing.Executors;
+using Citolab.QTI.Scoring.ResponseProcessing.Operators;
 
 namespace Citolab.QTI.Scoring.Tests
 {

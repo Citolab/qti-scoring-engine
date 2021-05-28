@@ -21,8 +21,8 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
         public AssessmentResult AssessmentResult { get; }
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
-        public Dictionary<string, IExecuteReponseProcessing> Executors;
-        public Dictionary<string, ICalculateResponseProcessing> Calculators;
+        public Dictionary<string, IResponseProcessingOperator> Executors;
+        public Dictionary<string, IResponseProcessingExpression> Calculators;
         public Dictionary<string, ICustomOperator> Operators;
         internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, List<ICustomOperator> customOperators)
         {
@@ -42,15 +42,15 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             }
         }
 
-        public ICalculateResponseProcessing GetCalculator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
+        public IResponseProcessingExpression GetCalculator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (Calculators == null)
             {
-                var type = typeof(ICalculateResponseProcessing);
+                var type = typeof(IResponseProcessingExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (ICalculateResponseProcessing)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IResponseProcessingExpression)Activator.CreateInstance(t));
 
                 Calculators = instances.ToDictionary(t => t.Name, t => t);
             }
@@ -91,15 +91,15 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             return null;
         }
 
-        public IExecuteReponseProcessing GetExecutor(XElement element, ResponseProcessorContext context)
+        public IResponseProcessingOperator GetExecutor(XElement element, ResponseProcessorContext context)
         {
             if (Executors == null)
             {
-                var type = typeof(IExecuteReponseProcessing);
+                var type = typeof(IResponseProcessingOperator);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IExecuteReponseProcessing)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IResponseProcessingOperator)Activator.CreateInstance(t));
 
                 Executors = instances.ToDictionary(t => t.Name, t => t);
             }

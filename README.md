@@ -9,11 +9,11 @@ Currenly supports:
 
 Response Processing:
 
-Calculators:
+Expressions:
 - MapResponse
 - Sum
 
-Executors
+Operators
 - And
 - Equal (toleranceMode: exact only)
 - Gte
