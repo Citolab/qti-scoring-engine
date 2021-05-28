@@ -129,7 +129,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                 var customOperator = context.GetOperator(qtiElement.Parent, context);
                 if (customOperator!=null)
                 {
-                    customOperators.Insert(0, context.Operators[definition]);
+                    customOperators.Insert(0, context.CustomOperators[definition]);
                     GetCustomOperators(qtiElement.Parent, customOperators, context);
                 }
             }

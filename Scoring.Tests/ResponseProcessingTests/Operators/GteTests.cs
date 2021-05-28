@@ -16,12 +16,12 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, IResponseProcessingOperator>();
-            context.Calculators = new Dictionary<string, IResponseProcessingExpression>();
+            context.Operators = new Dictionary<string, IResponseProcessingOperator>();
+            context.Expressions = new Dictionary<string, IResponseProcessingExpression>();
    
             var gte = new Gte();
 
-            context.Executors.Add(gte.Name, gte);
+            context.Operators.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<gte></gte>");
             gteElement.Add(1.0F.ToBaseValue().ToXElement());
@@ -37,12 +37,12 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, IResponseProcessingOperator>();
-            context.Calculators = new Dictionary<string, IResponseProcessingExpression>();
+            context.Operators = new Dictionary<string, IResponseProcessingOperator>();
+            context.Expressions = new Dictionary<string, IResponseProcessingExpression>();
 
             var gte = new Gte();
 
-            context.Executors.Add(gte.Name, gte);
+            context.Operators.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<gte></gte>");
             gteElement.Add(0.0F.ToBaseValue().ToXElement());
@@ -58,12 +58,12 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, IResponseProcessingOperator>();
-            context.Calculators = new Dictionary<string, IResponseProcessingExpression>();
+            context.Operators = new Dictionary<string, IResponseProcessingOperator>();
+            context.Expressions = new Dictionary<string, IResponseProcessingExpression>();
 
             var gte = new Gte();
 
-            context.Executors.Add(gte.Name, gte);
+            context.Operators.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<gte></gte>");
             gteElement.Add(1.0F.ToBaseValue().ToXElement());

@@ -19,13 +19,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var and = new And();
 
-            context.Executors.Add(and.Name, and);
-            context.Executors.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(and.Name, and);
+            context.Operators.Add(returnTrue.Name, returnTrue);
 
             var andElement = XElement.Parse("<and></and>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
@@ -44,13 +44,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
             var and = new And();
-            context.Executors.Add(and.Name, and);
-            context.Executors.Add(returnTrue.Name, returnTrue);
-            context.Executors.Add(returnFalse.Name, returnFalse);
+            context.Operators.Add(and.Name, and);
+            context.Operators.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(returnFalse.Name, returnFalse);
             var andElement = XElement.Parse("<and></and>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));
@@ -66,14 +66,14 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
 
             var and = new And();
-            context.Executors.Add(and.Name, and);
-            context.Executors.Add(returnTrue.Name, returnTrue);
-            context.Executors.Add(returnFalse.Name, returnFalse);
+            context.Operators.Add(and.Name, and);
+            context.Operators.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(returnFalse.Name, returnFalse);
             var andElement = XElement.Parse("<and></and>");
             andElement.Add(XElement.Parse("<returnFalse/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));

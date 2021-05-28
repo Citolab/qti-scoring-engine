@@ -19,13 +19,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var or = new Or();
 
-            context.Executors.Add(or.Name, or);
-            context.Executors.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(or.Name, or);
+            context.Operators.Add(returnTrue.Name, returnTrue);
 
             var orElement = XElement.Parse("<or></or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
@@ -42,13 +42,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
             var or = new Or();
-            context.Executors.Add(or.Name, or);
-            context.Executors.Add(returnTrue.Name, returnTrue);
-            context.Executors.Add(returnFalse.Name, returnFalse);
+            context.Operators.Add(or.Name, or);
+            context.Operators.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(returnFalse.Name, returnFalse);
 
             var orElement = XElement.Parse("<or></or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
@@ -64,14 +64,14 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
 
             var or = new Or();
-            context.Executors.Add(or.Name, or);
-            context.Executors.Add(returnTrue.Name, returnTrue);
-            context.Executors.Add(returnFalse.Name, returnFalse);
+            context.Operators.Add(or.Name, or);
+            context.Operators.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(returnFalse.Name, returnFalse);
 
             var orElement = XElement.Parse("<or></or>");
             orElement.Add(XElement.Parse("<returnFalse/>"));

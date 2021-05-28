@@ -19,8 +19,8 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
         public AssessmentTest AssessmentTest{ get; }
 
         public TestResult TestResult { get; set; }
-        public Dictionary<string, IOutcomeProcessingExpression> Calculators;
-        public Dictionary<string, IOutcomeProcessingOperator> Executors;
+        public Dictionary<string, IOutcomeProcessingExpression> Expressions;
+        public Dictionary<string, IOutcomeProcessingOperator> Operators;
 
         public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger)
         {
@@ -35,7 +35,7 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
 
         public IOutcomeProcessingOperator GetExecutor(XElement element, OutcomeProcessorContext context)
         {
-            if (Executors == null)
+            if (Operators == null)
             {
                 var type = typeof(IOutcomeProcessingOperator);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
@@ -43,9 +43,9 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
                 var instances = types.Select(t => (IOutcomeProcessingOperator)Activator.CreateInstance(t));
 
-                Executors = instances.ToDictionary(t => t.Name, t => t);
+                Operators = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Executors.TryGetValue(element?.Name.LocalName, out var executor))
+            if (Operators.TryGetValue(element?.Name.LocalName, out var executor))
             {
                 context.LogInformation($"Processing {executor.Name}");
                 return executor;
@@ -56,7 +56,7 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
 
         public IOutcomeProcessingExpression GetCalculator(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
         {
-            if (Calculators == null)
+            if (Expressions == null)
             {
                 var type = typeof(IOutcomeProcessingExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
@@ -64,9 +64,9 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
                 var instances = types.Select(t => (IOutcomeProcessingExpression)Activator.CreateInstance(t));
 
-                Calculators = instances.ToDictionary(t => t.Name, t => t);
+                Expressions = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Calculators.TryGetValue(element?.Name.LocalName, out var calculator))
+            if (Expressions.TryGetValue(element?.Name.LocalName, out var calculator))
             {
                 context.LogInformation($"Processing {calculator.Name}");
                 return calculator;

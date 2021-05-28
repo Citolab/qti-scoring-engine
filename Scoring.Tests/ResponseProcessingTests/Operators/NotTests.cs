@@ -20,13 +20,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var not = new Not();
 
-            context.Executors.Add(not.Name, not);
-            context.Executors.Add(returnTrue.Name, returnTrue);
+            context.Operators.Add(not.Name, not);
+            context.Operators.Add(returnTrue.Name, returnTrue);
 
             var andElement = XElement.Parse("<not></not>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
@@ -44,13 +44,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnFalse = new ReturnFalse();
             var not = new Not();
 
-            context.Executors.Add(not.Name, not);
-            context.Executors.Add(returnFalse.Name, returnFalse);
+            context.Operators.Add(not.Name, not);
+            context.Operators.Add(returnFalse.Name, returnFalse);
 
             var andElement = XElement.Parse("<not></not>");
             andElement.Add(XElement.Parse("<returnFalse/>"));
@@ -68,13 +68,13 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
             var contextInfo = TestHelper.GetDefaultResponseProcessingContextAndLogger(null);
 
             // arrange
-            contextInfo.Context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            contextInfo.Context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var not = new Not();
 
-            contextInfo.Context.Executors.Add(not.Name, not);
-            contextInfo.Context.Executors.Add(returnTrue.Name, returnTrue);
+            contextInfo.Context.Operators.Add(not.Name, not);
+            contextInfo.Context.Operators.Add(returnTrue.Name, returnTrue);
 
             var andElement = XElement.Parse("<not></not>");
             andElement.Add(XElement.Parse("<returnTrue/>"));

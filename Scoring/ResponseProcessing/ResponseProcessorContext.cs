@@ -21,9 +21,9 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
         public AssessmentResult AssessmentResult { get; }
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
-        public Dictionary<string, IResponseProcessingOperator> Executors;
-        public Dictionary<string, IResponseProcessingExpression> Calculators;
-        public Dictionary<string, ICustomOperator> Operators;
+        public Dictionary<string, IResponseProcessingOperator> Operators;
+        public Dictionary<string, IResponseProcessingExpression> Expressions;
+        public Dictionary<string, ICustomOperator> CustomOperators;
         internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, List<ICustomOperator> customOperators)
         {
             _logger = logger;
@@ -37,14 +37,14 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             {
                 foreach(var customOperator in customOperators)
                 {
-                    Operators.Add(customOperator.Definition, customOperator);
+                    CustomOperators.Add(customOperator.Definition, customOperator);
                 }
             }
         }
 
         public IResponseProcessingExpression GetCalculator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
-            if (Calculators == null)
+            if (Expressions == null)
             {
                 var type = typeof(IResponseProcessingExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
@@ -52,9 +52,9 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
                 var instances = types.Select(t => (IResponseProcessingExpression)Activator.CreateInstance(t));
 
-                Calculators = instances.ToDictionary(t => t.Name, t => t);
+                Expressions = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Calculators.TryGetValue(element?.Name.LocalName, out var calculator))
+            if (Expressions.TryGetValue(element?.Name.LocalName, out var calculator))
             {
                 context.LogInformation($"Processing {calculator.Name}");
                 return calculator;
@@ -76,10 +76,16 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
                 var instances = types.Select(t => (ICustomOperator)Activator.CreateInstance(t));
 
-                Operators = instances.ToDictionary(t => t.Definition, t => t);
+                foreach(var customOperatorPair in instances.ToDictionary(t => t.Definition, t => t))
+                {
+                    if (!CustomOperators.ContainsKey(customOperatorPair.Key))
+                    {
+                        CustomOperators.Add(customOperatorPair.Key, customOperatorPair.Value);
+                    }
+                }
                 _initOperators = true;
             }
-            if (Operators.TryGetValue(element?.GetAttributeValue("definition"), out var customOperator))
+            if (CustomOperators.TryGetValue(element?.GetAttributeValue("definition"), out var customOperator))
             {
                 context.LogInformation($"Processing {customOperator.Definition}");
                 return customOperator;
@@ -93,7 +99,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
 
         public IResponseProcessingOperator GetExecutor(XElement element, ResponseProcessorContext context)
         {
-            if (Executors == null)
+            if (Operators == null)
             {
                 var type = typeof(IResponseProcessingOperator);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
@@ -101,9 +107,9 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
                 var instances = types.Select(t => (IResponseProcessingOperator)Activator.CreateInstance(t));
 
-                Executors = instances.ToDictionary(t => t.Name, t => t);
+                Operators = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Executors.TryGetValue(element?.Name.LocalName, out var executor))
+            if (Operators.TryGetValue(element?.Name.LocalName, out var executor))
             {
                 context.LogInformation($"Processing {executor.Name}");
                 return executor;
