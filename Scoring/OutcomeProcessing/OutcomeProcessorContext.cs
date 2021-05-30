@@ -33,7 +33,7 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
             TestResult = assessmentResult.TestResults[assessmentTest.Identifier];
         }
 
-        public IOutcomeProcessingOperator GetExecutor(XElement element, OutcomeProcessorContext context)
+        public IOutcomeProcessingOperator GetOperator(XElement element, OutcomeProcessorContext context)
         {
             if (Operators == null)
             {
@@ -54,7 +54,7 @@ namespace Citolab.QTI.Scoring.OutcomeProcessing
             return null;
         }
 
-        public IOutcomeProcessingExpression GetCalculator(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
+        public IOutcomeProcessingExpression GetExpression(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (Expressions == null)
             {

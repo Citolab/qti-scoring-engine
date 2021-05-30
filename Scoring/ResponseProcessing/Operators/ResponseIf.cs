@@ -15,7 +15,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var firstChild = qtiElement.Elements().FirstOrDefault();
-            var conditionExecutor = context.GetExecutor(firstChild, context);
+            var conditionExecutor = context.GetOperator(firstChild, context);
             var result = conditionExecutor != null && conditionExecutor.Execute(firstChild, context);
             if (result == true)
             {
@@ -23,7 +23,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
                 var maxLoops = otherChilds.Count() >= 100 ? 100 : otherChilds.Count();
                 foreach (var otherChild in otherChilds.Take(maxLoops))
                 {
-                    var childExecutor = context.GetExecutor(otherChild, context);
+                    var childExecutor = context.GetOperator(otherChild, context);
                     childExecutor.Execute(otherChild, context);
                 }
                 return true;

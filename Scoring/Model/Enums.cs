@@ -43,6 +43,10 @@ namespace Citolab.QTI.Scoring.Model
                     {
                         return "multiple";
                     }
+                case Cardinality.Ordered:
+                    {
+                        return "ordered";
+                    }
             }
             return "single";
         }
@@ -108,6 +112,10 @@ namespace Citolab.QTI.Scoring.Model
                     {
                         return Cardinality.Multiple;
                     }
+                case "ordered":
+                    {
+                        return Cardinality.Ordered;
+                    }
             }
             return Cardinality.Single;
         }
@@ -117,7 +125,8 @@ namespace Citolab.QTI.Scoring.Model
     internal enum Cardinality
     {
         Single,
-        Multiple
+        Multiple,
+        Ordered
     }
 
     public enum QtiVersion

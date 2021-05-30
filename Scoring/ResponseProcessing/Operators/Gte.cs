@@ -26,7 +26,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
             }
             if (values[0].BaseType != values[1].BaseType)
             {
-                context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]}");
+                context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1].BaseType.GetString()}");
             }
             switch (values[0].BaseType)
             {

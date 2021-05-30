@@ -14,37 +14,49 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
 {
     internal static class Helper
     {
-        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, IContextLogger logContext)
+        public static bool CompareTwoChildren(BaseValue value1, BaseValue value2, IContextLogger logContext)
         {
+            if (value1.Values == null || value2.Values == null)
             {
-                switch (baseType)
-                {
-                    case BaseType.Identifier: return value1 == value2;
-                    case BaseType.String: return value1 == value2;
-                    case BaseType.Int:
+                return CompareSingle(value1.Value, value2.Value, value2.BaseType, logContext);
+            }
+            else
+            {
+
+            }
+            return false;
+        }
+
+        private static bool CompareSingle(string value1, string value2, BaseType baseType, IContextLogger logContext)
+        {
+            switch (baseType)
+            {
+                case BaseType.Identifier: return value1 == value2;
+                case BaseType.String: return value1 == value2;
+                case BaseType.Int:
+                    {
+                        if (value1.TryParseInt(out var int1) && value2.TryParseInt(out var int2))
                         {
-                            if (value1.TryParseInt(out var int1) && value2.TryParseInt(out var int2))
-                            {
-                                return int1 == int2;
-                            }
-                            else
-                            {
-                                logContext.LogError($"Cannot convert {value1} and/or {value2} to int.");
-                            }
-                            break;
+                            return int1 == int2;
                         }
-                    case BaseType.Float:
+                        else
                         {
-                            if (value1.TryParseFloat( out var float1) && value2.TryParseFloat(out var float2))
-                            {
-                                return float1 == float2;
-                            } else
-                            {
-                                logContext.LogError($"couldn't convert {value1} and/or {value2} to float.");
-                            }
-                            break;
+                            logContext.LogError($"Cannot convert {value1} and/or {value2} to int.");
                         }
-                }
+                        break;
+                    }
+                case BaseType.Float:
+                    {
+                        if (value1.TryParseFloat(out var float1) && value2.TryParseFloat(out var float2))
+                        {
+                            return float1 == float2;
+                        }
+                        else
+                        {
+                            logContext.LogError($"couldn't convert {value1} and/or {value2} to float.");
+                        }
+                        break;
+                    }
             }
             return false;
         }
@@ -85,7 +97,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             return context.AssessmentItem.OutcomeDeclarations[id];
         }
 
-        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
+        public static (BaseValue value1, BaseValue value2)? PrepareForCompare(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
         {
             var values = qtiElement.GetValues(context);
             context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value != null).Select(v => v.Value).ToArray())}");
@@ -101,11 +113,11 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             if (values.Count != 2)
             {
                 context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
-                return false;
+                return null;
             }
             if (values[0] == null || values[1] == null)
             {
-                return false; // return false if one of the values is null
+                return null; // return false if one of the values is null
             }
             if (forceBaseType != null)
             {
@@ -116,18 +128,64 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             {
                 context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
             }
-            var equals = CompareTwoChildren(values[0].Value, values[1].Value, values[1].BaseType, context);
-            return equals;
+            return (values[0], values[1]);
+        }
+
+        public static bool CompareTwoValues(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
+        {
+            var values = PrepareForCompare(qtiElement, context, forceBaseType);
+            if (values == null)
+            {
+                return false;
+            }
+            else
+            {
+                return CompareTwoChildren(values.Value.value1, values.Value.value2, context);
+            }
+        }
+
+        public static bool ValueIsMemberOf(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
+        {
+            var values = PrepareForCompare(qtiElement, context, forceBaseType);
+            if (values == null)
+            {
+                return false;
+            }
+            else
+            {
+                var values2 = values.Value.value2;
+                // values is not set correct. somehow
+                var possibleMatches = values2.Values == null ?
+                    new List<BaseValue> { values2 } :
+                    values2.Values.Select(value =>
+                    {
+                        return new BaseValue
+                        {
+                            BaseType = values2.BaseType,
+                            Identifier = values2.Identifier,
+                            Value = value
+                        };
+                    }).ToList();
+                foreach (var possibleMatch in possibleMatches)
+                {
+                    var isMatch = CompareTwoChildren(values.Value.value1, possibleMatch, context); 
+                    if (isMatch)
+                    {
+                        return true;
+                    }
+                };
+                return false;
+            }
         }
 
         internal static void GetCustomOperators(XElement qtiElement, List<ICustomOperator> customOperators, ResponseProcessorContext context)
         {
-            if (qtiElement != null && qtiElement.Parent != null && 
+            if (qtiElement != null && qtiElement.Parent != null &&
                 qtiElement.Parent.Name.LocalName.Equals("customOperator", StringComparison.InvariantCultureIgnoreCase))
             {
                 var definition = qtiElement.Parent.GetAttributeValue("definition");
-                var customOperator = context.GetOperator(qtiElement.Parent, context);
-                if (customOperator!=null)
+                var customOperator = context.GetCustomOperator(qtiElement.Parent, context);
+                if (customOperator != null)
                 {
                     customOperators.Insert(0, context.CustomOperators[definition]);
                     GetCustomOperators(qtiElement.Parent, customOperators, context);

@@ -4,7 +4,7 @@
     <correctResponse>
       <value><![CDATA[B]]></value>
     </correctResponse>
-    <mapping defaultValue="0" lowerBound="0" upperBound="1">
+    <mapping defaultValue="0" lowerBound="0" upperBound="2">
       <mapEntry mapKey="B" mappedValue="1"/>
       <mapEntry mapKey="C" mappedValue="2"/>
     </mapping>

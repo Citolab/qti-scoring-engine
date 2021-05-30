@@ -51,6 +51,20 @@ namespace Citolab.QTI.Scoring.Helper
         internal static string Identifier(this XElement element) =>
             element.GetAttributeValue("identifier");
 
+        private static BaseValue GetBaseValue(this XElement qtiElement)
+        {
+            if (qtiElement.Name.LocalName == "baseValue")
+            {
+                return new BaseValue()
+                {
+                    BaseType = qtiElement.GetAttributeValue("baseType").ToBaseType(),
+                    Value = qtiElement.Value.RemoveXData(),
+                    Identifier = qtiElement.Identifier()
+                };
+            }
+            return null;
+        }
+
         private static IList<BaseValue> GetBaseValues(this XElement qtiElement)
         {
             var baseValues = qtiElement.FindElementsByName("baseValue")
@@ -66,10 +80,7 @@ namespace Citolab.QTI.Scoring.Helper
             return baseValues;
         }
 
-        private static IList<BaseValue> GetOutcomeVariables(this XElement qtiElement, Dictionary<string, OutcomeVariable> outcomeVariables)
-        {
-            return qtiElement.GetOutcomeVariables(outcomeVariables, null);
-        }
+        // TODO: Remove should use GetOutcomeVariable;
         private static IList<BaseValue> GetOutcomeVariables(this XElement qtiElement, Dictionary<string, OutcomeVariable> outcomeVariables, AssessmentItem assessmentItem)
         {
             var variables = qtiElement.FindElementsByName("variable")
@@ -108,23 +119,64 @@ namespace Citolab.QTI.Scoring.Helper
             return new BaseValue { BaseType = outcomeVariable.BaseType, Value = outcomeVariable.Value.ToString(), Identifier = outcomeVariable.Identifier };
         }
 
-        private static IList<BaseValue> GetResponseVariables(this XElement qtiElement, ResponseProcessorContext context)
+        private static BaseValue GetCorrect(this XElement qtiElement, ResponseProcessorContext context)
         {
-            var variables = qtiElement.FindElementsByName("variable")
-              .Select(childElement =>
-              {
-                  var identifier = childElement.Identifier();
-                  if (context.ItemResult?.ResponseVariables != null && context.ItemResult.ResponseVariables.ContainsKey(identifier))
-                  {
-                      var responseVariable = context.ItemResult.ResponseVariables[identifier];
-                      return new BaseValue { BaseType = responseVariable.BaseType, Value = responseVariable.Value, Identifier = identifier };
-                  }
-                  return null;
-              })
-              .Where(v => v != null)
-              .ToList();
-            return variables;
+            if (qtiElement.Name.LocalName == "correct")
+            {
+                var identifier = qtiElement.Identifier();
+                if (context.AssessmentItem.ResponseDeclarations.ContainsKey(identifier))
+                {
+
+                    var dec = context.AssessmentItem.ResponseDeclarations[identifier];
+                    if (string.IsNullOrWhiteSpace(dec.CorrectResponse))
+                    {
+                        context.LogError($"Correct: {identifier} references to a response without correctResponse");
+                        return null;
+                    }
+                    return new BaseValue { Identifier = identifier, BaseType = dec.BaseType, Value = dec.CorrectResponse, Values = dec.CorrectResponses };
+                }
+                else
+                {
+                    context.LogError($"Cannot reference to response declaration for correct {identifier}");
+                }
+            }
+            return null;
         }
+
+        private static BaseValue GetVariable(this XElement qtiElement, ResponseProcessorContext context)
+        {
+            if (qtiElement.Name.LocalName == "variable")
+            {
+                var identifier = qtiElement.Identifier();
+                if (context.ItemResult?.ResponseVariables != null && context.ItemResult.ResponseVariables.ContainsKey(identifier))
+                {
+                    var responseVariable = context.ItemResult.ResponseVariables[identifier];
+                    var cardinality = Cardinality.Single;
+                    if (context.AssessmentItem.ResponseDeclarations.ContainsKey(identifier))
+                    {
+                        cardinality = context.AssessmentItem.ResponseDeclarations[identifier].Cardinality;
+                    }
+                    return new BaseValue
+                    {
+                        BaseType = responseVariable.BaseType,
+                        Value = cardinality == Cardinality.Single ? responseVariable.Value : "",
+                        Values = cardinality != Cardinality.Single ? responseVariable.Values : null,
+                        Identifier = identifier
+                    };
+                }
+                else
+                {
+                    var outcomeVariables = context.ItemResult?.OutcomeVariables;
+                    if (outcomeVariables != null && outcomeVariables.ContainsKey(identifier))
+                    {
+                        return outcomeVariables[identifier].ToBaseValue();
+                    }
+                }
+            }
+            return null;
+        }
+
+
 
         internal static IList<BaseValue> GetValues(this XElement qtiElement, OutcomeProcessorContext context)
         {
@@ -182,7 +234,7 @@ namespace Citolab.QTI.Scoring.Helper
                     .ToDictionary(x => x.Key, x => x.Value);
 
             var baseValues = qtiElement.GetBaseValues();
-            var variables = qtiElement.GetOutcomeVariables(allOutcomes);
+            var variables = qtiElement.GetOutcomeVariables(allOutcomes, null);
 
             var testVariables = qtiElement.FindElementsByName("testVariables")
                 .Select(testVariableElement =>
@@ -242,7 +294,7 @@ namespace Citolab.QTI.Scoring.Helper
                                         Identifier = outcome.Identifier,
                                         Value = floatValue * assesmentItemRef.Weights[weightIdentifier]
                                     };
-                                } 
+                                }
                             }
                             else
                             {
@@ -277,80 +329,41 @@ namespace Citolab.QTI.Scoring.Helper
 
         internal static IList<BaseValue> GetValues(this XElement qtiElement, ResponseProcessorContext context)
         {
-            // List all element to be able to return them in the orginal order
-            var valueElements = qtiElement.Descendants().Where(element =>
-            {
-                return element.Name.LocalName == "baseValue" ||
-                 element.Name.LocalName == "variable" ||
-                 element.Name.LocalName == "correct";
-            }).Select(element =>
-            {
-                var customOperators = new List<ICustomOperator>();
-                ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
-                return new
-                {
-                    Id = element.GetAttributeValue("identifier"),
-                    element.Value,
-                    CustomOperators = customOperators
-                };
-            })
-            .ToList();
+            return qtiElement.Descendants().Where(element =>
+             {
+                 return element.Name.LocalName == "baseValue" ||
+                  element.Name.LocalName == "variable" ||
+                  element.Name.LocalName == "correct";
+             }).Select(element =>
+             {
+                 var customOperators = new List<ICustomOperator>();
+                 ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
+                 BaseValue value = element.Name.LocalName == "baseValue" ?
+                     element.GetBaseValue() :
+                         element.Name.LocalName == "variable" ?
+                             element.GetVariable(context) : element.Name.LocalName == "correct" ?
+                                 element.GetCorrect(context) : null;
 
-            var baseValues = qtiElement.GetBaseValues();
-            var outcomeVariables = context.ItemResult?.OutcomeVariables;
-            var variables = qtiElement
-                .GetOutcomeVariables(outcomeVariables, context.AssessmentItem)
-                .Concat(qtiElement.GetResponseVariables(context));
-
-            var correct = qtiElement.FindElementsByName("correct")
-            .Select(childElement =>
-            {
-                var identifier = childElement.Identifier();
-                if (context.AssessmentItem.ResponseDeclarations.ContainsKey(identifier))
-                {
-
-                    var dec = context.AssessmentItem.ResponseDeclarations[identifier];
-                    if (string.IsNullOrWhiteSpace(dec.CorrectResponse))
-                    {
-                        context.LogError($"Correct: {identifier} references to a response without correctResponse");
-                        return null;
-                    }
-                    return new BaseValue { BaseType = dec.BaseType, Value = dec.CorrectResponse };
-                }
-                else
-                {
-                    context.LogError($"Cannot reference to response declaration for correct {identifier}");
-                    return null;
-                }
-            })
-            .Where(v => v != null)
-            .ToList();
-            return valueElements.Select(v =>
-            {
-                BaseValue value = null;
-                if (string.IsNullOrEmpty(v.Id))
-                {
-                    value = baseValues.FirstOrDefault(b => b.Value == v.Value);
-                }
-                var variable = variables.FirstOrDefault(var1 => var1.Identifier == v.Id);
-                if (variable != null)
-                {
-                    value = variable;
-                }
-                var cor = correct.FirstOrDefault(c => c.Identifier == v.Id);
-                if (cor != null)
-                {
-                    value = cor;
-                }
-                if (value != null && v.CustomOperators.Any())
-                {
-                    foreach (var customOperator in v.CustomOperators)
-                    {
-                        value = customOperator.Apply(value);
-                    }
-                }
-                return value;
-            }).ToList();
+                 return new
+                 {
+                     Value = value,
+                     CustomOperators = customOperators
+                 };
+             })
+             .Where(v => v?.Value != null)
+             .Select(v =>
+             {
+                 var newValue = v.Value;
+                 if (v.CustomOperators.Any())
+                 {
+                     foreach (var customOperator in v.CustomOperators)
+                     {
+                         newValue = customOperator.Apply(v.Value);
+                     }
+                 }
+                 return newValue;
+             })
+             .ToList();
         }
 
         internal static bool TryParseFloat(this string value, out Single result)

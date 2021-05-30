@@ -15,7 +15,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
 
         bool IResponseProcessingOperator.Execute(XElement qtiElement, ResponseProcessorContext context)
         {
-            return Helper.CompareTwoValues(qtiElement, context);
+            return Helper.ValueIsMemberOf(qtiElement, context);
         }
     }
 }

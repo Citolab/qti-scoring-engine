@@ -23,7 +23,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
         public ItemResult ItemResult { get; set; }
         public Dictionary<string, IResponseProcessingOperator> Operators;
         public Dictionary<string, IResponseProcessingExpression> Expressions;
-        public Dictionary<string, ICustomOperator> CustomOperators;
+        public Dictionary<string, ICustomOperator> CustomOperators = new Dictionary<string, ICustomOperator>();
         internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, List<ICustomOperator> customOperators)
         {
             _logger = logger;
@@ -42,7 +42,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             }
         }
 
-        public IResponseProcessingExpression GetCalculator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
+        public IResponseProcessingExpression GetExpression(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (Expressions == null)
             {
@@ -61,12 +61,12 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             }
             if (logErrorIfNotFound)
             {
-                context.LogError($"Cannot find calculator for tag-name:{element?.Name.LocalName}");
+                context.LogError($"Cannot find expression for tag-name:{element?.Name.LocalName}");
             }
             return null;
         }
 
-        public ICustomOperator GetOperator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
+        public ICustomOperator GetCustomOperator(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
             if (_initOperators == false)
             {
@@ -97,7 +97,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             return null;
         }
 
-        public IResponseProcessingOperator GetExecutor(XElement element, ResponseProcessorContext context)
+        public IResponseProcessingOperator GetOperator(XElement element, ResponseProcessorContext context)
         {
             if (Operators == null)
             {

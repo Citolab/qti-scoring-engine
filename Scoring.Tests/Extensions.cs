@@ -146,7 +146,7 @@ namespace Citolab.QTI.Scoring.Tests
 
         internal static XElement GetElementWithValue(this ResponseIf _, bool result, string value, string identifier)
         {
-            var gte1 = result ? 1 : 0 ;
+            var gte1 = result ? 1 : 0;
             return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
         }
 
@@ -204,6 +204,10 @@ namespace Citolab.QTI.Scoring.Tests
 
         internal static AssessmentResult AddCandidateResponse(this AssessmentResult assessmentResult, string itemIdentifer, string responseIdentifer, string value, BaseType baseType, Cardinality cardinality)
         {
+            return AddCandidateResponses(assessmentResult, itemIdentifer, responseIdentifer, new List<string> { value }, baseType, cardinality);
+        }
+        internal static AssessmentResult AddCandidateResponses(this AssessmentResult assessmentResult, string itemIdentifer, string responseIdentifer, List<string> values, BaseType baseType, Cardinality cardinality)
+        {
             if (!assessmentResult.ItemResults.ContainsKey(itemIdentifer))
             {
                 assessmentResult.ItemResults.Add(itemIdentifer, new ItemResult { Identifier = itemIdentifer });
@@ -211,10 +215,25 @@ namespace Citolab.QTI.Scoring.Tests
             var itemResult = assessmentResult.ItemResults[itemIdentifer];
             if (!itemResult.ResponseVariables.ContainsKey(responseIdentifer))
             {
-                itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Value = value });
-            } else
+                if (cardinality == Cardinality.Single)
+                {
+                    itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Value = values.FirstOrDefault() });
+                } else
+                {
+                    itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Values = values });
+                }
+               
+            }
+            else
             {
-                itemResult.ResponseVariables[responseIdentifer].Value = value;
+                if (values.Count == 1)
+                {
+                    itemResult.ResponseVariables[responseIdentifer].Value = values.FirstOrDefault();
+                } else
+                {
+                    itemResult.ResponseVariables[responseIdentifer].Values = values;
+                }
+                    
             }
             var itemResultElement = assessmentResult.FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifer).FirstOrDefault();
             if (itemResultElement != null)
@@ -222,7 +241,18 @@ namespace Citolab.QTI.Scoring.Tests
                 itemResultElement.Remove();
             }
             itemResultElement = itemResult.ToElement();
-            itemResultElement.Add(XElement.Parse($@"<candidateResponse><value>{value}</value></candidateResponse>"));
+            var responseVariable = itemResultElement.FindElementsByElementAndAttributeValue("responseVariable", "identifier", responseIdentifer).FirstOrDefault();
+            if (responseVariable == null)
+            {
+                responseVariable = XElement.Parse($@"<responseVariable identifier=""{responseIdentifer}"" cardinality=""{cardinality.GetString()}"" baseType=""{baseType.GetString()}""></responseVariable>");
+                itemResultElement.Add(responseVariable);
+            }
+            var candidateResponseElement = XElement.Parse($@"<candidateResponse></candidateResponse>");
+            foreach (var value in values)
+            {
+                candidateResponseElement.Add(XElement.Parse($@"<value>{value}</value>"));
+            }
+            responseVariable.Add(candidateResponseElement);
             assessmentResult.Root.Add(itemResultElement);
             return assessmentResult;
         }

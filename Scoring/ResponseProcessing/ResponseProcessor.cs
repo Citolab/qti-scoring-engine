@@ -36,8 +36,8 @@ namespace Citolab.QTI.Scoring.ResponseProcessing
             {
                 foreach (var responseProcessingChild in assessmentItem.ResponseProcessingElement.Elements())
                 {
-                    var executor = context.GetExecutor(responseProcessingChild, context);
-                    executor?.Execute(responseProcessingChild, context);
+                    var qtiOperator = context.GetOperator(responseProcessingChild, context);
+                    qtiOperator?.Execute(responseProcessingChild, context);
                 }
                 assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {

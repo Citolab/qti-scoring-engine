@@ -23,7 +23,7 @@ namespace Citolab.QTI.Scoring.Tests.ResponseProcessingTests
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50069.xml")));
 
-            
+
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
@@ -42,7 +42,7 @@ namespace Citolab.QTI.Scoring.Tests.ResponseProcessingTests
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\ITM-50066_Multiple_Keys.xml")));
 
             // A = correct
-            
+
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
             var scoreA = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
             // B = incorrect
@@ -61,6 +61,35 @@ namespace Citolab.QTI.Scoring.Tests.ResponseProcessingTests
         }
 
 
+        public class ChoiceInterationImsSiteTest
+        {
+            [Fact]
+            public void ChoiceInteractionResponseProcessingDictotoom()
+            {
+                var logger = new Mock<ILogger>().Object;
+
+                var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\IMS-examples\\choice.xml")));
+                var assessmentResult = TestHelper.GetBasicAssessmentResult();
+                assessmentResult.AddCandidateResponse(assessmentItem.Identifier, "RESPONSE", "ChoiceA", BaseType.Identifier, Cardinality.Single);
+
+
+                ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+                var scoreValueA = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+
+                assessmentResult.ChangeResponse(assessmentItem.Identifier, "RESPONSE", "ChoiceB");
+                ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+                var scoreValueB = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+
+                assessmentResult.ChangeResponse(assessmentItem.Identifier, "RESPONSE", "ChoiceC");
+                ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+                var scoreValueC = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+
+                Assert.Equal("1", scoreValueA);
+                Assert.Equal("0", scoreValueB);
+                Assert.Equal("0", scoreValueC);
+            }
+        }
 
     }
 }

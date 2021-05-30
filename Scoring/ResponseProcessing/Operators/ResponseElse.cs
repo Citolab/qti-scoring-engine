@@ -18,7 +18,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
             var maxLoops = elements.Count() >= 100 ? 100 : elements.Count();
             foreach (var child in qtiElement.Elements().Take(maxLoops)) // get a max value to
             {
-                var childExecutor = context.GetExecutor(child, context);
+                var childExecutor = context.GetOperator(child, context);
                 childExecutor.Execute(child, context);
             }
             return true;

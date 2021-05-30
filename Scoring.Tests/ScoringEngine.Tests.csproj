@@ -114,10 +114,10 @@
     <None Update="Resources\imsmanifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\choice.xml">
+    <None Update="Resources\ResponseProcessing\IMS-examples\choice.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\choice_multiple.xml">
+    <None Update="Resources\ResponseProcessing\IMS-examples\choice_multiple.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ResponseProcessing\customOperators.xml">

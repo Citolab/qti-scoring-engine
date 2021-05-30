@@ -38,16 +38,16 @@ namespace Citolab.QTI.Scoring.Tests.ResponseProcessingTests.ScoringTypes
             
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
-            var scoreValueA = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
+            var scoreValueA = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
 
             // change the response
-            assessmentResult.ChangeResponse("ITM-50069", "RESPONSE", "B");
+            assessmentResult.ChangeResponse(assessmentItem.Identifier, "RESPONSE", "B");
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
-            var scoreValueB = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
+            var scoreValueB = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
 
-            assessmentResult.ChangeResponse("ITM-50069", "RESPONSE", "C");
+            assessmentResult.ChangeResponse(assessmentItem.Identifier, "RESPONSE", "C");
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
-            var scoreValueC = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
+            var scoreValueC = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
 
             Assert.Equal("0", scoreValueA);
             Assert.Equal("1", scoreValueB);

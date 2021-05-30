@@ -16,26 +16,42 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Expressions
 
         public float Calculate(XElement qtiElement, ResponseProcessorContext context)
         {
-            // TODO lower bound and upperbound if response contains multiple value when cardinality = multiple
             var identifier = qtiElement.Identifier();
             if (context.AssessmentItem.ResponseDeclarations.ContainsKey(identifier) &&
                context.ItemResult.ResponseVariables.ContainsKey(identifier))
             {
                 var responseVariable = context.ItemResult.ResponseVariables[identifier];
+                var values = responseVariable.Values;
+                if (responseVariable.Cardinality == Cardinality.Single)
+                {
+                    values = new List<string> { responseVariable.Value };
+                }
                 var responseDeclaration = context.AssessmentItem.ResponseDeclarations[identifier];
                 if (responseDeclaration.Mapping != null)
                 {
-                    var mappedValue = responseDeclaration.Mapping.MapEntries.FirstOrDefault(m => m.MapKey == responseVariable.Value);
-                    if (mappedValue == null)
+       
+                    var value = 0.0F;
+                    foreach(var candidateValue in values)
                     {
-                        return responseDeclaration.Mapping.DefaultValue;
+                        var mappedValue = responseDeclaration.Mapping.MapEntries.FirstOrDefault(m => m.MapKey == candidateValue);
+                        if (mappedValue == null)
+                        {
+                            value += responseDeclaration.Mapping.DefaultValue;
+                        }
+                        else
+                        {
+                            value += mappedValue.MappedValue;
+                        }
                     }
-                    else
+                    if (responseDeclaration.Mapping.LowerBound.HasValue)
                     {
-                        var value = mappedValue.MappedValue;
-   
-                        return value;
+                        value = Math.Max(responseDeclaration.Mapping.LowerBound.Value, value);
                     }
+                    if (responseDeclaration.Mapping.UpperBound.HasValue)
+                    {
+                        value = Math.Min(responseDeclaration.Mapping.UpperBound.Value, value);
+                    }
+                    return value;
                 }
                 else
                 {

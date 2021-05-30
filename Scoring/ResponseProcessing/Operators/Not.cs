@@ -26,7 +26,7 @@ namespace Citolab.QTI.Scoring.ResponseProcessing.Operators
                 context.LogError("Not element should contain only one child");
                 return true;
             }
-            var executor = context.GetExecutor(elements.FirstOrDefault(), context);
+            var executor = context.GetOperator(elements.FirstOrDefault(), context);
             var result = executor?.Execute(elements.FirstOrDefault(), context);
             return !(result.HasValue && result.Value);
         }
