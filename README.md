@@ -49,7 +49,6 @@ The provided context contains:
 
 - ```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse. For outcomeProcessing it should contain outcomeVariables.
 - ```ILogger Logger``` (optional): logs the processing steps as informational and log warnings and errors. 
-- ```bool? ProcessParallel```: for bulk processing it can process assessmentResults in parallel. (default: false)
 
 For responseProcessing the context extends the following properties:
 

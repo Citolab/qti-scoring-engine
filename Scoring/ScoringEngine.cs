@@ -29,16 +29,16 @@ namespace Citolab.QTI.Scoring
                 ctx.Logger = ctx.Logger = new NullLogger<ScoringEngine>();
             }
             var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest);
-            if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
-            {
-                Parallel.ForEach(ctx.AssessmentmentResults,
-                    assessmentResultDoc => AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger));
-            }
-            else
-            {
+            //if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
+            //{
+            //    Parallel.ForEach(ctx.AssessmentmentResults,
+            //        assessmentResultDoc => AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger));
+            //}
+            //else
+            //{
                 ctx.AssessmentmentResults.ForEach(
                     assessmentResultDoc => AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger));
-            }
+            //}
             return ctx.AssessmentmentResults;
         }
 
@@ -59,16 +59,16 @@ namespace Citolab.QTI.Scoring
             var assessmentItems = ctx.AssessmentItems
                 .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc))
                 .ToList();
-            if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
-            {
-                Parallel.ForEach(ctx.AssessmentmentResults,
-                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
-            }
-            else
-            {
+            //if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
+            //{
+            //    Parallel.ForEach(ctx.AssessmentmentResults,
+            //        assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
+            //}
+            //else
+            //{
                 ctx.AssessmentmentResults.ForEach(
                     assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
-            }
+            //}
             return ctx.AssessmentmentResults;
         }
 

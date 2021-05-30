@@ -24,6 +24,6 @@ namespace Citolab.QTI.Scoring.Interfaces
         List<XDocument> AssessmentmentResults { get; set; }
         ILogger Logger { get; set; }
 
-        bool? ProcessParallel { get; set; }
+        //bool? ProcessParallel { get; set; }
     }
 }
