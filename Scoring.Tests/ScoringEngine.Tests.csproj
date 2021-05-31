@@ -30,7 +30,7 @@
     <None Remove="Resources\ResponseProcessing\112505-MR.xml" />
     <None Remove="Resources\ResponseProcessing\210091-customOperator.xml" />
     <None Remove="Resources\ResponseProcessing\210091.xml" />
-    <None Remove="Resources\ResponseProcessing\assessmentResult_Add_OutcomeVariable.xml" />
+    <None Remove="Resources\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
     <None Remove="Resources\ResponseProcessing\AssessmentResult_Interpolation.xml" />
     <None Remove="Resources\ResponseProcessing\AssessmentResult_Mapping_A.xml" />
     <None Remove="Resources\ResponseProcessing\assessmentResult_Multiple_Responses_01.xml" />
@@ -130,7 +130,7 @@
     <EmbeddedResource Include="Resources\ResponseProcessing\210091.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\assessmentResult_Add_OutcomeVariable.xml">
+    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Interpolation.xml">
