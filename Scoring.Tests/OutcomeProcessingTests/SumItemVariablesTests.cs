@@ -20,7 +20,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         public void Outcome_All_Correct()
         {
             //arrange - act
-            var assessmentResult = TestHelper.StartOutcomeProcessing("Test_Toets2", "AssessmentResult_Correct");
+            var assessmentResult = TestHelper.StartOutcomeProcessing("Test_toets2", "AssessmentResult_Correct");
             //assert
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE"));
         }

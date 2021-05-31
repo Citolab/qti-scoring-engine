@@ -61,7 +61,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/assessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-50066.xml")));
 
             
@@ -85,8 +85,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-50066_No_Correct_Response.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/assessmentResult_Add_OutcomeVariable.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-50066_No_correct_response.xml")));
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);

@@ -20,7 +20,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/assessmentResult_Add_OutcomeVariable.xml")));
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-50069.xml")));
 
 
