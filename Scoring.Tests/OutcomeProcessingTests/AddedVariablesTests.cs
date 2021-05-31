@@ -23,7 +23,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         [Fact]
         public void OutcomeProcessing_Category_Scoring_Multiple_Categories()
         {
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "assessmentResult_Add_OutcomeVariable");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "assessmentResult_Add_OutcomeVariable");
 
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));
             Assert.Equal("6", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));
@@ -40,7 +40,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         public void OutcomeProcessing_Without_Weights()
         {
             var mockLogger = new Mock<ILogger>();
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_without_weights", "assessmentResult_Add_OutcomeVariable", mockLogger);
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets_without_weights", "assessmentResult_Add_OutcomeVariable", mockLogger);
 
             // missing weight identifier must be logged as a warning
             mockLogger.VerifyLog((state, t) => state.ContainsValue("Cannot find weight with identifier: WEIGHT from item: ITM-SN02945.SCORE"), LogLevel.Warning, 3);
@@ -70,7 +70,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         {
             //arrange
             var nameOfUnusedCategory = "_8072";
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_with_unused_category", "assessmentResult_Add_OutcomeVariable");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets_with_unused_category", "assessmentResult_Add_OutcomeVariable");
 
             var categoryScoreValue = assessmentResult.GetScoreForTest("TST-Test_toets", $"SCORE_TOTAL_{nameOfUnusedCategory}");
             var categoryWeightedScoreValue = assessmentResult.GetScoreForTest("TST-Test_toets", $"SCORE_TOTAL_WEIGHTED_{nameOfUnusedCategory}");
