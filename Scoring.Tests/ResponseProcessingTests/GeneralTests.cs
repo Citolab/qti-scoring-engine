@@ -135,5 +135,107 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             //No outcome identifier could be found for the raw score to use with interpolation.
             mockLogger.VerifyLog((state, t) => state.ContainsValue("No outcome identifier could be found for the raw score to use with interpolation."), LogLevel.Error, 1);
         }
+
+
+        [Fact]
+        public void Test_Match_With_Cardinality_Multiple_Correct()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-Cardinality-Multiple.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DriverA",
+                    "DriverB",
+                    "DriverC",}
+                , BaseType.Identifier, Cardinality.Multiple);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
+
+        [Fact]
+        public void Test_Match_With_Cardinality_Multiple_Correct2()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-Cardinality-Multiple.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                     "DriverC",
+                    "DriverA",
+                    "DriverB"}
+                , BaseType.Identifier, Cardinality.Multiple);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
+
+        [Fact]
+        public void Test_Match_With_Cardinality_Multiple_Incorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-Cardinality-Multiple.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DriverA",
+                    "DriverA",
+                    "DriverC",}
+                , BaseType.Identifier, Cardinality.Multiple);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", result);
+        }
+
+        [Fact]
+        public void Test_Match_With_Cardinality_Multiple_Incorrect3()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-Cardinality-Multiple.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+
+                    "DriverC",}
+                , BaseType.Identifier, Cardinality.Multiple);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", result);
+        }
+        [Fact]
+        public void Test_Match_With_Cardinality_Multiple_Incorrect2()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/ITM-Cardinality-Multiple.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+
+                    "DriverC",
+                "DriverC",
+                "DriverA",
+                "DriverB",
+                "DriverC"}
+                , BaseType.Identifier, Cardinality.Multiple);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", result);
+        }
     }
 }

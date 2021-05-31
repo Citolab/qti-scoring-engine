@@ -14,17 +14,9 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class Helper
     {
-        public static bool CompareTwoChildren(BaseValue value1, BaseValue value2, IContextLogger logContext)
+        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, IContextLogger logContext)
         {
-            if (value1.Values == null || value2.Values == null)
-            {
-                return CompareSingle(value1.Value, value2.Value, value2.BaseType, logContext);
-            }
-            else
-            {
-
-            }
-            return false;
+            return CompareSingle(value1, value2, baseType, logContext);
         }
 
         private static bool CompareSingle(string value1, string value2, BaseType baseType, IContextLogger logContext)
@@ -140,8 +132,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             }
             else
             {
-                return CompareTwoChildren(values.Value.value1, values.Value.value2, context);
+                return CompareTwoChildren(values.Value.value1?.Value, values.Value.value2.Value, values.Value.value2.BaseType, context);
             }
+        }
+
+        public static bool CompareTwoValues(BaseValue value1, BaseValue value2, Cardinality cardinality, ResponseProcessorContext context)
+        {
+            return CompareTwoChildren(value1?.Value, value2.Value, value2.BaseType, context);
         }
 
         public static bool ValueIsMemberOf(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
@@ -168,7 +165,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                     }).ToList();
                 foreach (var possibleMatch in possibleMatches)
                 {
-                    var isMatch = CompareTwoChildren(values.Value.value1, possibleMatch, context); 
+                    var isMatch = CompareTwoChildren(values.Value.value1?.Value, possibleMatch.Value, possibleMatch.BaseType, context);
                     if (isMatch)
                     {
                         return true;
