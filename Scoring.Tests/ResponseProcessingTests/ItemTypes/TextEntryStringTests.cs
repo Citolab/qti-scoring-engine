@@ -76,14 +76,14 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             Assert.Equal("1", scoreValue);
         }
 
-        //customOperators
+        //CustomOperators
         [Fact]
         public void TextEntryCustomOperatorAsciiCorrect()
         {
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/customOperators.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/CustomOperators.xml")));
             assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", "tést", BaseType.String, Cardinality.Single);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -98,7 +98,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/customOperators.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/CustomOperators.xml")));
             assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", "tḝst", BaseType.String, Cardinality.Single);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -113,7 +113,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/customOperators.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/CustomOperators.xml")));
             assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", " tḝst ", BaseType.String, Cardinality.Single);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -128,7 +128,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/customOperators.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/CustomOperators.xml")));
             assessmentResult.AddCandidateResponse("ITM-1", "RESPONSE", " fout ", BaseType.String, Cardinality.Single);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);

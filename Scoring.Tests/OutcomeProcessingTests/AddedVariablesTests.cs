@@ -40,7 +40,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         public void OutcomeProcessing_Without_Weights()
         {
             var mockLogger = new Mock<ILogger>();
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets_without_weights", "AssessmentResult_Add_OutcomeVariable", mockLogger);
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_Without_Weights", "AssessmentResult_Add_OutcomeVariable", mockLogger);
 
             // missing weight identifier must be logged as a warning
             mockLogger.VerifyLog((state, t) => state.ContainsValue("Cannot find weight with identifier: WEIGHT from item: ITM-SN02945.SCORE"), LogLevel.Warning, 3);
@@ -70,7 +70,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         {
             //arrange
             var nameOfUnusedCategory = "_8072";
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets_with_unused_category", "AssessmentResult_Add_OutcomeVariable");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_With_Unused_Category", "AssessmentResult_Add_OutcomeVariable");
 
             var categoryScoreValue = assessmentResult.GetScoreForTest("TST-Test_toets", $"SCORE_TOTAL_{nameOfUnusedCategory}");
             var categoryWeightedScoreValue = assessmentResult.GetScoreForTest("TST-Test_toets", $"SCORE_TOTAL_WEIGHTED_{nameOfUnusedCategory}");
@@ -87,7 +87,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         public void OutcomeProcessing_Invalid_ItemRef()
         {
             var mockLogger = new Mock<ILogger>();
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_invalid_ItemRef", mockLogger);
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Invalid_ItemRef", mockLogger);
 
             mockLogger.VerifyLog((state, t) => state.ContainsValue("TST-Test_toets - 900001: Cannot find assessmentItemRef outcomeVariable: ITM-SN02945.SCORE"), LogLevel.Error, 6);
         }
@@ -101,7 +101,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         public void OutcomeProcessing_Multiple_SubSections()
         {
             var mockLogger = new Mock<ILogger>();
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_Multiple_SubSections", "AssessmentResult_Add_OutcomeVariable", mockLogger);
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_Multiple_Subsections", "AssessmentResult_Add_OutcomeVariable", mockLogger);
 
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-P-Reken-MiniToets-001", "SCORE_TOTAL"));
             Assert.Equal("9", assessmentResult.GetScoreForTest("TST-P-Reken-MiniToets-001", "SCORE_TOTAL_WEIGHTED"));
@@ -121,7 +121,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         [Fact]
         public void OutcomeProcessing_InCorrect_Answers()
         {
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "AssessmentResult_InCorrect");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "AssessmentResult_Incorrect");
 
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));

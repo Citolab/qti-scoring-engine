@@ -53,7 +53,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse("ITM-210091", "RESPONSE", "0,63", BaseType.Float, Cardinality.Single);
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-customOperator.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-CustomOperator.xml")));
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
@@ -68,7 +68,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse("ITM-210091", "RESPONSE", "0.63", BaseType.Float, Cardinality.Single);
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-customOperator.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-CustomOperator.xml")));
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
@@ -82,7 +82,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse("ITM-210091", "RESPONSE", "0,6300", BaseType.Float, Cardinality.Single);
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-customOperator.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-CustomOperator.xml")));
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
@@ -97,7 +97,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse("ITM-210091", "RESPONSE", "0,6301", BaseType.Float, Cardinality.Single);
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-customOperator.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/210091-CustomOperator.xml")));
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
