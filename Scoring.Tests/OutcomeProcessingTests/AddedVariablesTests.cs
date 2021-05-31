@@ -23,7 +23,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         [Fact]
         public void OutcomeProcessing_Category_Scoring_Multiple_Categories()
         {
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "AssessmentResult_Add_OutcomeVariable");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Add_OutcomeVariable");
 
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));
             Assert.Equal("6", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));
@@ -121,7 +121,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
         [Fact]
         public void OutcomeProcessing_InCorrect_Answers()
         {
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "AssessmentResult_Incorrect");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Incorrect");
 
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));
@@ -136,7 +136,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
 
         {
             //arrange - act
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_toets", "AssessmentResult_Add_OutcomeVariable");
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Add_OutcomeVariable");
 
             //assert
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));

@@ -68,7 +68,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse("ITM-1004", "RESPONSE", "rEK", BaseType.String, Cardinality.Single);
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/1004-caseInsensitive.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/1004-CaseInsensitive.xml")));
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
