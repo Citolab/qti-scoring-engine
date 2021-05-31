@@ -1,6 +1,6 @@
-﻿using Citolab.QTI.Scoring.Model;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.Tests;
+﻿using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.Tests;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;

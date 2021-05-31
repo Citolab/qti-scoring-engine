@@ -1,5 +1,5 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.OutcomeProcessing.Operators
+namespace Citolab.QTI.ScoringEngine.OutcomeProcessing.Operators
 {
     internal class SetOutcomeValue : IOutcomeProcessingOperator
     {

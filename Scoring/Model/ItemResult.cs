@@ -1,4 +1,4 @@
-﻿using Citolab.QTI.Scoring.Interfaces;
+﻿using Citolab.QTI.ScoringEngine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.Model
+namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class ItemResult : IQtiResult
     {

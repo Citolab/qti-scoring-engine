@@ -1,6 +1,6 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing.Operators;
-using Citolab.QTI.Scoring.Tests;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = "myanswer".ToBaseValue();
             var base2 = "correctAnswer".ToBaseValue();
@@ -41,7 +41,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = "correctAnswer".ToBaseValue();
             var base2 = "correctAnswer".ToBaseValue();
@@ -64,7 +64,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = "correctAnswer".ToBaseValue();
             var base2 = "CorrectAnswer".ToBaseValue();
@@ -87,7 +87,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = "correctAnswer".ToBaseValue();
             var base2 = "CorrectAnswer".ToBaseValue();
@@ -110,7 +110,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = "correctAnswer".ToBaseValue();
             var base2 = "CorrectAnswer".ToBaseValue();
@@ -133,7 +133,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = 1.0F.ToBaseValue();
             var base2 = "1.0".ToBaseValue();
@@ -156,7 +156,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            //context.Executors = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
+            //context.Executors = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IExecuteReponseProcessing>();
 
             var base1 = 1.0F.ToBaseValue();
             var base2 = "1".ToBaseValue();

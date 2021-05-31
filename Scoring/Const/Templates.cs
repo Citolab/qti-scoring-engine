@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.Const
+namespace Citolab.QTI.ScoringEngine.Const
 {
     public class Templates
     {

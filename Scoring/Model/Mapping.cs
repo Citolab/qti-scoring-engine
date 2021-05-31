@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Citolab.QTI.Scoring.Model
+namespace Citolab.QTI.ScoringEngine.Model
 {
     //<mapping defaultValue = "0" lowerBound="0" upperBound="1">
     //  <mapEntry mapKey = "B" mappedValue="1"/>

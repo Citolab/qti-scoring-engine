@@ -1,7 +1,7 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.ResponseProcessing.Operators;
-using Citolab.QTI.Scoring.Tests;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.Tests;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var not = new Not();
@@ -44,7 +44,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnFalse = new ReturnFalse();
             var not = new Not();
@@ -68,7 +68,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
             var contextInfo = TestHelper.GetDefaultResponseProcessingContextAndLogger(null);
 
             // arrange
-            contextInfo.Context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            contextInfo.Context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var not = new Not();

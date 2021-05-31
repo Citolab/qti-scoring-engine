@@ -1,4 +1,4 @@
-﻿using Citolab.QTI.Scoring.Helper;
+﻿using Citolab.QTI.ScoringEngine.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.Model
+namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class SumTestVariable
     {

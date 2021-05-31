@@ -1,8 +1,8 @@
 ﻿using System;
-using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing.Operators;
-using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
-using Citolab.QTI.Scoring.Tests;
+using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.ScoringEngine.Tests;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;

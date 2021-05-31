@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.Scoring.Model;
-using Citolab.QTI.Scoring.OutcomeProcessing;
+using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xunit;
 
-namespace Citolab.QTI.Scoring.Tests.OutcomeProcessingTests
+namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
 {
     public class SumTestVariablesTests
     {

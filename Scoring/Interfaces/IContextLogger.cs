@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Citolab.QTI.Scoring.Interfaces
+namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     internal interface IContextLogger
     {

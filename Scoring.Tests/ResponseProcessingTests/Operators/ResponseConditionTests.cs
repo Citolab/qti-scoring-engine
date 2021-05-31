@@ -1,8 +1,8 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.ResponseProcessing.Operators;
-using Citolab.QTI.Scoring.Tests;
-using Citolab.QTI.Scoring.Model;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.Tests;
+using Citolab.QTI.ScoringEngine.Model;
 using Moq;
 using System;
 using System.Collections.Generic;

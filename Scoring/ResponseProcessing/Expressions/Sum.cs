@@ -1,15 +1,15 @@
-﻿using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.Model;
+﻿using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.Scoring.ResponseProcessing.Interfaces;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
 
-namespace Citolab.QTI.Scoring.ResponseProcessing.Expressions
+namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Expressions
 {
     internal class Sum : IResponseProcessingExpression
     {

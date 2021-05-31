@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.Interfaces
+namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     public interface IScoringEngine
     {

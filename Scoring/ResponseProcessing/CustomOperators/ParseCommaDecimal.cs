@@ -1,10 +1,10 @@
-﻿using Citolab.QTI.Scoring.Interfaces;
-using Citolab.QTI.Scoring.Model;
+﻿using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Citolab.QTI.Scoring.ResponseProcessing.CustomOperators
+namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
     internal class ParseCommaDecimal : ICustomOperator
     {

@@ -1,16 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.Scoring.Model;
-using Citolab.QTI.Scoring.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.Interfaces;
 
-namespace Citolab.QTI.Scoring.ResponseProcessing
+namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class ResponseProcessor
     {

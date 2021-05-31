@@ -1,7 +1,7 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.ResponseProcessing.Operators;
-using Citolab.QTI.Scoring.Tests;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
 
             var returnTrue = new ReturnTrue();
             var or = new Or();
@@ -42,7 +42,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
             var or = new Or();
@@ -64,7 +64,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.Operators
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.Operators = new Dictionary<string, Citolab.QTI.Scoring.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
+            context.Operators = new Dictionary<string, Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces.IResponseProcessingOperator>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
 

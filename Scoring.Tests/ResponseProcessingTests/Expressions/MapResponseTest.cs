@@ -1,7 +1,7 @@
-﻿using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.Model;
-using Citolab.QTI.Scoring.ResponseProcessing.Expressions;
-using Citolab.QTI.Scoring.Tests;
+﻿using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.Expressions;
+using Citolab.QTI.ScoringEngine.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

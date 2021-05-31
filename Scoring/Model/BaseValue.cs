@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Citolab.QTI.Scoring.Model
+namespace Citolab.QTI.ScoringEngine.Model
 {
     public class BaseValue
     {

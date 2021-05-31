@@ -2,8 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<RootNamespace>Citolab.QTI.Scoring</RootNamespace>
+		<RootNamespace>Citolab.QTI.ScoringEngine</RootNamespace>
 		<ProjectGuid>{2A7091CD-6A49-4B7B-85BB-A140C8B5397C}</ProjectGuid>
+		<PackageId>Citolab.QTI.ScoringEngine</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Marcel Hoekstra</Authors>
+		<Company>Citolab</Company>
+		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
+		<RepositoryUrl>https://github.com/OWNER/REPOSITORY</RepositoryUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

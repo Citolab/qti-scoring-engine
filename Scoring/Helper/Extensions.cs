@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.Scoring.ResponseProcessing;
-using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Citolab.QTI.Scoring.OutcomeProcessing;
-using Citolab.QTI.Scoring.Interfaces;
+using Citolab.QTI.ScoringEngine.OutcomeProcessing;
+using Citolab.QTI.ScoringEngine.Interfaces;
 using System.Globalization;
 
-namespace Citolab.QTI.Scoring.Helper
+namespace Citolab.QTI.ScoringEngine.Helper
 {
 
     internal static class Extensions

@@ -1,11 +1,11 @@
-﻿using Citolab.QTI.Scoring.Interfaces;
+﻿using Citolab.QTI.ScoringEngine.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring
+namespace Citolab.QTI.ScoringEngine
 {
     public class ScoringContext : IScoringContext
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Citolab.QTI.Scoring
+namespace Citolab.QTI.ScoringEngine
 {
     public class ScoringEngineException : Exception
     {

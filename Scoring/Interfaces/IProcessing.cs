@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
-using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.ScoringEngine.Model;
 
-namespace Citolab.QTI.Scoring.Interfaces
+namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     internal interface IProcessing
     {

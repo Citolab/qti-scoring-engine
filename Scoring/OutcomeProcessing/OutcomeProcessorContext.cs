@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.Scoring.Helper;
-using Citolab.QTI.Scoring.Interfaces;
-using Citolab.QTI.Scoring.Model;
+using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Citolab.QTI.Scoring.OutcomeProcessing
+namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 {
     // Before processing all variables/declarations are s
     internal class OutcomeProcessorContext : IContextLogger

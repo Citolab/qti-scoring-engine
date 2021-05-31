@@ -1,4 +1,4 @@
-﻿namespace Citolab.QTI.Scoring.Model
+﻿namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class InterpolationTableEntry
     {

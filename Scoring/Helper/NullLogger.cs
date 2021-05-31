@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 // copied from https://github.com/aspnet/Logging/blob/master/src/Microsoft.Extensions.Logging.Abstractions/NullLoggerOfT.cs
-namespace Citolab.QTI.Scoring.Helper
+namespace Citolab.QTI.ScoringEngine.Helper
 {
     /// <summary>
     /// Minimalistic logger that does nothing.
