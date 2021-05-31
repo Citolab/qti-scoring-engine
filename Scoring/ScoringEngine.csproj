@@ -5,11 +5,15 @@
 		<RootNamespace>Citolab.QTI.ScoringEngine</RootNamespace>
 		<ProjectGuid>{2A7091CD-6A49-4B7B-85BB-A140C8B5397C}</ProjectGuid>
 		<PackageId>Citolab.QTI.ScoringEngine</PackageId>
-		<Version>1.0.0-beta.0</Version>
-		<Authors>Marcel Hoekstra</Authors>
-		<Company>Citolab</Company>
+		<Version>1.0.0-beta.1</Version>
+		<Company>Cito</Company>
+		<Copyright>Cito</Copyright>
+		<Authors>Citolab</Authors>
 		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
 		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageLicenseUrl>https://github.com/Citolab/qti-scoring-engine/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageIconUrl>https://avatars1.githubusercontent.com/u/32355044?s=400&amp;u=8d300a1c77a82b06814b096d175f68a33bd6f73b&amp;v=4</PackageIconUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
