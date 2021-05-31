@@ -30,4 +30,5 @@ jobs:
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: Scoring/ScoringEngine.csproj
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         # NuGet package id, used for version detection & defaults to project name
