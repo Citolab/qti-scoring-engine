@@ -9,7 +9,7 @@
 		<Authors>Marcel Hoekstra</Authors>
 		<Company>Citolab</Company>
 		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
-		<RepositoryUrl>https://github.com/OWNER/REPOSITORY</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
