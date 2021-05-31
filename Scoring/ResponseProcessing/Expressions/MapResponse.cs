@@ -21,6 +21,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Expressions
                context.ItemResult.ResponseVariables.ContainsKey(identifier))
             {
                 var responseVariable = context.ItemResult.ResponseVariables[identifier];
+
                 var values = responseVariable.Values;
                 if (responseVariable.Cardinality == Cardinality.Single)
                 {
@@ -29,11 +30,12 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Expressions
                 var responseDeclaration = context.AssessmentItem.ResponseDeclarations[identifier];
                 if (responseDeclaration.Mapping != null)
                 {
-       
+
                     var value = 0.0F;
-                    foreach(var candidateValue in values)
+                    foreach (var candidateValue in values)
                     {
-                        var mappedValue = responseDeclaration.Mapping.MapEntries.FirstOrDefault(m => m.MapKey == candidateValue);
+                        var mappedValue = responseDeclaration.Mapping.MapEntries.FirstOrDefault(m =>
+                        Helper.CompareSingleValues(m.MapKey, candidateValue, responseDeclaration.BaseType, context));
                         if (mappedValue == null)
                         {
                             value += responseDeclaration.Mapping.DefaultValue;

@@ -34,7 +34,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                 var correctValue = correctValueInfo.Value.value;
                 if (correctValueInfo.Value.declaration.Cardinality == Cardinality.Single)
                 {
-                    return Helper.CompareTwoChildren(valueToMap.Value, correctValue.Value, correctValue.BaseType, context);
+                    return Helper.CompareSingleValues(valueToMap.Value, correctValue.Value, correctValue.BaseType, context);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                         if (correctValueInfo.Value.declaration.Cardinality == Cardinality.Ordered)
                         {
                             var currentValueToMap = valuesToBeMapped[answerIndex];
-                            var result = Helper.CompareTwoChildren(correctAnswer, currentValueToMap, correctValue.BaseType, context);
+                            var result = Helper.CompareSingleValues(correctAnswer, currentValueToMap, correctValue.BaseType, context);
                             if (result == false)
                             {
                                 return false;
@@ -64,7 +64,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                             string matchingValue = null;
                             foreach (var mv in valuesToBeMapped)
                             {
-                                var result = Helper.CompareTwoChildren(correctAnswer, mv, correctValue.BaseType, context);
+                                var result = Helper.CompareSingleValues(correctAnswer, mv, correctValue.BaseType, context);
                                 if (result)
                                 {
                                     matchingValue = mv;

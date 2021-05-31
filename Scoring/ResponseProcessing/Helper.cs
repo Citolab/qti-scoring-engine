@@ -14,12 +14,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class Helper
     {
-        public static bool CompareTwoChildren(string value1, string value2, BaseType baseType, IContextLogger logContext)
-        {
-            return CompareSingle(value1, value2, baseType, logContext);
-        }
-
-        private static bool CompareSingle(string value1, string value2, BaseType baseType, IContextLogger logContext)
+        public static bool CompareSingleValues(string value1, string value2, BaseType baseType, IContextLogger logContext)
         {
             switch (baseType)
             {
@@ -46,6 +41,23 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                         else
                         {
                             logContext.LogError($"couldn't convert {value1} and/or {value2} to float.");
+                        }
+                        break;
+                    }
+                case BaseType.Pair:
+                    {
+                        var pair1 = value1.Split(' ').ToList();
+                        var pair2 = value2.Split(' ').ToList();
+        
+                        if (pair1.Count() == 2 && pair2.Count() == 2)
+                        {
+                            // sort values because order is not important
+                            pair1.Sort();
+                            pair2.Sort();
+                            return string.Join(" ", pair1) == string.Join(" ", pair2);
+                        } else
+                        {
+                            logContext.LogWarning($"compared two pair but one of the values does not have 2 values: 1: {value1} 2: {value2}" );
                         }
                         break;
                     }
@@ -132,13 +144,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             }
             else
             {
-                return CompareTwoChildren(values.Value.value1?.Value, values.Value.value2.Value, values.Value.value2.BaseType, context);
+                return CompareSingleValues(values.Value.value1?.Value, values.Value.value2.Value, values.Value.value2.BaseType, context);
             }
         }
 
         public static bool CompareTwoValues(BaseValue value1, BaseValue value2, Cardinality cardinality, ResponseProcessorContext context)
         {
-            return CompareTwoChildren(value1?.Value, value2.Value, value2.BaseType, context);
+            return CompareSingleValues(value1?.Value, value2.Value, value2.BaseType, context);
         }
 
         public static bool ValueIsMemberOf(XElement qtiElement, ResponseProcessorContext context, BaseType? forceBaseType = null)
@@ -165,7 +177,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                     }).ToList();
                 foreach (var possibleMatch in possibleMatches)
                 {
-                    var isMatch = CompareTwoChildren(values.Value.value1?.Value, possibleMatch.Value, possibleMatch.BaseType, context);
+                    var isMatch = CompareSingleValues(values.Value.value1?.Value, possibleMatch.Value, possibleMatch.BaseType, context);
                     if (isMatch)
                     {
                         return true;

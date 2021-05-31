@@ -189,6 +189,9 @@
     <None Update="Resources\imsmanifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\associate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -71,6 +71,16 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return "string";
                     }
+                case BaseType.Pair:
+                    {
+                        return "pair";
+                    }
+                case BaseType.DirectedPair:
+                    {
+                        return "directPair";
+                    }
+                case BaseType.Point:
+                    return "point";
             }
             return "string";
         }
@@ -96,6 +106,16 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return BaseType.String;
                     }
+                case "pair":
+                    {
+                        return BaseType.Pair;
+                    }
+                case "directPair":
+                    {
+                        return BaseType.DirectedPair;
+                    }
+                case "point":
+                    return BaseType.Point;
             }
             return BaseType.String;
         }
