@@ -24,9 +24,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.ScoringTypes
             var logger = new Mock<ILogger>().Object;
             XDocument assessmentResultXDocument = null;
             XDocument assessmentItemXDocument = null;
-            using (var assessmentResultStream = File.OpenRead("Resources\\ResponseProcessing\\AssessmentResult_Mapping_A.xml"))
+            using (var assessmentResultStream = File.OpenRead("Resources/ResponseProcessing/AssessmentResult_Mapping_A.xml"))
             {
-                using (var itemStream = File.OpenRead("Resources\\ResponseProcessing\\ITM-50069_Mapping.xml"))
+                using (var itemStream = File.OpenRead("Resources/ResponseProcessing/ITM-50069_Mapping.xml"))
                 {
                     assessmentResultXDocument = XDocument.Load(assessmentResultStream);
                     assessmentItemXDocument = XDocument.Load(itemStream);

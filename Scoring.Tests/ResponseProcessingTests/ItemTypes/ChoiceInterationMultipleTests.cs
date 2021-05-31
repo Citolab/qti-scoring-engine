@@ -20,7 +20,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\112505-MR.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "D", "E", "F"}, BaseType.Identifier, Cardinality.Multiple);
 
@@ -35,7 +35,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\112505-MR.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "E", "F" }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -50,7 +50,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\112505-MR.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "A", "D", "E", "F" }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -65,7 +65,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\112505-MR.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> {  }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -80,7 +80,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\IMS-examples\\choice_multiple.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/choice_multiple.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -95,7 +95,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\IMS-examples\\choice_multiple.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/choice_multiple.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "O" }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -110,7 +110,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\IMS-examples\\choice_multiple.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/choice_multiple.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "Cl", "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
 
@@ -124,7 +124,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources\\ResponseProcessing\\IMS-examples\\choice_multiple.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/choice_multiple.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "He", "Cl", "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
 

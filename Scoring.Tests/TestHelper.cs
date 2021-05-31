@@ -131,7 +131,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             {
                 mockLogger = new Mock<ILogger>();
             }
-            var assessmentDoc = XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentTestPath}.xml"));
+            var assessmentDoc = XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/{assessmentTestPath}.xml"));
             // add total and and category scores if they are not already in 
             // the assessmentTest.
             if (addVariables)
@@ -140,7 +140,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             }
             var logger = mockLogger.Object;
             var assessmentTest = new AssessmentTest(logger, assessmentDoc);
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources\\OutcomeProcessing\\{assessmentResultPath}.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/{assessmentResultPath}.xml")));
             
 
             return OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
