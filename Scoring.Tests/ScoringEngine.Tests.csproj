@@ -20,13 +20,13 @@
     <None Remove="Resources\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml" />
     <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables.xml" />
     <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml.xml" />
+    <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
     <None Remove="Resources\OutcomeProcessing\Test_Toets_Without_Weights.xml" />
     <None Remove="Resources\OutcomeProcessing\Test_Toets_With_Empty_Category.xml" />
     <None Remove="Resources\OutcomeProcessing\Test_Toets_With_Unused_Category.xml" />
     <None Remove="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens.xml" />
     <None Remove="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml" />
-    <None Remove="Resources\ResponseProcessing\1004-caseInsensitive.xml" />
+    <None Remove="Resources\ResponseProcessing\1004-CaseInsensitive.xml" />
     <None Remove="Resources\ResponseProcessing\1004.xml" />
     <None Remove="Resources\ResponseProcessing\112505-MR.xml" />
     <None Remove="Resources\ResponseProcessing\210091-CustomOperator.xml" />
@@ -116,7 +116,7 @@
     <EmbeddedResource Include="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\1004-caseInsensitive.xml">
+    <EmbeddedResource Include="Resources\ResponseProcessing\1004-CaseInsensitive.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResponseProcessing\1004.xml">
