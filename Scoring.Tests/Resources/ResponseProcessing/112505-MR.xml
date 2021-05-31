@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              	xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd"
+              	title="Aralmeer"
+              	identifier="ITM-112505"
+              	label="32k8zu"
+              	timeDependent="false"
+              	xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2">
+	<responseDeclaration identifier="RESPONSE"
+                   		cardinality="multiple"
+                   		baseType="identifier">
+		<correctResponse interpretation="D&amp;E&amp;F">
+			<value>D</value>
+			<value>E</value>
+			<value>F</value>
+		</correctResponse>
+	</responseDeclaration>
+	<outcomeDeclaration identifier="SCORE"
+                  		cardinality="single"
+                  		baseType="float">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration identifier="MAXSCORE"
+                  		cardinality="single"
+                  		baseType="float">
+		<defaultValue>
+			<value>1</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<itemBody class="defaultBody"
+        		xml:lang="nl-NL">
+	</itemBody>
+	<responseProcessing>
+		<responseCondition>
+			<responseIf>
+				<and>
+					<not>
+						<member>
+							<baseValue baseType="identifier">A</baseValue>
+							<variable identifier="RESPONSE" />
+						</member>
+					</not>
+					<not>
+						<member>
+							<baseValue baseType="identifier">B</baseValue>
+							<variable identifier="RESPONSE" />
+						</member>
+					</not>
+					<not>
+						<member>
+							<baseValue baseType="identifier">C</baseValue>
+							<variable identifier="RESPONSE" />
+						</member>
+					</not>
+					<member>
+						<baseValue baseType="identifier">D</baseValue>
+						<variable identifier="RESPONSE" />
+					</member>
+					<member>
+						<baseValue baseType="identifier">E</baseValue>
+						<variable identifier="RESPONSE" />
+					</member>
+					<member>
+						<baseValue baseType="identifier">F</baseValue>
+						<variable identifier="RESPONSE" />
+					</member>
+				</and>
+				<setOutcomeValue identifier="SCORE">
+					<sum>
+						<baseValue baseType="float">1</baseValue>
+						<variable identifier="SCORE" />
+					</sum>
+				</setOutcomeValue>
+			</responseIf>
+		</responseCondition>
+		<responseCondition>
+			<responseIf>
+				<gte>
+					<variable identifier="SCORE" />
+					<baseValue baseType="float">1</baseValue>
+				</gte>
+				<setOutcomeValue identifier="SCORE">
+					<baseValue baseType="float">1</baseValue>
+				</setOutcomeValue>
+			</responseIf>
+			<responseElse>
+				<setOutcomeValue identifier="SCORE">
+					<baseValue baseType="float">0</baseValue>
+				</setOutcomeValue>
+			</responseElse>
+		</responseCondition>
+	</responseProcessing>
+</assessmentItem>

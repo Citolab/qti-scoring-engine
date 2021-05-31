@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd" title="koppelteken-kort" identifier="ITM-083-Verklanking-Speciale-Tekens" label="32eywu" timeDependent="false" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2">
+	<responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+		<correctResponse interpretation="A">
+			<value>A</value>
+		</correctResponse>
+	</responseDeclaration>
+	<outcomeDeclaration identifier="RAW_SCORE" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float">
+		<interpolationTable>
+			<interpolationTableEntry sourceValue="1" targetValue="8" />
+			<interpolationTableEntry sourceValue="0" targetValue="0" />
+		</interpolationTable>
+	</outcomeDeclaration>
+	<responseProcessing>
+		<responseCondition>
+			<responseIf>
+				<member>
+					<baseValue baseType="identifier">A</baseValue>
+					<variable identifier="RESPONSE" />
+				</member>
+				<setOutcomeValue identifier="RAW_SCORE">
+					<sum>
+						<baseValue baseType="integer">1</baseValue>
+						<variable identifier="RAW_SCORE" />
+					</sum>
+				</setOutcomeValue>
+			</responseIf>
+		</responseCondition>
+		<lookupOutcomeValue identifier="SCORE">
+			<variable identifier="RAW_SCORE" />
+		</lookupOutcomeValue>
+	</responseProcessing>
+</assessmentItem>
