@@ -9,11 +9,90 @@ using Citolab.QTI.ScoringEngine.Helper;
 using Citolab.QTI.ScoringEngine.Model;
 using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using System.Drawing;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class Helper
     {
+        public static bool IsInsideRegion(string coordsValue, string pointResponse, Shape shapeType, IContextLogger logContext)
+        {
+            if (string.IsNullOrWhiteSpace(pointResponse))
+            {
+                return false;
+            }
+            var splittedPoints = pointResponse.Split(' ');
+            if (splittedPoints.Length != 2)
+            {
+                logContext.LogError("candidateResponse point should contain out of an x and y value separated by a space: '100 200'");
+                return false;
+            }
+            IShape shape = null;
+
+            switch (shapeType)
+            {
+                case Shape.Circle:
+                    shape = new Circle(coordsValue, logContext);
+                    break;
+                case Shape.Poly:
+                    shape = new Polygon(coordsValue, logContext);
+                    break;
+                case Shape.Rect:
+                    shape = new Rect(coordsValue, logContext);
+                    break;
+                case Shape.Ellipse:
+                    logContext.LogError("ellipse is deprecated, and scoring is not implemented");
+                    break;
+                case Shape.Default:
+                    break;
+                default:
+                    logContext.LogError("unsupported shape");
+                    break;
+            }
+            if (shapeType == Shape.Default)
+            {
+                var point = GetPointsFromResponse(pointResponse, logContext);
+                return point.HasValue; // default are all points
+            }
+            if (shape == null)
+            {
+                return false;
+            }
+            else
+            {
+                return shape.IsInside(pointResponse);
+            }
+        }
+
+        public static PointF? GetPointsFromResponse(string response, IContextLogger contextLogger)
+        {
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                return null;
+            }
+            var splittedPoints = response.Split(' ');
+            if (splittedPoints.Length != 2)
+            {
+                contextLogger.LogError($"Unexpected format of x,y values in response: {response}");
+                return null;
+            }
+            if (splittedPoints[0].TryParseFloat(out var x))
+            {
+                if (splittedPoints[1].TryParseFloat(out var y))
+                {
+                    return new PointF { X = x, Y = y };
+                }
+                else
+                {
+                    contextLogger.LogError($"Cannot convert {splittedPoints[1]} to y value of type float");
+                }
+            }
+            else
+            {
+                contextLogger.LogError($"Cannot convert {splittedPoints[0]} to x value of type float");
+            }
+            return null;
+        }
         public static bool CompareSingleValues(string value1, string value2, BaseType baseType, IContextLogger logContext)
         {
             switch (baseType)
@@ -49,7 +128,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                     {
                         var pair1 = value1.Split(' ').ToList();
                         var pair2 = value2.Split(' ').ToList();
-        
+
                         if (pair1.Count() == 2 && pair2.Count() == 2)
                         {
                             // sort values because order is not important
@@ -59,9 +138,10 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                                 pair2.Sort();
                             }
                             return string.Join(" ", pair1) == string.Join(" ", pair2);
-                        } else
+                        }
+                        else
                         {
-                            logContext.LogWarning($"compared two pair but one of the values does not have 2 values: 1: {value1} 2: {value2}" );
+                            logContext.LogWarning($"compared two pair but one of the values does not have 2 values: 1: {value1} 2: {value2}");
                         }
                         break;
                     }
@@ -205,5 +285,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                 }
             }
         }
+
+        // Helper for inside, handles circle shapes.
+
     }
 }

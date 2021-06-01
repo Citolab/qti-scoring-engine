@@ -76,6 +76,54 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             Assert.Equal("1", scoreValue);
         }
 
+        [Fact]
+        public void IMS_ExampleChoiceInlineResponseProcessing_Correct()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/text_entry.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse
+    (assessmentItem.Identifier, "RESPONSE", "York"
+    , BaseType.String, Cardinality.Single);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
+
+        [Fact]
+        public void IMS_ExampleChoiceInlineResponseProcessing_Partially_Correct()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/text_entry.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse
+    (assessmentItem.Identifier, "RESPONSE", "york"
+    , BaseType.String, Cardinality.Single);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0.5", result);
+        }
+
+        [Fact]
+        public void IMS_ExampleChoiceInlineResponseProcessing_Incorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/text_entry.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponse
+    (assessmentItem.Identifier, "RESPONSE", "newyork"
+    , BaseType.String, Cardinality.Single);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", result);
+        }
+
         //CustomOperators
         [Fact]
         public void TextEntryCustomOperatorAsciiCorrect()

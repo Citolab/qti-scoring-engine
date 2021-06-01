@@ -34,6 +34,12 @@ namespace Citolab.QTI.ScoringEngine.Model
                             responseProcessing.Remove();
                             break;
                         }
+                    case "map_response_point":
+                        {
+                            Root.Add(Templates.MapResponsePoint.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                            responseProcessing.Remove();
+                            break;
+                        }
                     case "match_correct":
                         {
                             Root.Add(Templates.MatchCorrect.AddDefaultNamespace(Root.GetDefaultNamespace()));
@@ -62,7 +68,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                 .Select(v => v.Identifier());
             var setOutcomes = responseProcessing?
               .FindElementsByName("setOutComeValue")?
-              .Select(v => v.Identifier())?.ToList() ;
+              .Select(v => v.Identifier())?.ToList();
             if (setOutcomes == null)
             {
                 setOutcomes = new List<string>();
@@ -104,7 +110,8 @@ namespace Citolab.QTI.ScoringEngine.Model
             if (responseDeclaration.Cardinality == Cardinality.Single)
             {
                 responseDeclaration.CorrectResponse = correctValues?.FirstOrDefault();
-            } else
+            }
+            else
             {
                 responseDeclaration.CorrectResponses = correctValues;
             }
@@ -163,6 +170,64 @@ namespace Citolab.QTI.ScoringEngine.Model
                 }).Where(m => m != null)
                 .ToList();
                 responseDeclaration.Mapping = mapping;
+            }
+
+            var areaMappingElement = el.FindElementsByName("areaMapping").FirstOrDefault();
+            if (areaMappingElement != null)
+            {
+                float defaultValue = 0.0F;
+                var defaultValueString = areaMappingElement.GetAttributeValue("defaultValue");
+                var lowerBoundString = areaMappingElement.GetAttributeValue("lowerBound");
+                var upperBoundString = areaMappingElement.GetAttributeValue("upperBound");
+                if (!string.IsNullOrWhiteSpace(defaultValueString))
+                {
+                    if (!defaultValueString.TryParseFloat(out defaultValue))
+                    {
+                        Logger.LogError($"Cannot convert defaulValue: ${defaultValueString} to a float");
+                    }
+                }
+                var areaMapping = new AreaMapping { DefaultValue = defaultValue };
+                if (!string.IsNullOrWhiteSpace(lowerBoundString))
+                {
+                    if (lowerBoundString.TryParseFloat(out var lowerBound))
+                    {
+                        areaMapping.LowerBound = lowerBound;
+                    }
+                    else
+                    {
+                        Logger.LogError($"Cannot convert lowerbound: ${lowerBoundString} to a float");
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(upperBoundString))
+                {
+                    if (upperBoundString.TryParseFloat(out var upperbound))
+                    {
+                        areaMapping.UpperBound = upperbound;
+                    }
+                    else
+                    {
+                        Logger.LogError($"Cannot convert upperbound: ${upperBoundString} to a float");
+                    }
+                }
+                areaMapping.AreaMappings = areaMappingElement.FindElementsByName("areaMapEntry").Select(mapEntryElement =>
+                {
+                    if (mapEntryElement.GetAttributeValue("mappedValue").TryParseFloat(out var mapValue))
+                    {
+                        return new AreaMapEntry
+                        {
+                            MappedValue = mapValue,
+                            Coords = mapEntryElement.GetAttributeValue("coords"),
+                            Shape = mapEntryElement.GetAttributeValue("shape").ToShape()
+                        };
+                    }
+                    else
+                    {
+                        Logger.LogError($"Cannot convert areaMapEntry: {mapEntryElement.GetAttributeValue("mapValue")} to a float");
+                    }
+                    return null;
+                }).Where(m => m != null)
+                .ToList();
+                responseDeclaration.AreaMapping = areaMapping;
             }
             return responseDeclaration;
         }

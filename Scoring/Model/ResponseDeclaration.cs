@@ -15,5 +15,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public List<string> CorrectResponses { get; set; }
         public string CorrectResponseInterpretation { get; set; }
         public Mapping Mapping { get; set; }
+
+        public AreaMapping AreaMapping { get; set; }
     }
 }

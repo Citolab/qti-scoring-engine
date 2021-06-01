@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.Interfaces;
+using System.Drawing;
 
 namespace Citolab.QTI.ScoringEngine.Tests
 {
@@ -255,6 +257,26 @@ namespace Citolab.QTI.ScoringEngine.Tests
             responseVariable.Add(candidateResponseElement);
             assessmentResult.Root.Add(itemResultElement);
             return assessmentResult;
+        }
+
+        internal static PointF? GetCorrectResponse(this AreaMapEntry areaMapEntry)
+        {
+            switch (areaMapEntry.Shape)
+            {
+                case Shape.Circle:
+                    {
+                        return new Circle(areaMapEntry.Coords, null).GetCenterPoint();
+                    }
+                case Shape.Poly:
+                    {
+                        return new Polygon(areaMapEntry.Coords, null).GetCenterPoint();
+                    }
+                case Shape.Rect:
+                    {
+                        return new Rect(areaMapEntry.Coords, null).GetCenterPoint();
+                    }
+            }
+            return null;
         }
 
     }

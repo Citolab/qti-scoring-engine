@@ -195,10 +195,25 @@
     <None Update="Resources\ResponseProcessing\IMS-examples\gap_match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\hotspot.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\hottext.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\inline_choice.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\select_point.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\text_entry.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ResponseProcessing\ITM-Cardinality-Multiple.xml">

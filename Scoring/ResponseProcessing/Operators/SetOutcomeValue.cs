@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using System.Globalization;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
 {
@@ -36,7 +37,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                 var calculator = context.GetExpression(childElement, context);
                 if (calculator != null)
                 {
-                    outcomeVariable.Value = calculator.Calculate(childElement, context);
+                var culture = CultureInfo.InvariantCulture;
+                    outcomeVariable.Value = calculator.Calculate(childElement, context).ToString(culture);
                 }
                 else
                 {

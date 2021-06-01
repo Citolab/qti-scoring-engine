@@ -51,6 +51,34 @@ namespace Citolab.QTI.ScoringEngine.Model
             return "single";
         }
 
+        public static string GetString(this Shape shape)
+        {
+            switch (shape)
+            {
+                case Shape.Circle:
+                    {
+                        return "circle";
+                    }
+                case Shape.Ellipse:
+                    {
+                        return "ellipse";
+                    }
+                case Shape.Poly:
+                    {
+                        return "poly";
+                    }
+                case Shape.Rect:
+                    {
+                        return "rect";
+                    }
+                case Shape.Default:
+                    {
+                        return "default";
+                    }
+            }
+            return "circle";
+        }
+
         internal static string GetString(this BaseType baseType)
         {
             switch (baseType)
@@ -139,6 +167,34 @@ namespace Citolab.QTI.ScoringEngine.Model
             }
             return Cardinality.Single;
         }
+
+        internal static Shape ToShape(this string shapeString)
+        {
+            switch (shapeString)
+            {
+                case "circle":
+                    {
+                        return Shape.Circle;
+                    }
+                case "ellipse":
+                    {
+                        return Shape.Ellipse;
+                    }
+                case "poly":
+                    {
+                        return Shape.Poly;
+                    }
+                case "react":
+                    {
+                        return Shape.Rect;
+                    }
+                case "default":
+                    {
+                        return Shape.Default;
+                    }
+            }
+            return Shape.Circle;
+        }
     }
 
 
@@ -154,6 +210,15 @@ namespace Citolab.QTI.ScoringEngine.Model
         Qti21,
         Qti22,
         Qti30
+    }
+
+    public enum Shape
+    {
+        Circle,
+        Ellipse,
+        Poly,
+        Rect,
+        Default
     }
 
     internal enum QtiResourceType
