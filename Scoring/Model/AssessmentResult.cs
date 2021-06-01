@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Citolab.QTI.ScoringEngine.ResponseProcessing;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
@@ -69,36 +70,39 @@ namespace Citolab.QTI.ScoringEngine.Model
             Root.Add(testResult.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
         }
 
-        public void PersistItemResultOutcome(string itemIdentifier, string outcomeIdentifier)
+        public void PersistItemResultOutcome(string itemIdentifier, string outcomeIdentifier, ResponseProcessorContext context)
         {
-            if (ItemResults.ContainsKey(itemIdentifier) && ItemResults[itemIdentifier].OutcomeVariables.ContainsKey(outcomeIdentifier))
+            // add items result if there is no result yet.
+            if (!ItemResults.ContainsKey(itemIdentifier))
             {
-                var outcome = ItemResults[itemIdentifier].OutcomeVariables[outcomeIdentifier];
-                var itemResult = this
-                    .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
-                    .FirstOrDefault();
-                var outcomeVariable = itemResult?
-                               .FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", outcome.Identifier)
-                               .FirstOrDefault();
-
-                if (outcomeVariable != null)
-                {
-                    outcomeVariable.Descendants().FirstOrDefault()?.Remove();
-                    outcomeVariable.Add(outcome.Value.ToString().ToValueElement()
-                        .AddDefaultNamespace(Root.GetDefaultNamespace()));
-                }
-                else
-                {
-                    if (itemResult == null)
-                    {
-                        AddItemResult(itemIdentifier);
-                    }
-                    itemResult.Add(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
-                }
+                AddItemResult(itemIdentifier);
+            }
+            var itemResultElement = this
+                .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
+                .FirstOrDefault();
+            // if there is no outcome for this variable then add one.
+            var outcomeExists = ItemResults[itemIdentifier].OutcomeVariables.ContainsKey(outcomeIdentifier);
+            if (!outcomeExists)
+            {
+                var outcomeDeclaration = context.AssessmentItem.OutcomeDeclarations[outcomeIdentifier];
+                var newOutcomeVariable = outcomeDeclaration.ToVariable();
+                newOutcomeVariable.Value = 0;
+                ItemResults[itemIdentifier].OutcomeVariables.Add(outcomeIdentifier, newOutcomeVariable);
+                itemResultElement.Add(newOutcomeVariable.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
             }
             else
             {
-                _logger.LogError($"{SourcedId}: - Cannot find itemresult: {itemIdentifier} outcome: {outcomeIdentifier} ");
+                var outcome = ItemResults[itemIdentifier].OutcomeVariables[outcomeIdentifier];
+                var outcomeVariable = itemResultElement?
+                               .FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", outcome.Identifier)
+                               .FirstOrDefault();
+                if (outcomeVariable == null)
+                {
+                    outcomeVariable = outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
+                    itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                }
+                outcomeVariable.Descendants().FirstOrDefault()?.Remove();
+                outcomeVariable.Add(outcome.Value.ToString().ToValueElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
             }
         }
 

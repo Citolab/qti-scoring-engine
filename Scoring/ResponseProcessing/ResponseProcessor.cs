@@ -14,40 +14,40 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class ResponseProcessor
     {
-        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult,  ILogger logger, List<ICustomOperator> customOperators = null)
+        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger, List<ICustomOperator> customOperators = null)
         {
             var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, customOperators);
             // Skip processing when there is no itemResult
-            if (context.ItemResult == null)
-            {
-                context.LogWarning("Item result not found. Skipping ResponseProcessing");
-                return assessmentResult;
-            }
+            var containsItemResult = context.ItemResult != null;
+
             // Reset all values that are recalculated;
-            context.ItemResult?.OutcomeVariables?.Where(o =>
+            if (containsItemResult)
             {
-                return assessmentItem.CalculatedOutcomes.Contains(o.Key);
-            }).ToList()
-            .ForEach(o =>
-            {
-                o.Value.Value = 0;
-            });
-            if (assessmentItem.ResponseProcessingElement != null)
-            {
-                foreach (var responseProcessingChild in assessmentItem.ResponseProcessingElement.Elements())
+                context.ItemResult?.OutcomeVariables?.Where(o =>
                 {
-                    var qtiOperator = context.GetOperator(responseProcessingChild, context);
-                    qtiOperator?.Execute(responseProcessingChild, context);
-                }
-                assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
+                    return assessmentItem.CalculatedOutcomes.Contains(o.Key);
+                }).ToList()
+                .ForEach(o =>
                 {
-                    assessmentResult.PersistItemResultOutcome(assessmentItem.Identifier, outcomeIdentifier);
+                    o.Value.Value = 0;
                 });
+                if (assessmentItem.ResponseProcessingElement != null)
+                {
+                    foreach (var responseProcessingChild in assessmentItem.ResponseProcessingElement.Elements())
+                    {
+                        var qtiOperator = context.GetOperator(responseProcessingChild, context);
+                        qtiOperator?.Execute(responseProcessingChild, context);
+                    }
+                }
+                else
+                {
+                    context.LogInformation("No responseProcessing found");
+                }
             }
-            else
+            assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
             {
-                context.LogInformation("No responseProcessing found");
-            }
+                assessmentResult.PersistItemResultOutcome(assessmentItem.Identifier, outcomeIdentifier, context);
+            });
             return context.AssessmentResult;
         }
 

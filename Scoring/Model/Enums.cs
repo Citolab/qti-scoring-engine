@@ -77,7 +77,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     }
                 case BaseType.DirectedPair:
                     {
-                        return "directPair";
+                        return "directedPair";
                     }
                 case BaseType.Point:
                     return "point";
@@ -110,7 +110,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return BaseType.Pair;
                     }
-                case "directPair":
+                case "directedPair":
                     {
                         return BaseType.DirectedPair;
                     }

@@ -45,6 +45,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                         break;
                     }
                 case BaseType.Pair:
+                case BaseType.DirectedPair:
                     {
                         var pair1 = value1.Split(' ').ToList();
                         var pair2 = value2.Split(' ').ToList();
@@ -52,8 +53,11 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                         if (pair1.Count() == 2 && pair2.Count() == 2)
                         {
                             // sort values because order is not important
-                            pair1.Sort();
-                            pair2.Sort();
+                            if (baseType == BaseType.Pair)
+                            {
+                                pair1.Sort();
+                                pair2.Sort();
+                            }
                             return string.Join(" ", pair1) == string.Join(" ", pair2);
                         } else
                         {

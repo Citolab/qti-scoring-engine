@@ -192,6 +192,12 @@
     <None Update="Resources\ResponseProcessing\IMS-examples\associate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\gap_match.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\match.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
