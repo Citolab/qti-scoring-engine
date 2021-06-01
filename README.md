@@ -5,17 +5,96 @@ Currenly it supports 2.x packages only.
 
 It does not support all response and outcome scoring (yet) but all items in section [3.2 Simple Items](http://www.imsglobal.org/question/qtiv2p2/imsqti_v2p2_impl.html) are scored correctly.
 
-Currenly supports:
+## Rules
 
-Response Processing:
+Supported:
 
-Expressions:
-- MapResponse
-- Sum
+* lookupOutcomeValue
+* responseCondition
+* setOutcomeValue
+* responseIf
+* responseElseif
+* responseElse
+
+Unsupported:
+
+* exitResponse
+* include
+* responseProcessingFragment 
+
+## Expressions:
+
+Supported:
+* and
+* baseValue
+* correct
+* customOperator
+* equal
+* gte
+* isNull
+* mapResponse
+* mapResponsePoint
+* match
+* member
+* or
+* stringMatch
+* sum
+* testVariables
+* variable
+
+Not supported:
+* anyN
+* containerSize
+* contains
+* default
+* delete
+* divide
+* durationGTE
+* durationLT
+* equalRounded
+* fieldValue
+* gcd
+* gt 
+* lcm
+* repeat
+* index
+* inside
+* integerDivide
+* integerModulus
+* integerToFloat
+* lt
+* lte
+* mathOperator
+* mathConstant
+* max
+* min
+* multiple
+* not
+* null
+* numberCorrect
+* numberIncorrect
+* numberPresented
+* numberResponded
+* numberSelected
+* ordered
+* outcomeMaximum
+* outcomeMinimum
+* patternMatch
+* power
+* product
+* random
+* randomFloat
+* randomInteger
+* round
+* roundTo
+* statsOperator
+* substring
+* subtract
+* truncate
 
 Operators
 - And
-- Equal (toleranceMode: exact only)
+- Equal* (toleranceMode: exact only)
 - Gte
 - IsNull
 - LookupOutcomeValue
@@ -29,11 +108,6 @@ Operators
 - ResponseElseIf
 - SetOutcomeValue
 - StringMatch
-
-Outcome processing:
-
-- Sum
-- SetOutcomeValue (testVariables (incl. weight, includeCategory, excludeCategory), itemVariables (incl. weight))
 
 ## Usage
 
