@@ -195,6 +195,15 @@
     <None Update="Resources\ResponseProcessing\IMS-examples\gap_match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_associate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_gap_match.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_order.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\hotspot.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -210,13 +219,16 @@
     <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\position_object.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\select_point.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\text_entry.xml">
+    <None Update="Resources\ResponseProcessing\IMS-examples\slider.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\ITM-Cardinality-Multiple.xml">
+    <None Update="Resources\ResponseProcessing\IMS-examples\text_entry.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

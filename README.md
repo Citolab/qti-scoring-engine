@@ -3,7 +3,7 @@
 This library can be used for response and outcome scoring.
 Currenly it supports 2.x packages only.
 
-It does not support all response and outcome scoring (yet).
+It does not support all response and outcome scoring (yet) but all items in section [3.2 Simple Items](http://www.imsglobal.org/question/qtiv2p2/imsqti_v2p2_impl.html) are scored correctly.
 
 Currenly supports:
 
