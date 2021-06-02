@@ -433,6 +433,15 @@ namespace Citolab.QTI.ScoringEngine.Helper
              }).Where(v => v != null).ToList();
         }
 
+        internal static double RoundToSignificantDigits(this double d, int digits)
+        {
+            if (d == 0.0 || Double.IsNaN(d) || Double.IsInfinity(d))
+            {
+                return d;
+            }
+            decimal scale = (decimal)Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
+            return (double)(scale * Math.Round((decimal)d / scale, digits, MidpointRounding.AwayFromZero));
+        }
 
         internal static bool TryParseFloat(this string value, out Single result)
         {

@@ -56,6 +56,7 @@ Supported:
 * gt
 * gte
 * isNull
+* equalRounded
 * lt
 * lte
 * mapResponse
@@ -78,7 +79,6 @@ Unsupported:
 * divide
 * durationGTE
 * durationLT
-* equalRounded
 * fieldValue
 * gcd
 * lcm
