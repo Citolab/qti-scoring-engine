@@ -13,10 +13,11 @@
 		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageLicense>https://github.com/Citolab/qti-scoring-engine/blob/master/LICENSE</PackageLicense>
-		<PackageIcon>https:\avatars1.githubusercontent.com\u\citolab.png</PackageIcon>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/Citolab/qti-scoring-engine</PackageProjectUrl>
 		<PackageTags>QTI scoring IMS Citolab</PackageTags>
+		<PackageIcon>citolab.png</PackageIcon>
+		<PackageIconUrl />
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -38,6 +39,10 @@
 </ItemGroup>
 	
 <ItemGroup>
+  <None Include="..\citolab.png">
+    <Pack>True</Pack>
+    <PackagePath></PackagePath>
+  </None>
   <None Include="..\citolab.png">
     <Pack>True</Pack>
     <PackagePath></PackagePath>
