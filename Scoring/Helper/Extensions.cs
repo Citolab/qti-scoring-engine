@@ -634,6 +634,35 @@ namespace Citolab.QTI.ScoringEngine.Helper
             };
         }
 
+        internal static BaseValue ToBaseValue(this float value)
+        {
+            var culture = CultureInfo.InvariantCulture;
+            return new BaseValue
+            {
+                BaseType = BaseType.Float,
+                Value = value.ToString(culture)
+            };
+        }
+
+        internal static BaseValue ToBaseValue(this int value)
+        {
+            return new BaseValue
+            {
+                BaseType = BaseType.Int,
+                Value = value.ToString()
+            };
+        }
+
+        internal static BaseValue ToBaseValue(this string value)
+        {
+            return new BaseValue
+            {
+                BaseType = BaseType.String,
+                Value = value
+            };
+        }
+
+
 
         /// <summary>
         /// This adds total and weighted score for all summed items +

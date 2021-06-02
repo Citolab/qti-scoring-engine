@@ -21,8 +21,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         public AssessmentResult AssessmentResult { get; }
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
-        public Dictionary<string, IResponseProcessingOperator> Operators;
-        public Dictionary<string, IResponseProcessingExpression> Expressions;
+        public Dictionary<string, IBooleanExpression> BooleanExpressions;
+        public Dictionary<string, IBaseValueExpression> BaseValueExpressions;
         public Dictionary<string, ICustomOperator> CustomOperators = new Dictionary<string, ICustomOperator>();
         internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, List<ICustomOperator> customOperators)
         {
@@ -42,19 +42,19 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             }
         }
 
-        public IResponseProcessingExpression GetExpression(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
+        public IBaseValueExpression GetExpression(XElement element, ResponseProcessorContext context, bool logErrorIfNotFound = false)
         {
-            if (Expressions == null)
+            if (BaseValueExpressions == null)
             {
-                var type = typeof(IResponseProcessingExpression);
+                var type = typeof(IBaseValueExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IResponseProcessingExpression)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IBaseValueExpression)Activator.CreateInstance(t));
 
-                Expressions = instances.ToDictionary(t => t.Name, t => t);
+                BaseValueExpressions = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Expressions.TryGetValue(element?.Name.LocalName, out var calculator))
+            if (BaseValueExpressions.TryGetValue(element?.Name.LocalName, out var calculator))
             {
                 context.LogInformation($"Processing {calculator.Name}");
                 return calculator;
@@ -97,24 +97,24 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             return null;
         }
 
-        public IResponseProcessingOperator GetOperator(XElement element, ResponseProcessorContext context)
+        public IBooleanExpression GetOperator(XElement element, ResponseProcessorContext context)
         {
-            if (Operators == null)
+            if (BooleanExpressions == null)
             {
-                var type = typeof(IResponseProcessingOperator);
+                var type = typeof(IBooleanExpression);
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                       .SelectMany(s => s.GetTypes())
                       .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IResponseProcessingOperator)Activator.CreateInstance(t));
+                var instances = types.Select(t => (IBooleanExpression)Activator.CreateInstance(t));
 
-                Operators = instances.ToDictionary(t => t.Name, t => t);
+                BooleanExpressions = instances.ToDictionary(t => t.Name, t => t);
             }
-            if (Operators.TryGetValue(element?.Name.LocalName, out var executor))
+            if (BooleanExpressions.TryGetValue(element?.Name.LocalName, out var executor))
             {
                 context.LogInformation($"Processing {executor.Name}");
                 return executor;
             }
-            context.LogError($"Cannot find executor for tag-name:{element?.Name.LocalName}");
+            context.LogError($"Cannot find expression for tag-name:{element?.Name.LocalName}");
             return null;
         }
         public void LogInformation(string value)

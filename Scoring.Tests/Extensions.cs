@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Operators;
+using Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using System.Drawing;
 using System.Globalization;
@@ -177,34 +177,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             };
         }
 
-        internal static BaseValue ToBaseValue(this float value)
-        {
-            var culture = CultureInfo.InvariantCulture;
-            return new BaseValue
-            {
-                BaseType = BaseType.Float,
-                Value = value.ToString(culture)
-            };
-        }
-
-        internal static BaseValue ToBaseValue(this int value)
-        {
-            return new BaseValue
-            {
-                BaseType = BaseType.Int,
-                Value = value.ToString()
-            };
-        }
-
-        internal static BaseValue ToBaseValue(this string value)
-        {
-            return new BaseValue
-            {
-                BaseType = BaseType.String,
-                Value = value
-            };
-        }
-
+ 
         internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
         {
             return new OutcomeVariable
