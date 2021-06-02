@@ -53,14 +53,19 @@ Supported:
 * correct
 * customOperator
 * equal* (toleranceMode: exact only)
+* gt
 * gte
 * isNull
+* lt
+* lte
 * mapResponse
 * mapResponsePoint
 * match
 * member
 * or
+* ordered* (in match)
 * stringMatch
+* substring
 * sum
 * variable
 
@@ -76,7 +81,6 @@ Unsupported:
 * equalRounded
 * fieldValue
 * gcd
-* gt 
 * lcm
 * repeat
 * index
@@ -84,8 +88,6 @@ Unsupported:
 * integerDivide
 * integerModulus
 * integerToFloat
-* lt
-* lte
 * mathOperator
 * mathConstant
 * max
@@ -93,7 +95,6 @@ Unsupported:
 * multiple
 * not
 * null
-* ordered
 * outcomeMaximum
 * outcomeMinimum
 * patternMatch
@@ -105,7 +106,6 @@ Unsupported:
 * round
 * roundTo
 * statsOperator
-* substring
 * subtract
 * truncate
 

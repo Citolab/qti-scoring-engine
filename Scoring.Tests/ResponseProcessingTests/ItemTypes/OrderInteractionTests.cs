@@ -96,5 +96,47 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             Assert.Equal("0", result);
         }
 
+
+        [Fact]
+        public void IMS_ExampleOrderInteractionResponseProcessing_Correct_Partial_Scoring()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/order_partial_scoring.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DriverC",
+                    "DriverB",
+                    "DriverA" }
+
+                , BaseType.Identifier, Cardinality.Ordered);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
+
+        [Fact]
+        public void IMS_ExampleOrderInteractionResponseProcessing_Correct_Partial_Scoring_Incorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/order_partial_scoring.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DriverA",
+                    "DriverB",
+                    "DriverC" }
+
+                , BaseType.Identifier, Cardinality.Ordered);
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", result);
+        }
     }
 }

@@ -26,13 +26,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                     context.LogError("No value for first child of match element");
                     return false;
                 }
-                if (correctValueInfo == null)
-                {
-                    context.LogError("Second child of match element should map a correctResponse");
-                    return false;
-                }
-                var correctValue = correctValueInfo.Value.value;
-                if (correctValueInfo.Value.declaration.Cardinality == Cardinality.Single)
+                var correctValue = correctValueInfo.Value.BaseValue;
+                if (correctValueInfo.Value.Cardinality == Cardinality.Single)
                 {
                     return Helper.CompareSingleValues(valueToMap.Value, correctValue.Value, correctValue.BaseType, context);
                 }
@@ -49,7 +44,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.Operators
                     var valuesToBeMapped = valueToMap.Values.Select(v => v).ToList();
                     foreach (var correctAnswer in correctValue.Values)
                     {
-                        if (correctValueInfo.Value.declaration.Cardinality == Cardinality.Ordered)
+                        if (correctValueInfo.Value.Cardinality == Cardinality.Ordered)
                         {
                             var currentValueToMap = valuesToBeMapped[answerIndex];
                             var result = Helper.CompareSingleValues(correctAnswer, currentValueToMap, correctValue.BaseType, context);

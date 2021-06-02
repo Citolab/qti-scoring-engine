@@ -219,6 +219,9 @@
     <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\ResponseProcessing\IMS-examples\order_partial_scoring.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\ResponseProcessing\IMS-examples\position_object.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -119,7 +119,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return new BaseValue { BaseType = outcomeVariable.BaseType, Value = outcomeVariable.Value.ToString(), Identifier = outcomeVariable.Identifier };
         }
 
-        private static BaseValue GetCorrect(this XElement qtiElement, ResponseProcessorContext context)
+        private static (BaseValue BaseValue, Cardinality Cardinality)? GetCorrect(this XElement qtiElement, ResponseProcessorContext context)
         {
             if (qtiElement.Name.LocalName == "correct")
             {
@@ -138,11 +138,24 @@ namespace Citolab.QTI.ScoringEngine.Helper
                         context.LogError($"Correct: {identifier} references to a response without correctResponse");
                         return null;
                     }
-                    return new BaseValue { Identifier = identifier, BaseType = dec.BaseType, Value = dec.CorrectResponse, Values = dec.CorrectResponses };
+                    return (new BaseValue { Identifier = identifier, BaseType = dec.BaseType, Value = dec.CorrectResponse, Values = dec.CorrectResponses }, dec.Cardinality);
                 }
                 else
                 {
                     context.LogError($"Cannot reference to response declaration for correct {identifier}");
+                }
+            }
+            else if (qtiElement.Name.LocalName == "baseValue")
+            {
+                return (qtiElement.GetBaseValue(), Cardinality.Single);
+            }
+            else if (qtiElement.Name.LocalName == "ordered")
+            {
+                var values = qtiElement.Elements().Select(el => el.GetBaseValue()).ToList();
+                var firstValue = values.FirstOrDefault();
+                if (firstValue != null)
+                {
+                    return (new BaseValue { Identifier = qtiElement.Identifier(), BaseType = firstValue.BaseType, Value = null, Values = values.Select(v => v.Value).ToList() }, Cardinality.Ordered);
                 }
             }
             return null;
@@ -356,25 +369,36 @@ namespace Citolab.QTI.ScoringEngine.Helper
             return null;
         }
 
-        internal static (BaseValue value, ResponseDeclaration declaration)? GetCorrectValue(this XElement qtiElement, ResponseProcessorContext context)
+        internal static (BaseValue BaseValue, Cardinality Cardinality)? GetCorrectValue(this XElement qtiElement, ResponseProcessorContext context)
         {
-            if (qtiElement.Name.LocalName == "correct" ||
+            if (
+                qtiElement.Name.LocalName == "baseValue" ||
+                qtiElement.Name.LocalName == "ordered" ||
+                qtiElement.Name.LocalName == "correct" ||
                 qtiElement.Name.LocalName == "customOperator")
             {
                 var element = qtiElement.Name.LocalName != "customOperator" ?
                     qtiElement : qtiElement.Descendants().FirstOrDefault(el =>
-                    el.Name.LocalName == "correct");
+                    el.Name.LocalName == "correct" || el.Name.LocalName == "baseValue" ||
+                    el.Name.LocalName == "ordered");
                 var customOperators = new List<ICustomOperator>();
                 ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
-                var newValue = element.GetCorrect(context);
-                if (customOperators.Any())
+
+                var newValueInfo = element.GetCorrect(context);
+                if (newValueInfo.HasValue)
                 {
-                    foreach (var customOperator in customOperators)
+                    var newValue = newValueInfo.Value.BaseValue;
+                    if (customOperators.Any())
                     {
-                        newValue = customOperator.Apply(newValue);
+                        foreach (var customOperator in customOperators)
+                        {
+                            newValue = customOperator.Apply(newValue);
+                        }
                     }
+                    var responseDeclaration = context.AssessmentItem.ResponseDeclarations.ContainsKey(newValue?.Identifier) ?
+                        context.AssessmentItem.ResponseDeclarations[newValue.Identifier] : null;
+                    return (newValue, newValueInfo.Value.Cardinality);
                 }
-                return (newValue, context.AssessmentItem.ResponseDeclarations[newValue?.Identifier]);
             }
             return null;
         }
@@ -394,7 +418,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                      var s = element.GetCorrectValue(context);
                      if (s.HasValue)
                      {
-                         return s.Value.value;
+                         return s.Value.BaseValue;
                      }
                      else
                      {
