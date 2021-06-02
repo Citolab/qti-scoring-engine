@@ -86,7 +86,8 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 var outcomeDeclaration = context.AssessmentItem.OutcomeDeclarations[outcomeIdentifier];
                 var newOutcomeVariable = outcomeDeclaration.ToVariable();
-                newOutcomeVariable.Value = outcomeDeclaration.DefaultValue;
+                newOutcomeVariable.Value = string.IsNullOrWhiteSpace(outcomeDeclaration.DefaultValue?.ToString())
+                    ? "0" : outcomeDeclaration.DefaultValue?.ToString();
                 ItemResults[itemIdentifier].OutcomeVariables.Add(outcomeIdentifier, newOutcomeVariable);
                 itemResultElement.Add(newOutcomeVariable.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
             }

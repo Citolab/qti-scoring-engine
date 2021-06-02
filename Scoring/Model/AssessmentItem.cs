@@ -17,11 +17,11 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public HashSet<string> CalculatedOutcomes;
 
-        public XElement ResponseProcessingElement => this.FindElementByName("responseProcessing");
+        public XElement ResponseProcessingElement => Content.FindElementByName("responseProcessing");
 
         public AssessmentItem(ILogger logger, XDocument assessmentItem) : base(logger, assessmentItem)
         {
-            var responseProcessing = this.FindElementByName("responseProcessing");
+            var responseProcessing = Content.FindElementByName("responseProcessing");
             if (responseProcessing != null && !string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
             {
                 var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split('/');
@@ -30,31 +30,31 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     case "map_response":
                         {
-                            Root.Add(Templates.MapResponse.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                            Content.Root.Add(Templates.MapResponse.AddDefaultNamespace(Content.Root.GetDefaultNamespace()));
                             responseProcessing.Remove();
                             break;
                         }
                     case "map_response_point":
                         {
-                            Root.Add(Templates.MapResponsePoint.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                            Content.Root.Add(Templates.MapResponsePoint.AddDefaultNamespace(Content.Root.GetDefaultNamespace()));
                             responseProcessing.Remove();
                             break;
                         }
                     case "match_correct":
                         {
-                            Root.Add(Templates.MatchCorrect.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                            Content.Root.Add(Templates.MatchCorrect.AddDefaultNamespace(Content.Root.GetDefaultNamespace()));
                             responseProcessing.Remove();
                             break;
                         }
                 }
-                responseProcessing = this.FindElementByName("responseProcessing");
+                responseProcessing = Content.FindElementByName("responseProcessing");
             }
-            OutcomeDeclarations = this.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
+            OutcomeDeclarations = Content.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
             {
                 return GetOutcomeDeclaration(outcomeDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
 
-            ResponseDeclarations = this.FindElementsByName("responseDeclaration").Select(responseDeclaration =>
+            ResponseDeclarations = Content.FindElementsByName("responseDeclaration").Select(responseDeclaration =>
             {
                 return GetResponseDeclaration(responseDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);

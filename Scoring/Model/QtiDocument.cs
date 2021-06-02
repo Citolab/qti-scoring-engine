@@ -9,14 +9,16 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
-    internal abstract class QtiDocument : XDocument
+    internal abstract class QtiDocument
     {
         public string Identifier { get; set; }
+        public XDocument Content { get; }
         protected ILogger Logger;
-        public QtiDocument(ILogger logger, XDocument qtiDocument) : base(qtiDocument)
+        public QtiDocument(ILogger logger, XDocument qtiDocument)
         {
             Logger = logger;
             Identifier = qtiDocument.Root.Identifier();
+            Content = qtiDocument;
         }
 
         public OutcomeDeclaration GetOutcomeDeclaration(XElement outcomeDeclaration)

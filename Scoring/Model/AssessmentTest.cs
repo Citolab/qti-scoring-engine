@@ -15,7 +15,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public Dictionary<string, AssessmentItemRef> AssessmentItemRefs;
         public List<string> Categories;
         public HashSet<string> CalculatedOutcomes;
-        public XElement OutcomeProcessingElement => this.FindElementByName("outcomeProcessing");
+        public XElement OutcomeProcessingElement => Content.FindElementByName("outcomeProcessing");
         public AssessmentTest(ILogger logger, XDocument assessmentTest) : base(logger, assessmentTest)
         {
             Init();
@@ -23,12 +23,12 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public void Init()
         {
-            OutcomeDeclarations = this.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
+            OutcomeDeclarations = Content.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
             {
                 return GetOutcomeDeclaration(outcomeDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
 
-            AssessmentItemRefs = this.FindElementsByName("assessmentItemRef")
+            AssessmentItemRefs = Content.FindElementsByName("assessmentItemRef")
                .Select(assessmentItemRefElement =>
                {
                    var itemIdentifier = assessmentItemRefElement.Identifier();
