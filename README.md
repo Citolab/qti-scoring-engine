@@ -5,6 +5,29 @@ Currenly it supports 2.x packages only.
 
 It does not support all response and outcome scoring (yet) but all items in section [3.2 Simple Items](http://www.imsglobal.org/question/qtiv2p2/imsqti_v2p2_impl.html) are scored correctly.
 
+# Response processing
+
+## Cardinality
+Supported:
+- single
+- multiple
+- ordered
+
+## BaseType
+Supported:
+- directedPair
+- identifier
+- int
+- float
+- pair
+- point
+- string
+
+Unsupported:
+- Duration,
+- file
+- Uri
+- IntOrIdentifier
 ## Rules
 
 Supported:
@@ -29,7 +52,7 @@ Supported:
 * baseValue
 * correct
 * customOperator
-* equal
+* equal* (toleranceMode: exact only)
 * gte
 * isNull
 * mapResponse
@@ -39,10 +62,9 @@ Supported:
 * or
 * stringMatch
 * sum
-* testVariables
 * variable
 
-Not supported:
+Unsupported:
 * anyN
 * containerSize
 * contains
@@ -71,11 +93,6 @@ Not supported:
 * multiple
 * not
 * null
-* numberCorrect
-* numberIncorrect
-* numberPresented
-* numberResponded
-* numberSelected
 * ordered
 * outcomeMaximum
 * outcomeMinimum
@@ -92,22 +109,29 @@ Not supported:
 * subtract
 * truncate
 
-Operators
-- And
-- Equal* (toleranceMode: exact only)
-- Gte
-- IsNull
-- LookupOutcomeValue
-- Match
-- Member
-- Not
-- Or
-- ResponseCondition
-- ResponseElse
-- ResponseIf
-- ResponseElseIf
-- SetOutcomeValue
-- StringMatch
+# Outcome processing
+## Rules
+
+Supported:
+
+* setOutcomeValue
+
+## Expressions:
+
+Supported:
+* baseValue
+* sum
+* testVariables
+* variable
+
+Unsupported:
+* numberCorrect
+* numberIncorrect
+* numberPresented
+* numberResponded
+* numberSelected
+* outcomeMaximum
+* outcomeMinimum
 
 ## Usage
 
@@ -154,6 +178,35 @@ var scoredAssessmentResults = qtiScoringEngine.ProcessResponsesAndOutcomes(new S
     Logger = _logger
 });
 ```
+
+## Error handling
+
+### ScoringEngineException
+A ```ScoringEngineException``` will be thrown when:
+
+- Calling responseProcessing without context or not a list of items.
+- Calling outcomeProcessing without context or without an assessmentTest.
+
+### Unhandled exceptions
+Because some dictionaries are created to be able to do fast lookups some it will break on double identifiers e.g.
+- Same itemRef twice in a test.
+- Multiple itemResults for the same item in an AssessmentResult
+- Multiple outcome-/responseDeclarations with the same identifier in the same AssessmentItem.
+
+### Logging
+A lot is logged. Some informational to be able to track the prossing but also errors that will not throw an exception and just result in score 0.
+
+E.g.
+- BaseType does not map to actual value. E.g. float = 'hello'
+- Invalid lookup in interpolation, mapResponse etc. 
+
+### missings
+
+If response processing is called without candidateResponses it will add the outcomeVariables that are used in responseProcessing with the defaultValue if defined, otherwise 0.
+
+All oucomeVariables that are used in the response processing are reset to zero and re-calcuted. 
+
+OutcomeVariable that are not used in the response processing. For example if there is an outcomeVariable 'numAttempts' or 'toolsUsed' it won't be touched and will be in the AssessmentResult with the same value.
 
 ## Processing Packages
 

@@ -322,7 +322,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
                         BaseType = BaseType.Float,
                         Value = qtiValues
                         .Where(v => v.Value.ToString().TryParseFloat(out var s))
-                        .Sum(v => v.Value.ToString().ParseFloat() * 1).ToString()
+                        .Sum(v => v.Value.ToString().ParseFloat(null) * 1).ToString()
                     };
                 });
             return baseValues
@@ -406,260 +406,261 @@ namespace Citolab.QTI.ScoringEngine.Helper
                  {
                      return element.GetVariableOrBaseValue(context);
                  }
-             }).Where(v => v!=null).ToList();
+             }).Where(v => v != null).ToList();
         }
 
 
         internal static bool TryParseFloat(this string value, out Single result)
+        {
+            var style = NumberStyles.Float;
+            var culture = CultureInfo.InvariantCulture;
+            if (float.TryParse(value, style, culture, out var floatValue))
             {
-                var style = NumberStyles.Float;
-                var culture = CultureInfo.InvariantCulture;
-                if (float.TryParse(value, style, culture, out var floatValue))
-                {
-                    result = floatValue;
-                    return true;
-                }
-                else
-                {
-                    result = default(float);
-                    return false;
-                }
+                result = floatValue;
+                return true;
             }
+            else
+            {
+                result = default(float);
+                return false;
+            }
+        }
 
 
-            internal static float ParseFloat(this string value)
+        internal static float ParseFloat(this string value, ILogger logger)
+        {
+            var style = NumberStyles.AllowDecimalPoint;
+            var culture = CultureInfo.CurrentCulture;
+            if (float.TryParse(value, style, culture, out var floatValue))
             {
-                var style = NumberStyles.AllowDecimalPoint;
-                var culture = CultureInfo.CurrentCulture;
-                if (float.TryParse(value, style, culture, out var floatValue))
-                {
-                    return floatValue;
-                }
-                throw new ScoringEngineException($"value: {value} could not be parsed to float");
+                return floatValue;
             }
+            logger.LogError($"value: {value} could not be parsed to float");
+            return default;
+        }
 
-            internal static bool TryParseInt(this string value, out Single result)
+        internal static bool TryParseInt(this string value, out Single result)
+        {
+            var style = NumberStyles.AllowDecimalPoint;
+            var culture = CultureInfo.CurrentCulture;
+            if (int.TryParse(value, style, culture, out var intValue))
             {
-                var style = NumberStyles.AllowDecimalPoint;
-                var culture = CultureInfo.CurrentCulture;
-                if (int.TryParse(value, style, culture, out var intValue))
-                {
-                    result = intValue;
-                    return true;
-                }
-                else
-                {
-                    result = 0;
-                    return false;
-                }
+                result = intValue;
+                return true;
             }
+            else
+            {
+                result = 0;
+                return false;
+            }
+        }
 
-            internal static string GetAttributeValue(this XElement el, string name)
-            {
-                return el.GetAttribute(name)?.Value ?? string.Empty;
-            }
-            internal static XAttribute GetAttribute(this XElement el, string name)
-            {
-                return el.Attributes()
-                    .FirstOrDefault(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase));
-            }
-            internal static IEnumerable<XAttribute> GetAttributes(this XDocument doc, string name)
-            {
-                var s = doc.Descendants().SelectMany(d => d.Attributes()
-                    .Where(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase)));
-                return s;
-            }
+        internal static string GetAttributeValue(this XElement el, string name)
+        {
+            return el.GetAttribute(name)?.Value ?? string.Empty;
+        }
+        internal static XAttribute GetAttribute(this XElement el, string name)
+        {
+            return el.Attributes()
+                .FirstOrDefault(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+        internal static IEnumerable<XAttribute> GetAttributes(this XDocument doc, string name)
+        {
+            var s = doc.Descendants().SelectMany(d => d.Attributes()
+                .Where(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase)));
+            return s;
+        }
 
-            internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XElement element, string elementName, string attributeName, string attributeValue)
-            {
-                return element.FindElementsByName(elementName)
-                    .Where(d => d.Attributes()
-                        .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
-            }
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XElement element, string elementName, string attributeName, string attributeValue)
+        {
+            return element.FindElementsByName(elementName)
+                .Where(d => d.Attributes()
+                    .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
+        }
 
-            internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
-            {
-                return doc.FindElementsByName(elementName)
-                    .Where(element => element.Attributes()
-                        .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
-            }
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        {
+            return doc.FindElementsByName(elementName)
+                .Where(element => element.Attributes()
+                    .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase)));
+        }
 
-            internal static IEnumerable<XElement> FindElementsByElementAndAttributeThatContainsValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
-            {
-                return doc.FindElementsByName(elementName)
-                    .Where(element => element.Attributes()
-                        .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.ToLower().Contains(attributeValue.ToLower())));
-            }
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeThatContainsValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        {
+            return doc.FindElementsByName(elementName)
+                .Where(element => element.Attributes()
+                    .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.ToLower().Contains(attributeValue.ToLower())));
+        }
 
-            internal static IEnumerable<XElement> FindElementsByElementAndAttributeStartValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
-            {
-                return doc.FindElementsByName(elementName)
-                    .Where(element => element.Attributes()
-                        .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.ToLower().StartsWith(attributeValue.ToLower())));
-            }
+        internal static IEnumerable<XElement> FindElementsByElementAndAttributeStartValue(this XDocument doc, string elementName, string attributeName, string attributeValue)
+        {
+            return doc.FindElementsByName(elementName)
+                .Where(element => element.Attributes()
+                    .Any(a => a.Name.LocalName.Equals(attributeName, StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.ToLower().StartsWith(attributeValue.ToLower())));
+        }
 
-            internal static string GetElementValue(this XElement el, string name)
-            {
-                return el.FindElementsByName(name).FirstOrDefault()?.Value ?? String.Empty;
-            }
-            //xmlns
+        internal static string GetElementValue(this XElement el, string name)
+        {
+            return el.FindElementsByName(name).FirstOrDefault()?.Value ?? String.Empty;
+        }
+        //xmlns
 
-            internal static IEnumerable<XElement> GetInteractions(this XDocument doc)
-            {
-                return doc.Document?.Root.GetInteractions();
-            }
+        internal static IEnumerable<XElement> GetInteractions(this XDocument doc)
+        {
+            return doc.Document?.Root.GetInteractions();
+        }
 
-            internal static IEnumerable<XElement> GetInteractions(this XElement el)
-            {
-                var qti2Elements = el.FindElementsByLastPartOfName("interaction")
-                    .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
-                    .Where(d => d.Attributes()
-                        .Any(a => a.Name.LocalName.Equals("responseIdentifier", StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
-                var qti3Elements = el.FindElementsByLastPartOfName("Interaction")
-                    .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
-                    .Where(d => d.Attributes()
-                        .Any(a => a.Name.LocalName.Equals("response-identifier", StringComparison.OrdinalIgnoreCase) &&
-                                  a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
-                return qti2Elements.Concat(qti3Elements);
-            }
-            internal static XElement GetInteraction(this XElement element)
-            {
-                return element.GetInteractions().FirstOrDefault();
-            }
-            internal static XElement GetInteraction(this XDocument doc)
-            {
-                return doc.GetInteractions().FirstOrDefault();
-            }
-            internal static void SetAttributeValue(this XElement el, string name, string value)
-            {
-                el.GetAttribute(name)?.SetValue(value);
-            }
+        internal static IEnumerable<XElement> GetInteractions(this XElement el)
+        {
+            var qti2Elements = el.FindElementsByLastPartOfName("interaction")
+                .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
+                .Where(d => d.Attributes()
+                    .Any(a => a.Name.LocalName.Equals("responseIdentifier", StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
+            var qti3Elements = el.FindElementsByLastPartOfName("Interaction")
+                .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
+                .Where(d => d.Attributes()
+                    .Any(a => a.Name.LocalName.Equals("response-identifier", StringComparison.OrdinalIgnoreCase) &&
+                              a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
+            return qti2Elements.Concat(qti3Elements);
+        }
+        internal static XElement GetInteraction(this XElement element)
+        {
+            return element.GetInteractions().FirstOrDefault();
+        }
+        internal static XElement GetInteraction(this XDocument doc)
+        {
+            return doc.GetInteractions().FirstOrDefault();
+        }
+        internal static void SetAttributeValue(this XElement el, string name, string value)
+        {
+            el.GetAttribute(name)?.SetValue(value);
+        }
 
-            internal static XElement ToXElement(this BaseValue value)
-            {
-                return XElement.Parse($"<baseValue baseType=\"{value.BaseType.GetString()}\">{value.Value}</baseValue>");
-            }
+        internal static XElement ToXElement(this BaseValue value)
+        {
+            return XElement.Parse($"<baseValue baseType=\"{value.BaseType.GetString()}\">{value.Value}</baseValue>");
+        }
 
-            internal static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
+        internal static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
+        {
+            return new OutcomeVariable
             {
-                return new OutcomeVariable
-                {
-                    BaseType = outcomeDeclaration.BaseType,
-                    Cardinality = outcomeDeclaration.Cardinality,
-                    Identifier = outcomeDeclaration.Identifier,
-                    Value = outcomeDeclaration.DefaultValue
-                };
-            }
+                BaseType = outcomeDeclaration.BaseType,
+                Cardinality = outcomeDeclaration.Cardinality,
+                Identifier = outcomeDeclaration.Identifier,
+                Value = outcomeDeclaration.DefaultValue
+            };
+        }
 
-            internal static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
-            {
-                return XElement.Parse($"<variable identifier=\"{outcomeDeclaration.Identifier}\" />");
-            }
+        internal static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
+        {
+            return XElement.Parse($"<variable identifier=\"{outcomeDeclaration.Identifier}\" />");
+        }
 
-            internal static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
-            {
-                return XElement.Parse($"<outcomeDeclaration " +
-                    $"identifier=\"{outcomeDeclaration.Identifier}\" cardinality=\"{outcomeDeclaration.Cardinality.GetString()}\" " +
-                    $"baseType=\"{outcomeDeclaration.BaseType.GetString()}\"><defaultValue><value>{outcomeDeclaration.DefaultValue}</value></defaultValue></outcomeDeclaration>");
-            }
+        internal static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
+        {
+            return XElement.Parse($"<outcomeDeclaration " +
+                $"identifier=\"{outcomeDeclaration.Identifier}\" cardinality=\"{outcomeDeclaration.Cardinality.GetString()}\" " +
+                $"baseType=\"{outcomeDeclaration.BaseType.GetString()}\"><defaultValue><value>{outcomeDeclaration.DefaultValue}</value></defaultValue></outcomeDeclaration>");
+        }
 
-            internal static XElement ToValueElement(this string value)
-            {
-                return XElement.Parse($"<value>{value}</value>");
-            }
+        internal static XElement ToValueElement(this string value)
+        {
+            return XElement.Parse($"<value>{value}</value>");
+        }
 
-            internal static HashSet<T> ToHashSet<T>(
-           this IEnumerable<T> source,
-           IEqualityComparer<T> comparer = null)
-            {
-                return new HashSet<T>(source, comparer);
-            }
+        internal static HashSet<T> ToHashSet<T>(
+       this IEnumerable<T> source,
+       IEqualityComparer<T> comparer = null)
+        {
+            return new HashSet<T>(source, comparer);
+        }
 
-            internal static XElement AddDefaultNamespace(this XElement element, XNamespace xnamespace)
+        internal static XElement AddDefaultNamespace(this XElement element, XNamespace xnamespace)
+        {
+            element.Name = xnamespace + element.Name.LocalName;
+            foreach (var child in element.Descendants())
             {
-                element.Name = xnamespace + element.Name.LocalName;
-                foreach (var child in element.Descendants())
-                {
-                    child.Name = xnamespace + child.Name.LocalName;
-                }
-                return element;
+                child.Name = xnamespace + child.Name.LocalName;
             }
-            internal static OutcomeDeclaration ToOutcomeDeclaration(this float value, string identifier = "SCORE")
+            return element;
+        }
+        internal static OutcomeDeclaration ToOutcomeDeclaration(this float value, string identifier = "SCORE")
+        {
+            return new OutcomeDeclaration
             {
-                return new OutcomeDeclaration
+                Identifier = identifier,
+                BaseType = BaseType.Float,
+                Cardinality = Cardinality.Single,
+                DefaultValue = value
+            };
+        }
+
+
+        /// <summary>
+        /// This adds total and weighted score for all summed items +
+        /// total and weighted score for all categories.
+        /// </summary>
+        /// <param name="assessmentTest"></param>
+        /// <returns></returns>
+        public static XDocument AddTotalAndCategoryScores(this XDocument assessmentTest)
+        {
+            var changedTest = assessmentTest
+                .AddTestOutcome("SCORE_TOTAL", "", null)
+                .AddTestOutcome("SCORE_TOTAL_WEIGHTED", "WEIGHT", null)
+                .AddTestOutcomeForCategories("SCORE_TOTAL", "")
+                .AddTestOutcomeForCategories("SCORE_TOTAL_WEIGHTED", "WEIGHT");
+            return changedTest;
+        }
+
+        internal static XDocument AddTestOutcomeForCategories(this XDocument assessmentTest, string identifierPrefix, string weightIdentifier)
+        {
+            var categories = assessmentTest.FindElementsByName("assessmentItemRef")
+               .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category").Split(' '))
+               .Distinct()
+               .ToList();
+            categories.ForEach(c =>
+            {
+                assessmentTest = assessmentTest.AddTestOutcome($"{identifierPrefix}_{c}", weightIdentifier, new List<string> { c });
+            });
+            return assessmentTest;
+        }
+
+        internal static XDocument AddTestOutcome(this XDocument assessmentTest, string identifier, string weightIdentifier, List<string> includedCategories)
+        {
+            var outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
+            if (outcomeProcessing == null || !outcomeProcessing.FindElementsByElementAndAttributeValue("setOutcomeValue", "identifier", identifier).Any())
+            {
+                var testVariable = new SumTestVariable
                 {
                     Identifier = identifier,
-                    BaseType = BaseType.Float,
-                    Cardinality = Cardinality.Single,
-                    DefaultValue = value
+                    WeightIdentifier = weightIdentifier,
+                    IncludedCategories = includedCategories
                 };
-            }
+                var outcomeElement = testVariable.OutcomeElement();
+                var testVariableElement = testVariable.ToSummedSetOutcomeElement();
 
+                assessmentTest.Root.Add(outcomeElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
 
-            /// <summary>
-            /// This adds total and weighted score for all summed items +
-            /// total and weighted score for all categories.
-            /// </summary>
-            /// <param name="assessmentTest"></param>
-            /// <returns></returns>
-            public static XDocument AddTotalAndCategoryScores(this XDocument assessmentTest)
-            {
-                var changedTest = assessmentTest
-                    .AddTestOutcome("SCORE_TOTAL", "", null)
-                    .AddTestOutcome("SCORE_TOTAL_WEIGHTED", "WEIGHT", null)
-                    .AddTestOutcomeForCategories("SCORE_TOTAL", "")
-                    .AddTestOutcomeForCategories("SCORE_TOTAL_WEIGHTED", "WEIGHT");
-                return changedTest;
-            }
-
-            internal static XDocument AddTestOutcomeForCategories(this XDocument assessmentTest, string identifierPrefix, string weightIdentifier)
-            {
-                var categories = assessmentTest.FindElementsByName("assessmentItemRef")
-                   .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category").Split(' '))
-                   .Distinct()
-                   .ToList();
-                categories.ForEach(c =>
+                if (outcomeProcessing == null)
                 {
-                    assessmentTest = assessmentTest.AddTestOutcome($"{identifierPrefix}_{c}", weightIdentifier, new List<string> { c });
-                });
+                    assessmentTest.Add(XElement.Parse("<outcomeProcessing></outcomeProcessing>"));
+                    outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
+                }
+                outcomeProcessing.Add(testVariableElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
+                return assessmentTest;
+            }
+            else
+            {
+                // variable already exist
                 return assessmentTest;
             }
 
-            internal static XDocument AddTestOutcome(this XDocument assessmentTest, string identifier, string weightIdentifier, List<string> includedCategories)
-            {
-                var outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
-                if (outcomeProcessing == null || !outcomeProcessing.FindElementsByElementAndAttributeValue("setOutcomeValue", "identifier", identifier).Any())
-                {
-                    var testVariable = new SumTestVariable
-                    {
-                        Identifier = identifier,
-                        WeightIdentifier = weightIdentifier,
-                        IncludedCategories = includedCategories
-                    };
-                    var outcomeElement = testVariable.OutcomeElement();
-                    var testVariableElement = testVariable.ToSummedSetOutcomeElement();
-
-                    assessmentTest.Root.Add(outcomeElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
-
-                    if (outcomeProcessing == null)
-                    {
-                        assessmentTest.Add(XElement.Parse("<outcomeProcessing></outcomeProcessing>"));
-                        outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
-                    }
-                    outcomeProcessing.Add(testVariableElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
-                    return assessmentTest;
-                }
-                else
-                {
-                    // variable already exist
-                    return assessmentTest;
-                }
-
-            }
         }
     }
+}
