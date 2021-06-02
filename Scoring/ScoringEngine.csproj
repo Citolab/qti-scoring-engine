@@ -7,13 +7,16 @@
 		<PackageId>Citolab.QTI.ScoringEngine</PackageId>
 		<Version>1.0.0-beta.1</Version>
 		<Company>Cito</Company>
-		<Copyright>Cito</Copyright>
+		<Copyright>Stichting Cito Instituut voor Toetsontwikkeling, Arnhem (2021)</Copyright>
 		<Authors>Citolab</Authors>
 		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
 		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageLicense>https://github.com/Citolab/qti-scoring-engine/blob/master/LICENSE</PackageLicense>
-		<PackageIcon>https://avatars1.githubusercontent.com/u/32355044?s=400&amp;u=8d300a1c77a82b06814b096d175f68a33bd6f73b&amp;v=4</PackageIcon>
+		<PackageIcon>https:\avatars1.githubusercontent.com\u\citolab.png</PackageIcon>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/Citolab/qti-scoring-engine</PackageProjectUrl>
+		<PackageTags>QTI scoring IMS Citolab</PackageTags>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,6 +35,17 @@
   <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
   <_Parameter1>ScoringEngine.Tests</_Parameter1>
   </AssemblyAttribute>
+</ItemGroup>
+	
+<ItemGroup>
+  <None Include="..\citolab.png">
+    <Pack>True</Pack>
+    <PackagePath></PackagePath>
+  </None>
+  <None Include="..\LICENSE">
+    <Pack>True</Pack>
+    <PackagePath></PackagePath>
+  </None>
 </ItemGroup>
 
 </Project>
