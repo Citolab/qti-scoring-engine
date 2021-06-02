@@ -12,8 +12,8 @@
 		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
 		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<PackageLicenseUrl>https://github.com/Citolab/qti-scoring-engine/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageIconUrl>https://avatars1.githubusercontent.com/u/32355044?s=400&amp;u=8d300a1c77a82b06814b096d175f68a33bd6f73b&amp;v=4</PackageIconUrl>
+		<PackageLicense>https://github.com/Citolab/qti-scoring-engine/blob/master/LICENSE</PackageLicense>
+		<PackageIcon>https://avatars1.githubusercontent.com/u/32355044?s=400&amp;u=8d300a1c77a82b06814b096d175f68a33bd6f73b&amp;v=4</PackageIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
