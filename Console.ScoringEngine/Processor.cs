@@ -43,9 +43,12 @@ namespace Console.Scoring
             {
                 Directory.CreateDirectory(newBaseDir);
             }
+            var assessementIndex = 0;
             assessmentResults.ForEach(assessmentResult =>
             {
-                File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), assessmentResult.Document.ToString());
+                var doc = scoredAssessmentResults[assessementIndex];
+                assessementIndex++;
+                File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), doc.ToString());
             });
           
         }

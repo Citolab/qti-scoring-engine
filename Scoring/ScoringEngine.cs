@@ -66,8 +66,9 @@ namespace Citolab.QTI.ScoringEngine
             //}
             //else
             //{
-                ctx.AssessmentmentResults.ForEach(
-                    assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
+            ctx.AssessmentmentResults = ctx.AssessmentmentResults
+                .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger))
+                .ToList();
             //}
             return ctx.AssessmentmentResults;
         }
@@ -80,19 +81,21 @@ namespace Citolab.QTI.ScoringEngine
         }
 
 
-        private void AssessmentResultOutcomeProcessing(XDocument assessmentResultDocument, AssessmentTest assessmentTest, ILogger logger)
+        private AssessmentResult AssessmentResultOutcomeProcessing(XDocument assessmentResultDocument, AssessmentTest assessmentTest, ILogger logger)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
-            OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
+            assessmentResult = OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
+            return assessmentResult;
         }
 
-        private void AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, List<ICustomOperator> customOperators, ILogger logger)
+        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, List<ICustomOperator> customOperators, ILogger logger)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
             foreach(var assessmentItem in assessmentItems)
             {
-                ResponseProcessor.Process(assessmentItem, assessmentResult, logger, customOperators);
+                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, customOperators);
             }
+            return assessmentResult;
         }
     }
 }

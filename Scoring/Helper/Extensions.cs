@@ -305,7 +305,8 @@ namespace Citolab.QTI.ScoringEngine.Helper
                         {
                             if (assesmentItemRef.Weights != null && assesmentItemRef.Weights.ContainsKey(weightIdentifier))
                             {
-                                if (outcome.Value.ToString().TryParseFloat(out var floatValue))
+                                var outcomeValue = outcome.Value != null ? outcome.Value.ToString() : "0";
+                                if (outcomeValue.TryParseFloat(out var floatValue))
                                 {
                                     return new OutcomeVariable
                                     {
@@ -326,7 +327,9 @@ namespace Citolab.QTI.ScoringEngine.Helper
                     }
                     else
                     {
-                        context.LogError($"Cannot find assessmentItemRef outcomeVariable: {itemRefIdentifier}");
+                        // if there are informational item that have no e.g. SCORE outcome and are not excluded
+                        // in the test-variable it comes here.
+                        context.LogWarning($"Cannot find assessmentItemRef outcomeVariable: {itemRefIdentifier}");
                         return null;
                     }
                     // return GetItemReferenceVariables(assesmentItemRef.Identifier, variableIdentifier, "testVariable", context);
@@ -594,7 +597,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static XElement ToValueElement(this string value)
         {
-            return XElement.Parse($"<qti-value>{value}</qti-value>");
+            return XElement.Parse($"<Value>{value}</Value>");
         }
 
         internal static HashSet<T> ToHashSet<T>(
