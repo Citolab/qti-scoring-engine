@@ -135,7 +135,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
             var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
-            Assert.Equal("1", result);
+            Assert.Equal("0", result);
         }
     }
 }
