@@ -186,6 +186,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\30\ResponseProcessing\IMS-examples\composition_of_water_qti3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\30\ResponseProcessing\IMS-examples\graphic-gap-match-qti3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\imsmanifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

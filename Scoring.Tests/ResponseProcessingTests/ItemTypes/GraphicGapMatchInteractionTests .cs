@@ -102,5 +102,40 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
             Assert.Equal("0", result);
         }
+        [Fact]
+        public void IMS_ExampleGraphicGapMatchInteraction_QTI3_Correct()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DraggerD B", "DraggerC C", "DraggerA D", "DraggerB A"
+                }
+                , BaseType.DirectedPair, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
+
+        [Fact]
+        public void IMS_ExampleGraphicGapMatchInteraction_QTI3_Incorrect()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses
+                (assessmentItem.Identifier, "RESPONSE", new List<string>{
+                    "DraggerD B", "DraggerC C", "DraggerA A", "DraggerB D"
+                }
+                , BaseType.DirectedPair, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+
+            var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", result);
+        }
     }
 }

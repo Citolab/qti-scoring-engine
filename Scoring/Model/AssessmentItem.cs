@@ -26,7 +26,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split('/');
                 var templateName = splittedTemplateName[splittedTemplateName.Length - 1];
-                switch (templateName.Trim())
+                switch (System.IO.Path.GetFileNameWithoutExtension(templateName.Trim()))
                 {
                     case "map_response":
                         {

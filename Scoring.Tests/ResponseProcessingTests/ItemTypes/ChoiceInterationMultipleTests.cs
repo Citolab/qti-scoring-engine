@@ -22,7 +22,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
 
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "D", "E", "F"}, BaseType.Identifier, Cardinality.Multiple);
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "D", "E", "F" }, BaseType.Identifier, Cardinality.Multiple);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
@@ -67,7 +67,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
 
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/112505-MR.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> {  }, BaseType.Identifier, Cardinality.Multiple);
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { }, BaseType.Identifier, Cardinality.Multiple);
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
@@ -130,6 +130,52 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
+            var scoreValue = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+
+        public void ChoiceInteractionMultipleImsSiteCorrect_QTI3()
+        {
+            var logger = new Mock<ILogger>().Object;
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/composition_of_water_qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+            var scoreValue = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("2", scoreValue);
+        }
+        [Fact]
+        public void ChoiceInteractionMultipleImsSitePartly1_QTI3()
+        {
+            var logger = new Mock<ILogger>().Object;
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/composition_of_water_qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "O" }, BaseType.Identifier, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+            var scoreValue = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+        [Fact]
+        public void ChoiceInteractionMultipleImsSitePartly2_QTI3()
+        {
+            var logger = new Mock<ILogger>().Object;
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/composition_of_water_qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "Cl", "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+            var scoreValue = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+        [Fact]
+        public void ChoiceInteractionMultipleImsSiteIncorrect_QTI3()
+        {
+            var logger = new Mock<ILogger>().Object;
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/composition_of_water_qti3.xml")));
+            var assessmentResult = TestHelper.GetBasicAssessmentResult();
+            assessmentResult.AddCandidateResponses(assessmentItem.Identifier, "RESPONSE", new List<string> { "He", "Cl", "H", "O" }, BaseType.Identifier, Cardinality.Multiple);
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
             var scoreValue = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");
             Assert.Equal("0", scoreValue);
         }
