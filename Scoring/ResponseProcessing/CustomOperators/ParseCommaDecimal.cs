@@ -8,7 +8,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
     internal class ParseCommaDecimal : ICustomOperator
     {
-        public string Definition { get => "depcp:ParseCommaDecimal"; }
+        public virtual string Definition { get => "depcp:ParseCommaDecimal"; }
 
         public BaseValue Apply(BaseValue value)
         {
@@ -18,5 +18,10 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
             }
             return value;
         }
+    }
+
+    internal class ParseCommaDecimalQuestify : ParseCommaDecimal
+    {
+        public override string Definition { get => "questify:ParseCommaDecimal"; }
     }
 }

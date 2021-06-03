@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" title="RW_E7_4ITM" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../controlxsds/imsqti_v2p1.xsd" identifier="TST-RW_E7_4ITM" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1">
+  <outcomeDeclaration cardinality="single" identifier="SCORE" baseType="integer">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="SCORE_N" baseType="integer">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="SCORE_CATEGORY_aftrekken" baseType="float" />
+  <outcomeDeclaration cardinality="single" identifier="SCORE_CATEGORY_optellen" baseType="float" />
+  <testPart submissionMode="simultaneous" navigationMode="linear" identifier="RES-6aaf5974-3ac7-4fe3-a3d3-46d427f847b2">
+    <assessmentSection title="Items" visible="true" keepTogether="false" identifier="RES-85193c57-3975-460c-b7d1-87dcbe52f3db">
+      <assessmentItemRef href="72757.xml" category="aftrekken ItemFunctionalType_Regular" identifier="ITM-72757">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentItemRef href="72759.xml" category="aftrekken ItemFunctionalType_Regular" identifier="ITM-72759">
+        <weight identifier="WEIGHT" value="2" />
+      </assessmentItemRef>
+      <assessmentItemRef href="72784.xml" category="optellen ItemFunctionalType_Regular" identifier="ITM-72784">
+        <weight identifier="WEIGHT" value="1" />
+      </assessmentItemRef>
+      <assessmentItemRef href="72833.xml" category="optellen ItemFunctionalType_Regular" identifier="ITM-72833">
+        <weight identifier="WEIGHT" value="3" />
+      </assessmentItemRef>
+    </assessmentSection>
+  </testPart>
+  <outcomeProcessing>
+    <setOutcomeValue identifier="SCORE">
+      <round>
+        <sum>
+          <testVariables excludeCategory="openvraag" variableIdentifier="SCORE" weightIdentifier="WEIGHT" />
+        </sum>
+      </round>
+    </setOutcomeValue>
+    <setOutcomeValue identifier="SCORE_N">
+      <sum>
+        <numberSelected excludeCategory="openvraag" />
+      </sum>
+    </setOutcomeValue>
+    <setOutcomeValue identifier="SCORE_CATEGORY_aftrekken">
+      <sum>
+        <testVariables includeCategory="aftrekken" excludeCategory="ItemFunctionalType_Informational" variableIdentifier="SCORE" weightIdentifier="WEIGHT" />
+      </sum>
+    </setOutcomeValue>
+    <setOutcomeValue identifier="SCORE_CATEGORY_optellen">
+      <sum>
+        <testVariables includeCategory="optellen" excludeCategory="ItemFunctionalType_Informational" variableIdentifier="SCORE" weightIdentifier="WEIGHT" />
+      </sum>
+    </setOutcomeValue>
+  </outcomeProcessing>
+</assessmentTest>

@@ -97,7 +97,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
 
     public static class Extensions
     {
-        internal static string GetScoreForItem(this AssessmentResult assessmentResult, string itemIdentifier, string outcomeIdentifier)
+        internal static string GetScoreForItem(this XDocument assessmentResult, string itemIdentifier, string outcomeIdentifier)
         {
             var itemResult = assessmentResult
                 .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
@@ -128,6 +128,33 @@ namespace Citolab.QTI.ScoringEngine.Tests
                     value.Value = newValue;
                 }
                 assessmentTest.ItemResults[itemId].ResponseVariables[responseIdentifier].Value = newValue;
+            }
+        }
+
+        internal static void ChangeResponse(this XDocument assessmentTest, string itemId, string responseIdentifier, string newValue)
+        {
+            var itemResult = assessmentTest
+            .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemId)
+            .FirstOrDefault();
+            if (itemResult != null)
+            {
+                var value = itemResult.FindElementsByElementAndAttributeValue("responseVariable", "identifier", responseIdentifier).FirstOrDefault()?
+                    .FindElementsByName("value").FirstOrDefault();
+                if (value != null)
+                {
+                    value.Value = newValue;
+                }
+            }
+        }
+
+        internal static void RemoveItemResult(this XDocument assessmentTest, string itemId)
+        {
+            var itemResult = assessmentTest
+            .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemId)
+            .FirstOrDefault();
+            if (itemResult != null)
+            {
+                itemResult.Remove();
             }
         }
 

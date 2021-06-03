@@ -186,6 +186,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\2x\QTI-Packages\RW\AssessmentResults\result1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\QTI-Packages\RW\Items\72757.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\QTI-Packages\RW\Items\72759.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\QTI-Packages\RW\Items\72784.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\QTI-Packages\RW\Items\72833.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\QTI-Packages\RW\Test\RW_E7_4ITM.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\30\ResponseProcessing\IMS-examples\composition_of_water_qti3.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

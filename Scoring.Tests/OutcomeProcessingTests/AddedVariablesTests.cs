@@ -80,19 +80,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             Assert.Equal("0", categoryWeightedScoreValue);
         }
 
-        /// <summary>
-        /// Verify that an exception is thrown when an assessmentItemRef can't be found
-        /// </summary>
-        [Fact]
-        public void OutcomeProcessing_Invalid_ItemRef()
-        {
-            var mockLogger = new Mock<ILogger>();
-            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Invalid_ItemRef", mockLogger);
-
-            mockLogger.VerifyLog((state, t) => state.ContainsValue("TST-Test_toets - 900001: Cannot find assessmentItemRef outcomeVariable: ITM-SN02945.SCORE"), LogLevel.Error, 6);
-        }
-
-
+       
         /// <summary>
         /// Verify that all assessmentItemRef's and Categories can be found, even in a nested structure
         /// Verify that all scores are correct including the categorie scores

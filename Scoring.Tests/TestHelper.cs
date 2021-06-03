@@ -51,6 +51,16 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return (context, mockLog);
         }
 
+        internal static XDocument GetDocument(string file)
+        {
+            XDocument xDoc = null;
+            using (var openRead = File.OpenRead(file))
+            {
+                xDoc = XDocument.Load(openRead);
+            };
+            return xDoc;
+        }
+
         internal static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
         {
             var logger = new Mock<ILogger>().Object;

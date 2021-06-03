@@ -9,7 +9,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
     internal class ToAscii : ICustomOperator
     {
-        public string Definition => "depcp:ToAscii";
+        public virtual string Definition => "depcp:ToAscii";
 
         public BaseValue Apply(BaseValue value)
         {
@@ -35,5 +35,11 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
             }
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
+    }
+
+
+    internal class ToAsciiQuestify : ToAscii
+    {
+        public override string Definition { get => "questify:ToAscii"; }
     }
 }

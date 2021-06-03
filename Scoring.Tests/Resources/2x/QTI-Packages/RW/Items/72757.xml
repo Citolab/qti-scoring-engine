@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" timeDependent="false" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../controlxsds/imsqti_v2p1.xsd" adaptive="false" title="72757" identifier="ITM-72757" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1">
+	<responseDeclaration baseType="string" cardinality="single" identifier="RESPONSE">
+		<correctResponse interpretation="11400">
+			<value>11400</value>
+		</correctResponse>
+	</responseDeclaration>
+	<outcomeDeclaration cardinality="single" identifier="SCORE" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<outcomeDeclaration cardinality="single" identifier="ItemFunctionalType" baseType="string">
+		<defaultValue>
+			<value>Regular</value>
+		</defaultValue>
+	</outcomeDeclaration>
+	<stylesheet href="../css/cito_userstyle.css" type="text/css" />
+	<itemBody class="defaultBody">
+	</itemBody>
+	<responseProcessing>
+		<responseCondition>
+			<responseIf>
+				<equal toleranceMode="exact">
+					<customOperator definition="questify:ParseCommaDecimal">
+						<variable identifier="RESPONSE" />
+					</customOperator>
+					<baseValue baseType="float">11400</baseValue>
+				</equal>
+				<setOutcomeValue identifier="SCORE">
+					<sum>
+						<baseValue baseType="integer">1</baseValue>
+						<variable identifier="SCORE" />
+					</sum>
+				</setOutcomeValue>
+			</responseIf>
+		</responseCondition>
+		<responseCondition>
+			<responseIf>
+				<gte>
+					<variable identifier="SCORE" />
+					<baseValue baseType="integer">1</baseValue>
+				</gte>
+				<setOutcomeValue identifier="SCORE">
+					<baseValue baseType="integer">1</baseValue>
+				</setOutcomeValue>
+			</responseIf>
+			<responseElse>
+				<setOutcomeValue identifier="SCORE">
+					<baseValue baseType="integer">0</baseValue>
+				</setOutcomeValue>
+			</responseElse>
+		</responseCondition>
+	</responseProcessing>
+</assessmentItem>

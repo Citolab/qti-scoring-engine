@@ -9,7 +9,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
     internal class Trim : ICustomOperator
     {
-        public string Definition => "depcp:Trim";
+        public virtual string Definition => "depcp:Trim";
 
         public BaseValue Apply(BaseValue value)
         {
@@ -18,6 +18,11 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
                 value.Value = value.Value.Trim();
             }
             return value;
+        }
+
+        internal class TrimQuestify : Trim
+        {
+            public override string Definition { get => "questify:Trim"; }
         }
     }
 }

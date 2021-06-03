@@ -1,0 +1,128 @@
+<assessmentResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v2p1"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_result_v2p1 https://www.imsglobal.org/sites/default/files/xsd/qti/qtiv2p1/imsqti_result_v2p1.xsd">
+	<context sourcedId="SomeCandidateId">
+		<sessionIdentifier identifier="e70f03cb-b2be-44e9-b915-07164336bc45"
+		                   sourceID="CITO.LIB-HI"/>
+	</context>
+	<itemResult datestamp="2021-01-11T14:35:21.735+01:00"
+	            identifier="ITM-72757"
+	            sequenceIndex="1"
+	            sessionStatus="final"
+	            xmlns="http://www.imsglobal.org/xsd/imsqti_result_v2p1">
+		<responseVariable baseType="integer"
+		                  cardinality="single"
+		                  identifier="numAttempts">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable baseType="float"
+		                 cardinality="single"
+		                 identifier="ItemFunctionalType">
+			<value>Regular</value>
+		</outcomeVariable>
+		<outcomeVariable baseType="identifier"
+		                 cardinality="single"
+		                 identifier="completionStatus">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable baseType="identifier"
+		                  cardinality="single"
+		                  identifier="RESPONSE">
+			<candidateResponse>
+				<value>11400</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult datestamp="2021-01-11T14:36:21.735+01:00"
+	            identifier="ITM-72759"
+	            sequenceIndex="2"
+	            sessionStatus="final"
+	            xmlns="http://www.imsglobal.org/xsd/imsqti_result_v2p1">
+		<responseVariable baseType="integer"
+		                  cardinality="single"
+		                  identifier="numAttempts">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable baseType="float"
+		                 cardinality="single"
+		                 identifier="ItemFunctionalType">
+			<value>Regular</value>
+		</outcomeVariable>
+		<outcomeVariable baseType="identifier"
+		                 cardinality="single"
+		                 identifier="completionStatus">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable baseType="identifier"
+		                  cardinality="single"
+		                  identifier="RESPONSE">
+			<candidateResponse>
+				<value>3,6</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult datestamp="2021-01-11T14:37:21.735+01:00"
+	            identifier="ITM-72784"
+	            sequenceIndex="3"
+	            sessionStatus="final"
+	            xmlns="http://www.imsglobal.org/xsd/imsqti_result_v2p1">
+		<responseVariable baseType="integer"
+		                  cardinality="single"
+		                  identifier="numAttempts">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable baseType="float"
+		                 cardinality="single"
+		                 identifier="ItemFunctionalType">
+			<value>Regular</value>
+		</outcomeVariable>
+		<outcomeVariable baseType="identifier"
+		                 cardinality="single"
+		                 identifier="completionStatus">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable baseType="identifier"
+		                  cardinality="single"
+		                  identifier="RESPONSE">
+			<candidateResponse>
+				<value>2350</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult datestamp="2021-01-11T14:38:21.735+01:00"
+	            identifier="ITM-72833"
+	            sequenceIndex="4"
+	            sessionStatus="final"
+	            xmlns="http://www.imsglobal.org/xsd/imsqti_result_v2p1">
+		<responseVariable baseType="integer"
+		                  cardinality="single"
+		                  identifier="numAttempts">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable baseType="float"
+		                 cardinality="single"
+		                 identifier="ItemFunctionalType">
+			<value>Regular</value>
+		</outcomeVariable>
+		<outcomeVariable baseType="identifier"
+		                 cardinality="single"
+		                 identifier="completionStatus">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable baseType="identifier"
+		                  cardinality="single"
+		                  identifier="RESPONSE">
+			<candidateResponse>
+				<value>C</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+</assessmentResult>
