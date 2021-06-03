@@ -13,7 +13,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BaseValueExpressions
 {
     internal class Sum : IBaseValueExpression
     {
-        public string Name => "sum";
+        public string Name => "qti-sum";
 
         public BaseValue Calculate(XElement qtiElement, ResponseProcessorContext context)
         {
@@ -25,7 +25,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BaseValueExpressions
                 }
                 else
                 {
-                    context.LogError($"Cannot cast outcomeValue: {value.Value} of baseType: {value.BaseType} to a float to sum.");
+                    context.LogError($"Cannot cast outcome-value: {value.Value} of base-type: {value.BaseType} to a float to sum.");
                     return 0.0;
                 }
             }).Sum();

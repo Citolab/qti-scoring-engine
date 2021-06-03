@@ -12,7 +12,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BaseValueExpressions
 {
     internal class MapResponse : IBaseValueExpression
     {
-        public string Name => "mapResponse";
+        public string Name => "qti-map-response";
 
         public BaseValue Calculate(XElement qtiElement, ResponseProcessorContext context)
         {

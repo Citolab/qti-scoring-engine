@@ -19,12 +19,18 @@ namespace Citolab.QTI.ScoringEngine.Model
             Logger = logger;
             Identifier = qtiDocument.Root.Identifier();
             Content = qtiDocument;
+            if (!Content.Root.Name.LocalName.Contains("qti-"))
+            {
+                Upgrade();
+            }
         }
+
+        public abstract void Upgrade();
 
         public OutcomeDeclaration GetOutcomeDeclaration(XElement outcomeDeclaration)
         {
             var outcome = new OutcomeDeclaration();
-            var baseTypeString = outcomeDeclaration.GetAttributeValue("baseType");
+            var baseTypeString = outcomeDeclaration.GetAttributeValue("base-type");
             var cardinalityString = outcomeDeclaration.GetAttributeValue("cardinality");
             var identifier = outcomeDeclaration.Identifier();
             if (string.IsNullOrEmpty(baseTypeString))
@@ -43,24 +49,24 @@ namespace Citolab.QTI.ScoringEngine.Model
             outcome.BaseType = baseTypeString.ToBaseType();
             outcome.Cardinality = cardinalityString.ToCardinality();
             outcome.Identifier = identifier;
-            var defaultValue = outcomeDeclaration.FindElementsByName("defaultValue").FirstOrDefault()?.FindElementsByName("value").FirstOrDefault();
+            var defaultValue = outcomeDeclaration.FindElementsByName("qti-default-value").FirstOrDefault()?.FindElementsByName("qti-value").FirstOrDefault();
             if (defaultValue != null)
             {
                 // TODO: check type
                 outcome.DefaultValue = defaultValue.Value;
             }
-            var interpolationTable = outcomeDeclaration.FindElementsByName("interpolationTable").FirstOrDefault();
+            var interpolationTable = outcomeDeclaration.FindElementsByName("qti-interpolation-table").FirstOrDefault();
             if (interpolationTable != null)
             {
-                var interpolationTableEntries = interpolationTable.FindElementsByName("interpolationTableEntry")?
+                var interpolationTableEntries = interpolationTable.FindElementsByName("qti-interpolation-table-entry")?
                     .Select(tableEntry =>
                     {
                         try
                         {
                             var entry = new InterpolationTableEntry
                             {
-                                SourceValue = tableEntry.GetAttributeValue("sourceValue").ParseFloat(Logger),
-                                TargetValue = tableEntry.GetAttributeValue("targetValue").ParseFloat(Logger)
+                                SourceValue = tableEntry.GetAttributeValue("source-value").ParseFloat(Logger),
+                                TargetValue = tableEntry.GetAttributeValue("target-value").ParseFloat(Logger)
                             };
                             return entry;
                         }

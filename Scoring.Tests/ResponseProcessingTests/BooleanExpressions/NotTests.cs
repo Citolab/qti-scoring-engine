@@ -28,7 +28,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(not.Name, not);
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
 
-            var andElement = XElement.Parse("<not></not>");
+            var andElement = XElement.Parse("<qti-not></qti-not>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
 
             
@@ -52,7 +52,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(not.Name, not);
             context.BooleanExpressions.Add(returnFalse.Name, returnFalse);
 
-            var andElement = XElement.Parse("<not></not>");
+            var andElement = XElement.Parse("<qti-not></qti-not>");
             andElement.Add(XElement.Parse("<returnFalse/>"));
 
 
@@ -76,7 +76,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             contextInfo.Context.BooleanExpressions.Add(not.Name, not);
             contextInfo.Context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
 
-            var andElement = XElement.Parse("<not></not>");
+            var andElement = XElement.Parse("<qti-not></qti-not>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnTrue/>"));
 

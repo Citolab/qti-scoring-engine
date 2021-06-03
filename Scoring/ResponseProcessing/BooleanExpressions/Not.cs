@@ -16,7 +16,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
     /// </summary>
     internal class Not : IBooleanExpression
     {
-        public string Name => "not";
+        public string Name => "qti-not";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

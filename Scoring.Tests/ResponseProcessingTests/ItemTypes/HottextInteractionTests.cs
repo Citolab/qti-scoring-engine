@@ -21,7 +21,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/hottext.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/hottext.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse
                 (assessmentItem.Identifier, "RESPONSE", "B"
@@ -38,7 +38,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/hottext.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/hottext.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse
                 (assessmentItem.Identifier, "RESPONSE", "C"
@@ -55,7 +55,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/hottext.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/hottext.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);

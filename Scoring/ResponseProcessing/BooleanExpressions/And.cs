@@ -16,7 +16,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
     /// </summary>
     internal class And : IBooleanExpression
     {
-        public string Name => "and";
+        public string Name => "qti-and";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

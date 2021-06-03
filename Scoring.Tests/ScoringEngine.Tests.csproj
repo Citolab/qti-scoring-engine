@@ -7,46 +7,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
-    <None Remove="Resources\OutcomeProcessing\AssessmentResult_Correct.xml" />
-    <None Remove="Resources\OutcomeProcessing\AssessmentResult_Incorrect.xml" />
-    <None Remove="Resources\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml" />
-    <None Remove="Resources\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml" />
-    <None Remove="Resources\OutcomeProcessing\SN02945.xml" />
-    <None Remove="Resources\OutcomeProcessing\SN02946.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_toets.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets2-Weight.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets2.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_Without_Weights.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_With_Empty_Category.xml" />
-    <None Remove="Resources\OutcomeProcessing\Test_Toets_With_Unused_Category.xml" />
-    <None Remove="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens.xml" />
-    <None Remove="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml" />
-    <None Remove="Resources\ResponseProcessing\1004-CaseInsensitive.xml" />
-    <None Remove="Resources\ResponseProcessing\1004.xml" />
-    <None Remove="Resources\ResponseProcessing\112505-MR.xml" />
-    <None Remove="Resources\ResponseProcessing\210091-CustomOperator.xml" />
-    <None Remove="Resources\ResponseProcessing\210091.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_Interpolation.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_Mapping_A.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_Multiple_Responses_01.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_Multiple_Responses_02.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResult_No_Candidate_Response.xml" />
-    <None Remove="Resources\ResponseProcessing\AssessmentResultAssessmentResult_Update_OutcomeVariable.xml" />
-    <None Remove="Resources\ResponseProcessing\CustomOperators.xml" />
-    <None Remove="Resources\ResponseProcessing\IMS-examples\choice.xml" />
-    <None Remove="Resources\ResponseProcessing\IMS-examples\choice_multiple.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50066.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50066_Multiple_Keys.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50066_No_Correct_Response.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50069.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50069_Mapping.xml" />
-    <None Remove="Resources\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Correct.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Incorrect.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\SN02945.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\SN02946.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_toets.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets2-Weight.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets2.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Without_Weights.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_With_Empty_Category.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_With_Unused_Category.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\083-Verklanking-Speciale-Tekens.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\1004-CaseInsensitive.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\1004.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\112505-MR.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\210091-CustomOperator.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\210091.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Interpolation.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Mapping_A.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Multiple_Responses_01.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Multiple_Responses_02.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_No_Candidate_Response.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResultAssessmentResult_Update_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\CustomOperators.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\IMS-examples\choice.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\IMS-examples\choice_multiple.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50066.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50066_Multiple_Keys.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50066_No_Correct_Response.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50069.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50069_Mapping.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,121 +62,121 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\AssessmentResult_Correct.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Correct.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\AssessmentResult_Incorrect.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Incorrect.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\SN02945.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\SN02945.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\SN02946.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\SN02946.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets2-Weight.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets2-Weight.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets2.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_TestVariables.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_Without_Weights.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_Without_Weights.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_With_Empty_Category.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_With_Empty_Category.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OutcomeProcessing\Test_Toets_With_Unused_Category.xml">
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_With_Unused_Category.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\083-Verklanking-Speciale-Tekens.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\1004-CaseInsensitive.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\1004-CaseInsensitive.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\1004.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\1004.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\112505-MR.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\112505-MR.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\210091-CustomOperator.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\210091-CustomOperator.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\210091.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\210091.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Interpolation.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Interpolation.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Mapping_A.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Mapping_A.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Multiple_Responses_01.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Multiple_Responses_01.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Multiple_Responses_02.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Multiple_Responses_02.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_No_Candidate_Response.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_No_Candidate_Response.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\AssessmentResult_Update_OutcomeVariable.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_Update_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\CustomOperators.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\CustomOperators.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\IMS-examples\choice.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\IMS-examples\choice.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\IMS-examples\choice_multiple.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\IMS-examples\choice_multiple.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50066.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50066.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50066_Multiple_Keys.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50066_Multiple_Keys.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50066_No_Correct_Response.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50066_No_Correct_Response.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50069.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50069.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50069_Mapping.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50069_Mapping.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml">
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -189,55 +189,51 @@
     <None Update="Resources\imsmanifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\associate.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\associate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\gap_match.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\gap_match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_associate.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\graphic_associate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_gap_match.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\graphic_gap_match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\graphic_order.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\graphic_order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\hotspot.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\hotspot.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\hottext.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\hottext.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\inline_choice.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\inline_choice.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\match.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\match.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\order.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\order.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\order_partial_scoring.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\order_partial_scoring.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\position_object.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\position_object.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\select_point.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\select_point.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\slider.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\slider.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ResponseProcessing\IMS-examples\text_entry.xml">
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\text_entry.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="OutcomeProcessingTests\Operators\" />
   </ItemGroup>
 
 </Project>

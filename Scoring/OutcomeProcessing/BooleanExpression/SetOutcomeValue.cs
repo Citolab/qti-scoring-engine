@@ -11,7 +11,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing.BooleanExpression
 {
     internal class SetOutcomeValue : IOutcomeBooleanExpression
     {
-        public string Name => "setOutcomeValue";
+        public string Name => "qti-set-outcome-value";
 
         public bool Execute(XElement qtiElement, OutcomeProcessorContext context)
         {

@@ -47,8 +47,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             //arrange
             var mockLogger = new Mock<ILogger>();
             var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/Test_Toets_TestVariables_Weight.xml")));
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/AssessmentResult_Correct.xml")));
+            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/Test_Toets_TestVariables_Weight.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
             
@@ -66,8 +66,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             //arrange
             var mockLogger = new Mock<ILogger>();
             var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/Test_Toets_TestVariables.xml")));
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/AssessmentResult_Correct.xml")));
+            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/Test_Toets_TestVariables.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "0");
             
@@ -85,8 +85,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             //arrange
             var mockLogger = new Mock<ILogger>();
             var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/Test_Toets_TestVariables.xml")));
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/AssessmentResult_Correct.xml")));
+            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/Test_Toets_TestVariables.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
             
@@ -104,8 +104,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             //arrange
             var mockLogger = new Mock<ILogger>();
             var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/Test_Toets_TestVariables_Weight.xml")));
-            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/OutcomeProcessing/AssessmentResult_Correct.xml")));
+            var assessmentTest = new AssessmentTest(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/Test_Toets_TestVariables_Weight.xml")));
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/AssessmentResult_Correct.xml")));
             assessmentResult.ChangeItemResult("ITM-SN02945", "0");
             assessmentResult.ChangeItemResult("ITM-SN02946", "1");
             

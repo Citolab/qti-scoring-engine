@@ -16,7 +16,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
     /// </summary>
     internal class IsNull : IBooleanExpression
     {
-        public string Name => "isNull";
+        public string Name => "qti-is-null";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

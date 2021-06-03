@@ -73,7 +73,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             }
             if (logErrorIfNotFound)
             {
-                context.LogError($"Cannot find calculator for tag-name:{element?.Name.LocalName}");
+                context.LogError($"Cannot find expression for tag-name:{element?.Name.LocalName}");
             }
             return null;
         }

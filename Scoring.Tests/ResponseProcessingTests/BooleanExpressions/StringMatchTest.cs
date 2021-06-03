@@ -26,7 +26,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse("<stringMatch></stringMatch>");
+            var stringMatchElement = XElement.Parse("<qti-string-match></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
@@ -49,7 +49,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse("<stringMatch></stringMatch>");
+            var stringMatchElement = XElement.Parse("<qti-string-match></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
@@ -72,7 +72,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse("<stringMatch></stringMatch>");
+            var stringMatchElement = XElement.Parse("<qti-string-match></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
@@ -95,7 +95,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse(@"<stringMatch caseSensitive=""true""></stringMatch>");
+            var stringMatchElement = XElement.Parse(@"<qti-string-match case-sensitive=""true""></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
@@ -118,7 +118,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse(@"<stringMatch caseSensitive=""false""></stringMatch>");
+            var stringMatchElement = XElement.Parse(@"<qti-string-match case-sensitive=""false""></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
@@ -164,7 +164,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             //context.Executors.Add(or.Name, or);
             //context.Executors.Add(returnTrue.Name, returnTrue);
             var stringMatch = new StringMatch();
-            var stringMatchElement = XElement.Parse(@"<stringMatch caseSensitive=""false""></stringMatch>");
+            var stringMatchElement = XElement.Parse(@"<qti-string-match case-sensitive=""false""></qti-string-match>");
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act

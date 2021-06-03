@@ -21,7 +21,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/select_point.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/select_point.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             var firstMappping = assessmentItem.ResponseDeclarations.Values.First(r => r.AreaMapping != null).AreaMapping.AreaMappings.First();
@@ -43,7 +43,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/select_point.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/select_point.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             var firstMappping = assessmentItem.ResponseDeclarations.Values.First(r => r.AreaMapping != null).AreaMapping.AreaMappings.First();;

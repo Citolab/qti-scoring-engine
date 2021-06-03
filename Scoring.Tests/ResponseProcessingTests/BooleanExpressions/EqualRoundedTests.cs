@@ -26,7 +26,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(equalRounded.Name, equalRounded);
 
-            var equalRoundedElement = XElement.Parse(@"<equalRounded roundingMode=""significantFigures"" figures=""2"" ></equalRounded>");
+            var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""significantFigures"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.183F.ToBaseValue().ToXElement());
             // act
@@ -48,7 +48,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(equalRounded.Name, equalRounded);
 
-            var equalRoundedElement = XElement.Parse(@"<equalRounded figures=""2"" ></equalRounded>");
+            var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.183F.ToBaseValue().ToXElement());
             // act
@@ -70,7 +70,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(equalRounded.Name, equalRounded);
 
-            var equalRoundedElement = XElement.Parse(@"<equalRounded roundingMode=""significantFigures"" figures=""3"" ></equalRounded>");
+            var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""significantFigures"" figures=""3"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.1749F.ToBaseValue().ToXElement());
             // act
@@ -92,7 +92,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(equalRounded.Name, equalRounded);
 
-            var equalRoundedElement = XElement.Parse(@"<equalRounded roundingMode=""decimalPlaces"" figures=""2"" ></equalRounded>");
+            var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""decimalPlaces"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(1.68572F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(1.69F.ToBaseValue().ToXElement());
             // act
@@ -114,7 +114,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(equalRounded.Name, equalRounded);
 
-            var equalRoundedElement = XElement.Parse(@"<equalRounded roundingMode=""decimalPlaces"" figures=""2"" ></equalRounded>");
+            var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""decimalPlaces"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(1.68572F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(1.68432F.ToBaseValue().ToXElement());
             // act

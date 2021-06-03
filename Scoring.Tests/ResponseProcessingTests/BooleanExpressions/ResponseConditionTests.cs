@@ -23,7 +23,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
         {
             // arrange
             var logger = new Mock<ILogger>().Object;
-            var context = TestHelper.GetDefaultResponseProcessingContext(new AssessmentItem(logger, XDocument.Parse("<asssessmentItem/>")));
+            var context = TestHelper.GetDefaultResponseProcessingContext(new AssessmentItem(logger, XDocument.Parse("<qti-asssessment-item/>")));
 
             context.AssessmentItem.OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>
             {
@@ -39,15 +39,15 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
                 }
             };
 
-            var responseConditionElement = XElement.Parse("<responseCondition></responseCondition>");
-            responseConditionElement.Add(new ResponseIf().GetElementWithValue(true, "if", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(true, "elseIf", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "else", "UNITTEST_RESULT"));
+            var responseConditionElement = XElement.Parse("<qti-response-condition></qti-response-condition>");
+            responseConditionElement.Add(new ResponseIf().GetElementWithValue(true, "qti-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(true, "qti-else-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "qti-else", "UNITTEST_RESULT"));
             // act
             new ResponseCondition().Execute(responseConditionElement, context);
 
             //assert
-            Assert.Equal("if", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
+            Assert.Equal("qti-if", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
         {
             // arrange
             var logger = new Mock<ILogger>().Object;
-            var context = TestHelper.GetDefaultResponseProcessingContext(new AssessmentItem(logger, XDocument.Parse("<asssessmentItem/>")));
+            var context = TestHelper.GetDefaultResponseProcessingContext(new AssessmentItem(logger, XDocument.Parse("<qti-asssessment-item/>")));
 
             context.AssessmentItem.OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>
             {
@@ -71,15 +71,15 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
                 }
             };
 
-            var responseConditionElement = XElement.Parse("<responseCondition></responseCondition>");
-            responseConditionElement.Add(new ResponseIf().GetElementWithValue(false, "if", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(true, "elseIf", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "else", "UNITTEST_RESULT"));
+            var responseConditionElement = XElement.Parse("<qti-response-condition></qti-response-condition>");
+            responseConditionElement.Add(new ResponseIf().GetElementWithValue(false, "qti-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(true, "qti-else-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "qti-else", "UNITTEST_RESULT"));
             // act
             new ResponseCondition().Execute(responseConditionElement, context);
 
             //assert
-            Assert.Equal("elseIf", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
+            Assert.Equal("qti-else-if", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
         }
 
         [Fact]
@@ -103,15 +103,15 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
                 }
             };
 
-            var responseConditionElement = XElement.Parse("<responseCondition></responseCondition>");
-            responseConditionElement.Add(new ResponseIf().GetElementWithValue(false, "if", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(false, "elseIf", "UNITTEST_RESULT"));
-            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "else", "UNITTEST_RESULT"));
+            var responseConditionElement = XElement.Parse("<qti-response-condition></qti-response-condition>");
+            responseConditionElement.Add(new ResponseIf().GetElementWithValue(false, "qti-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElseIf().GetElementWithValue(false, "qti-else-if", "UNITTEST_RESULT"));
+            responseConditionElement.Add(new ResponseElse().GetElementWithValue(true, "qti-else", "UNITTEST_RESULT"));
             // act
             new ResponseCondition().Execute(responseConditionElement, context);
 
             //assert
-            Assert.Equal("else", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
+            Assert.Equal("qti-else", context.ItemResult.OutcomeVariables["UNITTEST_RESULT"].Value);
         }
     }
 }

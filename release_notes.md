@@ -1,5 +1,6 @@
 ## 1.0.0-beta.2
 
+* + 3.0 packages
 * + lt, lte, gt, substring, ordered in match, equalRounded
 * + orderInteraction; implemented match for all cardinalities
 * + selectPoint, positionObjectInteraction; implemented scoring with baseType point

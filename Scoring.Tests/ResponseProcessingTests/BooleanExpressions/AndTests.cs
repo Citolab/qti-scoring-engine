@@ -27,7 +27,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(and.Name, and);
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
 
-            var andElement = XElement.Parse("<and></and>");
+            var andElement = XElement.Parse($"<{and.Name}></{and.Name}>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnTrue/>"));
 
@@ -51,7 +51,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(and.Name, and);
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
             context.BooleanExpressions.Add(returnFalse.Name, returnFalse);
-            var andElement = XElement.Parse("<and></and>");
+            var andElement = XElement.Parse($"<{and.Name}></{and.Name}>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));
 
@@ -74,7 +74,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(and.Name, and);
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
             context.BooleanExpressions.Add(returnFalse.Name, returnFalse);
-            var andElement = XElement.Parse("<and></and>");
+            var andElement = XElement.Parse($"<{and.Name}></{and.Name}>");
             andElement.Add(XElement.Parse("<returnFalse/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));
             // act

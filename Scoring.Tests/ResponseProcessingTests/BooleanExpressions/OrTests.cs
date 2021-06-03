@@ -27,7 +27,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(or.Name, or);
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
 
-            var orElement = XElement.Parse("<or></or>");
+            var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
             orElement.Add(XElement.Parse("<returnTrue/>"));
             // act
@@ -50,7 +50,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
             context.BooleanExpressions.Add(returnFalse.Name, returnFalse);
 
-            var orElement = XElement.Parse("<or></or>");
+            var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
             orElement.Add(XElement.Parse("<returnFalse/>"));
             // act
@@ -73,7 +73,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             context.BooleanExpressions.Add(returnTrue.Name, returnTrue);
             context.BooleanExpressions.Add(returnFalse.Name, returnFalse);
 
-            var orElement = XElement.Parse("<or></or>");
+            var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnFalse/>"));
             orElement.Add(XElement.Parse("<returnFalse/>"));
            

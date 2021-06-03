@@ -13,7 +13,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
     /// </summary>
     internal class Or : IBooleanExpression
     {
-        public string Name => "or";
+        public string Name => "qti-or";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

@@ -13,7 +13,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class Gt : IBooleanExpression
     {
-        public string Name => "gt";
+        public string Name => "qti-gt";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

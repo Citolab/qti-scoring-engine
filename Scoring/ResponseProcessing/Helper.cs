@@ -189,9 +189,9 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         {
             var values = qtiElement.GetValues(context);
             context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value != null).Select(v => v.Value).ToArray())}");
-            if (bool.TryParse(qtiElement.GetAttributeValue("caseSensitive"), out var result) && result == false)
+            if (bool.TryParse(qtiElement.GetAttributeValue("case-sensitive"), out var result) && result == false)
             {
-                context.LogInformation($"member check not caseSensitive");
+                context.LogInformation($"member check not case-sensitive");
                 values = values.Select(v =>
                 {
                     v.Value = v.Value.ToLower();
@@ -274,7 +274,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
         internal static void GetCustomOperators(XElement qtiElement, List<ICustomOperator> customOperators, ResponseProcessorContext context)
         {
             if (qtiElement != null && qtiElement.Parent != null &&
-                qtiElement.Parent.Name.LocalName.Equals("customOperator", StringComparison.InvariantCultureIgnoreCase))
+                qtiElement.Parent.Name.LocalName.Equals("qti-custom-operator", StringComparison.InvariantCultureIgnoreCase))
             {
                 var definition = qtiElement.Parent.GetAttributeValue("definition");
                 var customOperator = context.GetCustomOperator(qtiElement.Parent, context);

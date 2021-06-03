@@ -17,11 +17,11 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public HashSet<string> CalculatedOutcomes;
 
-        public XElement ResponseProcessingElement => Content.FindElementByName("responseProcessing");
+        public XElement ResponseProcessingElement => Content.FindElementByName("qti-response-processing");
 
         public AssessmentItem(ILogger logger, XDocument assessmentItem) : base(logger, assessmentItem)
         {
-            var responseProcessing = Content.FindElementByName("responseProcessing");
+            var responseProcessing = Content.FindElementByName("qti-response-processing");
             if (responseProcessing != null && !string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
             {
                 var splittedTemplateName = responseProcessing.GetAttributeValue("template").Split('/');
@@ -47,14 +47,14 @@ namespace Citolab.QTI.ScoringEngine.Model
                             break;
                         }
                 }
-                responseProcessing = Content.FindElementByName("responseProcessing");
+                responseProcessing = Content.FindElementByName("qti-response-processing");
             }
-            OutcomeDeclarations = Content.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
+            OutcomeDeclarations = Content.FindElementsByName("qti-outcome-declaration").Select(outcomeDeclaration =>
             {
                 return GetOutcomeDeclaration(outcomeDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
 
-            ResponseDeclarations = Content.FindElementsByName("responseDeclaration").Select(responseDeclaration =>
+            ResponseDeclarations = Content.FindElementsByName("qti-response-declaration").Select(responseDeclaration =>
             {
                 return GetResponseDeclaration(responseDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
@@ -64,10 +64,10 @@ namespace Citolab.QTI.ScoringEngine.Model
             // outcomes that are defined in the qti-item, not present in the itemResult and not used in the responseProcessing get the defaultValue.
             // outcomes that are defined in the qti-item and are used responseProcessing are recalcuted.
             var lookups = responseProcessing?
-                .FindElementsByName("lookupOutcomeValue")?
+                .FindElementsByName("qti-lookup-outcome-value")?
                 .Select(v => v.Identifier());
             var setOutcomes = responseProcessing?
-              .FindElementsByName("setOutComeValue")?
+              .FindElementsByName("qti-set-outcome-value")?
               .Select(v => v.Identifier())?.ToList();
             if (setOutcomes == null)
             {
@@ -83,7 +83,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         private ResponseDeclaration GetResponseDeclaration(XElement el)
         {
             var responseDeclaration = new ResponseDeclaration();
-            var baseTypeString = el.GetAttributeValue("baseType");
+            var baseTypeString = el.GetAttributeValue("base-type");
             var cardinalityString = el.GetAttributeValue("cardinality");
             var identifier = el.Identifier();
             if (string.IsNullOrEmpty(baseTypeString))
@@ -102,10 +102,10 @@ namespace Citolab.QTI.ScoringEngine.Model
             responseDeclaration.BaseType = baseTypeString.ToBaseType();
             responseDeclaration.Cardinality = cardinalityString.ToCardinality();
             responseDeclaration.Identifier = identifier;
-            var correctResponse = el.FindElementsByName("correctResponse")
+            var correctResponse = el.FindElementsByName("qti-correct-response")
                 .FirstOrDefault();
             responseDeclaration.CorrectResponseInterpretation = correctResponse?.GetAttributeValue("interpretation");
-            var correctValues = correctResponse?.FindElementsByName("value").Select(v => v.Value.RemoveXData())?.ToList();
+            var correctValues = correctResponse?.FindElementsByName("qti-value").Select(v => v.Value.RemoveXData())?.ToList();
 
             if (responseDeclaration.Cardinality == Cardinality.Single)
             {
@@ -115,18 +115,18 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 responseDeclaration.CorrectResponses = correctValues;
             }
-            var mappingElement = el.FindElementsByName("mapping").FirstOrDefault();
+            var mappingElement = el.FindElementsByName("qti-mapping").FirstOrDefault();
             if (mappingElement != null)
             {
                 float defaultValue = 0.0F;
-                var defaultValueString = mappingElement.GetAttributeValue("defaultValue");
-                var lowerBoundString = mappingElement.GetAttributeValue("lowerBound");
-                var upperBoundString = mappingElement.GetAttributeValue("upperBound");
+                var defaultValueString = mappingElement.GetAttributeValue("default-value");
+                var lowerBoundString = mappingElement.GetAttributeValue("lower-bound");
+                var upperBoundString = mappingElement.GetAttributeValue("upper-bound");
                 if (!string.IsNullOrWhiteSpace(defaultValueString))
                 {
                     if (!defaultValueString.TryParseFloat(out defaultValue))
                     {
-                        Logger.LogError($"Cannot convert defaulValue: ${defaultValueString} to a float");
+                        Logger.LogError($"Cannot convert defaul-value: ${defaultValueString} to a float");
                     }
                 }
                 var mapping = new Mapping { DefaultValue = defaultValue };
@@ -152,19 +152,19 @@ namespace Citolab.QTI.ScoringEngine.Model
                         Logger.LogError($"Cannot convert upperbound: ${upperBoundString} to a float");
                     }
                 }
-                mapping.MapEntries = mappingElement.FindElementsByName("mapEntry").Select(mapEntryElement =>
+                mapping.MapEntries = mappingElement.FindElementsByName("qti-map-entry").Select(mapEntryElement =>
                 {
-                    if (mapEntryElement.GetAttributeValue("mappedValue").TryParseFloat(out var mapValue))
+                    if (mapEntryElement.GetAttributeValue("mapped-value").TryParseFloat(out var mapValue))
                     {
                         return new MapEntry
                         {
-                            MapKey = mapEntryElement.GetAttributeValue("mapKey"),
+                            MapKey = mapEntryElement.GetAttributeValue("map-key"),
                             MappedValue = mapValue
                         };
                     }
                     else
                     {
-                        Logger.LogError($"Cannot convert mapValue: {mapEntryElement.GetAttributeValue("mapValue")} to a float");
+                        Logger.LogError($"Cannot convert map-value: {mapEntryElement.GetAttributeValue("map-value")} to a float");
                     }
                     return null;
                 }).Where(m => m != null)
@@ -172,18 +172,18 @@ namespace Citolab.QTI.ScoringEngine.Model
                 responseDeclaration.Mapping = mapping;
             }
 
-            var areaMappingElement = el.FindElementsByName("areaMapping").FirstOrDefault();
+            var areaMappingElement = el.FindElementsByName("qti-area-mapping").FirstOrDefault();
             if (areaMappingElement != null)
             {
                 float defaultValue = 0.0F;
-                var defaultValueString = areaMappingElement.GetAttributeValue("defaultValue");
-                var lowerBoundString = areaMappingElement.GetAttributeValue("lowerBound");
-                var upperBoundString = areaMappingElement.GetAttributeValue("upperBound");
+                var defaultValueString = areaMappingElement.GetAttributeValue("default-value");
+                var lowerBoundString = areaMappingElement.GetAttributeValue("lower-bound");
+                var upperBoundString = areaMappingElement.GetAttributeValue("upper-bound");
                 if (!string.IsNullOrWhiteSpace(defaultValueString))
                 {
                     if (!defaultValueString.TryParseFloat(out defaultValue))
                     {
-                        Logger.LogError($"Cannot convert defaulValue: ${defaultValueString} to a float");
+                        Logger.LogError($"Cannot convert defaul-value: ${defaultValueString} to a float");
                     }
                 }
                 var areaMapping = new AreaMapping { DefaultValue = defaultValue };
@@ -209,9 +209,9 @@ namespace Citolab.QTI.ScoringEngine.Model
                         Logger.LogError($"Cannot convert upperbound: ${upperBoundString} to a float");
                     }
                 }
-                areaMapping.AreaMappings = areaMappingElement.FindElementsByName("areaMapEntry").Select(mapEntryElement =>
+                areaMapping.AreaMappings = areaMappingElement.FindElementsByName("qti-area-map-entry").Select(mapEntryElement =>
                 {
-                    if (mapEntryElement.GetAttributeValue("mappedValue").TryParseFloat(out var mapValue))
+                    if (mapEntryElement.GetAttributeValue("mapped-value").TryParseFloat(out var mapValue))
                     {
                         return new AreaMapEntry
                         {
@@ -222,7 +222,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     }
                     else
                     {
-                        Logger.LogError($"Cannot convert areaMapEntry: {mapEntryElement.GetAttributeValue("mapValue")} to a float");
+                        Logger.LogError($"Cannot convert area-map-entry: {mapEntryElement.GetAttributeValue("map-value")} to a float");
                     }
                     return null;
                 }).Where(m => m != null)
@@ -231,5 +231,44 @@ namespace Citolab.QTI.ScoringEngine.Model
             }
             return responseDeclaration;
         }
+
+
+        public override void Upgrade()
+        {
+            XNamespace xNamespace = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
+            // Just convert to what is need to be able to process.
+            // It does not have to be a valid 3.0 package
+            // see: https://github.com/Citolab/qti-converter for an 
+            // attempt to convert to valid 3.0 packages.
+
+            foreach (var element in Content.Descendants())
+            {
+                var tagName = element.Name.LocalName;
+                var kebabTagName = tagName.ToKebabCase();
+                element.Name = xNamespace + $"qti-{kebabTagName}";
+            }
+
+            // fix attributes
+            foreach (var element in Content.Descendants())
+            {
+                var attributesToRemove = new List<XAttribute>();
+                var attributesToAdd = new List<XAttribute>();
+                foreach (var attribute in element.Attributes()
+                    .Where(attr => !attr.IsNamespaceDeclaration && string.IsNullOrEmpty(attr.Name.NamespaceName)))
+                {
+                    var attributeName = attribute.Name.LocalName;
+                    var kebabAttributeName = attributeName.ToKebabCase();
+                    if (attributeName != kebabAttributeName)
+                    {
+                        var newAttr = new XAttribute($"{kebabAttributeName}", attribute.Value);
+                        attributesToRemove.Add(attribute);
+                        attributesToAdd.Add(newAttr);
+                    }
+                }
+                attributesToRemove.ForEach(a => a.Remove());
+                attributesToAdd.ForEach(a => element.Add(a));
+            }
+        }
+
     }
 }

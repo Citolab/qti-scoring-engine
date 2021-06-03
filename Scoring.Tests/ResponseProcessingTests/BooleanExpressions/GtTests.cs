@@ -23,7 +23,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(gt.Name, gt);
 
-            var gtElement = XElement.Parse("<gt></gt>");
+            var gtElement = XElement.Parse("<qti-gt></qti-gt>");
             gtElement.Add(1.0F.ToBaseValue().ToXElement());
             gtElement.Add(0.0F.ToBaseValue().ToXElement());
             // act
@@ -44,7 +44,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(gt.Name, gt);
 
-            var gtElement = XElement.Parse("<gt></gt>");
+            var gtElement = XElement.Parse("<qti-gt></qti-gt>");
             gtElement.Add(0.0F.ToBaseValue().ToXElement());
             gtElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
@@ -65,7 +65,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(gt.Name, gt);
 
-            var gtElement = XElement.Parse("<gt></gt>");
+            var gtElement = XElement.Parse("<qti-gt></qti-gt>");
             gtElement.Add(1.0F.ToBaseValue().ToXElement());
             gtElement.Add(1.0F.ToBaseValue().ToXElement());
             // act

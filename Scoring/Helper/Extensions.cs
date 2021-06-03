@@ -8,6 +8,8 @@ using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using System.Globalization;
+using System.Text;
+using static System.Char;
 
 namespace Citolab.QTI.ScoringEngine.Helper
 {
@@ -53,11 +55,11 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         private static BaseValue GetBaseValue(this XElement qtiElement)
         {
-            if (qtiElement.Name.LocalName == "baseValue")
+            if (qtiElement.Name.LocalName == "qti-base-value")
             {
                 return new BaseValue()
                 {
-                    BaseType = qtiElement.GetAttributeValue("baseType").ToBaseType(),
+                    BaseType = qtiElement.GetAttributeValue("base-type").ToBaseType(),
                     Value = qtiElement.Value.RemoveXData(),
                     Identifier = qtiElement.Identifier()
                 };
@@ -67,12 +69,12 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         private static IList<BaseValue> GetBaseValues(this XElement qtiElement)
         {
-            var baseValues = qtiElement.FindElementsByName("baseValue")
+            var baseValues = qtiElement.FindElementsByName("qti-base-value")
                 .Select(childElement =>
                 {
                     return new BaseValue()
                     {
-                        BaseType = childElement.GetAttributeValue("baseType").ToBaseType(),
+                        BaseType = childElement.GetAttributeValue("base-type").ToBaseType(),
                         Value = childElement.Value.RemoveXData(),
                         Identifier = childElement.Identifier()
                     };
@@ -83,7 +85,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
         // TODO: Remove should use GetOutcomeVariable;
         private static IList<BaseValue> GetOutcomeVariables(this XElement qtiElement, Dictionary<string, OutcomeVariable> outcomeVariables, AssessmentItem assessmentItem)
         {
-            var variables = qtiElement.FindElementsByName("variable")
+            var variables = qtiElement.FindElementsByName("qti-variable")
               .Select(childElement =>
               {
                   var identifier = childElement.Identifier();
@@ -121,7 +123,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         private static (BaseValue BaseValue, Cardinality Cardinality)? GetCorrect(this XElement qtiElement, ResponseProcessorContext context)
         {
-            if (qtiElement.Name.LocalName == "correct")
+            if (qtiElement.Name.LocalName == "qti-correct")
             {
                 var identifier = qtiElement.Identifier();
                 if (context.AssessmentItem.ResponseDeclarations.ContainsKey(identifier))
@@ -145,11 +147,11 @@ namespace Citolab.QTI.ScoringEngine.Helper
                     context.LogError($"Cannot reference to response declaration for correct {identifier}");
                 }
             }
-            else if (qtiElement.Name.LocalName == "baseValue")
+            else if (qtiElement.Name.LocalName == "qti-base-value")
             {
                 return (qtiElement.GetBaseValue(), Cardinality.Single);
             }
-            else if (qtiElement.Name.LocalName == "ordered")
+            else if (qtiElement.Name.LocalName == "qti-ordered")
             {
                 var values = qtiElement.Elements().Select(el => el.GetBaseValue()).ToList();
                 var firstValue = values.FirstOrDefault();
@@ -163,7 +165,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         private static BaseValue GetVariable(this XElement qtiElement, ResponseProcessorContext context)
         {
-            if (qtiElement.Name.LocalName == "variable")
+            if (qtiElement.Name.LocalName == "qti-variable")
             {
                 var identifier = qtiElement.Identifier();
                 if (context.ItemResult?.ResponseVariables != null && context.ItemResult.ResponseVariables.ContainsKey(identifier))
@@ -206,10 +208,10 @@ namespace Citolab.QTI.ScoringEngine.Helper
                    {
                        // find the variable to apply weight
                        var weightedValue = o.Value.Value;
-                       var itemVariableElement = qtiElement.FindElementsByElementAndAttributeValue("variable", "identifier", $"{i.Identifier}.{o.Key}").FirstOrDefault();
+                       var itemVariableElement = qtiElement.FindElementsByElementAndAttributeValue("qti-variable", "identifier", $"{i.Identifier}.{o.Key}").FirstOrDefault();
                        if (itemVariableElement != null)
                        {
-                           var weightIdentifier = itemVariableElement.GetAttributeValue("weightIdentifier");
+                           var weightIdentifier = itemVariableElement.GetAttributeValue("weight-identifier");
                            if (!string.IsNullOrEmpty(weightIdentifier))
                            {
                                var itemRef = context.AssessmentTest.AssessmentItemRefs[i.Identifier];
@@ -254,16 +256,16 @@ namespace Citolab.QTI.ScoringEngine.Helper
             var baseValues = qtiElement.GetBaseValues();
             var variables = qtiElement.GetOutcomeVariables(allOutcomes, null);
 
-            var testVariables = qtiElement.FindElementsByName("testVariables")
+            var testVariables = qtiElement.FindElementsByName("qti-test-variables")
                 .Select(testVariableElement =>
                 {
                     var qtiValues = context.AssessmentTest.AssessmentItemRefs.Values.Where(assessmentItemRef =>
                 {
-                    var excludedCategoriesString = testVariableElement.GetAttributeValue("excludeCategory");
+                    var excludedCategoriesString = testVariableElement.GetAttributeValue("exclude-category");
                     var excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?
                         excludedCategoriesString.Split(' ') : null;
 
-                    var includeCategoriesString = testVariableElement.GetAttributeValue("includeCategory");
+                    var includeCategoriesString = testVariableElement.GetAttributeValue("include-category");
                     var includeCategories = !string.IsNullOrWhiteSpace(includeCategoriesString) ?
                     includeCategoriesString.Split(' ') : null;
                     if (excludedCategories?.Length > 0)
@@ -293,8 +295,8 @@ namespace Citolab.QTI.ScoringEngine.Helper
                     return true; // if not included or excluded categories are defined return all
                 }).Select(assesmentItemRef =>
                 {
-                    var weightIdentifier = testVariableElement.GetAttributeValue("weightIdentifier");
-                    var variableIdentifier = testVariableElement.GetAttributeValue("variableIdentifier");
+                    var weightIdentifier = testVariableElement.GetAttributeValue("weight-identifier");
+                    var variableIdentifier = testVariableElement.GetAttributeValue("variable-identifier");
                     var itemRefIdentifier = $"{assesmentItemRef.Identifier}.{variableIdentifier}";
                     if (allOutcomes.ContainsKey(itemRefIdentifier))
                     {
@@ -346,17 +348,17 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static BaseValue GetVariableOrBaseValue(this XElement qtiElement, ResponseProcessorContext context)
         {
-            if (qtiElement.Name.LocalName == "baseValue" ||
-                qtiElement.Name.LocalName == "variable" ||
-                qtiElement.Name.LocalName == "customOperator")
+            if (qtiElement.Name.LocalName == "qti-base-value" ||
+                qtiElement.Name.LocalName == "qti-variable" ||
+                qtiElement.Name.LocalName == "qti-custom-operator")
             {
-                var element = qtiElement.Name.LocalName != "customOperator" ?
+                var element = qtiElement.Name.LocalName != "qti-custom-operator" ?
                     qtiElement : qtiElement.Descendants().FirstOrDefault(el =>
-                    el.Name.LocalName == "variable" ||
-                    el.Name.LocalName == "baseValue");
+                    el.Name.LocalName == "qti-variable" ||
+                    el.Name.LocalName == "qti-base-value");
                 var customOperators = new List<ICustomOperator>();
                 ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
-                var newValue = element.Name.LocalName == "variable" ? element.GetVariable(context) : element.GetBaseValue();
+                var newValue = element.Name.LocalName == "qti-variable" ? element.GetVariable(context) : element.GetBaseValue();
                 if (customOperators.Any())
                 {
                     foreach (var customOperator in customOperators)
@@ -372,15 +374,15 @@ namespace Citolab.QTI.ScoringEngine.Helper
         internal static (BaseValue BaseValue, Cardinality Cardinality)? GetCorrectValue(this XElement qtiElement, ResponseProcessorContext context)
         {
             if (
-                qtiElement.Name.LocalName == "baseValue" ||
-                qtiElement.Name.LocalName == "ordered" ||
-                qtiElement.Name.LocalName == "correct" ||
+                qtiElement.Name.LocalName == "qti-base-value" ||
+                qtiElement.Name.LocalName == "qti-ordered" ||
+                qtiElement.Name.LocalName == "qti-correct" ||
                 qtiElement.Name.LocalName == "customOperator")
             {
-                var element = qtiElement.Name.LocalName != "customOperator" ?
+                var element = qtiElement.Name.LocalName != "qti-custom-operator" ?
                     qtiElement : qtiElement.Descendants().FirstOrDefault(el =>
-                    el.Name.LocalName == "correct" || el.Name.LocalName == "baseValue" ||
-                    el.Name.LocalName == "ordered");
+                    el.Name.LocalName == "qti-correct" || el.Name.LocalName == "qti-base-value" ||
+                    el.Name.LocalName == "qti-ordered");
                 var customOperators = new List<ICustomOperator>();
                 ResponseProcessing.Helper.GetCustomOperators(element, customOperators, context);
 
@@ -408,12 +410,12 @@ namespace Citolab.QTI.ScoringEngine.Helper
         {
             return qtiElement.Descendants().Where(element =>
              {
-                 return element.Name.LocalName == "baseValue" ||
-                  element.Name.LocalName == "variable" ||
-                  element.Name.LocalName == "correct";
+                 return element.Name.LocalName == "qti-base-value" ||
+                  element.Name.LocalName == "qti-variable" ||
+                  element.Name.LocalName == "qti-correct";
              }).Select(element =>
              {
-                 if (element.Name.LocalName == "correct")
+                 if (element.Name.LocalName == "qti-correct")
                  {
                      var s = element.GetCorrectValue(context);
                      if (s.HasValue)
@@ -549,34 +551,22 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static IEnumerable<XElement> GetInteractions(this XElement el)
         {
-            var qti2Elements = el.FindElementsByLastPartOfName("interaction")
+            var qti2Elements = el.FindElementsByLastPartOfName("qti-interaction")
                 .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
                 .Where(d => d.Attributes()
-                    .Any(a => a.Name.LocalName.Equals("responseIdentifier", StringComparison.OrdinalIgnoreCase) &&
+                    .Any(a => a.Name.LocalName.Equals("response-identifier", StringComparison.OrdinalIgnoreCase) &&
                               a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
-            var qti3Elements = el.FindElementsByLastPartOfName("Interaction")
+            var qti3Elements = el.FindElementsByLastPartOfName("interaction")
                 .Where(d => d.Name.LocalName.ToLower().Contains("audio"))
                 .Where(d => d.Attributes()
                     .Any(a => a.Name.LocalName.Equals("response-identifier", StringComparison.OrdinalIgnoreCase) &&
                               a.Value.Equals("RESPONSE", StringComparison.OrdinalIgnoreCase)));
             return qti2Elements.Concat(qti3Elements);
         }
-        internal static XElement GetInteraction(this XElement element)
-        {
-            return element.GetInteractions().FirstOrDefault();
-        }
-        internal static XElement GetInteraction(this XDocument doc)
-        {
-            return doc.GetInteractions().FirstOrDefault();
-        }
-        internal static void SetAttributeValue(this XElement el, string name, string value)
-        {
-            el.GetAttribute(name)?.SetValue(value);
-        }
 
         internal static XElement ToXElement(this BaseValue value)
         {
-            return XElement.Parse($"<baseValue baseType=\"{value.BaseType.GetString()}\">{value.Value}</baseValue>");
+            return XElement.Parse($"<qti-base-value base-type=\"{value.BaseType.GetString()}\">{value.Value}</qti-base-value>");
         }
 
         internal static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
@@ -592,19 +582,19 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
         {
-            return XElement.Parse($"<variable identifier=\"{outcomeDeclaration.Identifier}\" />");
+            return XElement.Parse($"<qti-variable identifier=\"{outcomeDeclaration.Identifier}\" />");
         }
 
         internal static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
         {
-            return XElement.Parse($"<outcomeDeclaration " +
+            return XElement.Parse($"<qti-outcome-declaration " +
                 $"identifier=\"{outcomeDeclaration.Identifier}\" cardinality=\"{outcomeDeclaration.Cardinality.GetString()}\" " +
-                $"baseType=\"{outcomeDeclaration.BaseType.GetString()}\"><defaultValue><value>{outcomeDeclaration.DefaultValue}</value></defaultValue></outcomeDeclaration>");
+                $"base-type=\"{outcomeDeclaration.BaseType.GetString()}\"><qti-default-value><qti-value>{outcomeDeclaration.DefaultValue}</qti-value></qti-default-value></qti-outcome-declaration>");
         }
 
         internal static XElement ToValueElement(this string value)
         {
-            return XElement.Parse($"<value>{value}</value>");
+            return XElement.Parse($"<qti-value>{value}</qti-value>");
         }
 
         internal static HashSet<T> ToHashSet<T>(
@@ -672,6 +662,10 @@ namespace Citolab.QTI.ScoringEngine.Helper
         /// <returns></returns>
         public static XDocument AddTotalAndCategoryScores(this XDocument assessmentTest)
         {
+            if (assessmentTest.Root.Name.LocalName == "assessmentTest")
+            {
+                AssessmentTest.Upgrade(assessmentTest);
+            }
             var changedTest = assessmentTest
                 .AddTestOutcome("SCORE_TOTAL", "", null)
                 .AddTestOutcome("SCORE_TOTAL_WEIGHTED", "WEIGHT", null)
@@ -682,7 +676,7 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static XDocument AddTestOutcomeForCategories(this XDocument assessmentTest, string identifierPrefix, string weightIdentifier)
         {
-            var categories = assessmentTest.FindElementsByName("assessmentItemRef")
+            var categories = assessmentTest.FindElementsByName("qti-assessment-item-ref")
                .SelectMany(assessmentItemRefElement => assessmentItemRefElement.GetAttributeValue("category").Split(' '))
                .Distinct()
                .ToList();
@@ -695,8 +689,8 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
         internal static XDocument AddTestOutcome(this XDocument assessmentTest, string identifier, string weightIdentifier, List<string> includedCategories)
         {
-            var outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
-            if (outcomeProcessing == null || !outcomeProcessing.FindElementsByElementAndAttributeValue("setOutcomeValue", "identifier", identifier).Any())
+            var outcomeProcessing = assessmentTest.FindElementByName("qti-outcome-processing");
+            if (outcomeProcessing == null || !outcomeProcessing.FindElementsByElementAndAttributeValue("qti-set-outcome-value", "identifier", identifier).Any())
             {
                 var testVariable = new SumTestVariable
                 {
@@ -711,8 +705,8 @@ namespace Citolab.QTI.ScoringEngine.Helper
 
                 if (outcomeProcessing == null)
                 {
-                    assessmentTest.Add(XElement.Parse("<outcomeProcessing></outcomeProcessing>"));
-                    outcomeProcessing = assessmentTest.FindElementByName("outcomeProcessing");
+                    assessmentTest.Add(XElement.Parse("<qti-outcome-processing></qti-outcome-processing>"));
+                    outcomeProcessing = assessmentTest.FindElementByName("qti-outcome-processing");
                 }
                 outcomeProcessing.Add(testVariableElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));
                 return assessmentTest;
@@ -723,6 +717,43 @@ namespace Citolab.QTI.ScoringEngine.Helper
                 return assessmentTest;
             }
 
+        }
+
+        public static string ToKebabCase(this string source)
+        {
+            if (source is null) return null;
+
+            if (source.Length == 0) return string.Empty;
+
+            var builder = new StringBuilder();
+
+            for (var i = 0; i < source.Length; i++)
+            {
+                if (IsLower(source[i])) // if current char is already lowercase
+                {
+                    builder.Append(source[i]);
+                }
+                else if (i == 0) // if current char is the first char
+                {
+                    builder.Append(ToLower(source[i]));
+                }
+                else if (IsLower(source[i - 1])) // if current char is upper and previous char is lower
+                {
+                    builder.Append("-");
+                    builder.Append(ToLower(source[i]));
+                }
+                else if (i + 1 == source.Length || IsUpper(source[i + 1])) // if current char is upper and next char doesn't exist or is upper
+                {
+                    builder.Append(ToLower(source[i]));
+                }
+                else // if current char is upper and next char is lower
+                {
+                    builder.Append("-");
+                    builder.Append(ToLower(source[i]));
+                }
+            }
+
+            return builder.ToString();
         }
     }
 }

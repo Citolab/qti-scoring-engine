@@ -150,19 +150,19 @@ namespace Citolab.QTI.ScoringEngine.Tests
         internal static XElement GetElementWithValue(this ResponseIf _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0;
-            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
+            return XElement.Parse($@"<qti-response-if><qti-gte><qti-base-value base-type=""float"">{gte1}</qti-base-value><qti-base-value base-type=""float"">1</qti-base-value></qti-gte><qti-set-outcome-value identifier=""{identifier}""><qti-base-value base-type=""string"">{value}</qti-base-value></qti-set-outcome-value></qti-response-if>");
         }
 
         internal static XElement GetElementWithValue(this ResponseElseIf _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0;
-            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
+            return XElement.Parse($@"<qti-response-if><qti-gte><qti-base-value base-type=""float"">{gte1}</qti-base-value><qti-base-value base-type=""float"">1</qti-base-value></qti-gte><qti-set-outcome-value identifier=""{identifier}""><qti-base-value base-type=""string"">{value}</qti-base-value></qti-set-outcome-value></qti-response-if>");
         }
 
         internal static XElement GetElementWithValue(this ResponseElse _, bool result, string value, string identifier)
         {
             var gte1 = result ? 1 : 0;
-            return XElement.Parse($@"<responseIf><gte><baseValue baseType=""float"">{gte1}</baseValue><baseValue baseType=""float"">1</baseValue></gte><setOutcomeValue identifier=""{identifier}""><baseValue baseType=""string"">{value}</baseValue></setOutcomeValue></responseIf>");
+            return XElement.Parse($@"<qti-response-if><qti-gte><qti-base-value base-type=""float"">{gte1}</qti-base-value><qti-base-value base-type=""float"">1</qti-base-value></qti-gte><qti-set-outcome-value identifier=""{identifier}""><qti-base-value base-type=""string"">{value}</qti-base-value></qti-set-outcome-value></qti-response-if>");
         }
 
 
@@ -177,7 +177,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
             };
         }
 
- 
+
         internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
         {
             return new OutcomeVariable
@@ -204,22 +204,24 @@ namespace Citolab.QTI.ScoringEngine.Tests
                 if (cardinality == Cardinality.Single)
                 {
                     itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Value = values.FirstOrDefault() });
-                } else
+                }
+                else
                 {
                     itemResult.ResponseVariables.Add(responseIdentifer, new ResponseVariable { BaseType = baseType, Cardinality = cardinality, Identifier = responseIdentifer, Values = values });
                 }
-               
+
             }
             else
             {
                 if (values.Count == 1)
                 {
                     itemResult.ResponseVariables[responseIdentifer].Value = values.FirstOrDefault();
-                } else
+                }
+                else
                 {
                     itemResult.ResponseVariables[responseIdentifer].Values = values;
                 }
-                    
+
             }
             var itemResultElement = assessmentResult.FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifer).FirstOrDefault();
             if (itemResultElement != null)

@@ -24,7 +24,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             var base2 = "0".ToBaseValue();
 
             var equal = new Equal();
-            var equalElement = XElement.Parse(@"<equal toleranceMode=""exact""></equal>");
+            var equalElement = XElement.Parse(@"<qti-equal tolerance-mode=""exact""></qti-equal>");
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
@@ -44,7 +44,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             var base2 = "1.234".ToBaseValue();
 
             var equal = new Equal();
-            var equalElement = XElement.Parse("<equal></equal>");
+            var equalElement = XElement.Parse("<qti-equal></qti-equal>");
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
@@ -64,7 +64,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             var base2 = "1,234".ToBaseValue();
 
             var equal = new Equal();
-            var equalElement = XElement.Parse("<equal></equal>");
+            var equalElement = XElement.Parse("<qti-equal></qti-equal>");
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
@@ -84,7 +84,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             var base2 = "1,234".ToBaseValue();
 
             var equal = new Equal();
-            var equalElement = XElement.Parse("<equal></equal>");
+            var equalElement = XElement.Parse("<qti-equal></qti-equal>");
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
@@ -104,14 +104,14 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
             var base2 = "1,234".ToBaseValue();
 
             var equal = new Equal();
-            var equalElement = XElement.Parse(@"<equal toleranceMode=""relative""></equal>");
+            var equalElement = XElement.Parse(@"<qti-equal tolerance-mode=""relative""></qti-equal>");
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
             var result = equal.Execute(equalElement, contextInfo.Context);
 
             //assert
-            contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: Unsupported toleranceMode: relative"), LogLevel.Error, 1);
+            contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: Unsupported tolerance-mode: relative"), LogLevel.Error, 1);
         }
 
     }

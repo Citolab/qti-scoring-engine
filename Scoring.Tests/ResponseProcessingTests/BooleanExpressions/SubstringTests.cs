@@ -23,7 +23,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(substring.Name, substring);
 
-            var substringElement = XElement.Parse("<substring></substring>");
+            var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("Me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
 
@@ -46,7 +46,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(substring.Name, substring);
 
-            var substringElement = XElement.Parse("<substring></substring>");
+            var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("Not".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
   
@@ -69,7 +69,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(substring.Name, substring);
 
-            var substringElement = XElement.Parse("<substring></substring>");
+            var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
 
@@ -93,7 +93,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(substring.Name, substring);
 
-            var substringElement = XElement.Parse(@"<substring caseSensitive=""false""></substring>");
+            var substringElement = XElement.Parse(@"<qti-substring case-sensitive=""false""></qti-substring>");
             substringElement.Add("me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
  

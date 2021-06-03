@@ -15,7 +15,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public Dictionary<string, AssessmentItemRef> AssessmentItemRefs;
         public List<string> Categories;
         public HashSet<string> CalculatedOutcomes;
-        public XElement OutcomeProcessingElement => Content.FindElementByName("outcomeProcessing");
+        public XElement OutcomeProcessingElement => Content.FindElementByName("qti-outcome-processing");
         public AssessmentTest(ILogger logger, XDocument assessmentTest) : base(logger, assessmentTest)
         {
             Init();
@@ -23,12 +23,12 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public void Init()
         {
-            OutcomeDeclarations = Content.FindElementsByName("outcomeDeclaration").Select(outcomeDeclaration =>
+            OutcomeDeclarations = Content.FindElementsByName("qti-outcome-declaration").Select(outcomeDeclaration =>
             {
                 return GetOutcomeDeclaration(outcomeDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
 
-            AssessmentItemRefs = Content.FindElementsByName("assessmentItemRef")
+            AssessmentItemRefs = Content.FindElementsByName("qti-assessment-item-ref")
                .Select(assessmentItemRefElement =>
                {
                    var itemIdentifier = assessmentItemRefElement.Identifier();
@@ -36,7 +36,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                    var assessmentItemRef = new AssessmentItemRef
                    {
                        Identifier = itemIdentifier,
-                       Weights = assessmentItemRefElement.FindElementsByName("weight").Select(weight =>
+                       Weights = assessmentItemRefElement.FindElementsByName("qti-weight").Select(weight =>
                        {
                            var weightString = weight.GetAttributeValue("value");
                            if (int.TryParse(weightString, out var weightValue))
@@ -59,11 +59,46 @@ namespace Citolab.QTI.ScoringEngine.Model
                 .Distinct()
                 .ToList();
             var setOutcomes = OutcomeProcessingElement?
-              .FindElementsByName("setOutComeValue")?
+              .FindElementsByName("qti-set-outcome-value")?
               .Select(v => v.Identifier());
             CalculatedOutcomes = setOutcomes.Distinct().ToHashSet();
         }
 
+        public override void Upgrade()
+        {
+            Upgrade(Content);
+        }
 
+        public static void Upgrade(XDocument doc)
+        {
+            XNamespace xNamespace = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
+            foreach (var element in doc.Descendants())
+            {
+                var tagName = element.Name.LocalName;
+                var kebabTagName = tagName.ToKebabCase();
+                element.Name = xNamespace + $"qti-{kebabTagName}";
+            }
+
+            // fix attributes
+            foreach (var element in doc.Descendants())
+            {
+                var attributesToRemove = new List<XAttribute>();
+                var attributesToAdd = new List<XAttribute>();
+                foreach (var attribute in element.Attributes()
+                    .Where(attr => !attr.IsNamespaceDeclaration && string.IsNullOrEmpty(attr.Name.NamespaceName)))
+                {
+                    var attributeName = attribute.Name.LocalName;
+                    var kebabAttributeName = attributeName.ToKebabCase();
+                    if (attributeName != kebabAttributeName)
+                    {
+                        var newAttr = new XAttribute($"{kebabAttributeName}", attribute.Value);
+                        attributesToRemove.Add(attribute);
+                        attributesToAdd.Add(newAttr);
+                    }
+                }
+                attributesToRemove.ForEach(a => a.Remove());
+                attributesToAdd.ForEach(a => element.Add(a));
+            }
+        }
     }
 }

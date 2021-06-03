@@ -23,7 +23,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(lte.Name, lte);
 
-            var lteElement = XElement.Parse("<lte></lte>");
+            var lteElement = XElement.Parse("<qti-lte></qti-lte>");
             lteElement.Add(1.0F.ToBaseValue().ToXElement());
             lteElement.Add(0.0F.ToBaseValue().ToXElement());
             // act
@@ -44,7 +44,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(lte.Name, lte);
 
-            var lteElement = XElement.Parse("<lte></lte>");
+            var lteElement = XElement.Parse("<qti-lte></qti-lte>");
             lteElement.Add(0.0F.ToBaseValue().ToXElement());
             lteElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
@@ -65,7 +65,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.BooleanExpressions
 
             context.BooleanExpressions.Add(lte.Name, lte);
 
-            var lteElement = XElement.Parse("<lte></lte>");
+            var lteElement = XElement.Parse("<qti-lte></qti-lte>");
             lteElement.Add(1.0F.ToBaseValue().ToXElement());
             lteElement.Add(1.0F.ToBaseValue().ToXElement());
             // act

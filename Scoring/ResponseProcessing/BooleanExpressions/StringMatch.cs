@@ -9,7 +9,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class StringMatch : IBooleanExpression
     {
-        public string Name { get => "stringMatch"; }
+        public string Name { get => "qti-string-match"; }
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

@@ -31,7 +31,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/position_object.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/position_object.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             var responses = assessmentItem.ResponseDeclarations.Values.First(r => r.AreaMapping != null)
@@ -57,7 +57,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/position_object.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/position_object.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             var responses = assessmentItem.ResponseDeclarations.Values.First(r => r.AreaMapping != null)
@@ -84,7 +84,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/ResponseProcessing/IMS-examples/position_object.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/position_object.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
 
             var responses = assessmentItem.ResponseDeclarations.Values.First(r => r.AreaMapping != null)

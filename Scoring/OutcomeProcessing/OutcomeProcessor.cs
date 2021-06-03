@@ -38,7 +38,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             }
             else
             {
-                context.LogInformation("No responseProcessing found");
+                context.LogInformation("No qti-outcome-processing found");
             }
             return context.AssessmentResult;
         }

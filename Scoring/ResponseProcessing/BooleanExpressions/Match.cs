@@ -11,7 +11,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class Match : IBooleanExpression
     {
-        public string Name { get => "match"; }
+        public string Name { get => "qti-match"; }
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

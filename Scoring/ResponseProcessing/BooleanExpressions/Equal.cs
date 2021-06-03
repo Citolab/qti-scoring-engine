@@ -10,15 +10,15 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class Equal : IBooleanExpression
     {
-        public string Name { get => "equal"; }
+        public string Name { get => "qti-equal"; }
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             // todo toleranceMode mode, couldn't find any example of absolute or relative.
-            var toleranceMode = qtiElement.GetAttributeValue("toleranceMode");
+            var toleranceMode = qtiElement.GetAttributeValue("tolerance-mode");
             if (!string.IsNullOrEmpty(toleranceMode) && toleranceMode != "exact")
             {
-                context.LogError($"Unsupported toleranceMode: {toleranceMode}");
+                context.LogError($"Unsupported tolerance-mode: {toleranceMode}");
                 return false;
             }
             return Helper.CompareTwoValues(qtiElement, context, Model.BaseType.Float);

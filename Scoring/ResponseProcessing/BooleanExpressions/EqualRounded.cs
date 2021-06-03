@@ -13,13 +13,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class EqualRounded : IBooleanExpression
     {
-        public string Name => "equalRounded";
+        public string Name => "qti-equal-rounded";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var mode = GetRoundingMode(qtiElement);
             if (!int.TryParse(qtiElement.GetAttributeValue("figures"), out var figures)) {
-                context.LogError("for equalRounded figures is required");
+                context.LogError("for qti-equal-rounded figures is required");
                 return false;
             }
             if (figures < 0)
@@ -33,7 +33,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
                 return false;
             }
             var values = qtiElement.GetValues(context);// Helper.GetStringValueOfChildren(qtiElement, context).ToList();
-            context.LogInformation($"equalRounded check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
+            context.LogInformation($"qti-equal-rounded check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
             if (values.Count != 2)
             {
                 context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
@@ -87,7 +87,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 
         RoundingMode GetRoundingMode(XElement qtiElement)
         {
-            var roundingElement = qtiElement.GetAttributeValue("roundingMode");
+            var roundingElement = qtiElement.GetAttributeValue("rounding-mode");
             if (roundingElement == "decimalPlaces")
             {
                 return RoundingMode.DecimalPlaces;

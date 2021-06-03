@@ -10,7 +10,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class ResponseElse : IBooleanExpression
     {
-        public string Name { get => "responseElse"; }
+        public string Name { get => "qti-response-else"; }
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {

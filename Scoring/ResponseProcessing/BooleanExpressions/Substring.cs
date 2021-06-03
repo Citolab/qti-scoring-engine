@@ -13,11 +13,11 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class Substring : IBooleanExpression
     {
-        public string Name => "substring";
+        public string Name => "qti-substring";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
-            var caseSensitiveAttribute = qtiElement.GetAttributeValue("caseSensitive");
+            var caseSensitiveAttribute = qtiElement.GetAttributeValue("case-sensitive");
             if (!(!string.IsNullOrEmpty(caseSensitiveAttribute) && bool.TryParse(caseSensitiveAttribute, out var caseSensitive))) {
                 caseSensitive = true;
             }

@@ -12,12 +12,12 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions
 {
     internal class LookupOutcomeValue : IBooleanExpression
     {
-        public string Name => "lookupOutcomeValue";
+        public string Name => "qti-lookup-outcome-value";
 
         public bool Execute(XElement qtiElement, ResponseProcessorContext context)
         {
             var outcomeIdentifier = qtiElement.Identifier();
-            var rawIdentifier = qtiElement.FindElementsByName("variable")
+            var rawIdentifier = qtiElement.FindElementsByName("qti-variable")
                 .FirstOrDefault()?.Identifier();
             if (rawIdentifier == null)
             {
