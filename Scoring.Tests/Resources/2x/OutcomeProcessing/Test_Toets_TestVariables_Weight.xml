@@ -15,6 +15,11 @@
 			<value>0</value>
 		</defaultValue>
 	</outcomeDeclaration>
+	<outcomeDeclaration identifier="SCORE_CAT_COMBINED" cardinality="single" baseType="integer">
+		<defaultValue>
+			<value>0</value>
+		</defaultValue>
+	</outcomeDeclaration>
 	<testPart identifier="RES-d81e9621-1560-49f9-97fa-d17c5e87286a" navigationMode="nonlinear" submissionMode="simultaneous">
 		<assessmentSection identifier="RES-96f2d76d-7ab1-4c81-a2fc-2d897afc0cc1" title="Taak Taal 1" visible="true" keepTogether="false">
 			<assessmentItemRef identifier="ITM-SN02945" href="SN02945.xml" category="1">

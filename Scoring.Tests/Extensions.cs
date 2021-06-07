@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.BooleanExpressions;
+using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using System.Drawing;
 using System.Globalization;
@@ -219,12 +219,18 @@ namespace Citolab.QTI.ScoringEngine.Tests
         {
             return AddCandidateResponses(assessmentResult, itemIdentifer, responseIdentifer, new List<string> { value }, baseType, cardinality);
         }
-        internal static AssessmentResult AddCandidateResponses(this AssessmentResult assessmentResult, string itemIdentifer, string responseIdentifer, List<string> values, BaseType baseType, Cardinality cardinality)
+
+        internal static AssessmentResult AddItemResult(this AssessmentResult assessmentResult, string itemIdentifer)
         {
             if (!assessmentResult.ItemResults.ContainsKey(itemIdentifer))
             {
                 assessmentResult.ItemResults.Add(itemIdentifer, new ItemResult { Identifier = itemIdentifer });
             }
+            return assessmentResult;
+        }
+            internal static AssessmentResult AddCandidateResponses(this AssessmentResult assessmentResult, string itemIdentifer, string responseIdentifer, List<string> values, BaseType baseType, Cardinality cardinality)
+        {
+            assessmentResult.AddItemResult(itemIdentifer);
             var itemResult = assessmentResult.ItemResults[itemIdentifer];
             if (!itemResult.ResponseVariables.ContainsKey(responseIdentifer))
             {

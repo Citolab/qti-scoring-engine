@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System;
@@ -43,7 +43,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_Without_Weights", "AssessmentResult_Add_OutcomeVariable", mockLogger);
 
             // missing weight identifier must be logged as a warning
-            mockLogger.VerifyLog((state, t) => state.ContainsValue("Cannot find weight with identifier: WEIGHT from item: ITM-SN02945.SCORE"), LogLevel.Warning, 3);
+            mockLogger.VerifyLog((state, t) => state.ContainsValue("TST-Test_toets - 900001: Cannot find weight: WEIGHT for item: ITM-SN02945"), LogLevel.Error, 4);
 
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL"));
             Assert.Equal("2", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));

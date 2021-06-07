@@ -9,7 +9,7 @@ using Citolab.QTI.ScoringEngine.Model;
 using Xunit;
 using Citolab.QTI.ScoringEngine.ResponseProcessing;
 using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using System;
 
 namespace Citolab.QTI.ScoringEngine.Tests.Business

@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Interfaces;
+﻿using Citolab.QTI.ScoringEngine.Helpers;
+using Citolab.QTI.ScoringEngine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,12 +9,12 @@ namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class Rect : IShape
     {
-        private readonly IContextLogger _logContext;
+        private readonly IProcessingContext _logContext;
         private float _x0 = 0.0f;
         private float _y0 = 0.0f;
         private float _x1 = 0.0f;
         private float _y1 = 0.0f;
-        public Rect(string coords, IContextLogger logContext)
+        public Rect(string coords, IProcessingContext logContext)
         {
             var splittedCoords = coords.Split(',');
             if (splittedCoords.Length == 4)
@@ -37,7 +38,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public bool IsInside(string response)
         {
-            var pointerInfo = ResponseProcessing.Helper.GetPointsFromResponse(response, _logContext);
+            var pointerInfo = Helper.GetPointsFromResponse(response, _logContext);
             if (pointerInfo.HasValue)
             {
                 var pointer = pointerInfo.Value;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Citolab.QTI.ScoringEngine.Model
     internal class AssessmentItem : QtiDocument
     {
         public Dictionary<string, ResponseDeclaration> ResponseDeclarations;
-        public Dictionary<string, OutcomeDeclaration> OutcomeDeclarations;
+        public Dictionary<string, OutcomeDeclaration> OutcomeDeclarations { get; set; }
 
         public HashSet<string> CalculatedOutcomes;
 

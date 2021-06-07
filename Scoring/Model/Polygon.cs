@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Interfaces;
+﻿using Citolab.QTI.ScoringEngine.Helpers;
+using Citolab.QTI.ScoringEngine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,10 +10,10 @@ namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class Polygon : IShape
     {
-        private readonly IContextLogger _logContext;
+        private readonly IProcessingContext _logContext;
         private readonly List<PointF> _allPoints = new List<PointF>();
 
-        public Polygon(string coords, IContextLogger logContext)
+        public Polygon(string coords, IProcessingContext logContext)
         {
             var splittedCoords = coords.Split(',');
             if (!IsEven(splittedCoords.Length))
@@ -22,7 +23,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             var index = 0;
             while (index < splittedCoords.Length)
             {
-                var points = ResponseProcessing.Helper.GetPointsFromResponse($"{splittedCoords[index]} {splittedCoords[index + 1]}", logContext);
+                var points = Helper.GetPointsFromResponse($"{splittedCoords[index]} {splittedCoords[index + 1]}", logContext);
                 if (points.HasValue)
                 {
                     _allPoints.Add(points.Value);
@@ -66,7 +67,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public bool IsInside(string response)
         {
-            var pointInfo = ResponseProcessing.Helper.GetPointsFromResponse(response, _logContext);
+            var pointInfo = Helper.GetPointsFromResponse(response, _logContext);
             if (pointInfo.HasValue)
             {
                 return IsInPolygon(_allPoints, pointInfo.Value);

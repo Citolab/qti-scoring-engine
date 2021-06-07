@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Citolab.QTI.ScoringEngine.Interfaces
 {
-    public interface ICustomOperator
+    public interface ICustomOperator : IOperatorBase
     {
         string Definition { get; }
-        BaseValue Apply(BaseValue value);
     }
 }

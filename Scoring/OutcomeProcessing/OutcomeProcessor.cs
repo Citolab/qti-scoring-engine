@@ -1,20 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 {
     internal static class OutcomeProcessor
     {
-        public static AssessmentResult Process(AssessmentTest assessmentTest, AssessmentResult assessmentResult, ILogger logger)
+        public static AssessmentResult Process(AssessmentTest assessmentTest, AssessmentResult assessmentResult, ILogger logger, List<ICustomOperator> customOperators = null)
         {
-            var context = new OutcomeProcessorContext(assessmentResult, assessmentTest, logger);
+            var context = new OutcomeProcessorContext(assessmentResult, assessmentTest, logger, customOperators);
             // Reset all values that are recalculated;
             context.TestResult.OutcomeVariables.Where(o =>
             {
@@ -28,8 +25,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             {
                 foreach (var outcomeProcessingChildElement in assessmentTest.OutcomeProcessingElement.Elements())
                 {
-                    var executor = context.GetOperator(outcomeProcessingChildElement, context);
-                    executor?.Execute(outcomeProcessingChildElement, context);
+                    context.Execute(outcomeProcessingChildElement);
                 }
                 assessmentTest.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {
@@ -42,8 +38,5 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             }
             return context.AssessmentResult;
         }
-
-
-
     }
 }

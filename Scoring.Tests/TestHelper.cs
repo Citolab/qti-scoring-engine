@@ -8,46 +8,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System.IO;
-using Citolab.QTI.ScoringEngine.ResponseProcessing.Interfaces;
+using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Tests
 {
     public static class TestHelper
     {
-        internal static ResponseProcessorContext  GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
+        internal static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
         {
             return GetDefaultResponseProcessingContextAndLogger(assessmentItem).Context;
         }
-        internal static ( ResponseProcessorContext Context, Mock<ILogger>MockLog) GetDefaultResponseProcessingContextAndLogger(AssessmentItem assessmentItem)
+        internal static (ResponseProcessorContext Context, Mock<ILogger> MockLog) GetDefaultResponseProcessingContextAndLogger(AssessmentItem assessmentItem)
         {
             var mockLog = new Mock<ILogger>();
             var logger = mockLog.Object;
-            var context = new ResponseProcessorContext(logger, GetBasicAssessmentResult(), assessmentItem, null);
-            if (assessmentItem?.OutcomeDeclarations != null)
+            var assessmentResult = GetBasicAssessmentResult();
+            if (assessmentItem != null)
             {
-                if (context.ItemResult == null)
+                var itemResult = new ItemResult()
                 {
-                    context.ItemResult = new ItemResult()
-                    {
-                        Identifier = assessmentItem.Identifier,
-                        OutcomeVariables = new Dictionary<string, OutcomeVariable>(),
-                        ResponseVariables = new Dictionary<string, ResponseVariable>()
-                    };
-                }
-                assessmentItem.OutcomeDeclarations.Select(outcomeDeclaration =>
+                    Identifier = assessmentItem.Identifier,
+                    OutcomeVariables = new Dictionary<string, OutcomeVariable>(),
+                    ResponseVariables = new Dictionary<string, ResponseVariable>()
+                };
+                assessmentItem.OutcomeDeclarations.Values.ToList().ForEach(outcomeDeclaration =>
                 {
-                    return outcomeDeclaration.Value.CreateVariable();
-                })
-                    .ToList()
-                .ForEach(outcome =>
-                {
-                    context.ItemResult.OutcomeVariables.Add(outcome.Identifier, outcome);
+                    itemResult.OutcomeVariables.Add(outcomeDeclaration.Identifier, outcomeDeclaration.ToVariable());
                 });
+                assessmentResult.ItemResults.Add(itemResult.Identifier, itemResult);
             }
-
+            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, null);
             return (context, mockLog);
         }
 
@@ -151,24 +144,24 @@ namespace Citolab.QTI.ScoringEngine.Tests
             var logger = mockLogger.Object;
             var assessmentTest = new AssessmentTest(logger, assessmentDoc);
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/{assessmentResultPath}.xml")));
-            
+
 
             return OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
         }
     }
-    internal class ReturnFalse : IBooleanExpression
+    internal class ReturnFalse : IConditionExpression
     {
         public string Name => "returnFalse";
-        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
+        public bool Execute(XElement qtiElement, IProcessingContext context)
         {
             return false;
         }
     }
 
-    internal class ReturnTrue : IBooleanExpression
+    internal class ReturnTrue : IConditionExpression
     {
         public string Name => "returnTrue";
-        public bool Execute(XElement qtiElement, ResponseProcessorContext context)
+        public bool Execute(XElement qtiElement, IProcessingContext context)
         {
             return true;
         }

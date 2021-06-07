@@ -198,20 +198,12 @@ namespace Citolab.QTI.ScoringEngine.Model
     }
 
 
-    internal enum Cardinality
+    public enum Cardinality
     {
         Single,
         Multiple,
         Ordered
     }
-
-    public enum QtiVersion
-    {
-        Qti21,
-        Qti22,
-        Qti30
-    }
-
     public enum Shape
     {
         Circle,
@@ -221,11 +213,5 @@ namespace Citolab.QTI.ScoringEngine.Model
         Default
     }
 
-    internal enum QtiResourceType
-    {
-        AssessmentItem,
-        AssessmentTest,
-        Manifest
-    }
 }
 

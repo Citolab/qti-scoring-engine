@@ -28,110 +28,97 @@ Unsupported:
 - file
 - Uri
 - IntOrIdentifier
+
 ## Rules
 
 Supported:
 
-* lookupOutcomeValue
-* responseCondition
-* setOutcomeValue
-* responseIf
-* responseElseif
-* responseElse
+* qti-lookup-outcome-value
+* qti-outcome-condition
+* qti-outcome-else
+* qti-outcome-elseif
+* qti-outcome-if
+* qti-response-if
+* qti-response-elseif
+* qti-response-else
+* qti-response-condition
+* qti-set-outcome-value
 
 Unsupported:
 
-* exitResponse
-* include
-* responseProcessingFragment 
+* qti-exit-response
+* qti-include
+* qti-response-processing-fragment 
 
 ## Expressions:
 
 Supported:
-* and
-* baseValue
-* correct
-* customOperator
-* equal* (toleranceMode: exact only)
-* gt
-* gte
-* isNull
-* equalRounded
-* lt
-* lte
-* mapResponse
-* mapResponsePoint
-* match
-* member
-* or
-* ordered* (in match)
-* stringMatch
-* substring
-* sum
-* variable
+* qti-and
+* qti-base-value
+* qti-correct
+* qti-custom-operator
+* qti-equal* (toleranceMode: exact only)
+* qti-gt
+* qti-gte
+* qti-isNull
+* qti-equalRounded
+* qti-lt
+* qti-lte
+* qti-map-response
+* qti-map-response-point
+* qti-match
+* qti-member
+* qti-number-selected
+* qti-number-presented
+* qti-or
+* qti-ordered
+* qti-round
+* qti-string-match
+* qti-substring
+* qti-sum
+* qti-variable
 
 Unsupported:
-* anyN
-* containerSize
-* contains
-* default
-* delete
-* divide
-* durationGTE
-* durationLT
-* fieldValue
-* gcd
-* lcm
-* repeat
-* index
-* inside
-* integerDivide
-* integerModulus
-* integerToFloat
-* mathOperator
-* mathConstant
-* max
-* min
-* multiple
-* not
-* null
-* outcomeMaximum
-* outcomeMinimum
-* patternMatch
-* power
-* product
-* random
-* randomFloat
-* randomInteger
-* round
-* roundTo
-* statsOperator
-* subtract
-* truncate
+* qti-any-n
+* qti-container-size
+* qti-contains
+* qti-default
+* qti-delete
+* qti-divide
+* qti-duration-gte
+* qti-duration-lt
+* qti-field-value
+* qti-gcd
+* qti-lcm
+* qti-number-correct
+* qti-number-incorrect
+* qti-number-responded
+* qti-repeat
+* qti-index
+* qti-inside
+* qti-integer-divide
+* qti-integer-modulus
+* qti-integer-to-float
+* qti-mathOperator
+* qti-mathConstant
+* qti-max
+* qti-min
+* qti-multiple
+* qti-not
+* qti-null
+* qti-outcome-maximum
+* qti-outcome-minimum
+* qti-patternMatch
+* qti-power
+* qti-product
+* qti-random
+* qti-random-float
+* qti-random-integer
+* qti-round-to
+* qti-stats-operator
+* qti-subtract
+* qti-truncate
 
-# Outcome processing
-## Rules
-
-Supported:
-
-* setOutcomeValue
-
-## Expressions:
-
-Supported:
-* baseValue
-* sum
-* testVariables
-* variable
-
-Unsupported:
-* numberCorrect
-* numberIncorrect
-* numberPresented
-* numberResponded
-* numberSelected
-* outcomeMaximum
-* outcomeMinimum
 
 ## Usage
 

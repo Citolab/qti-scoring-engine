@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
@@ -8,88 +8,94 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Globalization;
+using Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions;
+using Citolab.QTI.ScoringEngine.Expressions.BaseValueExpression;
 
 namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 {
     // Before processing all variables/declarations are s
-    internal class OutcomeProcessorContext : IContextLogger
-    {
-        private readonly ILogger _logger;
-        public AssessmentResult AssessmentResult { get; }
-        public AssessmentTest AssessmentTest{ get; }
-
+    internal class OutcomeProcessorContext : ProcessorContextBase
+    {      
+        public AssessmentTest AssessmentTest { get; }
         public TestResult TestResult { get; set; }
-        public Dictionary<string, IOutcomeBaseValueExpression> BaseValueExpressions;
-        public Dictionary<string, IOutcomeBooleanExpression> BooleanExpressions;
 
-        public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger)
+        public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger, List<ICustomOperator> addedCustomOperators): base(logger, assessmentResult, addedCustomOperators)
         {
-            _logger = logger;
-            AssessmentResult = assessmentResult;
+            _sessionIdentifier = $"{ assessmentTest?.Identifier} - { assessmentResult?.SourcedId}";
             AssessmentTest = assessmentTest;
-            if (!assessmentResult.TestResults.ContainsKey(assessmentTest.Identifier)) {
+            // This will always be empty
+            // but because there is not a clear seperation between the expressions that
+            // can be used in outcome and responseprocessing the expressions share the same context.
+            ResponseDeclarations = new Dictionary<string, ResponseDeclaration>();
+            ResponseVariables = new Dictionary<string, ResponseVariable>();
+
+            // these will be used.
+            OutcomeDeclarations = assessmentTest.OutcomeDeclarations;
+            if (!assessmentResult.TestResults.ContainsKey(assessmentTest.Identifier))
+            {
                 assessmentResult.AddTestResult(assessmentTest.Identifier);
             }
             TestResult = assessmentResult.TestResults[assessmentTest.Identifier];
+            OutcomeVariables = TestResult.OutcomeVariables;
+            CalculatedOutcomes = assessmentTest.CalculatedOutcomes;
+
+            ResetOutcomes();
+            ConditionExpressions = Helper.GetConditionExpressions(new List<Type> { typeof(IResponseProcessingConditionExpression) });
+            SetupExpressions(typeof(IResponseProcessingExpression));
         }
 
-        public IOutcomeBooleanExpression GetOperator(XElement element, OutcomeProcessorContext context)
+        internal bool ItemResultExists(string itemIdentifier)
         {
-            if (BooleanExpressions == null)
-            {
-                var type = typeof(IOutcomeBooleanExpression);
-                var types = AppDomain.CurrentDomain.GetAssemblies()
-                      .SelectMany(s => s.GetTypes())
-                      .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IOutcomeBooleanExpression)Activator.CreateInstance(t));
-
-                BooleanExpressions = instances.ToDictionary(t => t.Name, t => t);
-            }
-            if (BooleanExpressions.TryGetValue(element?.Name.LocalName, out var executor))
-            {
-                context.LogInformation($"Processing {executor.Name}");
-                return executor;
-            }
-            context.LogError($"Cannot find executor for tag-name:{element?.Name.LocalName}");
-            return null;
+            return AssessmentResult.ItemResults.ContainsKey(itemIdentifier);
         }
 
-        public IOutcomeBaseValueExpression GetExpression(XElement element, OutcomeProcessorContext context, bool logErrorIfNotFound = false)
+        internal BaseValue GetItemResultBaseValue(string itemIdentifier, string outcomeIdentifier, string weightIdentifier)
         {
-            if (BaseValueExpressions == null)
+            if (AssessmentResult.ItemResults.ContainsKey(itemIdentifier))
             {
-                var type = typeof(IOutcomeBaseValueExpression);
-                var types = AppDomain.CurrentDomain.GetAssemblies()
-                      .SelectMany(s => s.GetTypes())
-                      .Where(p => type.IsAssignableFrom(p) && !p.IsInterface);
-                var instances = types.Select(t => (IOutcomeBaseValueExpression)Activator.CreateInstance(t));
-
-                BaseValueExpressions = instances.ToDictionary(t => t.Name, t => t);
+                var itemResult = AssessmentResult.ItemResults[itemIdentifier];
+                if (itemResult.OutcomeVariables.ContainsKey(outcomeIdentifier))
+                {
+                    var outcome = itemResult.OutcomeVariables[outcomeIdentifier];
+                    var baseValue = outcome.ToBaseValue();
+                    if (!string.IsNullOrEmpty(weightIdentifier))
+                    {
+                        if (AssessmentTest.AssessmentItemRefs.ContainsKey(itemIdentifier))
+                        {
+                            var itemRef = AssessmentTest.AssessmentItemRefs[itemIdentifier];
+                            if (itemRef.Weights.ContainsKey(weightIdentifier))
+                            {
+                                var weight = itemRef.Weights[weightIdentifier];
+                                if (baseValue.Value.TryParseFloat(out var result))
+                                {
+                                    baseValue.Value = (result * weight).ToString(CultureInfo.InvariantCulture);
+                                }
+                            }
+                            else
+                            {
+                                LogError($"Cannot find weight: {weightIdentifier} for item: {itemIdentifier}");
+                            }
+                        }
+                        else
+                        {
+                            LogError($"Cannot find itemRef: {itemIdentifier} to get weight");
+                        }
+                    }
+                    return baseValue;
+                }
+                else
+                {
+                    LogInformation($"Cannot find outcome: {outcomeIdentifier} in itemResult {itemIdentifier}");
+                    return 0.0F.ToBaseValue();
+                }
             }
-            if (BaseValueExpressions.TryGetValue(element?.Name.LocalName, out var calculator))
+            else
             {
-                context.LogInformation($"Processing {calculator.Name}");
-                return calculator;
+                LogInformation($"Cannot find itemResult: {itemIdentifier}");
+                return 0.0F.ToBaseValue();
             }
-            if (logErrorIfNotFound)
-            {
-                context.LogError($"Cannot find expression for tag-name:{element?.Name.LocalName}");
-            }
-            return null;
         }
 
-        public void LogInformation(string value)
-        {
-            _logger.LogInformation($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
-        }
-        public void LogWarning(string value)
-        {
-            _logger.LogWarning($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
-        }
-
-        public void LogError(string value)
-        {
-            _logger.LogError($"{AssessmentTest?.Identifier} - {AssessmentResult?.SourcedId}: {value}");
-        }
     }
 }

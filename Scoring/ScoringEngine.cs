@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using System.Threading.Tasks;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using Microsoft.Extensions.Logging;
@@ -36,8 +36,13 @@ namespace Citolab.QTI.ScoringEngine
             //}
             //else
             //{
-                ctx.AssessmentmentResults.ForEach(
-                    assessmentResultDoc => AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger));
+            ctx.AssessmentmentResults = ctx.AssessmentmentResults.Select(assessmentResultDoc =>
+            {
+                var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
+                return processedAssessmentResult;
+            })
+                .OfType<XDocument>()
+                .ToList();
             //}
             return ctx.AssessmentmentResults;
         }

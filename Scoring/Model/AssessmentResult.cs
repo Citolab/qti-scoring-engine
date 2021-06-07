@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.Const;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -101,9 +101,20 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     outcomeVariable = outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
                     itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                } else
+                {
+                    outcomeVariable.RemoveNodes();
+                    foreach(var outcomeChild in outcome.ToElement().Elements())
+                    {
+                        outcomeVariable.Add(outcomeChild);
+                    }
+                  
                 }
-                outcomeVariable.Descendants().FirstOrDefault()?.Remove();
-                outcomeVariable.Add(outcome.Value.ToString().ToValueElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
+                //if (outcome.Value != null)
+                //{
+                //    outcomeVariable.RemoveNodes();
+                //    outcomeVariable.Add(outcome.Value.ToString().ToValueElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
+                //}
             }
         }
 

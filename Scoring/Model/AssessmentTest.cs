@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Helper;
+using Citolab.QTI.ScoringEngine.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,9 +58,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                 .SelectMany(itemRef => itemRef.Categories)
                 .Distinct()
                 .ToList();
-            var setOutcomes = OutcomeProcessingElement?
-              .FindElementsByName("qti-set-outcome-value")?
-              .Select(v => v.Identifier());
+
+            var setOutcomeElements = OutcomeProcessingElement?
+              .FindElementsByName("qti-set-outcome-value");
+            var setOutcomes = setOutcomeElements?.Select(v => v.Identifier());
             CalculatedOutcomes = setOutcomes.Distinct().ToHashSet();
         }
 

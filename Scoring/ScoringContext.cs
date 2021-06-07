@@ -33,6 +33,7 @@ namespace Citolab.QTI.ScoringEngine
     {
         public XDocument AssessmentTest { get; set; }
         public List<XDocument> AssessmentmentResults { get; set; }
+        public List<ICustomOperator> CustomOperators { get; set; } = new List<ICustomOperator>();
         public ILogger Logger { get; set; }
         //public bool? ProcessParallel
         //{

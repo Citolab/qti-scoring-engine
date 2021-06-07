@@ -8,11 +8,11 @@ namespace Citolab.QTI.ScoringEngine.Model
 {
     internal class Circle : IShape
     {
-        private readonly IContextLogger _logContext;
+        private readonly IProcessingContext _logContext;
         private float _cx = 0.0f;
         private float _cy = 0.0f;
         private float _r = 0.0f;
-        public Circle(string coords, IContextLogger logContext)
+        public Circle(string coords, IProcessingContext logContext)
         {
             var splittedCoords = coords.Split(',');
             if (splittedCoords.Length == 3)
@@ -33,7 +33,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public bool IsInside(string response)
         {
-            var pointerInfo = ResponseProcessing.Helper.GetPointsFromResponse(response, _logContext);
+            var pointerInfo = Helpers.Helper.GetPointsFromResponse(response, _logContext);
             if (pointerInfo.HasValue)
             {
                 var pointer = pointerInfo.Value;

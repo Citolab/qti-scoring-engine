@@ -57,7 +57,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
 
             var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/inline_choice.xml")));
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
-
+            assessmentResult.AddItemResult(assessmentItem.Identifier);
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
             var result = assessmentResult.GetScoreForItem(assessmentItem.Identifier, "SCORE");

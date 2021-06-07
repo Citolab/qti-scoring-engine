@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -28,29 +29,40 @@ namespace Console.Scoring
             var manifest = GetManifest(packageFolder);
             var assessmentResults = new DirectoryInfo(_settings.AssessmentResultFolderLocation).GetFiles("*.xml")
                 .Select(file => new { Document = GetDocument(file.FullName), FileName = file.Name }).ToList();
+
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    assessmentResults.Add(new { Document = XDocument.Parse(assessmentResults[0].Document.ToString()), FileName = assessmentResults[0].FileName });
+            //}
+
             var qtiScoringEngine = new ScoringEngine();
+
+            var results = assessmentResults.Select(a => a.Document).ToList();
+            var sw = new Stopwatch();
+            sw.Start();
             var scoredAssessmentResults = qtiScoringEngine.ProcessResponsesAndOutcomes(new ScoringContext
             {
                 AssessmentItems = manifest.Items.Select(itemRef => GetDocument(Path.Combine(packageFolder.FullName, itemRef.Href))).ToList(),
                 AssessmentTest = GetDocument(Path.Combine(packageFolder.FullName, manifest.Test.Href)),
-                AssessmentmentResults = assessmentResults.Select(a => a.Document).ToList(),
+                AssessmentmentResults = results,
                 Logger = _logger
             });
+            sw.Stop();
+            _logger.LogInformation($"Total elapesed seconds: { sw.ElapsedMilliseconds / 1000}");
+            // write the output result
+            //var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
+            //if (!Directory.Exists(newBaseDir))
+            //{
+            //    Directory.CreateDirectory(newBaseDir);
+            //}
+            //var assessementIndex = 0;
+            //assessmentResults.ForEach(assessmentResult =>
+            //{
+            //    var doc = scoredAssessmentResults[assessementIndex];
+            //    assessementIndex++;
+            //    File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), doc.ToString());
+            //});
 
-             // write the output result
-             var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
-            if (!Directory.Exists(newBaseDir))
-            {
-                Directory.CreateDirectory(newBaseDir);
-            }
-            var assessementIndex = 0;
-            assessmentResults.ForEach(assessmentResult =>
-            {
-                var doc = scoredAssessmentResults[assessementIndex];
-                assessementIndex++;
-                File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), doc.ToString());
-            });
-          
         }
 
 
