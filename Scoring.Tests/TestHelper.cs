@@ -57,7 +57,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         internal static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
         {
             var logger = new Mock<ILogger>().Object;
-            var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger);
+            var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger, null);
             if (assessmentTest?.OutcomeDeclarations != null)
             {
                 if (context.AssessmentResult == null)
