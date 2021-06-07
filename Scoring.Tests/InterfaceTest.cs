@@ -21,7 +21,7 @@ namespace ScoringEngine.Tests
         public void ResponseProcessingTest()
         {
             var logger = new Mock<ILogger>().Object;
-            var packageFolder = Path.Combine("Resources\\2x\\QTI-Packages\\RW");
+            var packageFolder = Path.Combine("Resources/2x/QTI-Packages/RW");
             var assessmentResults = new DirectoryInfo(Path.Combine(packageFolder, "AssessmentResults"))
                            .GetFiles("*.xml")
                            .Select(file => TestHelper.GetDocument(file.FullName))
@@ -54,7 +54,7 @@ namespace ScoringEngine.Tests
         public void ResponseProcessingTest2Incorrect()
         {
             var logger = new Mock<ILogger>().Object;
-            var packageFolder = Path.Combine("Resources\\2x\\QTI-Packages\\RW");
+            var packageFolder = Path.Combine("Resources/2x/QTI-Packages/RW");
             var assessmentResults = new DirectoryInfo(Path.Combine(packageFolder, "AssessmentResults"))
                            .GetFiles("*.xml")
                            .Select(file => TestHelper.GetDocument(file.FullName))
@@ -93,7 +93,7 @@ namespace ScoringEngine.Tests
         public void OutcomeProcessingTest()
         {
             var logger = new Mock<ILogger>().Object;
-            var packageFolder = Path.Combine("Resources\\2x\\QTI-Packages\\RW");
+            var packageFolder = Path.Combine("Resources/2x/QTI-Packages/RW");
             var assessmentResults = new DirectoryInfo(Path.Combine(packageFolder, "AssessmentResults"))
                            .GetFiles("*.xml")
                            .Select(file => TestHelper.GetDocument(file.FullName))
