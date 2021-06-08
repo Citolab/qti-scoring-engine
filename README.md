@@ -61,7 +61,7 @@ Supported:
 * qti-gt
 * qti-gte
 * qti-isNull
-* qti-equalRounded
+* qti-equal-rounded
 * qti-lt
 * qti-lte
 * qti-map-response
@@ -99,8 +99,8 @@ Unsupported:
 * qti-integer-divide
 * qti-integer-modulus
 * qti-integer-to-float
-* qti-mathOperator
-* qti-mathConstant
+* qti-math-operator
+* qti-math-constant
 * qti-max
 * qti-min
 * qti-multiple
@@ -108,7 +108,7 @@ Unsupported:
 * qti-null
 * qti-outcome-maximum
 * qti-outcome-minimum
-* qti-patternMatch
+* qti-pattern-match
 * qti-power
 * qti-product
 * qti-random
