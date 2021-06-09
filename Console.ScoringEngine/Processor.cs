@@ -50,18 +50,18 @@ namespace Console.Scoring
             sw.Stop();
             _logger.LogInformation($"Total elapesed seconds: { sw.ElapsedMilliseconds / 1000}");
             // write the output result
-            //var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
-            //if (!Directory.Exists(newBaseDir))
-            //{
-            //    Directory.CreateDirectory(newBaseDir);
-            //}
-            //var assessementIndex = 0;
-            //assessmentResults.ForEach(assessmentResult =>
-            //{
-            //    var doc = scoredAssessmentResults[assessementIndex];
-            //    assessementIndex++;
-            //    File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), doc.ToString());
-            //});
+            var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
+            if (!Directory.Exists(newBaseDir))
+            {
+                Directory.CreateDirectory(newBaseDir);
+            }
+            var assessementIndex = 0;
+            assessmentResults.ForEach(assessmentResult =>
+            {
+                var doc = scoredAssessmentResults[assessementIndex];
+                assessementIndex++;
+                File.WriteAllText(Path.Combine(newBaseDir, assessmentResult.FileName), doc.ToString());
+            });
 
         }
 
