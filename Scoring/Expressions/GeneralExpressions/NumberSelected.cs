@@ -13,25 +13,22 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     internal class NumberSelected : IOutcomeProcessingExpression
     {
+        private string[] _excludedCategories;
+        private string[] _includeCategories;
+
         public string Name => "qti-number-selected";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext ctx)
+        public BaseValue Apply(IProcessingContext ctx)
         {
             var outcomeProcessorContext = (OutcomeProcessorContext)ctx;
 
-            var excludedCategoriesString = qtiElement.GetAttributeValue("exclude-category");
-            var excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?
-                excludedCategoriesString.Split(' ') : null;
 
-            var includeCategoriesString = qtiElement.GetAttributeValue("include-category");
-            var includeCategories = !string.IsNullOrWhiteSpace(includeCategoriesString) ?
-            includeCategoriesString.Split(' ') : null;
 
             var itemRefs = outcomeProcessorContext.AssessmentTest.AssessmentItemRefs.Values.Where(assessmentItemRef =>
             {
-                if (excludedCategories?.Length > 0)
+                if (_excludedCategories?.Length > 0)
                 {
-                    foreach (var excludedCategory in excludedCategories)
+                    foreach (var excludedCategory in _excludedCategories)
                     {
                         if (assessmentItemRef.Categories.Contains(excludedCategory))
                         {
@@ -39,9 +36,9 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                         }
                     }
                 }
-                if (includeCategories?.Length > 0)
+                if (_includeCategories?.Length > 0)
                 {
-                    foreach (var includeCategory in includeCategories)
+                    foreach (var includeCategory in _includeCategories)
                     {
                         if (assessmentItemRef.Categories.Contains(includeCategory))
                         {
@@ -59,6 +56,22 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 return outcomeProcessorContext.ItemResultExists(itemRef.Identifier);
             });
             return count.ToBaseValue();
+        }
+
+        public BaseValue Apply(List<IExpression> childExpressions, IProcessingContext ctx)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Init(XElement qtiElement)
+        {
+            var excludedCategoriesString = qtiElement.GetAttributeValue("exclude-category");
+            _excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?
+                excludedCategoriesString.Split(' ') : null;
+
+            var includeCategoriesString = qtiElement.GetAttributeValue("include-category");
+            _includeCategories = !string.IsNullOrWhiteSpace(includeCategoriesString) ?
+            includeCategoriesString.Split(' ') : null;
         }
     }
 }

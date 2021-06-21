@@ -18,11 +18,11 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
     {
         public string Name => "qti-and";
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public bool Execute(IProcessingContext ctx)
         {
             foreach (var child in qtiElement.Elements())
             {
-                var result = context.CheckCondition(child);
+                var result = ctx.CheckCondition(child);
                 if (result == false) 
                 {
                     return false; // one condition false; return false
@@ -31,5 +31,9 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
             return true; // all children true; return true
         }
 
+        public void Init(XElement qtiElement)
+        {
+            qtiElement.Elements().Select(childElement => ExpressionFactory.())
+        }
     }
 }

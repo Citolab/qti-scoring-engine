@@ -11,22 +11,23 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     internal class MapResponse : IResponseProcessingExpression
     {
+        private string _identifier;
+
         public string Name => "qti-map-response";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext ctx)
+        public BaseValue Apply(IProcessingContext ctx)
         {
-            var identifier = qtiElement.Identifier();
-            if (ctx.ResponseDeclarations.ContainsKey(identifier) &&
-               ctx.ResponseVariables.ContainsKey(identifier))
+            if (ctx.ResponseDeclarations.ContainsKey(_identifier) &&
+               ctx.ResponseVariables.ContainsKey(_identifier))
             {
-                var responseVariable = ctx.ResponseVariables[identifier];
+                var responseVariable = ctx.ResponseVariables[_identifier];
 
                 var values = responseVariable.Values;
                 if (responseVariable.Cardinality == Cardinality.Single)
                 {
                     values = new List<string> { responseVariable.Value };
                 }
-                var responseDeclaration = ctx.ResponseDeclarations[identifier];
+                var responseDeclaration = ctx.ResponseDeclarations[_identifier];
                 if (responseDeclaration.Mapping != null)
                 {
 
@@ -56,14 +57,19 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 }
                 else
                 {
-                    ctx.LogError($"mapResponse is mapped to responseDeclaration without mapping: {identifier}");
+                    ctx.LogError($"mapResponse is mapped to responseDeclaration without mapping: {_identifier}");
                 }
             }
             else
             {
-                ctx.LogError($"Cannot find responseDeclaration with identifier: {identifier} in mapReponse function.");
+                ctx.LogError($"Cannot find responseDeclaration with identifier: {_identifier} in mapReponse function.");
             }
             return 0.0F.ToBaseValue();
+        }
+
+        public void Init(XElement qtiElement)
+        {
+            _identifier = qtiElement.Identifier();
         }
     }
 }

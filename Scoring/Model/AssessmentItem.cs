@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
@@ -17,7 +18,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public HashSet<string> CalculatedOutcomes;
 
-        public XElement ResponseProcessingElement => Content.FindElementByName("qti-response-processing");
+        public List<IConditionExpression> Expressions { get; }
 
         public AssessmentItem(ILogger logger, XDocument assessmentItem) : base(logger, assessmentItem)
         {
@@ -78,6 +79,19 @@ namespace Citolab.QTI.ScoringEngine.Model
                 lookups = new List<string>();
             }
             CalculatedOutcomes = setOutcomes.Concat(lookups).Distinct().ToHashSet();
+            var expressionFactory = new ExpressionFactory(null);
+            var responseProcessingElement = Content.FindElementByName("qti-response-processing");
+            if (responseProcessingElement != null)
+            {
+                foreach (var responseProcessingChild in responseProcessingElement.Elements())
+                {
+                    expressionFactory.Get(responseProcessingChild);
+                }
+            }
+            else
+            {
+                context.LogInformation("No responseProcessing found");
+            }
         }
 
         private ResponseDeclaration GetResponseDeclaration(XElement el)

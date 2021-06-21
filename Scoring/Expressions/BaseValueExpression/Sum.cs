@@ -15,23 +15,30 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing.BaseValueExpression
     {
         public string Name => "qti-sum";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext ctx)
+        public BaseValue Apply(IProcessingContext ctx)
         {
-            var values = qtiElement.Elements().Select(element =>
-           {
-               var baseValue = ctx.GetValue(element);
-               if (float.TryParse(baseValue?.Value, out var result))
-               {
-                   return result;
-               }
-               else
-               {
-                   ctx.LogError($"Cannot cast outcome-value: {baseValue.Value} of base-type: {baseValue.BaseType} to a float to sum.");
-                   return 0.0f;
-               }
-           });
+            var values = childExpressions.Select(expression => expression.Apply())
+           //     qtiElement.Elements().Select(element =>
+           //{
+           //    var baseValue = ctx.GetValue(element);
+           //    if (float.TryParse(baseValue?.Value, out var result))
+           //    {
+           //        return result;
+           //    }
+           //    else
+           //    {
+           //        ctx.LogError($"Cannot cast outcome-value: {baseValue.Value} of base-type: {baseValue.BaseType} to a float to sum.");
+           //        return 0.0f;
+           //    }
+           //});
             var sum = values.Sum();
             return ((float)sum).ToBaseValue();
+        }
+
+        public void Init(XElement qtiElement)
+        {
+            var childExpressions = qtiElement.Elements();
+            throw new NotImplementedException();
         }
     }
 }

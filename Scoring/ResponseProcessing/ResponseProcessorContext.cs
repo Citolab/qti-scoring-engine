@@ -36,8 +36,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                 LogInformation("Cannot find item result");
             }
             ResetOutcomes();
-            ConditionExpressions = Helper.GetConditionExpressions(new List<Type> { typeof(IOutcomeProcessingConditionExpression) });
-            SetupExpressions(typeof(IOutcomeProcessingExpression));
+
         }
 
 

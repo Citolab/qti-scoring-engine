@@ -8,20 +8,22 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.BaseValueExpression
 {
-    internal class Ordered: IExpression
+    internal class Ordered : IExpression
     {
         public string Name => "qti-ordered";
 
-    public BaseValue Apply(XElement qtiElement, IProcessingContext ctx)
-    {
-        var values = qtiElement.Elements().Select(ctx.GetValue).ToList();
-        return new BaseValue
+        public BaseValue Apply(List<IExpression> childExpressions, IProcessingContext ctx)
         {
-            Identifier = "ordered",
-            BaseType = values.Any() ? values[0].BaseType : BaseType.Identifier,
-            Cardinality = Cardinality.Ordered,
-            Values = values?.Select(v => v.Value).ToList()
-        };
+            var values = childExpressions.Select(e => e.Apply(ctx)).ToList();
+            return new BaseValue
+            {
+                Identifier = "ordered",
+                BaseType = values.Any() ? values[0].BaseType : BaseType.Identifier,
+                Cardinality = Cardinality.Ordered,
+                Values = values?.Select(v => v.Value).ToList()
+            };
+        }
+
+        public void Init(XElement qtiElement) { }
     }
-}
 }

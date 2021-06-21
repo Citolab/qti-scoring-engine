@@ -12,9 +12,12 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
     {
         public string Name => "qti-null";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext _)
+        public BaseValue Apply(IProcessingContext ctx)
         {
             return null;
         }
+
+        public void Init(XElement qtiElement)
+        {         }
     }
 }

@@ -13,15 +13,16 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     internal class VariableOutcomeProcessing : IOutcomeProcessingExpression
     {
+        private string _identifier;
+        private string _weightIdentifier;
+
         public string Name => "qti-variable";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext ctx)
+        public BaseValue Apply(IProcessingContext ctx)
         {
-
-            var identifier = qtiElement.Identifier();
-            if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(identifier))
+            if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(_identifier))
             {
-                return ctx.OutcomeVariables[identifier].ToBaseValue();
+                return ctx.OutcomeVariables[_identifier].ToBaseValue();
             }
             else                // it is probably itemResult outcome.
             {
@@ -30,20 +31,27 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 // the only expression that differ that much between outcome and responseProcessing
                 var outcomeProcessorContext = (OutcomeProcessorContext)ctx;
 
-                var splittedIdentifier = identifier.Split('.');
+                var splittedIdentifier = _identifier.Split('.');
                 if (splittedIdentifier.Length > 1)
                 {
                     var itemIdentifier = string.Join(".", splittedIdentifier.Take(splittedIdentifier.Length - 1));
                     var outcomeIdentifier = splittedIdentifier[splittedIdentifier.Length - 1];
-                    var weightIdentifier = qtiElement.GetAttributeValue("weight-identifier");
-                    return outcomeProcessorContext.GetItemResultBaseValue(itemIdentifier, outcomeIdentifier, weightIdentifier);
+                    
+                    return outcomeProcessorContext.GetItemResultBaseValue(itemIdentifier, outcomeIdentifier, _weightIdentifier);
                 }
                 else
                 {
-                    ctx.LogError($"Cannot find variable {identifier}");
+                    ctx.LogError($"Cannot find variable {_identifier}");
                     return 0.0F.ToBaseValue();
                 }
             }
+        }
+
+
+        public void Init(XElement qtiElement)
+        {
+            _identifier = qtiElement.Identifier();
+            _weightIdentifier = qtiElement.GetAttributeValue("weight-identifier");
         }
     }
 }

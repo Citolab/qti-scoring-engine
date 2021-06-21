@@ -10,11 +10,18 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     internal class QtiBaseValue : IGeneralExpression
     {
+        private BaseValue _baseValue;
+
         public string Name => "qti-base-value";
 
-        public BaseValue Apply(XElement qtiElement, IProcessingContext _)
+        public BaseValue Apply(IProcessingContext ctx)
         {
-            return new BaseValue
+            return _baseValue;
+        }
+
+        public void Init(XElement qtiElement)
+        {
+            _baseValue = new BaseValue
             {
                 BaseType = qtiElement.GetAttributeValue("base-type").ToBaseType(),
                 Value = qtiElement.Value.RemoveXData(),

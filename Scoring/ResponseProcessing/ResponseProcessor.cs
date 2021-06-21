@@ -24,18 +24,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             // Give the default value
             if (containsItemResult)
             {
-               
-                if (assessmentItem.ResponseProcessingElement != null)
-                {
-                    foreach (var responseProcessingChild in assessmentItem.ResponseProcessingElement.Elements())
-                    {
-                        context.Execute(responseProcessingChild);
-                    }
-                }
-                else
-                {
-                    context.LogInformation("No responseProcessing found");
-                }
+               // loop through condition executors
+              
                 assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {
                     assessmentResult.PersistItemResultOutcome(assessmentItem.Identifier, outcomeIdentifier, context);

@@ -22,8 +22,7 @@ namespace Citolab.QTI.ScoringEngine
         public Dictionary<string, ResponseVariable> ResponseVariables { get; set; }
         public Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         public HashSet<string> CalculatedOutcomes { get; set; }
-        public Dictionary<string, IExpression> ValueExpressions { get; set; }
-        public Dictionary<string, IConditionExpression> ConditionExpressions { get; set; }
+
         public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult, List<ICustomOperator> addedCustomOperators)
         {
             _logger = logger;
@@ -85,22 +84,7 @@ namespace Citolab.QTI.ScoringEngine
             return null;
         }
 
-        private IConditionExpression GetConditionExpression(XElement qtiElement, bool logErrorIfNotFound)
-        {
-            var tagName = qtiElement.Name.LocalName;
-            if (ConditionExpressions.TryGetValue(tagName, out var conditionExpression))
-            {
-                LogInformation($"Processing {conditionExpression.Name}");
-                return conditionExpression;
-            }
-            if (logErrorIfNotFound)
-            {
-                LogError($"Cannot find expression for tag-name:{tagName}");
-            }
-            return null;
-        }
-
-        public void Execute(XElement qtiElement)
+          public void Execute(XElement qtiElement)
         {
             var expression = GetConditionExpression(qtiElement, true);
             expression.Execute(qtiElement, this);
@@ -116,20 +100,7 @@ namespace Citolab.QTI.ScoringEngine
             var expression = GetConditionExpression(qtiElement, true);
             return expression == null ? false : expression.Execute(qtiElement, this);
         }
-        protected void SetupExpressions(Type typeToExcluded)
-        {
-            if (ValueExpressions == null)
-            {
-                ValueExpressions = Helper.GetExpressions(new List<Type>
-                    {
-                        typeToExcluded,
-                        typeof(IOperatorWrapper)
-                    }, _addedCustomOperators);
- 
-            }
-        }
-
-
+      
         public void LogInformation(string value)
         {
             _logger.LogInformation($"{_sessionIdentifier}: {value}");

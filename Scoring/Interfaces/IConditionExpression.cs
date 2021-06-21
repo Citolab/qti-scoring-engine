@@ -10,9 +10,8 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Interfaces
 {
-    internal interface IConditionExpression
+    internal interface IConditionExpression : IExpressionBase
     {
-        string Name { get; }
-        bool Execute(XElement qtiElement, IProcessingContext context);
+        bool Execute(IProcessingContext context);
     }
 }
