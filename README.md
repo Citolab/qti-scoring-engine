@@ -138,7 +138,7 @@ The provided context contains:
 For responseProcessing the context extends the following properties:
 
 - ```List<XDocument> AssessmentItems```: List of XDocuments with the assessmentItems.
-- ```List<ICustomOperator> CustomOperators``` (optional): can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
+- ```Dictionary<string, ICustomOperator> CustomOperators``` (optional): can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
 
 For outcomeProcessing the context extends the following properties:
 
@@ -217,8 +217,6 @@ example:
  ```C#
 public class Trim : ICustomOperator
 {
-    public string Definition => "depcp:Trim";
-
     public BaseValue Apply(BaseValue value)
     {
         if (value?.Value != null)
@@ -228,6 +226,12 @@ public class Trim : ICustomOperator
         return value;
     }
 }
+
+CustomOperators = new Dictionary<string, Citolab.QTI.ScoringEngine.Interfaces.ICustomOperator>
+{
+    {  "decp:Trim", new Trim() }
+}
+
  ```
 handles:
 ```XML
@@ -237,6 +241,6 @@ handles:
 ```
 
  There are three example implementations in this engine:
- - depcp:Trim: Trims the value
- - depcp:ToAscii: Handlers diacritics
- - depcp:ParseCommaDecimal: Replaces , to .
+ - depcp:Trim|questify:Trim: Trims the value
+ - depcp:ToAscii|questify:ToAscii: Handlers diacritics
+ - depcp:ParseCommaDecimal|questify:ParseCommaDecimal: Replaces , to .

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
-    internal class Trim : ICustomOperator
+    public class Trim : ICustomOperator
     {
         public BaseValue Apply(List<BaseValue> values)
         {

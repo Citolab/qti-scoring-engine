@@ -1,3 +1,8 @@
+## 1.1.0
+* Refactored for better (batch) performence:
+    * don't use reflection to find exectors
+    * setup executor before processing. Which means no more xPath on test definitions per assessmentResult.
+
 ## 1.0.1
 * changed baseType: int to integer
 
