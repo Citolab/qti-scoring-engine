@@ -14,6 +14,7 @@ namespace Citolab.QTI.ScoringEngine
         public List<XDocument> AssessmentmentResults { get; set; }
         public ILogger Logger { get; set; }
         public Dictionary<string, ICustomOperator> CustomOperators { get; set; } = new Dictionary<string, ICustomOperator>();
+        public bool? ProcessParallel { get; set; }
     }
 
     public class ResponseProcessingContext : IResponseProcessingContext
@@ -22,10 +23,7 @@ namespace Citolab.QTI.ScoringEngine
         public List<XDocument> AssessmentmentResults { get; set; }
         public ILogger Logger { get; set; }
         public Dictionary<string, ICustomOperator> CustomOperators { get; set; } = new Dictionary<string, ICustomOperator>();
-        //public bool? ProcessParallel
-        //{
-        //    get; set;
-        //}
+        public bool? ProcessParallel { get; set; }
     }
 
     public class OutcomeProcessingContext : IOutcomeProcessingContext
@@ -34,9 +32,6 @@ namespace Citolab.QTI.ScoringEngine
         public List<XDocument> AssessmentmentResults { get; set; }
         public ILogger Logger { get; set; }
         public Dictionary<string, ICustomOperator> CustomOperators { get; set; } = new Dictionary<string, ICustomOperator>();
-        //public bool? ProcessParallel
-        //{
-        //    get; set;
-        //}
+        public bool? ProcessParallel { get; set; }
     }
 }

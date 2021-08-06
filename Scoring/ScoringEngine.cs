@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using System.Collections.Concurrent;
 
 namespace Citolab.QTI.ScoringEngine
 {
@@ -35,13 +36,29 @@ namespace Citolab.QTI.ScoringEngine
             }
             var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest, _expressionFactory);
 
-            ctx.AssessmentmentResults = ctx.AssessmentmentResults.Select(assessmentResultDoc =>
+            if (ctx.ProcessParallel == true)
             {
-                var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
-                return processedAssessmentResult;
-            })
-                .OfType<XDocument>()
-                .ToList();
+                var concurrentAssessmentResultList = new ConcurrentBag<XDocument>();
+                Parallel.For(0, ctx.AssessmentmentResults.Count,
+                  index =>
+                  {
+                      var assessmentResultDoc = ctx.AssessmentmentResults[index];
+                      var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
+                      concurrentAssessmentResultList.Add(processedAssessmentResult);
+                  });
+                ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
+            } else
+            {
+                ctx.AssessmentmentResults = ctx.AssessmentmentResults.Select(assessmentResultDoc =>
+                {
+                    var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
+                    return processedAssessmentResult;
+                })
+              .OfType<XDocument>()
+              .ToList();
+            }
+
+          
             //}
             return ctx.AssessmentmentResults;
         }
@@ -63,14 +80,28 @@ namespace Citolab.QTI.ScoringEngine
             if (_expressionFactory == null)
             {
                 _expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
-            } 
-
+            }
             var assessmentItems = ctx.AssessmentItems
                 .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc, _expressionFactory))
                 .ToList();
-            ctx.AssessmentmentResults = ctx.AssessmentmentResults
-                .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger))
-                .ToList();
+            if (ctx.ProcessParallel == true)
+            {
+                var concurrentAssessmentResultList = new ConcurrentBag<XDocument>();
+                Parallel.For(0, ctx.AssessmentmentResults.Count,
+                  index =>
+                  {
+                      var assessmentResultDoc = ctx.AssessmentmentResults[index];
+                      var assessmentResult = (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger);
+                      concurrentAssessmentResultList.Add(assessmentResult);
+                  });
+                ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
+            } else
+            {
+                ctx.AssessmentmentResults = ctx.AssessmentmentResults
+              .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger))
+              .ToList();
+            }
+              
             //}
             return ctx.AssessmentmentResults;
         }

@@ -30,22 +30,24 @@ namespace Console.Scoring
             var assessmentResults = new DirectoryInfo(_settings.AssessmentResultFolderLocation).GetFiles("*.xml")
                 .Select(file => new { Document = GetDocument(file.FullName), FileName = file.Name }).ToList();
 
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    assessmentResults.Add(new { Document = XDocument.Parse(assessmentResults[0].Document.ToString()), FileName = assessmentResults[0].FileName });
-            //}
+            for (int i = 0; i < 10000; i++)
+            {
+                assessmentResults.Add(new { Document = XDocument.Parse(assessmentResults[0].Document.ToString()), FileName = assessmentResults[0].FileName });
+            }
 
             var qtiScoringEngine = new ScoringEngine();
 
             var results = assessmentResults.Select(a => a.Document).ToList();
             var sw = new Stopwatch();
             sw.Start();
+
             var scoredAssessmentResults = qtiScoringEngine.ProcessResponsesAndOutcomes(new ScoringContext
             {
                 AssessmentItems = manifest.Items.Select(itemRef => GetDocument(Path.Combine(packageFolder.FullName, itemRef.Href))).ToList(),
                 AssessmentTest = GetDocument(Path.Combine(packageFolder.FullName, manifest.Test.Href)),
                 AssessmentmentResults = results,
-                Logger = _logger
+                Logger = _logger,
+                ProcessParallel = false
             });
             sw.Stop();
             _logger.LogInformation($"Total elapsed seconds: { sw.ElapsedMilliseconds / 1000}");

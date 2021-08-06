@@ -132,13 +132,14 @@ The provided list of assessmentResults is updated with scoring info. The functio
 
 The provided context contains:
 
-- ```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse. For outcomeProcessing it should contain outcomeVariables.
+- ```List<XDocument> AssessmentmentResults ```: list of assessmentResults. For responseProcessing ItemResult should at least contain the candidateResponse.
 - ```ILogger Logger``` (optional): logs the processing steps as informational and log warnings and errors. 
 
 For responseProcessing the context extends the following properties:
 
 - ```List<XDocument> AssessmentItems```: List of XDocuments with the assessmentItems.
 - ```Dictionary<string, ICustomOperator> CustomOperators``` (optional): can be provided to handle customOperators. The definition property of the CustomOperator should map the definition attribute value of the customOperator.
+- ```bool ProcessParallel```: process results parallel. Could gain significant performance with processing lots of assessmentResults at onces.
 
 For outcomeProcessing the context extends the following properties:
 
