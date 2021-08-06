@@ -30,10 +30,10 @@ namespace Console.Scoring
             var assessmentResults = new DirectoryInfo(_settings.AssessmentResultFolderLocation).GetFiles("*.xml")
                 .Select(file => new { Document = GetDocument(file.FullName), FileName = file.Name }).ToList();
 
-            for (int i = 0; i < 10000; i++)
-            {
-                assessmentResults.Add(new { Document = XDocument.Parse(assessmentResults[0].Document.ToString()), FileName = assessmentResults[0].FileName });
-            }
+            // for (int i = 0; i < 10000; i++)
+            // {
+            //     assessmentResults.Add(new { Document = XDocument.Parse(assessmentResults[0].Document.ToString()), FileName = assessmentResults[0].FileName });
+            // }
 
             var qtiScoringEngine = new ScoringEngine();
 
