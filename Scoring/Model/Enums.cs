@@ -93,7 +93,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     }
                 case BaseType.Int:
                     {
-                        return "int";
+                        return "integer";
                     }
                 case BaseType.String:
                     {

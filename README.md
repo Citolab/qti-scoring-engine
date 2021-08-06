@@ -17,7 +17,7 @@ Supported:
 Supported:
 - directedPair
 - identifier
-- int
+- integer
 - float
 - pair
 - point
