@@ -1,3 +1,9 @@
+## 1.0.1
+* changed baseType: int to integer
+
+## 1.0.0
+* promoted to final version
+
 ## 1.0.0-beta.2
 
 * refactored way of getting values
