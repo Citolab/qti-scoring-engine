@@ -16,17 +16,14 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-
             var lt = new Lt();
-
-            context.ConditionExpressions.Add(lt.Name, lt);
 
             var ltElement = XElement.Parse("<qti-lt></qti-lt>");
             ltElement.Add(1.0F.ToBaseValue().ToXElement());
             ltElement.Add(0.0F.ToBaseValue().ToXElement());
             // act
-            var result = lt.Execute(ltElement, context);
+            lt.Init(ltElement, TestHelper.GetExpressionFactory());
+            var result = lt.Execute(context);
 
             //assert
             Assert.False(result);
@@ -36,17 +33,14 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var lt = new Lt();
-
-            context.ConditionExpressions.Add(lt.Name, lt);
-
             var ltElement = XElement.Parse("<qti-lt></qti-lt>");
             ltElement.Add(0.0F.ToBaseValue().ToXElement());
             ltElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
-            var result = lt.Execute(ltElement, context);
+            lt.Init(ltElement, TestHelper.GetExpressionFactory());
+            var result = lt.Execute(context);
 
             //assert
             Assert.True (result);
@@ -56,17 +50,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var lt = new Lt();
-
-            context.ConditionExpressions.Add(lt.Name, lt);
 
             var ltElement = XElement.Parse("<qti-lt></qti-lt>");
             ltElement.Add(1.0F.ToBaseValue().ToXElement());
             ltElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
-            var result = lt.Execute(ltElement, context);
+            lt.Init(ltElement, TestHelper.GetExpressionFactory());
+            var result = lt.Execute(context);
 
             //assert
             Assert.False(result);

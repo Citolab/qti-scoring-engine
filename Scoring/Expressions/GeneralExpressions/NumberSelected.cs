@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
@@ -11,18 +12,14 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class NumberSelected : IOutcomeProcessingExpression
+    internal class NumberSelected : ValueExpressionBase
     {
         private string[] _excludedCategories;
         private string[] _includeCategories;
-
-        public string Name => "qti-number-selected";
-
-        public BaseValue Apply(IProcessingContext ctx)
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.ResponseProcessig };
+        public override BaseValue Apply(IProcessingContext ctx)
         {
             var outcomeProcessorContext = (OutcomeProcessorContext)ctx;
-
-
 
             var itemRefs = outcomeProcessorContext.AssessmentTest.AssessmentItemRefs.Values.Where(assessmentItemRef =>
             {
@@ -52,18 +49,19 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 }
                 return true;
             });
-            var count = itemRefs.Count(itemRef => {
+            var count = itemRefs.Count(itemRef =>
+            {
                 return outcomeProcessorContext.ItemResultExists(itemRef.Identifier);
             });
             return count.ToBaseValue();
         }
 
-        public BaseValue Apply(List<IExpression> childExpressions, IProcessingContext ctx)
+        public BaseValue Apply(List<IValueExpression> childExpressions, IProcessingContext ctx)
         {
             throw new NotImplementedException();
         }
 
-        public void Init(XElement qtiElement)
+        public override void Init(XElement qtiElement, IExpressionFactory expressionFactory)
         {
             var excludedCategoriesString = qtiElement.GetAttributeValue("exclude-category");
             _excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?

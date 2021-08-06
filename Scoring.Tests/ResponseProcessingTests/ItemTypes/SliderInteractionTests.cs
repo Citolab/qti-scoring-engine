@@ -36,7 +36,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse
                 (assessmentItem.Identifier, "RESPONSE", "16"
@@ -53,7 +53,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse
                 (assessmentItem.Identifier, "RESPONSE", "20"
@@ -70,7 +70,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/slider.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse
                 (assessmentItem.Identifier, "RESPONSE", "21"

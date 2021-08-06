@@ -15,26 +15,24 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
 {
     public class AndTests
     {
+        public AndTests()
+        {
+            ReturnTrue.Init();
+            ReturnFalse.Init();
+        }
         [Fact]
         public void CheckTwoTrueValues()
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-
-            var returnTrue = new ReturnTrue();
             var and = new And();
-
-            context.ConditionExpressions.Add(and.Name, and);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-
-            var andElement = XElement.Parse($"<{and.Name}></{and.Name}>");
+            var andElement = XElement.Parse($"<qti-and></qti-and>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnTrue/>"));
 
-            
             // act
-            var result = and.Execute(andElement, context);
+            and.Init(andElement, TestHelper.GetExpressionFactory());
+            var result = and.Execute(context);
 
             //assert
             Assert.True(result);
@@ -45,19 +43,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-            var returnTrue = new ReturnTrue();
-            var returnFalse = new ReturnFalse();
+
             var and = new And();
-            context.ConditionExpressions.Add(and.Name, and);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-            context.ConditionExpressions.Add(returnFalse.Name, returnFalse);
-            var andElement = XElement.Parse($"<{and.Name}></{and.Name}>");
+
+            var andElement = XElement.Parse($"<qti-and></qti-and>");
             andElement.Add(XElement.Parse("<returnTrue/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));
 
+            and.Init(andElement, TestHelper.GetExpressionFactory());
             // act
-            var result = and.Execute(andElement, context);
+            var result = and.Execute(context);
             //assert
             Assert.False(result);
         }
@@ -67,19 +62,14 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-            var returnTrue = new ReturnTrue();
-            var returnFalse = new ReturnFalse();
 
             var and = new And();
-            context.ConditionExpressions.Add(and.Name, and);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-            context.ConditionExpressions.Add(returnFalse.Name, returnFalse);
             var andElement = XElement.Parse($"<qti-and></qti-and>");
             andElement.Add(XElement.Parse("<returnFalse/>"));
             andElement.Add(XElement.Parse("<returnFalse/>"));
             // act
-            var result = and.Execute(andElement, context);
+            and.Init(andElement, TestHelper.GetExpressionFactory());
+            var result = and.Execute(context);
             //assert
             Assert.False(result);
         }

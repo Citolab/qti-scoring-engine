@@ -1,31 +1,32 @@
-﻿using System;
+﻿using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Citolab.QTI.ScoringEngine.Helpers;
+using Citolab.QTI.ScoringEngine.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Interfaces;
+
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
     /// <summary>
-    /// One of the children should return true
+    /// All children should return true
     /// </summary>
-    internal class Or : IConditionExpression
+    internal class Or : ConditionExpressionBase
     {
-        public string Name => "qti-or";
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            foreach (var child in qtiElement.Elements())
+            foreach (var expression in conditionalExpressions)
             {
-                var result = context.CheckCondition(child);
+                var result = expression.Execute(ctx);
                 if (result == true)
                 {
-                    return true; // one is true, return true
+                    return true; // one condition true; return true
                 }
             }
-            return false; // all false: return false
+            return false; // all children false; return false
         }
-
     }
 }

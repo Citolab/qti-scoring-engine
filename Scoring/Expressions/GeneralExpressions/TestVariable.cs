@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
@@ -11,19 +12,19 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class TestVariable : IOutcomeProcessingExpression
+    internal class TestVariable : ValueExpressionBase
     {
         private string[] _excludedCategories;
         private string[] _includeCategories;
         private string _outcomeIdentifier;
         private string _weightIdentifier;
 
-        public string Name => "qti-test-variables";
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.ResponseProcessig };
 
-        public BaseValue Apply(IProcessingContext ctx)
+        public override BaseValue Apply(IProcessingContext ctx)
         {
             var outcomeProcessorContext = (OutcomeProcessorContext)ctx;
-                       
+
             var itemRefs = outcomeProcessorContext.AssessmentTest.AssessmentItemRefs.Values.Where(assessmentItemRef =>
             {
                 if (_excludedCategories?.Length > 0)
@@ -69,7 +70,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             return values.Sum().ToBaseValue();
         }
 
-        public void Init(XElement qtiElement)
+        public override void Init(XElement qtiElement, IExpressionFactory expressionFactory)
         {
             var excludedCategoriesString = qtiElement.GetAttributeValue("exclude-category");
             _excludedCategories = !string.IsNullOrWhiteSpace(excludedCategoriesString) ?

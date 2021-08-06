@@ -19,17 +19,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
    
             var equalRounded = new EqualRounded();
 
-            context.ConditionExpressions.Add(equalRounded.Name, equalRounded);
 
             var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""significantFigures"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.183F.ToBaseValue().ToXElement());
             // act
-            var result = equalRounded.Execute(equalRoundedElement, context);
+            equalRounded.Init(equalRoundedElement, TestHelper.GetExpressionFactory());
+            var result = equalRounded.Execute(context);
 
             //assert
             Assert.True(result);
@@ -40,17 +39,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var equalRounded = new EqualRounded();
-
-            context.ConditionExpressions.Add(equalRounded.Name, equalRounded);
 
             var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.183F.ToBaseValue().ToXElement());
             // act
-            var result = equalRounded.Execute(equalRoundedElement, context);
+            equalRounded.Init(equalRoundedElement, TestHelper.GetExpressionFactory());
+            var result = equalRounded.Execute(context);
 
             //assert
             Assert.True(result);
@@ -61,17 +58,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var equalRounded = new EqualRounded();
-
-            context.ConditionExpressions.Add(equalRounded.Name, equalRounded);
 
             var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""significantFigures"" figures=""3"" ></qti-equal-rounded>");
             equalRoundedElement.Add(3.175F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(3.1749F.ToBaseValue().ToXElement());
             // act
-            var result = equalRounded.Execute(equalRoundedElement, context);
+            equalRounded.Init(equalRoundedElement, TestHelper.GetExpressionFactory());
+            var result = equalRounded.Execute(context);
 
             //assert
             Assert.True(result);
@@ -82,17 +77,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var equalRounded = new EqualRounded();
-
-            context.ConditionExpressions.Add(equalRounded.Name, equalRounded);
 
             var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""decimalPlaces"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(1.68572F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(1.69F.ToBaseValue().ToXElement());
             // act
-            var result = equalRounded.Execute(equalRoundedElement, context);
+            equalRounded.Init(equalRoundedElement, TestHelper.GetExpressionFactory());
+            var result = equalRounded.Execute(context);
 
             //assert
             Assert.True(result);
@@ -103,18 +96,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var equalRounded = new EqualRounded();
-
-            context.ConditionExpressions.Add(equalRounded.Name, equalRounded);
 
             var equalRoundedElement = XElement.Parse(@"<qti-equal-rounded rounding-mode=""decimalPlaces"" figures=""2"" ></qti-equal-rounded>");
             equalRoundedElement.Add(1.68572F.ToBaseValue().ToXElement());
             equalRoundedElement.Add(1.68432F.ToBaseValue().ToXElement());
             // act
-            var result = equalRounded.Execute(equalRoundedElement, context);
- 
+            equalRounded.Init(equalRoundedElement, TestHelper.GetExpressionFactory());
+            var result = equalRounded.Execute(context);
+
             //assert
             Assert.False(result);
         }

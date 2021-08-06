@@ -173,28 +173,28 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return context.OutcomeVariables[id];
         }
 
-        public static OutcomeDeclaration GetOutcomeDeclaration(string id, IProcessingContext context)
+        public static OutcomeDeclaration GetOutcomeDeclaration(string id, IProcessingContext ctx)
         {
             if (string.IsNullOrEmpty(id))
             {
-                context.LogError($"Cannot find attribute identifier");
+                ctx.LogError($"Cannot find attribute identifier");
                 return null;
             };
-            if (!context.OutcomeDeclarations.ContainsKey(id))
+            if (!ctx.OutcomeDeclarations.ContainsKey(id))
             {
-                context.LogError($"Cannot find outcomeDeclaration: {id}");
+                ctx.LogError($"Cannot find outcomeDeclaration: {id}");
                 return null;
             }
-            return context.OutcomeDeclarations[id];
+            return ctx.OutcomeDeclarations[id];
         }
 
-        public static (BaseValue value1, BaseValue value2)? PrepareForCompare(XElement qtiElement, IProcessingContext context, BaseType? forceBaseType = null)
+        public static (BaseValue value1, BaseValue value2)? PrepareForCompare(List<IValueExpression> expressions, IProcessingContext ctx, Dictionary<string, string> attributes, BaseType? forceBaseType = null)
         {
-            var values = qtiElement.Elements().Select(el => context.GetValue(el)).ToList();
-            context.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value != null).Select(v => v.Value).ToArray())}");
-            if (bool.TryParse(qtiElement.GetAttributeValue("case-sensitive"), out var result) && result == false)
+            var values = expressions.Select(e => e.Apply(ctx)).ToList();
+            ctx.LogInformation($"member check. Values: {string.Join(", ", values.Where(v => v?.Value != null).Select(v => v.Value).ToArray())}");
+            if (attributes.ContainsKey("case-sensitive") && bool.TryParse(attributes["case-sensitive"], out var result) && result == false)
             {
-                context.LogInformation($"member check not case-sensitive");
+                ctx.LogInformation($"member check not case-sensitive");
                 values = values.Select(v =>
                 {
                     v.Value = v.Value.ToLower();
@@ -203,7 +203,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             }
             if (values.Count != 2)
             {
-                context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
+                ctx.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
                 return null;
             }
             if (values[0] == null || values[1] == null)
@@ -217,32 +217,14 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             }
             if (values[0].BaseType != values[1].BaseType)
             {
-                context.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
+                ctx.LogWarning($"baseType response and outcome does not match: {values[0]?.BaseType.GetString()} and {values[1]?.BaseType.GetString()}. Proceeding with type: {values[1]?.BaseType.GetString()}");
             }
             return (values[0], values[1]);
         }
 
-        public static bool CompareTwoValues(XElement qtiElement, IProcessingContext context, BaseType? forceBaseType = null)
+         public static bool ValueIsMemberOf(List<IValueExpression> expressions, IProcessingContext ctx, Dictionary<string, string> attributes, BaseType? forceBaseType = null)
         {
-            var values = PrepareForCompare(qtiElement, context, forceBaseType);
-            if (values == null)
-            {
-                return false;
-            }
-            else
-            {
-                return CompareSingleValues(values.Value.value1?.Value, values.Value.value2.Value, values.Value.value2.BaseType, context);
-            }
-        }
-
-        public static bool CompareTwoValues(BaseValue value1, BaseValue value2, Cardinality cardinality, ResponseProcessorContext context)
-        {
-            return CompareSingleValues(value1?.Value, value2.Value, value2.BaseType, context);
-        }
-
-        public static bool ValueIsMemberOf(XElement qtiElement, IProcessingContext context, BaseType? forceBaseType = null)
-        {
-            var values = PrepareForCompare(qtiElement, context, forceBaseType);
+            var values = PrepareForCompare(expressions, ctx, attributes, forceBaseType);
             if (values == null)
             {
                 return false;
@@ -264,7 +246,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                     }).ToList();
                 foreach (var possibleMatch in possibleMatches)
                 {
-                    var isMatch = CompareSingleValues(values.Value.value1?.Value, possibleMatch.Value, possibleMatch.BaseType, context);
+                    var isMatch = CompareSingleValues(values.Value.value1?.Value, possibleMatch.Value, possibleMatch.BaseType, ctx);
                     if (isMatch)
                     {
                         return true;

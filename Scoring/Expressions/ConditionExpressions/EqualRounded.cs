@@ -11,32 +11,32 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class EqualRounded : IConditionExpression
+    internal class EqualRounded : ConditionExpressionBase
     {
-        public string Name => "qti-equal-rounded";
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            var mode = GetRoundingMode(qtiElement);
-            if (!int.TryParse(qtiElement.GetAttributeValue("figures"), out var figures)) {
-                context.LogError("for qti-equal-rounded figures is required");
+            var mode = GetRoundingMode();
+            var fg = attributes.ContainsKey("figures") ? attributes["figures"] : "";
+            if (!int.TryParse(fg, out var figures)) {
+                ctx.LogError("for qti-equal-rounded figures is required");
                 return false;
             }
             if (figures < 0)
             {
-                context.LogError("figures cannot be smaller than zero");
+                ctx.LogError("figures cannot be smaller than zero");
                 return false;
             }
             if (figures < 1 && mode == RoundingMode.SignificantFigures)
             {
-                context.LogError("figures cannot be smaller than one for RoundingMode.SignificantFigures");
+                ctx.LogError("figures cannot be smaller than one for RoundingMode.SignificantFigures");
                 return false;
             }
-            var values = qtiElement.Elements().Select(context.GetValue).ToList();
-            context.LogInformation($"qti-equal-rounded check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
+            var values =  expressions.Select(e => e.Apply(ctx)).ToList();
+            ctx.LogInformation($"qti-equal-rounded check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
             if (values.Count() != 2)
             {
-                context.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
+                ctx.LogError($"unexpected values to compare: expected: 2, retrieved: {values.Count}");
                 return false;
             }
             switch (values[0].BaseType)
@@ -58,13 +58,13 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                         }
                         else
                         {
-                            context.LogError($"value cannot be casted to numeric value in equalRounded operator: {values[0]?.Value}, {values[1]?.Value}");
+                            ctx.LogError($"value cannot be casted to numeric value in equalRounded operator: {values[0]?.Value}, {values[1]?.Value}");
                         }
                         break;
                     }
                 default:
                     {
-                        context.LogError($"values other than float and int cannot be used in equalRounded operator.");
+                        ctx.LogError($"values other than float and int cannot be used in equalRounded operator.");
                         break;
                     }
             }
@@ -85,9 +85,9 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
             DecimalPlaces
         }
 
-        RoundingMode GetRoundingMode(XElement qtiElement)
+        RoundingMode GetRoundingMode()
         {
-            var roundingElement = qtiElement.GetAttributeValue("rounding-mode");
+            var roundingElement = attributes.ContainsKey("rounding-mode") ? attributes["rounding-mode"] : "";
             if (roundingElement == "decimalPlaces")
             {
                 return RoundingMode.DecimalPlaces;

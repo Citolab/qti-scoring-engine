@@ -12,6 +12,6 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     internal interface IConditionExpression : IExpressionBase
     {
-        bool Execute(IProcessingContext context);
+        bool Execute(IProcessingContext ctx);
     }
 }

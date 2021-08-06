@@ -14,14 +14,8 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
         Dictionary<string, ResponseVariable> ResponseVariables { get; set; }
         Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         HashSet<string> CalculatedOutcomes { get; set; }
-
-        BaseValue GetValue(XElement qtiElement);
-        bool CheckCondition(XElement qtiElement);
-        bool ExpressionSupported(XElement qtiElement);
-        void Execute(XElement qtiElement);
         void LogInformation(string value);
         void LogWarning(string value);
-
         void LogError(string value);
     }
 }

@@ -8,37 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
 
 namespace Citolab.QTI.ScoringEngine.OutcomeProcessing.BaseValueExpression
 {
-    internal class Sum : IExpression
+    internal class Sum : ValueExpressionBase
     {
-        public string Name => "qti-sum";
-
-        public BaseValue Apply(IProcessingContext ctx)
-        {
-            var values = childExpressions.Select(expression => expression.Apply())
-           //     qtiElement.Elements().Select(element =>
-           //{
-           //    var baseValue = ctx.GetValue(element);
-           //    if (float.TryParse(baseValue?.Value, out var result))
-           //    {
-           //        return result;
-           //    }
-           //    else
-           //    {
-           //        ctx.LogError($"Cannot cast outcome-value: {baseValue.Value} of base-type: {baseValue.BaseType} to a float to sum.");
-           //        return 0.0f;
-           //    }
-           //});
+        public override BaseValue Apply(IProcessingContext ctx)
+    {
+        var baseValues = expressions.Select(e => e.Apply(ctx)).ToList();
+        var values = baseValues.Select(baseValue =>
+            {
+                float result = 0.0f;
+                var canParse = baseValue.Value.TryParseFloat(out result);
+                if (canParse == true)
+                {
+                    return result;
+                }
+                else
+                {
+                    return 0.0f;
+                }
+            }).ToList();
             var sum = values.Sum();
             return ((float)sum).ToBaseValue();
         }
 
-        public void Init(XElement qtiElement)
-        {
-            var childExpressions = qtiElement.Elements();
-            throw new NotImplementedException();
-        }
     }
 }

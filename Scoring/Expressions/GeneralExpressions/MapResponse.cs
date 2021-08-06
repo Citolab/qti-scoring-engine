@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
@@ -9,25 +10,22 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class MapResponse : IResponseProcessingExpression
+    internal class MapResponse : ValueExpressionBase
     {
-        private string _identifier;
-
-        public string Name => "qti-map-response";
-
-        public BaseValue Apply(IProcessingContext ctx)
+       public override BaseValue Apply(IProcessingContext ctx)
         {
-            if (ctx.ResponseDeclarations.ContainsKey(_identifier) &&
-               ctx.ResponseVariables.ContainsKey(_identifier))
+            var identifier = GetAttributeValue("identifier");
+            if (ctx.ResponseDeclarations.ContainsKey(identifier) &&
+               ctx.ResponseVariables.ContainsKey(identifier))
             {
-                var responseVariable = ctx.ResponseVariables[_identifier];
+                var responseVariable = ctx.ResponseVariables[identifier];
 
                 var values = responseVariable.Values;
                 if (responseVariable.Cardinality == Cardinality.Single)
                 {
                     values = new List<string> { responseVariable.Value };
                 }
-                var responseDeclaration = ctx.ResponseDeclarations[_identifier];
+                var responseDeclaration = ctx.ResponseDeclarations[identifier];
                 if (responseDeclaration.Mapping != null)
                 {
 
@@ -57,19 +55,15 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 }
                 else
                 {
-                    ctx.LogError($"mapResponse is mapped to responseDeclaration without mapping: {_identifier}");
+                    ctx.LogError($"mapResponse is mapped to responseDeclaration without mapping: {identifier}");
                 }
             }
             else
             {
-                ctx.LogError($"Cannot find responseDeclaration with identifier: {_identifier} in mapReponse function.");
+                ctx.LogError($"Cannot find responseDeclaration with identifier: {identifier} in mapReponse function.");
             }
             return 0.0F.ToBaseValue();
         }
 
-        public void Init(XElement qtiElement)
-        {
-            _identifier = qtiElement.Identifier();
-        }
     }
 }

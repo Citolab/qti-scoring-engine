@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
@@ -16,12 +17,14 @@ namespace Citolab.QTI.ScoringEngine.Model
         public List<string> Categories;
         public HashSet<string> CalculatedOutcomes;
         public XElement OutcomeProcessingElement => Content.FindElementByName("qti-outcome-processing");
-        public AssessmentTest(ILogger logger, XDocument assessmentTest) : base(logger, assessmentTest)
+
+        public List<IConditionExpression> Expressions { get; } = new List<IConditionExpression>();
+        public AssessmentTest(ILogger logger, XDocument assessmentTest, IExpressionFactory expressionFactory) : base(logger, assessmentTest)
         {
-            Init();
+            Init(expressionFactory);
         }
 
-        public void Init()
+        public void Init(IExpressionFactory expressionFactory)
         {
             OutcomeDeclarations = Content.FindElementsByName("qti-outcome-declaration").Select(outcomeDeclaration =>
             {
@@ -63,6 +66,11 @@ namespace Citolab.QTI.ScoringEngine.Model
               .FindElementsByName("qti-set-outcome-value");
             var setOutcomes = setOutcomeElements?.Select(v => v.Identifier());
             CalculatedOutcomes = setOutcomes.Distinct().ToHashSet();
+
+            foreach (var outcomeProcessingChild in OutcomeProcessingElement.Elements())
+            {
+                Expressions.Add(expressionFactory.GetConditionExpression(outcomeProcessingChild, true));
+            }
         }
 
         public override void Upgrade()

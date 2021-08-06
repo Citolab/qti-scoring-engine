@@ -33,9 +33,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.ScoringTypes
                 };
             }
             var assessmentResult = new AssessmentResult(logger, assessmentResultXDocument);
-            var assessmentItem = new AssessmentItem(logger, assessmentItemXDocument);
-
-            
+            var assessmentItem = new AssessmentItem(logger, assessmentItemXDocument, TestHelper.GetExpressionFactory());
+                       
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
             var scoreValueA = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");

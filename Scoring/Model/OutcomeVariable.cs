@@ -9,15 +9,13 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
-    internal class OutcomeVariable
+    internal class OutcomeVariable : VariableBase
     {
-        public string Identifier { get; set; }
-        public Cardinality Cardinality { get; set; }
-
-        public BaseType BaseType { get; set; }
-
-        public object Value { get; set; }
-
+        public object Value
+        {
+            get { return ObjectValue; }  
+            set { ObjectValue = value; }
+        }
         public XElement ToElement()
         {
             var value = Value?.ToString();

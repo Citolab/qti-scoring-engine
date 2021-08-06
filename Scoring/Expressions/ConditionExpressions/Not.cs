@@ -14,19 +14,17 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
     /// <summary>
     /// All children should return true
     /// </summary>
-    internal class Not : IConditionExpression
+    internal class Not : ConditionExpressionBase
     {
-        public string Name => "qti-not";
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
-        {
-            var elements = qtiElement.Elements();
-            if (elements.Count() != 1)
+        public override bool Execute(IProcessingContext ctx)
+        { 
+            if (conditionalExpressions.Count != 1)
             {
-                context.LogError("Not element should contain only one child");
+                ctx.LogError("Not element should contain only one child");
                 return true;
             }
-            var result = context.CheckCondition(elements.First());
+            var result = conditionalExpressions.First().Execute(ctx);
             return !result;
         }
     }

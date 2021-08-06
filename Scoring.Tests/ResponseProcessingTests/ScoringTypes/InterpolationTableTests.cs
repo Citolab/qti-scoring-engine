@@ -26,9 +26,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests.ScoringTypes
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Interpolation.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/083-Verklanking-Speciale-Tekens.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/083-Verklanking-Speciale-Tekens.xml")), TestHelper.GetExpressionFactory());
 
-            
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
 
             var scoreValue = assessmentResult.GetScoreForItem("ITM-083-Verklanking-Speciale-Tekens", "SCORE");

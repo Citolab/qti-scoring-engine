@@ -10,13 +10,12 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class Member : IConditionExpression
+    internal class Member : ConditionExpressionBase
     {
-        public string Name { get => "qti-member"; }
-
-        bool IConditionExpression.Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            return Helper.ValueIsMemberOf(qtiElement, context);
+            return Helper.ValueIsMemberOf(expressions, ctx, attributes);
         }
+
     }
 }

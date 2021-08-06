@@ -14,6 +14,7 @@ namespace Citolab.QTI.ScoringEngine
 {
     public class ScoringEngine : IScoringEngine
     {
+        private IExpressionFactory _expressionFactory;
         public List<XDocument> ProcessOutcomes(IOutcomeProcessingContext ctx)
         {
             if (ctx == null)
@@ -28,14 +29,12 @@ namespace Citolab.QTI.ScoringEngine
             {
                 ctx.Logger = ctx.Logger = new NullLogger<ScoringEngine>();
             }
-            var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest);
-            //if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
-            //{
-            //    Parallel.ForEach(ctx.AssessmentmentResults,
-            //        assessmentResultDoc => AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger));
-            //}
-            //else
-            //{
+            if (_expressionFactory == null)
+            {
+                _expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
+            }
+            var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest, _expressionFactory);
+
             ctx.AssessmentmentResults = ctx.AssessmentmentResults.Select(assessmentResultDoc =>
             {
                 var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
@@ -57,22 +56,20 @@ namespace Citolab.QTI.ScoringEngine
             {
                 throw new ScoringEngineException("AssessmentItems cannot be null when calling responseProcessing");
             }
-            if (ctx.Logger ==null)
+            if (ctx.Logger == null)
             {
                 ctx.Logger = ctx.Logger = new NullLogger<ScoringEngine>();
             }
+            if (_expressionFactory == null)
+            {
+                _expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
+            } 
+
             var assessmentItems = ctx.AssessmentItems
-                .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc))
+                .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc, _expressionFactory))
                 .ToList();
-            //if (ctx.ProcessParallel.HasValue && ctx.ProcessParallel == true)
-            //{
-            //    Parallel.ForEach(ctx.AssessmentmentResults,
-            //        assessmentResultDoc => AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger));
-            //}
-            //else
-            //{
             ctx.AssessmentmentResults = ctx.AssessmentmentResults
-                .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.CustomOperators, ctx.Logger))
+                .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger))
                 .ToList();
             //}
             return ctx.AssessmentmentResults;
@@ -93,12 +90,12 @@ namespace Citolab.QTI.ScoringEngine
             return assessmentResult;
         }
 
-        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, List<ICustomOperator> customOperators, ILogger logger)
+        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
-            foreach(var assessmentItem in assessmentItems)
+            foreach (var assessmentItem in assessmentItems)
             {
-                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, customOperators);
+                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
             }
             return assessmentResult;
         }

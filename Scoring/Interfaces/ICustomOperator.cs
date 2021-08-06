@@ -7,6 +7,5 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     public interface ICustomOperator : IOperatorBase
     {
-        string Definition { get; }
     }
 }

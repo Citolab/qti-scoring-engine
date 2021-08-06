@@ -31,7 +31,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
@@ -50,7 +50,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
@@ -70,7 +70,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
@@ -89,7 +89,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/graphic_gap_match.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
@@ -107,7 +107,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
@@ -125,7 +125,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/IMS-examples/graphic-gap-match-qti3.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{

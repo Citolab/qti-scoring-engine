@@ -18,9 +18,9 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public HashSet<string> CalculatedOutcomes;
 
-        public List<IConditionExpression> Expressions { get; }
+        public List<IConditionExpression> Expressions { get; } = new List<IConditionExpression>();
 
-        public AssessmentItem(ILogger logger, XDocument assessmentItem) : base(logger, assessmentItem)
+        public AssessmentItem(ILogger logger, XDocument assessmentItem, IExpressionFactory expressionFactory) : base(logger, assessmentItem)
         {
             var responseProcessing = Content.FindElementByName("qti-response-processing");
             if (responseProcessing != null && !string.IsNullOrWhiteSpace(responseProcessing.GetAttributeValue("template")))
@@ -79,18 +79,17 @@ namespace Citolab.QTI.ScoringEngine.Model
                 lookups = new List<string>();
             }
             CalculatedOutcomes = setOutcomes.Concat(lookups).Distinct().ToHashSet();
-            var expressionFactory = new ExpressionFactory(null);
             var responseProcessingElement = Content.FindElementByName("qti-response-processing");
             if (responseProcessingElement != null)
             {
                 foreach (var responseProcessingChild in responseProcessingElement.Elements())
                 {
-                    expressionFactory.Get(responseProcessingChild);
+                    Expressions.Add(expressionFactory.GetConditionExpression(responseProcessingChild, true));
                 }
             }
             else
             {
-                context.LogInformation("No responseProcessing found");
+                logger.LogInformation("No responseProcessing found");
             }
         }
 

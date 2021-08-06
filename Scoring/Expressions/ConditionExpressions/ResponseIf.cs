@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class ResponseIf : IResponseProcessingConditionExpression
+    internal class ResponseIf : ConditionExpressionBase
     {
-        public string Name { get => "qti-response-if"; }
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.OutcomeProcessing };
+        public override bool Execute(IProcessingContext ctx)
         {
-            var firstChild = qtiElement.Elements().FirstOrDefault();
-            var result = context.CheckCondition(firstChild);
+            var firstChild = conditionalExpressions.FirstOrDefault();
+            var result = firstChild.Execute(ctx);
             if (result == true)
             {
-                var otherChilds = qtiElement.Elements().Skip(1);
+                var otherChilds = conditionalExpressions.Skip(1);
                 var maxLoops = otherChilds.Count() >= 100 ? 100 : otherChilds.Count();
                 foreach (var otherChild in otherChilds.Take(maxLoops))
                 {
-                    context.Execute(otherChild);
+                    otherChild.Execute(ctx);
                 }
                 return true;
             }

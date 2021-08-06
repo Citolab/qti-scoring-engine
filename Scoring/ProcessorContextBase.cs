@@ -13,7 +13,6 @@ namespace Citolab.QTI.ScoringEngine
     internal abstract class ProcessorContextBase: IProcessingContext
     {
         protected readonly ILogger _logger;
-        private readonly List<ICustomOperator> _addedCustomOperators;
         protected string _sessionIdentifier;
 
         public AssessmentResult AssessmentResult { get; }
@@ -23,11 +22,10 @@ namespace Citolab.QTI.ScoringEngine
         public Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         public HashSet<string> CalculatedOutcomes { get; set; }
 
-        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult, List<ICustomOperator> addedCustomOperators)
+        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;
-            _addedCustomOperators = addedCustomOperators;
         }
 
 
@@ -58,49 +56,7 @@ namespace Citolab.QTI.ScoringEngine
                 }
             }
         }
-
-        public BaseValue GetValue(XElement qtiElement)
-        {
-            var expression = GetValueExpression(qtiElement, false);
-            return expression?.Apply(qtiElement, this);
-        }
-
-        private IExpression GetValueExpression(XElement qtiElement, bool logErrorIfNotFound)
-        {
-            var tagName = qtiElement.Name.LocalName;
-            if (tagName == "qti-custom-operator")
-            {
-                tagName = $"qti-custom-operator-{qtiElement.GetAttributeValue("definition")}";
-            }
-            if (ValueExpressions.TryGetValue(tagName, out var valueExpression))
-            {
-                LogInformation($"Processing {valueExpression.Name}");
-                return valueExpression;
-            }
-            if (logErrorIfNotFound)
-            {
-                LogError($"Cannot find expression for tag-name:{tagName}");
-            }
-            return null;
-        }
-
-          public void Execute(XElement qtiElement)
-        {
-            var expression = GetConditionExpression(qtiElement, true);
-            expression.Execute(qtiElement, this);
-        }
-
-        public bool ExpressionSupported(XElement qtiElement)
-        {
-            var expression = GetConditionExpression(qtiElement, true);
-            return expression != null;
-        }
-        public bool CheckCondition(XElement qtiElement)
-        {
-            var expression = GetConditionExpression(qtiElement, true);
-            return expression == null ? false : expression.Execute(qtiElement, this);
-        }
-      
+             
         public void LogInformation(string value)
         {
             _logger.LogInformation($"{_sessionIdentifier}: {value}");

@@ -20,7 +20,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
         public AssessmentTest AssessmentTest { get; }
         public TestResult TestResult { get; set; }
 
-        public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger, List<ICustomOperator> addedCustomOperators): base(logger, assessmentResult, addedCustomOperators)
+        public OutcomeProcessorContext(AssessmentResult assessmentResult, AssessmentTest assessmentTest, ILogger logger): base(logger, assessmentResult)
         {
             _sessionIdentifier = $"{ assessmentTest?.Identifier} - { assessmentResult?.SourcedId}";
             AssessmentTest = assessmentTest;
@@ -41,8 +41,6 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             CalculatedOutcomes = assessmentTest.CalculatedOutcomes;
 
             ResetOutcomes();
-            ConditionExpressions = Helper.GetConditionExpressions(new List<Type> { typeof(IResponseProcessingConditionExpression) });
-            SetupExpressions(typeof(IResponseProcessingExpression));
         }
 
         internal bool ItemResultExists(string itemIdentifier)

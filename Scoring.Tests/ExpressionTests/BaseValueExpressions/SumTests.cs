@@ -18,8 +18,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
         {
             var outcomeDeclaration = 0.0F.ToOutcomeDeclaration();
             var baseValue = 0.0F.ToBaseValue();
-            
-            var assessmentItem = TestHelper.CreateAssessmentItem( new List<OutcomeDeclaration> { outcomeDeclaration });
+
+            var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> { outcomeDeclaration });
             var context = TestHelper.GetDefaultResponseProcessingContext(assessmentItem);
 
             var sumElement = XElement.Parse("<qti-sum></qti-sum>");
@@ -27,7 +27,9 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(outcomeDeclaration.ToVariableElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            // act
+            var score = sum.Apply(context);
 
             Assert.Equal(0, int.Parse(score.Value));
         }
@@ -46,7 +48,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(outcomeDeclaration.ToVariableElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            var score = sum.Apply(context);
 
             Assert.Equal(1, int.Parse(score.Value));
         }
@@ -65,7 +68,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(outcomeDeclaration.ToVariableElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            var score = sum.Apply(context);
 
             Assert.Equal(2, int.Parse(score.Value));
         }
@@ -84,7 +88,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(outcomeDeclaration.ToVariableElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            var score = sum.Apply(context);
 
             Assert.Equal(3, int.Parse(score.Value));
         }
@@ -95,7 +100,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             var baseValue1 = 1.0F.ToBaseValue();
             var baseValue2 = 2.0F.ToBaseValue();
 
-            var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> {  });
+            var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> { });
             var context = TestHelper.GetDefaultResponseProcessingContext(assessmentItem);
 
             var sumElement = XElement.Parse("<qti-sum></qti-sum>");
@@ -103,7 +108,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(baseValue2.ToXElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            var score = sum.Apply(context);
 
             Assert.Equal(3, int.Parse(score.Value));
         }
@@ -114,7 +120,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             var outcome1 = 1.0F.ToOutcomeDeclaration();
             var outcome2 = 2.0F.ToOutcomeDeclaration("SCORE2");
 
-            var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> { outcome1 , outcome2});
+            var assessmentItem = TestHelper.CreateAssessmentItem(new List<OutcomeDeclaration> { outcome1, outcome2 });
             var context = TestHelper.GetDefaultResponseProcessingContext(assessmentItem);
 
             var sumElement = XElement.Parse("<qti-sum></qti-sum>");
@@ -122,7 +128,8 @@ namespace Citolab.QTI.ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             sumElement.Add(outcome2.ToVariableElement());
 
             var sum = new Sum();
-            var score = sum.Apply(sumElement, context);
+            sum.Init(sumElement, TestHelper.GetExpressionFactory());
+            var score = sum.Apply(context);
 
             Assert.Equal(3, int.Parse(score.Value));
         }

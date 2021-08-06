@@ -21,7 +21,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50069.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50069.xml")), TestHelper.GetExpressionFactory());
 
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -39,7 +39,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Multiple_Responses_01.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066_Multiple_Keys.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066_Multiple_Keys.xml")), TestHelper.GetExpressionFactory());
 
             // A = correct
 
@@ -65,7 +65,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
         {
             var logger = new Mock<ILogger>().Object;
 
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/choice.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/choice.xml")), TestHelper.GetExpressionFactory());
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponse(assessmentItem.Identifier, "RESPONSE", "ChoiceA", BaseType.Identifier, Cardinality.Single);
 

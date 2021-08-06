@@ -26,7 +26,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Update_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")), TestHelper.GetExpressionFactory());
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -41,7 +41,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Update_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")), TestHelper.GetExpressionFactory());
 
             // make response incorrect
             assessmentResult.ChangeResponse("ITM-50066", "RESPONSE", "A");
@@ -62,7 +62,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")), TestHelper.GetExpressionFactory());
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -86,7 +86,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Add_OutcomeVariable.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066_No_Correct_Response.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066_No_Correct_Response.xml")), TestHelper.GetExpressionFactory());
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -106,7 +106,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var logger = new Mock<ILogger>().Object;
 
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_No_Candidate_Response.xml")));
-            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50069.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50069.xml")), TestHelper.GetExpressionFactory());
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
@@ -128,7 +128,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var mockLogger = new Mock<ILogger>();
 
             var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Interpolation.xml")));
-            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/083-Verklanking-Speciale-Tekens_No_Identifier_For_Variable_In_LookupOutcomeValue.xml")), TestHelper.GetExpressionFactory());
 
             
             ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);

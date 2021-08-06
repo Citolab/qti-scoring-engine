@@ -16,25 +16,27 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
 {
     public class NotTests
     {
+        public NotTests()
+        {
+            ReturnTrue.Init();
+            ReturnFalse.Init();
+        }
+
         [Fact]
         public void IsFalse()
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
-            var returnTrue = new ReturnTrue();
             var not = new Not();
 
-            context.ConditionExpressions.Add(not.Name, not);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
+            var notElement = XElement.Parse("<qti-not></qti-not>");
+            notElement.Add(XElement.Parse("<returnTrue/>"));
 
-            var andElement = XElement.Parse("<qti-not></qti-not>");
-            andElement.Add(XElement.Parse("<returnTrue/>"));
 
-            
             // act
-            var result = not.Execute(andElement, context);
+            not.Init(notElement, TestHelper.GetExpressionFactory());
+            var result = not.Execute(context);
 
             //assert
             Assert.False(result);
@@ -45,20 +47,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
-            var returnFalse = new ReturnFalse();
             var not = new Not();
 
-            context.ConditionExpressions.Add(not.Name, not);
-            context.ConditionExpressions.Add(returnFalse.Name, returnFalse);
-
-            var andElement = XElement.Parse("<qti-not></qti-not>");
-            andElement.Add(XElement.Parse("<returnFalse/>"));
+            var notElement = XElement.Parse("<qti-not></qti-not>");
+            notElement.Add(XElement.Parse("<returnFalse/>"));
 
 
             // act
-            var result = not.Execute(andElement, context);
+            not.Init(notElement, TestHelper.GetExpressionFactory());
+            var result = not.Execute(context);
 
             //assert
             Assert.True(result);
@@ -69,21 +67,18 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             var contextInfo = TestHelper.GetDefaultResponseProcessingContextAndLogger(null);
 
             // arrange
-            contextInfo.Context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var returnTrue = new ReturnTrue();
             var not = new Not();
 
-            contextInfo.Context.ConditionExpressions.Add(not.Name, not);
-            contextInfo.Context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-
-            var andElement = XElement.Parse("<qti-not></qti-not>");
-            andElement.Add(XElement.Parse("<returnTrue/>"));
-            andElement.Add(XElement.Parse("<returnTrue/>"));
+            var notElement = XElement.Parse("<qti-not></qti-not>");
+            notElement.Add(XElement.Parse("<returnTrue/>"));
+            notElement.Add(XElement.Parse("<returnTrue/>"));
 
 
             // act
-            var result = not.Execute(andElement, contextInfo.Context);
+            not.Init(notElement, TestHelper.GetExpressionFactory());
+            var result = not.Execute(contextInfo.Context);
 
             //assert
             contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue("Not element should contain only one child"), LogLevel.Error, 1);

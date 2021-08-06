@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
@@ -8,16 +9,11 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class Null : IGeneralExpression
+    internal class Null : ValueExpressionBase
     {
-        public string Name => "qti-null";
-
-        public BaseValue Apply(IProcessingContext ctx)
+        public override BaseValue Apply(IProcessingContext ctx)
         {
             return null;
         }
-
-        public void Init(XElement qtiElement)
-        {         }
     }
 }

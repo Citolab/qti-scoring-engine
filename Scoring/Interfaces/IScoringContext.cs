@@ -19,11 +19,9 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
     }
     public interface IScoringContextBase
     {
-
+        Dictionary<string, ICustomOperator> CustomOperators { get; set; }
         List<XDocument> AssessmentmentResults { get; set; }
         ILogger Logger { get; set; }
-
-        List<ICustomOperator> CustomOperators { get; set; }
 
         //bool? ProcessParallel { get; set; }
     }

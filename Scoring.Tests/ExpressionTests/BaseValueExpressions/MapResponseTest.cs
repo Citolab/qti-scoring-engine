@@ -45,9 +45,9 @@ namespace ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
 
 
             var mapResponse = new MapResponse();
-
+            mapResponse.Init(mapResponseElement, TestHelper.GetExpressionFactory());
             // act
-            var score = mapResponse.Apply(mapResponseElement, context);
+            var score = mapResponse.Apply(context);
 
             //assert
             Assert.Equal(1, int.Parse(score.Value));
@@ -84,7 +84,8 @@ namespace ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             var mapResponse = new MapResponse();
 
             // act
-            var score = mapResponse.Apply(mapResponseElement, context);
+            mapResponse.Init(mapResponseElement, TestHelper.GetExpressionFactory());
+            var score = mapResponse.Apply(context);
 
             //assert
             Assert.Equal(2, int.Parse(score.Value));
@@ -122,7 +123,8 @@ namespace ScoringEngine.Tests.ExpressionTests.BaseValueExpressions
             var mapResponse = new MapResponse();
 
             // act
-            var score = mapResponse.Apply(mapResponseElement, context);
+            mapResponse.Init(mapResponseElement, TestHelper.GetExpressionFactory());
+            var score = mapResponse.Apply( context);
 
             //assert
             Assert.Equal(3, int.Parse(score.Value));

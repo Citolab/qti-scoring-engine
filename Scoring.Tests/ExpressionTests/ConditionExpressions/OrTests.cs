@@ -15,24 +15,25 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
 {
     public class OrTests
     {
+        public OrTests()
+        {
+            ReturnTrue.Init();
+            ReturnFalse.Init();
+        }
+
         [Fact]
         public void CheckTwoTrueValues()
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
-            var returnTrue = new ReturnTrue();
             var or = new Or();
-
-            context.ConditionExpressions.Add(or.Name, or);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-
             var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
             orElement.Add(XElement.Parse("<returnTrue/>"));
             // act
-            var result = or.Execute(orElement, context);
+            or.Init(orElement, TestHelper.GetExpressionFactory());
+            var result = or.Execute(context);
 
             //assert
             Assert.True(result);
@@ -43,19 +44,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
             var or = new Or();
-            context.ConditionExpressions.Add(or.Name, or);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-            context.ConditionExpressions.Add(returnFalse.Name, returnFalse);
 
             var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnTrue/>"));
             orElement.Add(XElement.Parse("<returnFalse/>"));
             // act
-            var result = or.Execute(orElement, context);
+            or.Init(orElement, TestHelper.GetExpressionFactory());
+            var result = or.Execute(context);
             //assert
             Assert.True(result);
         }
@@ -65,21 +63,18 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
             var returnTrue = new ReturnTrue();
             var returnFalse = new ReturnFalse();
 
             var or = new Or();
-            context.ConditionExpressions.Add(or.Name, or);
-            context.ConditionExpressions.Add(returnTrue.Name, returnTrue);
-            context.ConditionExpressions.Add(returnFalse.Name, returnFalse);
 
             var orElement = XElement.Parse("<qti-or></qti-or>");
             orElement.Add(XElement.Parse("<returnFalse/>"));
             orElement.Add(XElement.Parse("<returnFalse/>"));
-           
+
             // act
-            var result = or.Execute(orElement, context);
+            or.Init(orElement, TestHelper.GetExpressionFactory());
+            var result = or.Execute(context);
             //assert
             Assert.False(result);
         }

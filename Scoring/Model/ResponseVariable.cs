@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
-    internal class ResponseVariable
+    internal class ResponseVariable : VariableBase
     {
-        public string Identifier { get; set; }
-        public Cardinality Cardinality { get; set; }
-        public BaseType BaseType { get; set; }
-        public string Value { get; set; }
+          public string Value { get; set; }
         public List<string> Values { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal interface IGeneralExpression : IExpression
+    internal interface IGeneralExpression : IValueExpression
     {
 
     }

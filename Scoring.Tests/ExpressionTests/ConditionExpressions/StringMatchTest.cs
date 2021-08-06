@@ -30,7 +30,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.False(result);
@@ -53,7 +54,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.True(result);
@@ -76,7 +78,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.False(result);
@@ -99,7 +102,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.False(result);
@@ -122,7 +126,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.True(result);
@@ -145,7 +150,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.False(result);
@@ -168,7 +174,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             stringMatchElement.Add(base1.ToXElement());
             stringMatchElement.Add(base2.ToXElement());
             // act
-            var result = stringMatch.Execute(stringMatchElement, context);
+            stringMatch.Init(stringMatchElement, TestHelper.GetExpressionFactory());
+            var result = stringMatch.Execute(context);
 
             //assert
             Assert.True(result);

@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
@@ -9,41 +10,32 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class Correct : IResponseProcessingExpression
+    internal class Correct : ValueExpressionBase
     {
-        private string _identifier;
-
-        public string Name => "qti-correct";
-        public BaseValue Apply(IProcessingContext ctx)
+        public override BaseValue Apply(IProcessingContext ctx)
         {
-      
-            if (ctx.ResponseDeclarations.ContainsKey(_identifier))
+            var identifier = GetAttributeValue("identifier");
+            if (ctx.ResponseDeclarations.ContainsKey(identifier))
             {
-
-                var dec = ctx.ResponseDeclarations[_identifier];
+                var dec = ctx.ResponseDeclarations[identifier];
                 if (dec.Cardinality == Cardinality.Single && string.IsNullOrWhiteSpace(dec.CorrectResponse))
                 {
-                    ctx.LogError($"Correct: {_identifier} references to a response without correctResponse");
+                    ctx.LogError($"Correct: {identifier} references to a response without correctResponse");
                     return null;
                 }
                 if (dec.Cardinality != Cardinality.Single && (dec.CorrectResponses == null || !dec.CorrectResponses.Any()))
                 {
-                    ctx.LogError($"Correct: {_identifier} references to a response without correctResponse");
+                    ctx.LogError($"Correct: {identifier} references to a response without correctResponse");
                     return null;
                 }
-                return new BaseValue { Identifier = _identifier, BaseType = dec.BaseType, Value = dec.CorrectResponse, Values = dec.CorrectResponses, Cardinality = dec.Cardinality };
+                return new BaseValue { Identifier = identifier, BaseType = dec.BaseType, Value = dec.CorrectResponse, Values = dec.CorrectResponses, Cardinality = dec.Cardinality };
             }
             else
             {
-                ctx.LogError($"Cannot reference to response declaration for correct {_identifier}");
+                ctx.LogError($"Cannot reference to response declaration for correct {identifier}");
                 return null;
             }
         }
-
-
-        public void Init(XElement qtiElement)
-        {
-            _identifier = qtiElement.Identifier();
-        }
+   
     }
 }

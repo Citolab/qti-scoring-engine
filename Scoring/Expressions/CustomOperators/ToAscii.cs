@@ -3,23 +3,22 @@ using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
 {
     internal class ToAscii : ICustomOperator
     {
-        public virtual string Definition => "depcp:ToAscii";
-
-        public BaseValue Apply(BaseValue value)
+        public BaseValue Apply(List<BaseValue> values)
         {
+            var value = values.FirstOrDefault();
             if (value?.Value != null)
             {
                 value.Value = RemoveDiacritics(value.Value);
             }
             return value;
         }
-
         private string RemoveDiacritics(string text)
         {
             var normalizedString = text.Normalize(NormalizationForm.FormD);
@@ -35,11 +34,5 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing.CustomOperators
             }
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
-    }
-
-
-    internal class ToAsciiQuestify : ToAscii
-    {
-        public override string Definition { get => "questify:ToAscii"; }
     }
 }

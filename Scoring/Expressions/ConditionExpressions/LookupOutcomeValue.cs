@@ -10,33 +10,28 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class LookupOutcomeValue : IConditionExpression
+    internal class LookupOutcomeValue : ConditionExpressionBase
     {
-        public string Name => "qti-lookup-outcome-value";
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            var outcomeIdentifier = qtiElement.Identifier();
-            var rawIdentifier = qtiElement.FindElementsByName("qti-variable")
-                .FirstOrDefault()?.Identifier();
-            if (rawIdentifier == null)
+            var outcomeIdentifier = GetAttributeValue("identifier");
+            var rawOutcomeVariable = expressions.FirstOrDefault()?.Apply(ctx);
+            if (rawOutcomeVariable == null)
             {
-                context.LogError("No outcome identifier could be found for the raw score to use with interpolation.");
+                ctx.LogError("No outcome identifier could be found for the raw score to use with interpolation.");
                 return false;
             }
-            var rawOutcomeDeclaration = Helper.GetOutcomeDeclaration(rawIdentifier, context);
-            var outcomeDeclaration = Helper.GetOutcomeDeclaration(outcomeIdentifier, context);
-           
+            var outcomeDeclaration = Helper.GetOutcomeDeclaration(outcomeIdentifier, ctx);
+
             if (outcomeDeclaration == null)
             {
                 return false;
             }
-            var rawOutcomeVariable = Helper.GetOutcomeVariable(rawIdentifier, rawOutcomeDeclaration, context, false);
-            var outcomeVariable = Helper.GetOutcomeVariable(outcomeIdentifier, outcomeDeclaration, context);
+             var outcomeVariable = Helper.GetOutcomeVariable(outcomeIdentifier, outcomeDeclaration, ctx);
 
             if (outcomeDeclaration.InterpolationTable == null)
             {
-                context.LogError("Lookup refers to variable without interpolation table");
+                ctx.LogError("Lookup refers to variable without interpolation table");
             }
             if (rawOutcomeVariable.Value.ToString().TryParseFloat(out var value))
             {
@@ -48,12 +43,12 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 }
                 else
                 {
-                    context.LogError($"Could not find lookup value: {value}");
+                    ctx.LogError($"Could not find lookup value: {value}");
                 }
             }
             else
             {
-                context.LogError($"Could not convert value: {value} to float. Cannot search for the interpolation value");
+                ctx.LogError($"Could not convert value: {value} to float. Cannot search for the interpolation value");
             }
             return false;
 

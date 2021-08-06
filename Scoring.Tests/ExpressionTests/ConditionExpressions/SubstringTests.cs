@@ -16,18 +16,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var substring = new Substring();
-
-            context.ConditionExpressions.Add(substring.Name, substring);
-
             var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("Me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
 
             // act
-            var result = substring.Execute(substringElement, context);
+            substring.Init(substringElement, TestHelper.GetExpressionFactory());
+            var result = substring.Execute(context);
 
             //assert
             Assert.True(result);
@@ -38,18 +35,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-
             var substring = new Substring();
-
-            context.ConditionExpressions.Add(substring.Name, substring);
 
             var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("Not".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
-  
+
             // act
-            var result = substring.Execute(substringElement, context);
+            substring.Init(substringElement, TestHelper.GetExpressionFactory());
+            var result = substring.Execute(context);
 
             //assert
             Assert.False(result);
@@ -60,18 +54,16 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var substring = new Substring();
-
-            context.ConditionExpressions.Add(substring.Name, substring);
 
             var substringElement = XElement.Parse("<qti-substring></qti-substring>");
             substringElement.Add("me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
 
             // act
-            var result = substring.Execute(substringElement, context);
+            substring.Init(substringElement, TestHelper.GetExpressionFactory());
+            var result = substring.Execute(context);
 
             //assert
             Assert.False(result);
@@ -83,18 +75,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-
             var substring = new Substring();
-
-            context.ConditionExpressions.Add(substring.Name, substring);
 
             var substringElement = XElement.Parse(@"<qti-substring case-sensitive=""false""></qti-substring>");
             substringElement.Add("me".ToBaseValue().ToXElement());
             substringElement.Add("TestMe!".ToBaseValue().ToXElement());
- 
+
             // act
-            var result = substring.Execute(substringElement, context);
+            substring.Init(substringElement, TestHelper.GetExpressionFactory());
+            var result = substring.Execute(context);
 
             //assert
             Assert.True(result);

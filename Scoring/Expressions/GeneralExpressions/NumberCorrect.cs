@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
@@ -12,13 +13,11 @@ using System.Xml.Linq;
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     // NOT SUPPORTED. EXISTING OUTCOME IS UNTOUCHED.
-    internal class NumberCorrect : IOutcomeProcessingExpression
+    internal class NumberCorrect : ValueExpressionBase
     {
         private string _setOutcomeIdentifier;
-
-        public string Name => "qti-number-correct";
-
-        public BaseValue Apply(IProcessingContext ctx)
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.ResponseProcessig };
+        public override BaseValue Apply(IProcessingContext ctx)
         {
             // with response processing it's diffult to determine what's correct.
             // of course with a simple mapping of and choiceInteraction it's easy but for polymous scoring
@@ -35,7 +34,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
         }
 
 
-        public void Init(XElement qtiElement)
+        public override void Init(XElement qtiElement, IExpressionFactory expressionFactory)
         {
             _setOutcomeIdentifier = qtiElement.FindParentElement("qti-set-outcome-value")?.Identifier();
         }

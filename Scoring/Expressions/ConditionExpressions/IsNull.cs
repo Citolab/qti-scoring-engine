@@ -14,18 +14,15 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
     /// <summary>
     /// null check
     /// </summary>
-    internal class IsNull : IConditionExpression
+    internal class IsNull : ConditionExpressionBase
     {
-        public string Name => "qti-is-null";
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
-        {
-            if (qtiElement.Elements().Count() != 1)
+        public override bool Execute(IProcessingContext ctx) { 
+            if (expressions.Count() != 1)
             {
-                context.LogError($"Unexpected child count: {qtiElement.Elements().Count()} in qti-is-null");
+                ctx.LogError($"Unexpected child count: {expressions.Count()} in qti-is-null");
                 return false;
             };
-            var value = context.GetValue(qtiElement.Elements().FirstOrDefault());
+            var value = expressions.First().Apply(ctx);
             return value == null;
         }
     }

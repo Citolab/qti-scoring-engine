@@ -12,11 +12,24 @@ using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
 using System.IO;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Const;
 
 namespace Citolab.QTI.ScoringEngine.Tests
 {
     public static class TestHelper
     {
+        private static IExpressionFactory _expressionFactory;
+
+        internal static IExpressionFactory GetExpressionFactory()
+        {
+            if (_expressionFactory == null)
+            {
+                var mockLog = new Mock<ILogger>();
+                _expressionFactory = new ExpressionFactory(null, mockLog.Object);
+            }
+            return _expressionFactory;
+        }
         internal static ResponseProcessorContext GetDefaultResponseProcessingContext(AssessmentItem assessmentItem)
         {
             return GetDefaultResponseProcessingContextAndLogger(assessmentItem).Context;
@@ -40,7 +53,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
                 });
                 assessmentResult.ItemResults.Add(itemResult.Identifier, itemResult);
             }
-            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, null);
+            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
             return (context, mockLog);
         }
 
@@ -57,7 +70,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         internal static OutcomeProcessorContext GetDefaultOutcomeProcessingContext(AssessmentTest assessmentTest)
         {
             var logger = new Mock<ILogger>().Object;
-            var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger, null);
+            var context = new OutcomeProcessorContext(GetBasicAssessmentResult(), assessmentTest, logger);
             if (assessmentTest?.OutcomeDeclarations != null)
             {
                 if (context.AssessmentResult == null)
@@ -100,7 +113,9 @@ namespace Citolab.QTI.ScoringEngine.Tests
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentItemDocument = XDocument.Parse($"<assessmentItem xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imsqti_v2p2 ../controlxsds/imsqti_v2p2p1.xsd\" title=\"test\" identifier=\"{itemIdentifier}\" label=\"32fyz6\" timeDependent=\"false\" xmlns=\"http://www.imsglobal.org/xsd/imsqti_v2p2\">\n<responseProcessing>\n</responseProcessing>\n</assessmentItem>");
-            var assessmentItem = new AssessmentItem(logger, asssessmentItemDocument)
+
+            var expressionFactory = new ExpressionFactory(null, logger);
+            var assessmentItem = new AssessmentItem(logger, asssessmentItemDocument, expressionFactory)
             {
                 OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o),
                 ResponseDeclarations = responseDeclarations == null ? new Dictionary<string, ResponseDeclaration>() :
@@ -113,7 +128,8 @@ namespace Citolab.QTI.ScoringEngine.Tests
         {
             var logger = new Mock<ILogger>().Object;
             var asssessmentTestDocument = XDocument.Parse($"<assessmentTest identifier=\"{testIdentifier}\"><outcomeProcessing></outcomeProcessing></assessmentTest>");
-            var assessmentTest = new AssessmentTest(logger, asssessmentTestDocument)
+            var expressionFactory = new ExpressionFactory(null, logger);
+            var assessmentTest = new AssessmentTest(logger, asssessmentTestDocument, expressionFactory)
             {
                 OutcomeDeclarations = outcomes.ToDictionary(o => o.Identifier, o => o)
             };
@@ -142,26 +158,39 @@ namespace Citolab.QTI.ScoringEngine.Tests
                 assessmentDoc.AddTotalAndCategoryScores();
             }
             var logger = mockLogger.Object;
-            var assessmentTest = new AssessmentTest(logger, assessmentDoc);
+            var expressionFactory = new ExpressionFactory(null, logger);
+            var assessmentTest = new AssessmentTest(logger, assessmentDoc, expressionFactory);
             var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead($"Resources/2x/OutcomeProcessing/{assessmentResultPath}.xml")));
 
 
             return OutcomeProcessor.Process(assessmentTest, assessmentResult, logger);
         }
     }
-    internal class ReturnFalse : IConditionExpression
+    internal class ReturnFalse : ConditionExpressionBase
     {
-        public string Name => "returnFalse";
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public static void Init()
+        {
+            if (!Mappings.ConditionalExpressions.ContainsKey("returnFalse"))
+            {
+                Mappings.ConditionalExpressions.Add("returnFalse", typeof(ReturnFalse));
+            }
+        }
+        public override bool Execute(IProcessingContext context)
         {
             return false;
         }
     }
 
-    internal class ReturnTrue : IConditionExpression
+    internal class ReturnTrue : ConditionExpressionBase
     {
-        public string Name => "returnTrue";
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public static void Init()
+        {
+            if (!Mappings.ConditionalExpressions.ContainsKey("returnTrue"))
+            {
+                Mappings.ConditionalExpressions.Add("returnTrue", typeof(ReturnTrue));
+            }
+        }
+        public override bool Execute(IProcessingContext context)
         {
             return true;
         }

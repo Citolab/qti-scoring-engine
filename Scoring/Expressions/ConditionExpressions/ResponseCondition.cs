@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class ResponseCondition : IResponseProcessingConditionExpression
+    internal class ResponseCondition : ConditionExpressionBase
     {
-        public string Name { get => "qti-response-condition"; }
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.OutcomeProcessing };
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            foreach (var child in qtiElement.Elements())
+            foreach (var expression in conditionalExpressions)
             {
-                var result = context.CheckCondition(child);
+                var result = expression.Execute(ctx);
                 if (result == true) // if handled then exit for;
                 {
                     break;

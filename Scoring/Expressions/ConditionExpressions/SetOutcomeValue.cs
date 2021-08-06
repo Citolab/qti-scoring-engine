@@ -11,37 +11,36 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class SetOutcomeValue : IConditionExpression
+    internal class SetOutcomeValue : ConditionExpressionBase
     {
-        public string Name => "qti-set-outcome-value";
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            var outcomeIdentifier = qtiElement.Identifier();
+            var outcomeIdentifier = GetAttributeValue("identifier");
             if (string.IsNullOrEmpty(outcomeIdentifier))
             {
-                context.LogError($"Cannot find attribute identifier");
+                ctx.LogError($"Cannot find attribute identifier");
                 return false;
             };
-            if (!context.OutcomeDeclarations.ContainsKey(outcomeIdentifier))
+            if (!ctx.OutcomeDeclarations.ContainsKey(outcomeIdentifier))
             {
-                context.LogError($"Cannot find outcomeDeclaration: {outcomeIdentifier}");
+                ctx.LogError($"Cannot find outcomeDeclaration: {outcomeIdentifier}");
                 return false;
             }
             else
             {
-                var outcomeDeclaration = Helper.GetOutcomeDeclaration(outcomeIdentifier, context);
-                var outcomeVariable = Helper.GetOutcomeVariable(outcomeIdentifier, outcomeDeclaration, context);
+                var outcomeDeclaration = Helper.GetOutcomeDeclaration(outcomeIdentifier, ctx);
+                var outcomeVariable = Helper.GetOutcomeVariable(outcomeIdentifier, outcomeDeclaration, ctx);
 
-                if (qtiElement.Elements().Count() == 1)
+                if (expressions.Count() == 1)
                 {
-                    var childElement = qtiElement.Elements().FirstOrDefault();
+                    var childElement = expressions.FirstOrDefault();
                     var culture = CultureInfo.InvariantCulture;
-                    outcomeVariable.Value = context.GetValue(childElement)?.Value.ToString(culture);
+                    outcomeVariable.Value = childElement.Apply(ctx)?.Value.ToString(culture);
                 }
                 else
                 {
-                    context.LogError($"Unexpected childs: {qtiElement.Elements().Count()} in SetOutcomeValue");
+                    ctx.LogError($"Unexpected childs: {expressions.Count()} in SetOutcomeValue");
                 }
             }
             return true;

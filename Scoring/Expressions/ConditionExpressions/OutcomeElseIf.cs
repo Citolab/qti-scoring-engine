@@ -8,13 +8,7 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class OutcomeElseIf : IConditionExpression
+    internal class OutcomeElseIf : OutcomeIf
     {
-        public string Name { get => "qti-outcome-else-if"; }
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
-        {
-            return new ResponseElseIf().Execute(qtiElement, context);
-        }
     }
 }

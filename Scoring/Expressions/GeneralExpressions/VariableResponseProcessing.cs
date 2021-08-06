@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System;
@@ -8,46 +9,42 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class VariableResponseProcessing : IResponseProcessingExpression
+    internal class VariableResponseProcessing : ValueExpressionBase
     {
-        private string _identifier;
 
-        public string Name => "qti-variable";
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.OutcomeProcessing };
 
-        public BaseValue Apply(IProcessingContext ctx)
+
+        public override BaseValue Apply(IProcessingContext ctx)
         {
-
-            if (ctx.ResponseVariables != null && ctx.ResponseVariables.ContainsKey(_identifier))
+            var identifer = GetAttributeValue("identifier");
+            if (ctx.ResponseVariables != null && ctx.ResponseVariables.ContainsKey(identifer))
             {
-                var responseVariable = ctx.ResponseVariables[_identifier];
+                var responseVariable = ctx.ResponseVariables[identifer];
                 var cardinality = Cardinality.Single;
-                if (ctx.ResponseDeclarations.ContainsKey(_identifier))
+                if (ctx.ResponseDeclarations.ContainsKey(identifer))
                 {
-                    cardinality = ctx.ResponseDeclarations[_identifier].Cardinality;
+                    cardinality = ctx.ResponseDeclarations[identifer].Cardinality;
                 }
                 return new BaseValue
                 {
                     BaseType = responseVariable.BaseType,
                     Value = cardinality == Cardinality.Single ? responseVariable.Value : "",
                     Values = cardinality != Cardinality.Single ? responseVariable.Values : null,
-                    Identifier = _identifier,
+                    Identifier = identifer,
                     Cardinality = cardinality
                 };
             }
             else
             {
-                if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(_identifier))
+                if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(identifer))
                 {
-                    return ctx.OutcomeVariables[_identifier].ToBaseValue();
+                    return ctx.OutcomeVariables[identifer].ToBaseValue();
                 }
             }
-            ctx.LogInformation($"Cannot find variable for identifier: {_identifier}");
+            ctx.LogInformation($"Cannot find variable for identifier: {identifer}");
             return null;
         }
 
-        public void Init(XElement qtiElement)
-        {
-            _identifier = qtiElement.Identifier();
-        }
     }
 }

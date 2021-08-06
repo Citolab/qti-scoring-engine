@@ -9,13 +9,12 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class Match : IConditionExpression
+    internal class Match : ConditionExpressionBase
     {
-        public string Name { get => "qti-match"; }
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
-            var values = qtiElement.Elements().Select(context.GetValue).ToList();
+            var values = expressions.Select(e => e.Apply(ctx)).ToList();
             if (values != null && values.Count() == 2)
             {
                 var valueToMap = values[0];
@@ -23,12 +22,12 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 
                 if (valueToMap == null)
                 {
-                    context.LogError("No value for first child of match element");
+                    ctx.LogError("No value for first child of match element");
                     return false;
                 }
                 if (correctValueInfo.Cardinality == null || correctValueInfo.Cardinality == Cardinality.Single)
                 {
-                    return Helper.CompareSingleValues(valueToMap.Value, correctValueInfo.Value, correctValueInfo.BaseType, context);
+                    return Helper.CompareSingleValues(valueToMap.Value, correctValueInfo.Value, correctValueInfo.BaseType, ctx);
                 }
                 else
                 {
@@ -46,7 +45,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                         if (correctValueInfo.Cardinality == Cardinality.Ordered)
                         {
                             var currentValueToMap = valuesToBeMapped[answerIndex];
-                            var result = Helper.CompareSingleValues(correctAnswer, currentValueToMap, correctValueInfo.BaseType, context);
+                            var result = Helper.CompareSingleValues(correctAnswer, currentValueToMap, correctValueInfo.BaseType, ctx);
                             if (result == false)
                             {
                                 return false;
@@ -58,7 +57,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                             string matchingValue = null;
                             foreach (var mv in valuesToBeMapped)
                             {
-                                var result = Helper.CompareSingleValues(correctAnswer, mv, correctValueInfo.BaseType, context);
+                                var result = Helper.CompareSingleValues(correctAnswer, mv, correctValueInfo.BaseType, ctx);
                                 if (result)
                                 {
                                     matchingValue = mv;
@@ -81,7 +80,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
             }
             else
             {
-                context.LogError("Unexpected number of childElements. Match should have 2 childs.");
+                ctx.LogError("Unexpected number of childElements. Match should have 2 childs.");
                 return false;
             }
         }

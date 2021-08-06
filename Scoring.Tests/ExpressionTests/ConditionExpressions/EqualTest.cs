@@ -28,8 +28,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
-            var result = equal.Execute(equalElement, context);
-
+            equal.Init(equalElement, TestHelper.GetExpressionFactory());
+            var result = equal.Execute(context);
             //assert
             Assert.False(result);
         }
@@ -48,7 +48,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
-            var result = equal.Execute(equalElement, context);
+            equal.Init(equalElement, TestHelper.GetExpressionFactory());
+            var result = equal.Execute(context);
 
             //assert
             Assert.True(result);
@@ -68,7 +69,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
-            var result = equal.Execute(equalElement, context);
+            equal.Init(equalElement, TestHelper.GetExpressionFactory());
+            var result = equal.Execute(context);
 
             //assert
             Assert.False(result);
@@ -88,7 +90,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
-            var result = equal.Execute(equalElement, contextInfo.Context);
+            equal.Init(equalElement, TestHelper.GetExpressionFactory());
+            var result = equal.Execute(contextInfo.Context);
 
             //assert
             contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: couldn't convert nofloat and/or 1,234 to float."), LogLevel.Error, 1);
@@ -108,7 +111,8 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
             equalElement.Add(base1.ToXElement());
             equalElement.Add(base2.ToXElement());
             // act
-            var result = equal.Execute(equalElement, contextInfo.Context);
+            equal.Init(equalElement, TestHelper.GetExpressionFactory());
+            var result = equal.Execute(contextInfo.Context);
 
             //assert
             contextInfo.MockLog.VerifyLog((state, t) => state.ContainsValue(" - 900001: Unsupported tolerance-mode: relative"), LogLevel.Error, 1);

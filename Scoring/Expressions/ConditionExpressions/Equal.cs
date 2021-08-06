@@ -8,20 +8,28 @@ using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class Equal : IConditionExpression
+    internal class Equal : ConditionExpressionBase
     {
-        public string Name { get => "qti-equal"; }
 
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override bool Execute(IProcessingContext ctx)
         {
             // todo toleranceMode mode, couldn't find any example of absolute or relative.
-            var toleranceMode = qtiElement.GetAttributeValue("tolerance-mode");
+            var toleranceMode = GetAttributeValue("tolerance-mode");
             if (!string.IsNullOrEmpty(toleranceMode) && toleranceMode != "exact")
             {
-                context.LogError($"Unsupported tolerance-mode: {toleranceMode}");
+                ctx.LogError($"Unsupported tolerance-mode: {toleranceMode}");
                 return false;
             }
-            return Helpers.Helper.CompareTwoValues(qtiElement, context, Model.BaseType.Float);
+            if (expressions.Count == 2)
+            {
+                var value1 = expressions[0]?.Apply(ctx);
+                var value2 = expressions[1]?.Apply(ctx);
+                return Helper.CompareSingleValues(value1.Value, value2.Value, Model.BaseType.Float, ctx);
+            } else
+            {
+                ctx.LogError($"Unexpected number of childElements: {expressions.Count}");
+                return false;
+            }
         }
 
     }

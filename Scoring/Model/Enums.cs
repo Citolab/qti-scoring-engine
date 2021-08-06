@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
+    public enum ProcessingType
+    {
+        ResponseProcessig,
+        OutcomeProcessing
+    }
     public enum BaseType
     {
 

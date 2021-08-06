@@ -9,11 +9,11 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
 {
     internal static class OutcomeProcessor
     {
-        public static AssessmentResult Process(AssessmentTest assessmentTest, AssessmentResult assessmentResult, ILogger logger, List<ICustomOperator> customOperators = null)
+        public static AssessmentResult Process(AssessmentTest assessmentTest, AssessmentResult assessmentResult, ILogger logger)
         {
-            var context = new OutcomeProcessorContext(assessmentResult, assessmentTest, logger, customOperators);
+            var ctx = new OutcomeProcessorContext(assessmentResult, assessmentTest, logger);
             // Reset all values that are recalculated;
-            context.TestResult.OutcomeVariables.Where(o =>
+            ctx.TestResult.OutcomeVariables.Where(o =>
             {
                 return assessmentTest.CalculatedOutcomes.Contains(o.Key);
             }).ToList()
@@ -21,11 +21,11 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             {
                 o.Value.Value = 0;
             });
-            if (assessmentTest.OutcomeProcessingElement != null)
+            if (assessmentTest.Expressions  != null && assessmentTest.Expressions.Count > 0)
             {
-                foreach (var outcomeProcessingChildElement in assessmentTest.OutcomeProcessingElement.Elements())
+                foreach (var conditionalExpressions in assessmentTest.Expressions)
                 {
-                    context.Execute(outcomeProcessingChildElement);
+                    conditionalExpressions.Execute(ctx);
                 }
                 assessmentTest.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {
@@ -34,9 +34,9 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             }
             else
             {
-                context.LogInformation("No qti-outcome-processing found");
+                ctx.LogInformation("No qti-outcome-processing found");
             }
-            return context.AssessmentResult;
+            return ctx.AssessmentResult;
         }
     }
 }

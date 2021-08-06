@@ -6,9 +6,8 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Interfaces
 {
-    internal interface IExpression : IExpressionBase
+    internal interface IValueExpression : IExpressionBase
     {
-
         BaseValue Apply(IProcessingContext ctx);
     }
 }

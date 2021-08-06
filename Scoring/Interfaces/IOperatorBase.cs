@@ -7,6 +7,6 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
 {
     public interface IOperatorBase
     {
-        BaseValue Apply(BaseValue baseValue);
+        BaseValue Apply(List<BaseValue> baseValues);
     }
 }

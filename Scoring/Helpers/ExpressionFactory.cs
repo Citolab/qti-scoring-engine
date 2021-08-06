@@ -1,154 +1,82 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using Citolab.QTI.ScoringEngine.Interfaces;
-using Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions;
-using Citolab.QTI.ScoringEngine.Expressions.BaseValueExpression;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
+using Citolab.QTI.ScoringEngine.Model;
+using Citolab.QTI.ScoringEngine.Const;
 
 namespace Citolab.QTI.ScoringEngine.Helpers
 {
-    internal class ExpressionFactory
+    internal class ExpressionFactory : IExpressionFactory
     {
-        private readonly List<ICustomOperator> _addedCustomOperators;
-        private Dictionary<string, IExpression> ValueExpressions { get; set; }
-        private Dictionary<string, IConditionExpression> ConditionExpressions { get; set; }
         private readonly ILogger _logger;
-        public ExpressionFactory(List<ICustomOperator> addedCustomOperators, ILogger logger)
+
+
+        public ExpressionFactory(Dictionary<string, ICustomOperator> addedCustomOperators, ILogger logger)
         {
             _logger = logger;
-            _addedCustomOperators = addedCustomOperators ?? new List<ICustomOperator>() ;
-            SetupForResponseProcession();
+            if (addedCustomOperators != null)
+            {
+                foreach (var addedCustomOperator in addedCustomOperators)
+                {
+                    if (Mappings.CustomOperators.ContainsKey(addedCustomOperator.Key))
+                    {
+                        // override with added value
+                        Mappings.CustomOperators[addedCustomOperator.Key] = addedCustomOperator.Value;
+                    }
+                    else
+                    {
+                        Mappings.CustomOperators.Add(addedCustomOperator.Key, addedCustomOperator.Value);
+                    }
+                }
+            }
         }
 
-        public IExpression GetValueExpression(XElement qtiElement, bool logErrorIfNotFound)
+        public IConditionExpression GetConditionExpression(XElement qtiElement, bool logErrorIfNotFound)
         {
-            var tagName = qtiElement.Name.LocalName;
-            if (tagName == "qti-custom-operator")
+            if (Mappings.ConditionalExpressions.TryGetValue(qtiElement.Name.LocalName, out var condinalExpressionType))
             {
-                tagName = $"qti-custom-operator-{qtiElement.GetAttributeValue("definition")}";
-            }
-            if (ValueExpressions.TryGetValue(tagName, out var valueExpression))
-            {
-                _logger.LogInformation($"Processing {valueExpression.Name}");
-                return valueExpression;
-            }
-            if (logErrorIfNotFound)
-            {
-                _logger.LogError($"Cannot find expression for tag-name:{tagName}");
-            }
-            return null;
-        }
-
-        private IConditionExpression GetConditionExpression(XElement qtiElement, bool logErrorIfNotFound)
-        {
-            var tagName = qtiElement.Name.LocalName;
-            if (ConditionExpressions.TryGetValue(tagName, out var conditionExpression))
-            {
-                _logger.LogInformation($"Processing {conditionExpression.Name}");
+                var conditionExpression = (IConditionExpression)Activator.CreateInstance(condinalExpressionType);
+                conditionExpression.Init(qtiElement, this);
                 return conditionExpression;
             }
-            if (logErrorIfNotFound)
+            else
             {
-                _logger.LogError($"Cannot find expression for tag-name:{tagName}");
+                if (logErrorIfNotFound)
+                {
+                    _logger.LogError($"Cannot find condition expression with key: {qtiElement.Name.LocalName}");
+                }
+                return null;
             }
+        }
+
+        public ICustomOperator GetCustomOperator(string defintion)
+        {
+            if (Mappings.CustomOperators.ContainsKey(defintion))
+            {
+                return Mappings.CustomOperators[defintion];
+            }
+            _logger.LogError($"Cannot find customOperator with key: {defintion}");
             return null;
         }
 
-        private void SetupForResponseProcession()
+        public IValueExpression GetValueExpression(XElement qtiElement, bool logErrorIfNotFound)
         {
-            ConditionExpressions = GetConditionExpressions(new List<Type> { typeof(IOutcomeProcessingConditionExpression) });
-            SetupExpressions(typeof(IOutcomeProcessingExpression));
-        }
-
-       private static Dictionary<string, IConditionExpression> GetConditionExpressions(List<Type> excludedInterfaces)
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            return assemblies
-                  .SelectMany(s => s.GetTypes())
-                 .Where(p =>
-                 {
-                     var interfaces = p.GetInterfaces();
-                     if (interfaces != null)
-                     {
-                         return !p.IsInterface && interfaces.Contains(typeof(IConditionExpression)) &&
-                             !interfaces.Intersect(excludedInterfaces).Any();
-                     }
-                     return false;
-                 })
-                  .Select(t => (IConditionExpression)Activator.CreateInstance(t))
-                  .ToDictionary(e => e.Name, e => e);
-        }
-
-        // Helper for inside, handles circle shapes.
-
-        internal static Dictionary<string, IExpression> GetExpressions(List<Type> excludedInterfaces, List<ICustomOperator> addedCustomOperators)
-        {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            // get all classes that implement IExpression except for excluded like: 
-            // No ResponseProcessingExpression in Outcome processing and the other way around.
-            var expressionDictionary = assemblies
-                  .SelectMany(s => s.GetTypes())
-                  .Where(p =>
-                  {
-                      var interfaces = p.GetInterfaces();
-                      if (interfaces != null)
-                      {
-                          return !p.IsInterface && interfaces.Contains(typeof(IExpression)) &&
-                              !interfaces.Intersect(excludedInterfaces).Any();
-                      }
-                      return false;
-                  })
-                  .Select(t => (IExpression)Activator.CreateInstance(t))
-                  .ToDictionary(expression => expression.Name, expression => expression);
-            var operatorExpressions = assemblies
-                  .SelectMany(s => s.GetTypes())
-                  .Where(p => typeof(IOperator).IsAssignableFrom(p) && !p.IsInterface)
-                    .Select(t => (IOperator)Activator.CreateInstance(t))
-                    .Select(op => new OperatorWrapper(op, op.Name));
-
-            foreach (var operatorExpression in operatorExpressions)
+            if (Mappings.ValueExpressions.TryGetValue(qtiElement.Name.LocalName, out var valueExpressionType))
             {
-                if (expressionDictionary.ContainsKey(operatorExpression.Name))
-                    expressionDictionary[operatorExpression.Name] = operatorExpression;
-                else
-                    expressionDictionary.Add(operatorExpression.Name, operatorExpression);
+                var valueExpression = (IValueExpression)Activator.CreateInstance(valueExpressionType);
+                valueExpression.Init(qtiElement, this);
+                return valueExpression;
             }
-
-            if (addedCustomOperators == null)
+            else
             {
-                addedCustomOperators = new List<ICustomOperator>();
-            }
-
-            var customOperatorExpressions = assemblies
-                  .SelectMany(s => s.GetTypes())
-                  .Where(p => typeof(ICustomOperator).IsAssignableFrom(p) && !p.IsInterface)
-                  .Select(t => (ICustomOperator)Activator.CreateInstance(t))
-                  .Concat(addedCustomOperators)
-                  .Select(op => new OperatorWrapper(op, $"qti-custom-operator-{op.Definition}"));
-
-            foreach (var operatorExpression in customOperatorExpressions)
-            {
-                if (expressionDictionary.ContainsKey(operatorExpression.Name))
-                    expressionDictionary[operatorExpression.Name] = operatorExpression;
-                else
-                    expressionDictionary.Add(operatorExpression.Name, operatorExpression);
-            }
-            return expressionDictionary;
-        }
-
-        protected void SetupExpressions(Type typeToExcluded)
-        {
-            if (ValueExpressions == null)
-            {
-                ValueExpressions = GetExpressions(new List<Type>
-                    {
-                        typeToExcluded,
-                        typeof(IOperatorWrapper)
-                    }, _addedCustomOperators);
-
+                if (logErrorIfNotFound)
+                {
+                    _logger.LogError($"Cannot find value expression with key: {qtiElement.Name.LocalName}");
+                }
+                return null;
             }
         }
     }

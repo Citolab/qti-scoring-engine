@@ -14,26 +14,19 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
     /// <summary>
     /// All children should return true
     /// </summary>
-    internal class And : IConditionExpression
+    internal class And : ConditionExpressionBase
     {
-        public string Name => "qti-and";
-
-        public bool Execute(IProcessingContext ctx)
+        public override bool Execute(IProcessingContext ctx)
         {
-            foreach (var child in qtiElement.Elements())
+            foreach (var expression in conditionalExpressions)
             {
-                var result = ctx.CheckCondition(child);
+                var result = expression.Execute(ctx);
                 if (result == false) 
                 {
                     return false; // one condition false; return false
                 }
             }
             return true; // all children true; return true
-        }
-
-        public void Init(XElement qtiElement)
-        {
-            qtiElement.Elements().Select(childElement => ExpressionFactory.())
         }
     }
 }

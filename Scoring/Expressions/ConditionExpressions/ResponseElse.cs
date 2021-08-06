@@ -1,4 +1,5 @@
 ﻿using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,15 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class ResponseElse : IResponseProcessingConditionExpression
+    internal class ResponseElse : ConditionExpressionBase
     {
-        public string Name { get => "qti-response-else"; }
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.OutcomeProcessing };
+        public override bool Execute(IProcessingContext ctx)
         {
-            var elements = qtiElement.Elements();
-            var maxLoops = elements.Count() >= 100 ? 100 : elements.Count();
-            foreach (var child in qtiElement.Elements().Take(maxLoops)) // get a max value to
+            var maxLoops = conditionalExpressions.Count() >= 100 ? 100 : conditionalExpressions.Count();
+            foreach (var expression in conditionalExpressions.Take(maxLoops))
             {
-                context.Execute(child);
+                expression.Execute(ctx);
             }
             return true;
         }

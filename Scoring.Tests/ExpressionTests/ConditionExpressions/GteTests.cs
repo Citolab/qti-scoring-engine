@@ -16,18 +16,14 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
-
             var gte = new Gte();
-
-            context.ConditionExpressions.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<qti-gte></qti-gte>");
             gteElement.Add(1.0F.ToBaseValue().ToXElement());
             gteElement.Add(0.0F.ToBaseValue().ToXElement());
             // act
-            var result = gte.Execute(gteElement, context);
-
+            gte.Init(gteElement, TestHelper.GetExpressionFactory());
+            var result = gte.Execute(context);
             //assert
             Assert.True(result);
         }
@@ -36,17 +32,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var gte = new Gte();
-
-            context.ConditionExpressions.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<qti-gte></qti-gte>");
             gteElement.Add(0.0F.ToBaseValue().ToXElement());
             gteElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
-            var result = gte.Execute(gteElement, context);
+            gte.Init(gteElement, TestHelper.GetExpressionFactory());
+            var result = gte.Execute(context);
 
             //assert
             Assert.False (result);
@@ -56,17 +50,15 @@ namespace ScoringEngine.Tests.ExpressionsTests.ConditionExpressions
         {
             // arrange
             var context = TestHelper.GetDefaultResponseProcessingContext(null);
-            context.ConditionExpressions = new Dictionary<string, IConditionExpression>();
 
             var gte = new Gte();
-
-            context.ConditionExpressions.Add(gte.Name, gte);
 
             var gteElement = XElement.Parse("<qti-gte></qti-gte>");
             gteElement.Add(1.0F.ToBaseValue().ToXElement());
             gteElement.Add(1.0F.ToBaseValue().ToXElement());
             // act
-            var result = gte.Execute(gteElement, context);
+            gte.Init(gteElement, TestHelper.GetExpressionFactory());
+            var result = gte.Execute(context);
 
             //assert
             Assert.True(result);

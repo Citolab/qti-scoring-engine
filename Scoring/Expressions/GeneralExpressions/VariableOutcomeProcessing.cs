@@ -1,4 +1,5 @@
-﻿using Citolab.QTI.ScoringEngine.Helpers;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.OutcomeProcessing;
@@ -11,18 +12,17 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
-    internal class VariableOutcomeProcessing : IOutcomeProcessingExpression
+    internal class VariableOutcomeProcessing :  ValueExpressionBase
     {
-        private string _identifier;
-        private string _weightIdentifier;
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.ResponseProcessig };
 
-        public string Name => "qti-variable";
-
-        public BaseValue Apply(IProcessingContext ctx)
+        public override BaseValue Apply(IProcessingContext ctx)
         {
-            if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(_identifier))
+            var identifier = GetAttributeValue("identifier");
+            var weightIdentifier = GetAttributeValue("weight-identifier");
+            if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(identifier))
             {
-                return ctx.OutcomeVariables[_identifier].ToBaseValue();
+                return ctx.OutcomeVariables[identifier].ToBaseValue();
             }
             else                // it is probably itemResult outcome.
             {
@@ -31,27 +31,20 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 // the only expression that differ that much between outcome and responseProcessing
                 var outcomeProcessorContext = (OutcomeProcessorContext)ctx;
 
-                var splittedIdentifier = _identifier.Split('.');
+                var splittedIdentifier = identifier.Split('.');
                 if (splittedIdentifier.Length > 1)
                 {
                     var itemIdentifier = string.Join(".", splittedIdentifier.Take(splittedIdentifier.Length - 1));
                     var outcomeIdentifier = splittedIdentifier[splittedIdentifier.Length - 1];
                     
-                    return outcomeProcessorContext.GetItemResultBaseValue(itemIdentifier, outcomeIdentifier, _weightIdentifier);
+                    return outcomeProcessorContext.GetItemResultBaseValue(itemIdentifier, outcomeIdentifier, weightIdentifier);
                 }
                 else
                 {
-                    ctx.LogError($"Cannot find variable {_identifier}");
+                    ctx.LogError($"Cannot find variable {identifier}");
                     return 0.0F.ToBaseValue();
                 }
             }
-        }
-
-
-        public void Init(XElement qtiElement)
-        {
-            _identifier = qtiElement.Identifier();
-            _weightIdentifier = qtiElement.GetAttributeValue("weight-identifier");
         }
     }
 }

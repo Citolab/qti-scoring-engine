@@ -5,16 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Interfaces;
+using Citolab.QTI.ScoringEngine.Model;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
 {
-    internal class OutcomeCondition : IOutcomeProcessingConditionExpression
+    internal class OutcomeCondition : ResponseCondition
     {
-        public string Name { get => "qti-outcome-condition"; }
-
-        public bool Execute(XElement qtiElement, IProcessingContext context)
-        {
-            return new ResponseCondition().Execute(qtiElement, context);
-        }
+        public override List<ProcessingType> UnsupportedProcessingTypes => new List<ProcessingType> { ProcessingType.ResponseProcessig };
     }
 }
