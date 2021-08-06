@@ -48,7 +48,7 @@ namespace Console.Scoring
                 Logger = _logger
             });
             sw.Stop();
-            _logger.LogInformation($"Total elapesed seconds: { sw.ElapsedMilliseconds / 1000}");
+            _logger.LogInformation($"Total elapsed seconds: { sw.ElapsedMilliseconds / 1000}");
             // write the output result
             var newBaseDir = Path.Combine(_settings.AssessmentResultFolderLocation, "processed");
             if (!Directory.Exists(newBaseDir))

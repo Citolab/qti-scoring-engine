@@ -39,6 +39,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             if (Mappings.ConditionalExpressions.TryGetValue(qtiElement.Name.LocalName, out var condinalExpressionType))
             {
                 var conditionExpression = (IConditionExpression)Activator.CreateInstance(condinalExpressionType);
+                _logger.LogInformation($"Setting up {qtiElement.Name.LocalName}");
                 conditionExpression.Init(qtiElement, this);
                 return conditionExpression;
             }
@@ -67,6 +68,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             if (Mappings.ValueExpressions.TryGetValue(qtiElement.Name.LocalName, out var valueExpressionType))
             {
                 var valueExpression = (IValueExpression)Activator.CreateInstance(valueExpressionType);
+                _logger.LogInformation($"Setting up {qtiElement.Name.LocalName}");
                 valueExpression.Init(qtiElement, this);
                 return valueExpression;
             }
