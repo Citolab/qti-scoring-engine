@@ -34,6 +34,24 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50066", "SCORE");
             Assert.Equal("1", scoreValue);
         }
+        /// <summary>
+        /// BUG: https://github.com/Citolab/qti-scoring-engine/issues/1
+        /// </summary>
+        [Fact]
+        public void Rescore_Update_No_Double_Outcomes()
+        {
+            var logger = new Mock<ILogger>().Object;
+
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_Update_OutcomeVariable.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-50066.xml")), TestHelper.GetExpressionFactory());
+
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+            var itemResult = assessmentResult.FindElementsByElementAndAttributeValue("itemResult", "identifier", "ITM-50066").FirstOrDefault();
+            var numberOfOutcomeScoreTotalElements = itemResult.FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", "SCORE").Count();
+
+            Assert.Equal(1, numberOfOutcomeScoreTotalElements);
+        }
 
         [Fact]
         public void Rescore_Update_OutcomeVariable_Incorrect()

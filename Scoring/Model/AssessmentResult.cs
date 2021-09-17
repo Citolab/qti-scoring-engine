@@ -103,11 +103,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
                 } else
                 {
-                    outcomeVariable.RemoveNodes();
-                    foreach(var outcomeChild in outcome.ToElement().Elements())
-                    {
-                        outcomeVariable.Add(outcomeChild);
-                    }
+                    outcomeVariable.ReplaceWith(outcome.ToElement());
                   
                 }
                 //if (outcome.Value != null)
@@ -132,8 +128,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
                 if (outcomeVariable != null)
                 {
-                    outcomeVariable.Descendants().FirstOrDefault()?.Remove();
-                    outcomeVariable.Add(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace())); // get rid of XCData 
+                    outcomeVariable.ReplaceWith(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));       
                 }
                 else
                 {

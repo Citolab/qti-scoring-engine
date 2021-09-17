@@ -8,15 +8,18 @@
 
   <ItemGroup>
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_BaseType_Check.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Correct.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Incorrect.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable_With_Score.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\SN02945.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\SN02946.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_toets.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets2-Weight.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets2.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Float.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
@@ -74,6 +77,12 @@
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Invalid_ItemRef.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable_With_Score.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_BaseType_Check.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Update_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -81,6 +90,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\SN02946.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_Float.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets.xml">

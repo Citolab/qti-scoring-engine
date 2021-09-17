@@ -204,6 +204,11 @@ namespace Citolab.QTI.ScoringEngine.Tests
             };
         }
 
+        internal static XAttribute GetAttribute(this XElement el, string name)
+        {
+            return el.Attributes()
+                .FirstOrDefault(a => a.Name.LocalName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
 
         internal static OutcomeVariable ToOutcomeVariable(this float value, string identifier = "SCORE")
         {

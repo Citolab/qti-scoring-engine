@@ -80,7 +80,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             Assert.Equal("0", categoryWeightedScoreValue);
         }
 
-       
+
         /// <summary>
         /// Verify that all assessmentItemRef's and Categories can be found, even in a nested structure
         /// Verify that all scores are correct including the categorie scores
@@ -115,6 +115,33 @@ namespace Citolab.QTI.ScoringEngine.Tests.OutcomeProcessingTests
             Assert.Equal("0", assessmentResult.GetScoreForTest("TST-Test_toets", "SCORE_TOTAL_WEIGHTED"));
         }
 
+        /// <summary>
+        /// BUG: https://github.com/Citolab/qti-scoring-engine/issues/1
+        /// </summary>
+        [Fact]
+        public void OutcomeProcessing_Replaces_Score()
+        {
+            var assessmentResult = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_Update_OutcomeVariable_With_Score");
+            var numberOfOutcomeScoreTotalElements = assessmentResult.FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", "SCORE_TOTAL").Count();
+            var numberOfOutcomeScoreElements = assessmentResult.FindElementByName("testResult").FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", "SCORE").Count();
+
+            Assert.Equal(1, numberOfOutcomeScoreTotalElements);
+            Assert.Equal(1, numberOfOutcomeScoreElements);
+        }
+
+
+        [Fact]
+        public void OutcomeProcessing_Correct_BaseType()
+        {
+            var assessmentResultFloat = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets_Float", "AssessmentResult_BaseType_Check");
+            var assessmentResultInteger = TestHelper.AddVariablesAndStartOutcomeProcessing("Test_Toets", "AssessmentResult_BaseType_Check");
+
+            var baseTypeFloat = assessmentResultFloat.FindElementByName("testResult").FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", "SCORE").First().GetAttributeValue("baseType");
+            var baseTypeInteger = assessmentResultInteger.FindElementByName("testResult").FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", "SCORE").First().GetAttributeValue("baseType");
+           
+            Assert.Equal("float", baseTypeFloat);
+            Assert.Equal("integer", baseTypeInteger);
+        }
 
         /// <summary>
         /// Verify that items with empty category are added to the total score of the session
