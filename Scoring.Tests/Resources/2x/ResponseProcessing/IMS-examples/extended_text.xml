@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2  http://www.imsglobal.org/xsd/qti/qtiv2p2/imsqti_v2p2p2.xsd"
+	identifier="extendedTextEntry" title="Richard III (Take 3)" adaptive="false" timeDependent="false">
+	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+	<itemBody>
+	<extendedTextInteraction responseIdentifier="RESPONSE" expectedLength="200">
+		<prompt>Write Sam a postcard. Answer the questions. Write 25-35 words.</prompt>
+	</extendedTextInteraction>
+	</itemBody>
+</assessmentItem>

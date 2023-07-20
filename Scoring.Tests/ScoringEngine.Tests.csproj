@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -50,6 +50,8 @@
     <None Remove="Resources\2x\ResponseProcessing\ITM-50069.xml" />
     <None Remove="Resources\2x\ResponseProcessing\ITM-50069_Mapping.xml" />
     <None Remove="Resources\2x\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Manual_Scored.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\IMS-examples\extended_text.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -191,6 +193,12 @@
     <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Manual_Scored.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\IMS-examples\extended_text.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -268,6 +276,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\2x\ResponseProcessing\IMS-examples\text_entry.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\2x\ResponseProcessing\IMS-examples\text_entry %28copy%29.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

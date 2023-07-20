@@ -18,6 +18,7 @@
 		<PackageTags>QTI scoring IMS Citolab</PackageTags>
 		<PackageIcon>citolab.png</PackageIcon>
 		<PackageIconUrl />
+		<Configurations>Release;Debug</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -11,6 +11,8 @@ using Citolab.QTI.ScoringEngine.ResponseProcessing;
 using Microsoft.Extensions.Logging;
 using Citolab.QTI.ScoringEngine.Helpers;
 using System;
+using Castle.Core.Logging;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Citolab.QTI.ScoringEngine.Tests.Business
 {
@@ -113,7 +115,18 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             Assert.Equal("1", scoreValue);
         }
 
-           
+        [Fact]
+        public void NoResponseDeclaringDontChangeManualScore()
+        {
+            var logger = new Mock<ILogger>().Object;
+            var assessmentResult = new AssessmentResult(logger, XDocument.Load(File.OpenRead("Resources/2x/OutcomeProcessing/AssessmentResult_Manual_Scored.xml")));
+            var assessmentItem = new AssessmentItem(logger, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/IMS-examples/extended_text.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+            var scoreValue = assessmentResult.GetScoreForItem("extendedTextEntry", "SCORE");
+            Assert.Equal("2", scoreValue);
+        }
+
 
         /// <summary>
         /// Verify that the score is equal to zero and everything work without a candidateResponse node
@@ -132,6 +145,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var scoreValue = assessmentResult.GetScoreForItem("ITM-50069", "SCORE");
             Assert.Equal("0", scoreValue);
         }
+
 
       
 
