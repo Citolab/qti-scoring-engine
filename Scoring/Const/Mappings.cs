@@ -63,10 +63,13 @@ namespace Citolab.QTI.ScoringEngine.Const
            {
                 { "depcp:ParseCommaDecimal", new ParseCommaDecimal() },
                 { "questify:ParseCommaDecimal", new ParseCommaDecimal() },
+                { "qade:ParseCommaDecimal", new ParseCommaDecimal() },
                 { "depcp:ToAscii", new ToAscii() },
                 { "questify:ToAscii", new ToAscii() },
+                { "qade:ToAscii", new ToAscii() },
                 { "depcp:Trim", new Trim() },
-                { "questify:Trim", new Trim() }
+                { "questify:Trim", new Trim() },
+                { "qade:Trim", new Trim() }
            };
     }
 }
