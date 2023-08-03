@@ -16,6 +16,8 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/Citolab/qti-scoring-engine</PackageProjectUrl>
 		<PackageTags>QTI scoring IMS Citolab</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
 		<PackageIcon>citolab.jpeg</PackageIcon>
 		<PackageIconUrl />
 		<Configurations>Release;Debug</Configurations>
