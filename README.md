@@ -242,6 +242,6 @@ handles:
 ```
 
  There are three example implementations in this engine:
- - depcp:Trim|questify:Trim: Trims the value
- - depcp:ToAscii|questify:ToAscii: Handlers diacritics
- - depcp:ParseCommaDecimal|questify:ParseCommaDecimal: Replaces , to .
+ - depcp:Trim|questify:Trim|qade:Trim: Trims the value
+ - depcp:ToAscii|questify:ToAscii|questify:qade: Handlers diacritics
+ - depcp:ParseCommaDecimal|questify:ParseCommaDecimal|qade:ParseCommaDecimal: Replaces , to .
