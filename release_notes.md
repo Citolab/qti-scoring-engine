@@ -1,3 +1,9 @@
+## 1.2.0
+* upgraded to netstandard2.1
+* don't update itemResults when variable is manual set: attribute and value: external-scored="human"
+* itemRef weigths can be of type: float.
+* added support for custom operators with prefix: qade
+
 ## 1.1.0
 * Refactored for better (batch) performence:
     * don't use reflection to find exectors

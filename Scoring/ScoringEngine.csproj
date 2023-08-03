@@ -5,9 +5,9 @@
 		<RootNamespace>Citolab.QTI.ScoringEngine</RootNamespace>
 		<ProjectGuid>{2A7091CD-6A49-4B7B-85BB-A140C8B5397C}</ProjectGuid>
 		<PackageId>Citolab.QTI.ScoringEngine</PackageId>
-		<Version>1.1.1</Version>
+		<Version>1.2.-</Version>
 		<Company>Cito</Company>
-		<Copyright>Stichting Cito Instituut voor Toetsontwikkeling, Arnhem (2021)</Copyright>
+		<Copyright>Stichting Cito Instituut voor Toetsontwikkeling, Arnhem (2023)</Copyright>
 		<Authors>Citolab</Authors>
 		<PackageDescription>Package to score QTI assessmentResults</PackageDescription>
 		<RepositoryUrl>https://github.com/Citolab/qti-scoring-engine</RepositoryUrl>
