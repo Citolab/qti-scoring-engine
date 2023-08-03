@@ -17,7 +17,6 @@
 		<PackageProjectUrl>https://github.com/Citolab/qti-scoring-engine</PackageProjectUrl>
 		<PackageTags>QTI scoring IMS Citolab</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
 		<PackageIcon>citolab.jpeg</PackageIcon>
 		<PackageIconUrl />
 		<Configurations>Release;Debug</Configurations>
@@ -34,26 +33,26 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
 	</ItemGroup>
-	
-<ItemGroup>
-  <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-  <_Parameter1>ScoringEngine.Tests</_Parameter1>
-  </AssemblyAttribute>
-</ItemGroup>
-	
-<ItemGroup>
-  <None Include="..\citolab.jpeg">
-    <Pack>True</Pack>
-    <PackagePath></PackagePath>
-  </None>
-  <None Include="..\README.md">
-    <Pack>True</Pack>
-    <PackagePath></PackagePath>
-  </None>
-  <None Include="..\LICENSE">
-    <Pack>True</Pack>
-    <PackagePath></PackagePath>
-  </None>
-</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>ScoringEngine.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\citolab.jpeg">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>
