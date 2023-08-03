@@ -23,7 +23,7 @@
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Multiple_Subsections.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
-    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_TestVariables_Weight.xml" />
+    <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Weight_Float.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_Without_Weights.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_With_Empty_Category.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\Test_Toets_With_Unused_Category.xml" />
@@ -95,6 +95,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_Float.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets_Weight_Float.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\Test_Toets.xml">
@@ -228,6 +231,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\30\ResponseProcessing\IMS-examples\graphic-gap-match-qti3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\30\ResponseProcessing\IMS-examples\assessment_result_external_machine.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\30\ResponseProcessing\IMS-examples\assessment_result_human.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\30\ResponseProcessing\IMS-examples\text-entry-qti3.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\imsmanifest.xml">

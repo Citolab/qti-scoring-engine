@@ -42,7 +42,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                        Weights = assessmentItemRefElement.FindElementsByName("qti-weight").Select(weight =>
                        {
                            var weightString = weight.GetAttributeValue("value");
-                           if (int.TryParse(weightString, out var weightValue))
+                           if (float.TryParse(weightString, out var weightValue))
                            {
                                return new { Value = weightValue, Identifier = weight.Identifier() };
                            }

@@ -101,7 +101,11 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     outcomeVariable = outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
                     itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
-                } else
+                } else if (outcomeVariable.GetAttributeValue("external-scored") == "human") {
+                    // leave human scored outcomes alone
+                    // do nothing
+                }
+                 else
                 {
                     outcomeVariable.ReplaceWith(outcome.ToElement());
                   
