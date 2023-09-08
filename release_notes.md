@@ -1,3 +1,6 @@
+## 1.2.1
+* fixed parsing float fails on specific cultures
+
 ## 1.2.0
 * upgraded to netstandard2.1
 * don't update itemResults when variable is manual set: attribute and value: external-scored="human"
