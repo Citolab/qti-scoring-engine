@@ -332,3 +332,6 @@ ASALocalRun/
 .localhistory/
 Console.ScoringEngine/appsettings.local.json
 nuget.config
+
+# NCrunch extension
+*.ncrunchsolution
