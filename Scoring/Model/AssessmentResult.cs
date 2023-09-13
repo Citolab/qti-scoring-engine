@@ -1,14 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using Citolab.QTI.ScoringEngine.Const;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.ResponseProcessing;
+using Microsoft.Extensions.Logging;
 
 namespace Citolab.QTI.ScoringEngine.Model
 {
@@ -20,6 +16,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public string SourcedId { get; set; }
 
         private readonly ILogger _logger;
+
         public AssessmentResult(ILogger logger, XDocument assessmentResult) : base(assessmentResult)
         {
             _logger = logger;
@@ -37,6 +34,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                   return GetResult<ItemResult>(itemResultElement);
               }).ToDictionary(itemResult => itemResult.Identifier, itemResult => itemResult);
         }
+
         public void InitTestResults()
         {
             TestResults = Root
@@ -101,14 +99,15 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     outcomeVariable = outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
                     itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
-                } else if (outcomeVariable.GetAttributeValue("external-scored") == "human") {
+                }
+                else if (outcomeVariable.GetAttributeValue("external-scored") == "human")
+                {
                     // leave human scored outcomes alone
                     // do nothing
                 }
-                 else
+                else
                 {
-                    outcomeVariable.ReplaceWith(outcome.ToElement());
-                  
+                    outcomeVariable.ReplaceWith(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
                 }
                 //if (outcome.Value != null)
                 //{
@@ -132,7 +131,7 @@ namespace Citolab.QTI.ScoringEngine.Model
 
                 if (outcomeVariable != null)
                 {
-                    outcomeVariable.ReplaceWith(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));       
+                    outcomeVariable.ReplaceWith(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
                 }
                 else
                 {
@@ -159,7 +158,6 @@ namespace Citolab.QTI.ScoringEngine.Model
                                {
                                    return new OutcomeVariable
                                    {
-
                                        Identifier = outcomeVariable.Identifier(),
                                        BaseType = outcomeVariable.GetAttributeValue("baseType").ToBaseType(),
                                        Cardinality = outcomeVariable.GetAttributeValue("cardinality").ToCardinality(),
