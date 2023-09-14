@@ -1,3 +1,6 @@
+## 1.2.2
+* fixed empty xmlns in assessmentResult
+* 
 ## 1.2.1
 * fixed parsing float fails on specific cultures
 
