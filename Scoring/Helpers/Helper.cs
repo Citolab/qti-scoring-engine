@@ -98,6 +98,10 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static bool CompareSingleValues(string value1, string value2, BaseType baseType, IProcessingContext logContext)
         {
+            if (string.IsNullOrEmpty(value1) || string.IsNullOrEmpty(value2))
+            {
+                return false;
+            }
             switch (baseType)
             {
                 case BaseType.Identifier: return value1 == value2;
@@ -222,7 +226,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return (values[0], values[1]);
         }
 
-         public static bool ValueIsMemberOf(List<IValueExpression> expressions, IProcessingContext ctx, Dictionary<string, string> attributes, BaseType? forceBaseType = null)
+        public static bool ValueIsMemberOf(List<IValueExpression> expressions, IProcessingContext ctx, Dictionary<string, string> attributes, BaseType? forceBaseType = null)
         {
             var values = PrepareForCompare(expressions, ctx, attributes, forceBaseType);
             if (values == null)
@@ -257,7 +261,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
         }
 
 
-    
+
 
     }
 }

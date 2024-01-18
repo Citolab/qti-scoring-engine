@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" timeDependent="false"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../controlxsds/imsqti_v2p1.xsd"
+  adaptive="false" title="equal" identifier="ITM_equal"
+  xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1">
+  <responseDeclaration baseType="integer" cardinality="single" identifier="RESPONSE">
+    <correctResponse interpretation="3">
+      <value>3</value>
+    </correctResponse>
+  </responseDeclaration>
+  <responseDeclaration baseType="integer" cardinality="single" identifier="RESPONSE2">
+    <correctResponse interpretation="8">
+      <value>8</value>
+    </correctResponse>
+  </responseDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="SCORE" baseType="integer">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="ItemFunctionalType" baseType="string">
+    <defaultValue>
+      <value>Regular</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="ScorableCategories" baseType="string">
+    <defaultValue>
+      <value>DI_IH_LIBDST_SD_8061 DI_IH_LIBDST_D_REKENEN</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <stylesheet href="../css/cito_userstyle.css" type="text/css" />
+  <stylesheet href="../css/cito_generated.css" type="text/css" />
+  <itemBody class="defaultBody">
+    <div class="content">
+      <object type="audio/mpeg" data="../audio/R80193.mp3" class="texttospeechcenter" />
+      <div class="itemcontainer">
+        <div class="itemcontent ">
+          <div class="questify_textAndInteractionsWrapper">
+            <p>
+              <textEntryInteraction class=" input-aids__numeric input-aids--readOnly"
+                patternMask="^([0-9]{1,5})?$" responseIdentifier="RESPONSE" expectedLength="6" />
+              <span class="cito_genclass_R80193_1">
+                <br />
+              </span>
+              <span class="cito_genclass_R80193_2">                   </span>
+            </p>
+            <p>
+              <textEntryInteraction class=" input-aids__numeric input-aids--readOnly"
+                patternMask="^([0-9]{1,5})?$" responseIdentifier="RESPONSE2" expectedLength="6" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </itemBody>
+  <responseProcessing>
+    <responseCondition>
+      <responseIf>
+        <and>
+          <equal toleranceMode="exact">
+            <variable identifier="RESPONSE" />
+            <baseValue baseType="integer">10</baseValue>
+          </equal>
+          <equal toleranceMode="exact">
+            <variable identifier="RESPONSE2" />
+            <baseValue baseType="integer">15</baseValue>
+          </equal>
+        </and>
+        <setOutcomeValue identifier="SCORE">
+          <sum>
+            <baseValue baseType="integer">1</baseValue>
+            <variable identifier="SCORE" />
+          </sum>
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+    <responseCondition>
+      <responseIf>
+        <gte>
+          <variable identifier="SCORE" />
+          <baseValue baseType="integer">1</baseValue>
+        </gte>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="integer">1</baseValue>
+        </setOutcomeValue>
+      </responseIf>
+      <responseElse>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="integer">0</baseValue>
+        </setOutcomeValue>
+      </responseElse>
+    </responseCondition>
+  </responseProcessing>
+</assessmentItem>

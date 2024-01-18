@@ -1,0 +1,28 @@
+<assessmentResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0">
+  <context sourcedId="CANDIDATE-111">
+    <sessionIdentifier sourceID="AWBId" identifier="SESSION-88" />
+    <sessionIdentifier sourceID="afnameId" identifier="SESSION-000" />
+  </context>
+  <testResult identifier="TST-DST2024_pap_v1_test" datestamp="2024-01-17T15:36:14.8452833+01:00">
+    <outcomeVariable identifier="AFNAME_DATUM" cardinality="single">
+      <value>2024-2-6</value>
+    </outcomeVariable>
+  </testResult>
+  <itemResult identifier="ITM-equal" sequenceIndex="6" datestamp="2024-01-17T15:36:14.8452434+01:00"
+    sessionStatus="final">
+    <responseVariable identifier="numAttempts" cardinality="single">
+      <candidateResponse>
+        <value>1</value>
+      </candidateResponse>
+    </responseVariable>
+    <outcomeVariable identifier="completionStatus" cardinality="single">
+      <value>completed</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="SCORE" cardinality="single" baseType="integer"
+      external-scored="human">
+      <value>1</value>
+    </outcomeVariable>
+  </itemResult>
+</assessmentResult>

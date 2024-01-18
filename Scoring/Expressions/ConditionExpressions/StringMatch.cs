@@ -21,16 +21,17 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                     caseSensitive = true;
                 }
                 var values = expressions.Select(e => e.Apply(ctx)).ToList();
-                var value1 = caseSensitive ? values[0].Value : values[0].Value.ToLower();
-                var value2 = caseSensitive ? values[1].Value : values[1].Value.ToLower();
+                var value1 = caseSensitive ? values[0]?.Value : values[0].Value?.ToLower();
+                var value2 = caseSensitive ? values[1]?.Value : values[1].Value?.ToLower();
 
                 return Helper.CompareSingleValues(value1, value2, Model.BaseType.String, ctx);
-            } else
+            }
+            else
             {
                 ctx.LogError($"Unexpected number of childElements: {expressions.Count}, expected: 2");
                 return false;
             }
-          
+
         }
 
     }

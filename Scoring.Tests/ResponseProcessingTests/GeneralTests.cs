@@ -180,6 +180,24 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             Assert.Equal("1", scoreValue);
         }
 
+        [Fact]
+        public void ResponseProcessing_DST_Human()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/AssessmentResult_DST_pap.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/2x/ResponseProcessing/ITM-equal.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("ITM-equal", "SCORE");
+            // variable should be untouched when human scored
+            Assert.Equal("1", scoreValue);
+        }
+
+
+
+
         [Theory]
         [InlineData("Resources/30/ResponseProcessing/IMS-examples/assessment_result_external_machine.xml", "Resources/30/ResponseProcessing/IMS-examples/text-entry-qti3.xml")]
         [InlineData("Resources/2x/ResponseProcessing/AssessmentResult_Update_OutcomeVariable.xml", "Resources/2x/ResponseProcessing/ITM-50066.xml")]

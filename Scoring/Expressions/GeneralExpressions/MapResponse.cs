@@ -12,7 +12,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
     internal class MapResponse : ValueExpressionBase
     {
-       public override BaseValue Apply(IProcessingContext ctx)
+        public override BaseValue Apply(IProcessingContext ctx)
         {
             var identifier = GetAttributeValue("identifier");
             if (ctx.ResponseDeclarations.ContainsKey(identifier) &&

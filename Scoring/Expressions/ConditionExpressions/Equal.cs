@@ -24,8 +24,9 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
             {
                 var value1 = expressions[0]?.Apply(ctx);
                 var value2 = expressions[1]?.Apply(ctx);
-                return Helper.CompareSingleValues(value1.Value, value2.Value, Model.BaseType.Float, ctx);
-            } else
+                return Helper.CompareSingleValues(value1?.Value, value2?.Value, Model.BaseType.Float, ctx);
+            }
+            else
             {
                 ctx.LogError($"Unexpected number of childElements: {expressions.Count}");
                 return false;

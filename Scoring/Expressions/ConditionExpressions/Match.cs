@@ -19,7 +19,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
             {
                 var valueToMap = values[0];
                 var correctValueInfo = values[1];
-                
+
                 if (valueToMap == null)
                 {
                     ctx.LogError("No value for first child of match element");
@@ -27,7 +27,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 }
                 if (correctValueInfo.Cardinality == null || correctValueInfo.Cardinality == Cardinality.Single)
                 {
-                    return Helper.CompareSingleValues(valueToMap.Value, correctValueInfo.Value, correctValueInfo.BaseType, ctx);
+                    return Helper.CompareSingleValues(valueToMap?.Value, correctValueInfo?.Value, correctValueInfo.BaseType, ctx);
                 }
                 else
                 {
@@ -50,7 +50,8 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                             {
                                 return false;
                             }
-                        } else
+                        }
+                        else
                         {
                             // sequence does not matter, find value somewhere in the array
                             // and remove when found.
@@ -67,11 +68,12 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                             if (matchingValue != null)
                             {
                                 valuesToBeMapped.Remove(matchingValue);
-                            } else
+                            }
+                            else
                             {
                                 return false;
                             }
-      
+
                         }
                         answerIndex++;
                     }

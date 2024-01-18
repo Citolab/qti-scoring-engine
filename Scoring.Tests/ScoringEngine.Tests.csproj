@@ -35,6 +35,7 @@
     <None Remove="Resources\2x\ResponseProcessing\210091-CustomOperator.xml" />
     <None Remove="Resources\2x\ResponseProcessing\210091.xml" />
     <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Add_OutcomeVariable.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_DST_pap.xml" />
     <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Interpolation.xml" />
     <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Mapping_A.xml" />
     <None Remove="Resources\2x\ResponseProcessing\AssessmentResult_Multiple_Responses_01.xml" />
@@ -52,6 +53,7 @@
     <None Remove="Resources\2x\ResponseProcessing\ITM-50069_Mapping_No_Correct_Response.xml" />
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Manual_Scored.xml" />
     <None Remove="Resources\2x\ResponseProcessing\IMS-examples\extended_text.xml" />
+    <None Remove="Resources\2x\ResponseProcessing\ITM_equal.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,6 +72,10 @@
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Add_OutcomeVariable.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\AssessmentResult_DST_pap.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="Resources\2x\OutcomeProcessing\AssessmentResult_Correct.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -200,6 +206,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\ResponseProcessing\IMS-examples\extended_text.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-equal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
