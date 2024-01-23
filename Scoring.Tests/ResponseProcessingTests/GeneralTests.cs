@@ -218,7 +218,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         {
             var mockLogger = new Mock<ILogger>();
 
-            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/assessmentesult_DOE.xml")));
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/assessmentresult_DOE.xml")));
             var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml")), TestHelper.GetExpressionFactory());
 
             assessmentResult.ChangeResponse("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "RESPONSE", "_a65fab45-67d1-4bbd-92e0-47a8eef2d72b");
