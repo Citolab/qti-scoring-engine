@@ -55,6 +55,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                 // TODO: check type
                 outcome.DefaultValue = defaultValue.Value;
             }
+            else
+            {
+                outcome.DefaultValue = outcome.GetDefaultValueIfNoValueIsSet();
+            }
             var interpolationTable = outcomeDeclaration.FindElementsByName("qti-interpolation-table").FirstOrDefault();
             if (interpolationTable != null)
             {

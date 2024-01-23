@@ -54,6 +54,8 @@
     <None Remove="Resources\2x\OutcomeProcessing\AssessmentResult_Manual_Scored.xml" />
     <None Remove="Resources\2x\ResponseProcessing\IMS-examples\extended_text.xml" />
     <None Remove="Resources\2x\ResponseProcessing\ITM_equal.xml" />
+    <None Remove="Resources\30\ResponseProcessing\d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml" />
+    <None Remove="Resources\30\ResponseProcessing\assessmentresult_DOE.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -210,6 +212,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\2x\ResponseProcessing\ITM-equal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\assessmentresult_DOE.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

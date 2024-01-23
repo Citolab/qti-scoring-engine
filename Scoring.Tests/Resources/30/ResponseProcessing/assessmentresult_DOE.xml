@@ -1,0 +1,1857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0">
+	<context sourcedId="CANDIDATE-ab797ff1-d671-4c36-aaf5-6d67a73b7816">
+		<sessionIdentifier sourceID="AWBId" identifier="SESSION-100000005"/>
+		<sessionIdentifier sourceID="afnameId" identifier="SESSION-ca466326-8e9c-4d07-842d-1723d4e6f671"/>
+	</context>
+	<testResult identifier="_2c5fa3d8-7a09-4df3-8e16-3dc4135858d6" datestamp="2024-01-22T15:15:40.8538631+01:00">
+		<outcomeVariable identifier="AFNAME_DATUM" cardinality="single">
+			<value>2024-2-6</value>
+		</outcomeVariable>
+	</testResult>
+	<itemResult identifier="_ddd07e46-7ca7-410c-9e72-4fa5603851ec" sequenceIndex="1" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_23ca6ea5-5488-4de3-bd51-857ec0681c06" sequenceIndex="2" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b6e053c9-cf19-4000-89a5-7b8ec9e96972" sequenceIndex="3" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_efaafb53-5fd9-47dd-a88b-3b8dd4ceecc0" sequenceIndex="4" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_ae8a4990-8654-46ff-81f3-7a2aa8ab726e" sequenceIndex="5" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_4ecf0090-6222-4420-9b50-bd2abee174ea" sequenceIndex="6" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_4ee7e6bd-0753-41ba-8ff2-e3797375ea35" sequenceIndex="7" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b58a7db3-6978-4cfc-9ca2-535e95192fb6" sequenceIndex="8" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_0c881ba6-12fc-4cf0-a3cb-690692d0a8cf" sequenceIndex="9" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_148cc139-2e0e-402f-901f-c3cc953ac6d8" sequenceIndex="10" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b722062d-87f5-4fd4-9c17-0095907f72a7" sequenceIndex="11" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b970efc6-6dd5-4951-b38f-c03a19975c60" sequenceIndex="12" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_6fea6606-2360-43f5-a508-60aa18558081" sequenceIndex="13" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_aabab683-c334-42a2-908f-720b5ac4f923" sequenceIndex="14" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_e940db51-51e9-4754-b53e-75717780925e" sequenceIndex="15" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9dc0647b-53ac-49c5-b0d9-13d198aacee7" sequenceIndex="16" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_7cf264e1-905e-4084-9d3d-553144aabeee" sequenceIndex="17" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_44d91855-7dc7-4d0b-85cf-97e93b76d85d" sequenceIndex="18" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_3b9ac418-273a-45e3-bf05-65150fad6b6b" sequenceIndex="19" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_8402112a-594b-4ff9-9548-109df9646e69" sequenceIndex="20" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_8b1611b3-4490-402b-8e86-2012672ddec1" sequenceIndex="21" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_28bdd40d-711c-4e03-80d0-ba383e987c68" sequenceIndex="22" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_2a01c01c-b685-46e2-bf40-e8dcf268eb27" sequenceIndex="23" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_3941bad3-c868-4c98-a71e-bc614d6a6343" sequenceIndex="24" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_48a1b38c-0cce-4a28-b495-0de798159e10" sequenceIndex="25" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e" sequenceIndex="26" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_94fad2c6-48bf-4a6a-83a3-6fbf78c98076" sequenceIndex="27" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c43da61a-aa9c-4df0-b7f1-28db761c635b" sequenceIndex="28" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_95c2d40c-fb44-4955-8646-41ebec139709" sequenceIndex="29" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_874398cb-eccd-4138-bdfa-f0f21a2a37d6" sequenceIndex="30" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_55e5aed4-36e5-4b07-af0a-57e099caf31b" sequenceIndex="31" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_134a5184-275f-43c4-83e7-b586e2398ecb" sequenceIndex="32" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_67ddf6d5-8e4f-4a4d-99b5-4938149bb8f4" sequenceIndex="33" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d270a1f7-023e-41d5-950c-67455509377d" sequenceIndex="34" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_94ff62aa-96d1-47e7-a57e-8e6248b73e57" sequenceIndex="35" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_7dc9641d-583b-4690-aaee-c90ed21f987b" sequenceIndex="36" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_6582cb24-5d85-4ab3-ab71-c4fb93c90c6e" sequenceIndex="37" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_8475656e-6034-4817-a5f4-df661daf0470" sequenceIndex="38" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_2e33bc16-9cac-4639-b32d-41a0356120eb" sequenceIndex="39" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d15cd79d-221c-4219-b0b1-7db38f90d4d3" sequenceIndex="40" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_112d58ee-00e0-4d07-bb70-f1753e36a72c" sequenceIndex="41" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_3cc97163-f60b-44fa-ac63-9c27826dd62c" sequenceIndex="42" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d9d5427a-05d4-4c04-8e0e-5d71ea6e8bcb" sequenceIndex="43" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_a66bcfa0-8574-452f-ac55-1eb6535d244b" sequenceIndex="44" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_1815905c-5827-4ad9-9ee9-68d7c1335d1a" sequenceIndex="45" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_838344b8-7172-499a-93a2-f60f99d0cd87" sequenceIndex="46" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_55e29e5a-ea62-4c30-84be-cc5d004325f6" sequenceIndex="47" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_79047e89-f1b6-4a2e-a9a3-89e68288238b" sequenceIndex="48" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c1013885-7cf1-4a4a-91f6-514fb9f8d4ba" sequenceIndex="49" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_f946be15-a91d-4677-aab2-db0f7e4728a1" sequenceIndex="50" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_939d4602-203e-4a08-9d64-e7e330e6b985" sequenceIndex="51" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_2e167d72-3c30-4c36-8e7a-fb5b211bbb8b" sequenceIndex="52" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b77da061-ee8d-4edb-8ebf-60f76538cd1c" sequenceIndex="53" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_301ddc78-20f1-4c3f-aea0-9131d4feae95" sequenceIndex="54" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9cc300f8-9b77-49d1-a513-1f73d3b20dbe" sequenceIndex="55" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_5607aaf4-56ff-4868-802b-6be1d18a8329" sequenceIndex="56" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9b1d463b-8e0c-42ae-a9eb-1dabfe7ed88f" sequenceIndex="57" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_bc27254c-7794-4d63-8dee-eaf8757e713d" sequenceIndex="58" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_7d626326-2911-498f-8874-b2cdcd1a79e8" sequenceIndex="59" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_12791657-5a79-41ac-b35a-f9959a2ab7be" sequenceIndex="60" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9fe2ec65-43b1-423c-b325-fe6b5c93cfa7" sequenceIndex="61" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_10a42f77-56db-4747-9be1-461459924135" sequenceIndex="62" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b3df8ce6-8fe0-47f6-8653-34ab9f22e014" sequenceIndex="63" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_ef2d24da-7b0e-458d-8b88-8acba500ba8a" sequenceIndex="64" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_fd6d9770-f0fa-4424-ac1b-36790725113c" sequenceIndex="65" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_af01488a-9952-4cb0-ac48-c36c2acd99de" sequenceIndex="66" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_e2b591db-a310-4e22-accc-246fb5f0b71d" sequenceIndex="67" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_46bc3002-46a5-46b2-ac28-6ffdb4bc5d5e" sequenceIndex="68" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_ae3f675c-7acd-49a6-8a6e-2e38583c06bc" sequenceIndex="69" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c4070bea-b1db-4323-8182-ee5c5274e783" sequenceIndex="70" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d0174c9e-a8d9-45af-a2a7-9152aaed164e" sequenceIndex="71" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_409af1a7-45aa-479b-83e1-5e20a7001ac6" sequenceIndex="72" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_a7c2a52b-b371-4179-a35f-a09e3f16e82e" sequenceIndex="73" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_bf015ee0-e733-4c6b-b7ca-88d6e25ce506" sequenceIndex="74" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_3150cabe-0885-4267-ac40-375f106e8d8a" sequenceIndex="75" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b07c7bdb-5f9c-4b3a-a798-b09b878ff231" sequenceIndex="76" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c911c5c6-4da4-4625-a2c4-16a6ca30ed6c" sequenceIndex="77" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_4c4f209e-8bf3-4c0f-a021-99181021302f" sequenceIndex="78" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_a0696555-1773-4cde-9489-9ea986121c88" sequenceIndex="79" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c5195bbf-dd2a-470e-8a49-de207c5f963c" sequenceIndex="80" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_59c2b38b-166f-4c0d-856f-095bfab91bb4" sequenceIndex="81" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_44856544-c76d-4b6f-93f5-664fd6f75df9" sequenceIndex="82" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c42c5e05-5ae4-454d-9513-ad2e02391a6c" sequenceIndex="83" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_e1cceb5d-80aa-49db-b31f-8169091f2fe8" sequenceIndex="84" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_7c9a611e-d22d-44eb-a48d-6054eb890a73" sequenceIndex="85" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_4b5e2768-26d7-44be-a430-3fa2b190fd54" sequenceIndex="86" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_d8f45be1-39ae-481e-b7ef-7ebb7e2ea212" sequenceIndex="87" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9ea2bc11-339f-4e62-9c88-b6a46a1d3552" sequenceIndex="88" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_38e4c584-7f55-4209-8775-18e94f1362fe" sequenceIndex="89" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_ca79d71b-5288-4871-8551-5d4e54a754bc" sequenceIndex="90" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_cedb7125-c0be-49f5-9565-4ab0a33483a7" sequenceIndex="91" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_9ecf876e-379f-4b53-aaa3-5aac1c2754f3" sequenceIndex="92" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_ca9a6961-4d2b-44af-b6d2-25dcb5d61a1e" sequenceIndex="93" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_fa35eb19-cf0c-44ef-be9a-33288de79949" sequenceIndex="94" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_0b23f293-9171-45ad-97ca-be0f01cb0c3d" sequenceIndex="95" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_1d0304ec-2ca3-45bc-b9a6-ef6c81b7d0f1" sequenceIndex="96" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_88db1097-d45d-4a95-ab1c-35b723d1e4d9" sequenceIndex="97" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_cdc4389d-e271-4379-90b6-4d046fe51fd2" sequenceIndex="98" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_1998ff83-c1e7-496e-be33-f26187848d65" sequenceIndex="99" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_dc012d8f-076e-4b73-841f-84015fb4cd73" sequenceIndex="100" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_a1362478-c845-410f-913e-b2463ddd4727" sequenceIndex="101" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_0bedd048-020d-491d-8ba8-33cdd9dfcd89" sequenceIndex="102" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_50133614-5a85-4d43-b094-246105561f12" sequenceIndex="103" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_aacfc7b5-df9a-4849-8e3c-778e53eb2d7d" sequenceIndex="104" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_5e93ba32-83de-43fa-8597-676d8cf39731" sequenceIndex="105" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_0560805c-0294-41b1-9425-a3d173dbad71" sequenceIndex="106" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c75c92a3-9966-4dcb-a2b5-7d73208cd389" sequenceIndex="107" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_74ed2560-a060-4af3-8184-48f7fc0e62fc" sequenceIndex="108" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_f61188c1-b9da-4759-bb31-1a578477d751" sequenceIndex="109" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_b1d49b99-128c-4a03-b0d7-3987c5ccf7dc" sequenceIndex="110" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c5a027c9-7247-4b2d-ab8d-175fdb405f54" sequenceIndex="111" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_5afc0199-5caf-4b1d-8a8b-86204a1e8dd9" sequenceIndex="112" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_e905b8d0-cf1c-4afc-bca2-c25ecca21ebb" sequenceIndex="113" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_69952d91-f7b8-4ee6-98e5-d29f50a021fe" sequenceIndex="114" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_41b6d2fc-5068-407b-ac15-caa7960f82c9" sequenceIndex="115" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_11a5e774-d638-459d-a405-ac03b95f7bd8" sequenceIndex="116" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_1bce3047-40fe-4db1-86cc-0d665d2c6b30" sequenceIndex="117" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_dee88c38-7535-4757-9240-d7b6e0ffd018" sequenceIndex="118" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_f7e27474-1734-4e12-9d46-211b13285e6c" sequenceIndex="119" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_11a7b0ad-75a3-4d28-976e-31806b9954e8" sequenceIndex="120" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_67f5541f-7b1a-4114-a2dc-3b7c575d0b92" sequenceIndex="121" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_767b8391-e4af-4684-8eab-cf6861a5ea6f" sequenceIndex="122" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+	<itemResult identifier="_c216f7a5-1acf-43ed-8c66-e03ad3a65827" sequenceIndex="123" datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+		<responseVariable identifier="numAttempts" cardinality="single">
+			<candidateResponse>
+				<value>1</value>
+			</candidateResponse>
+		</responseVariable>
+		<outcomeVariable identifier="completionStatus" cardinality="single">
+			<value>completed</value>
+		</outcomeVariable>
+		<responseVariable identifier="RESPONSE" cardinality="single">
+			<candidateResponse>
+				<value>A</value>
+			</candidateResponse>
+		</responseVariable>
+	</itemResult>
+</assessmentResult>

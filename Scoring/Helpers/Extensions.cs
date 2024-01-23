@@ -45,17 +45,20 @@ namespace Citolab.QTI.ScoringEngine.Helpers
         {
             if (el.Parent != null)
             {
-               if( el.Parent.Name.LocalName.Equals(tagName, StringComparison.CurrentCultureIgnoreCase)) {
+                if (el.Parent.Name.LocalName.Equals(tagName, StringComparison.CurrentCultureIgnoreCase))
+                {
                     return el.Parent;
-                } else
+                }
+                else
                 {
                     return el.Parent.FindParentElement(tagName);
                 }
-            } else
+            }
+            else
             {
                 return null;
             }
-            
+
         }
 
         internal static OutcomeVariable CreateVariable(this OutcomeDeclaration outcomeDeclaration)
@@ -65,7 +68,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 Identifier = outcomeDeclaration.Identifier,
                 BaseType = outcomeDeclaration.BaseType,
                 Cardinality = outcomeDeclaration.Cardinality,
-                Value = outcomeDeclaration.DefaultValue
+                Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
         }
 
@@ -83,8 +86,42 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static BaseValue ToBaseValue(this OutcomeVariable outcomeVariable)
         {
-            return new BaseValue { BaseType = outcomeVariable.BaseType, Value = outcomeVariable.Value.ToString(), Identifier = outcomeVariable.Identifier };
+            var baseValue = new BaseValue
+            {
+                BaseType = outcomeVariable.BaseType,
+                Value = outcomeVariable?.Value == null ? outcomeVariable.GetDefaultValueIfNoValueIsSet() : outcomeVariable.Value.ToString()
+            };
+            return baseValue;
         }
+
+        internal static string GetDefaultValueIfNoValueIsSet(this OutcomeDeclaration outcomeDeclaration)
+        {
+            return outcomeDeclaration.BaseType.GetDefaultValueByBaseType();
+        }
+
+        internal static string GetDefaultValueIfNoValueIsSet(this OutcomeVariable outcomeVariable)
+        {
+            return outcomeVariable.BaseType.GetDefaultValueByBaseType();
+
+        }
+
+        internal static string GetDefaultValueByBaseType(this BaseType baseType)
+        {
+            switch (baseType)
+            {
+                case BaseType.Float:
+                    return "0";
+                case BaseType.Int:
+                    return "0";
+                case BaseType.String:
+                    return string.Empty;
+                case BaseType.Boolean:
+                    return "false";
+                default:
+                    return string.Empty;
+            }
+        }
+
 
         internal static double RoundToSignificantDigits(this double d, int digits)
         {
@@ -227,7 +264,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 BaseType = outcomeDeclaration.BaseType,
                 Cardinality = outcomeDeclaration.Cardinality,
                 Identifier = outcomeDeclaration.Identifier,
-                Value = outcomeDeclaration.DefaultValue
+                Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
         }
 
@@ -412,7 +449,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return builder.ToString();
         }
 
-        
+
 
     }
 }

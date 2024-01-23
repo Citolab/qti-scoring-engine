@@ -195,6 +195,43 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             Assert.Equal("1", scoreValue);
         }
 
+        [Fact]
+        public void ResponseProcessing_DST_Raw_score()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/AssessmentResult_DOE.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+
+            var scoreValue = assessmentResult.GetScoreForItem("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "SCORE");
+            var rawScore = assessmentResult.GetScoreForItem("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "RAWSCORE");
+            // variable should be untouched when human scored
+            Assert.Equal("0", scoreValue);
+            Assert.Equal("0", rawScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DST_Raw_score_correct()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/AssessmentResult_DOE.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml")), TestHelper.GetExpressionFactory());
+
+            assessmentResult.ChangeResponse("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "RESPONSE", "_a65fab45-67d1-4bbd-92e0-47a8eef2d72b");
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+
+            var scoreValue = assessmentResult.GetScoreForItem("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "SCORE");
+            var rawScore = assessmentResult.GetScoreForItem("_d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e", "RAWSCORE");
+            // variable should be untouched when human scored
+            Assert.Equal("1", scoreValue);
+            Assert.Equal("1", rawScore);
+        }
+
 
 
 
