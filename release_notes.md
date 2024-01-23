@@ -1,3 +1,7 @@
+## 1.2.4
+
+- if outcomeVariables don't have a default value, then set a default value depending on the baseType
+
 ## 1.2.3
 
 - fixed null reference error when calling equals expression without a response
