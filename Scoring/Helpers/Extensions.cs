@@ -101,7 +101,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static string GetDefaultValueIfNoValueIsSet(this OutcomeVariable outcomeVariable)
         {
-            return outcomeVariable.BaseType.GetDefaultValueByBaseType();
+            return outcomeVariable?.BaseType == null ? null : outcomeVariable.BaseType.GetDefaultValueByBaseType();
 
         }
 
@@ -113,12 +113,8 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                     return "0";
                 case BaseType.Int:
                     return "0";
-                case BaseType.String:
-                    return string.Empty;
-                case BaseType.Boolean:
-                    return "false";
                 default:
-                    return string.Empty;
+                    return null;
             }
         }
 
