@@ -1,3 +1,8 @@
+## 1.2.5
+
+- null ref fix ToBaseValue
+- return NULL as default value for outcomes. Only integer and float should have a default value, which is 0.
+
 ## 1.2.4
 
 - if outcomeVariables don't have a default value, then set a default value depending on the baseType
