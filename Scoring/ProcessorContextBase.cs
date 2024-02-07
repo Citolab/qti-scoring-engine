@@ -22,10 +22,13 @@ namespace Citolab.QTI.ScoringEngine
         public Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         public HashSet<string> CalculatedOutcomes { get; set; }
 
-        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult)
+        public bool? StripAlphanumericsFromNumericResponses { get; set; }
+
+        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult, bool stripAlphanumericsFromNumericResponses = false)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;
+            StripAlphanumericsFromNumericResponses = stripAlphanumericsFromNumericResponses;
         }
 
 

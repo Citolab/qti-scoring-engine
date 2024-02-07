@@ -1,0 +1,109 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<qti-assessment-item xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd
+                        http://www.w3.org/1998/Math/MathML https://purl.imsglobal.org/spec/mathml/v3p0/schema/xsd/mathml3.xsd
+                        http://www.w3.org/2001/10/synthesis https://purl.imsglobal.org/spec/ssml/v1p1/schema/xsd/ssmlv1p1-core.xsd'
+    title='Integer invoer' time-dependent='false' adaptive='false'
+    identifier='_e726a093-a5dd-456e-8cc4-fd987cd05438' label='' xml:lang='nl-NL'
+    xmlns='http://www.imsglobal.org/xsd/imsqtiasi_v3p0'>
+    <qti-response-declaration identifier='RESPONSE_1' cardinality='single' base-type='string'>
+        <qti-correct-response interpretation='test&amp;100&amp;3.14'>
+            <qti-value>test</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-response-declaration identifier='RESPONSE_2' cardinality='single' base-type='string'>
+        <qti-correct-response>
+            <qti-value>100</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-response-declaration identifier='RESPONSE_3' cardinality='single' base-type='string'>
+        <qti-correct-response>
+            <qti-value>3.14</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-outcome-declaration identifier='RAWSCORE_RESPONSE1' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='RAWSCORE_RESPONSE2' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='RAWSCORE_RESPONSE3' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='SCORE' cardinality='single' base-type='float'>
+        <qti-interpolation-table>
+            <qti-interpolation-table-entry target-value='3' source-value='3' />
+            <qti-interpolation-table-entry target-value='2' source-value='2' />
+            <qti-interpolation-table-entry target-value='1' source-value='1' />
+            <qti-interpolation-table-entry target-value='0' source-value='0' />
+        </qti-interpolation-table>
+    </qti-outcome-declaration>
+    <qti-outcome-declaration identifier='MAXSCORE' cardinality='single' base-type='float'>
+        <qti-default-value>
+            <qti-value>3</qti-value>
+        </qti-default-value>
+    </qti-outcome-declaration>
+    <qti-item-body>
+        <div class='qti-layout-row'><div class='qti-layout-col12'><div><p>Dit is een voorbeeld met
+            een tekstuele invoer: <qti-text-entry-interaction class='qti-input-width-10'
+                            response-identifier='RESPONSE_1' format='string'
+                            pattern-mask='[a-zA-Z€~!@#$%^*()_+={}|;:,./? &apos;-]+' /></p><p>Dit is
+            een voorbeeld met een integer invoer: <qti-text-entry-interaction
+                            class='qti-input-width-10' response-identifier='RESPONSE_2'
+                            format='integer' pattern-mask='[0-9]{0,3}$' /></p><p>Dit is een
+            voorbeeld met een decimale invoer: <qti-text-entry-interaction
+                            class='qti-input-width-10' response-identifier='RESPONSE_3'
+                            format='double' pattern-mask='[0-9]{0,3}\.[0-9]{0,2}$' /></p></div></div></div>
+    </qti-item-body>
+    <qti-response-processing>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-string-match case-sensitive='true'>
+                    <qti-custom-operator definition='qade:Trim'>
+                        <qti-custom-operator definition='qade:ToAscii'>
+                            <qti-variable identifier='RESPONSE_1' />
+                        </qti-custom-operator>
+                    </qti-custom-operator>
+                    <qti-base-value base-type='string'>test</qti-base-value>
+                </qti-string-match>
+                <qti-set-outcome-value identifier='RAWSCORE_RESPONSE1'>
+                    <qti-sum>
+                        <qti-variable identifier='RAWSCORE_RESPONSE1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-sum>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-equal>
+                    <qti-variable identifier='RESPONSE_2' />
+                    <qti-base-value base-type='integer'>100</qti-base-value>
+                </qti-equal>
+                <qti-set-outcome-value identifier='RAWSCORE_RESPONSE2'>
+                    <qti-sum>
+                        <qti-variable identifier='RAWSCORE_RESPONSE2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-sum>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-equal>
+                    <qti-custom-operator definition='qade:ParseCommaDecimal'>
+                        <qti-variable identifier='RESPONSE_3' />
+                    </qti-custom-operator>
+                    <qti-base-value base-type='float'>3.14</qti-base-value>
+                </qti-equal>
+                <qti-set-outcome-value identifier='RAWSCORE_RESPONSE3'>
+                    <qti-sum>
+                        <qti-variable identifier='RAWSCORE_RESPONSE3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-sum>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-lookup-outcome-value identifier='SCORE'>
+            <qti-sum>
+                <qti-variable identifier='RAWSCORE_RESPONSE1' />
+                <qti-variable identifier='RAWSCORE_RESPONSE2' />
+                <qti-variable identifier='RAWSCORE_RESPONSE3' />
+            </qti-sum>
+        </qti-lookup-outcome-value>
+    </qti-response-processing>
+</qti-assessment-item>

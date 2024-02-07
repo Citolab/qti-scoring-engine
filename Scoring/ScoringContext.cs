@@ -24,6 +24,7 @@ namespace Citolab.QTI.ScoringEngine
         public ILogger Logger { get; set; }
         public Dictionary<string, ICustomOperator> CustomOperators { get; set; } = new Dictionary<string, ICustomOperator>();
         public bool? ProcessParallel { get; set; }
+        public bool? StripAlphanumericsFromNumericResponses { get; set; }
     }
 
     public class OutcomeProcessingContext : IOutcomeProcessingContext

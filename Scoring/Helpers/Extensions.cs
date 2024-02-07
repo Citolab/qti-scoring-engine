@@ -158,6 +158,29 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return default;
         }
 
+        internal static string StripAlphanumerics(this string value,bool keepFirstDot = false)
+        {
+            StringBuilder result = new StringBuilder();
+            bool firstCommaKept = false;
+
+            foreach (char c in value)
+            {
+                // Check if the character is a digit
+                if (char.IsDigit(c))
+                {
+                    result.Append(c);
+                }
+                // Check if we need to keep the first comma
+                else if (c == '.' && keepFirstDot && !firstCommaKept)
+                {
+                    result.Append(c);
+                    firstCommaKept = true;
+                }
+            }
+
+            return result.ToString();
+        }
+
         internal static bool TryParseInt(this string value, out Single result)
         {
             var style = NumberStyles.AllowDecimalPoint;

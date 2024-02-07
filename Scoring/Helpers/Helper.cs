@@ -96,11 +96,16 @@ namespace Citolab.QTI.ScoringEngine.Helpers
         }
 
 
-        internal static bool CompareSingleValues(string value1, string value2, BaseType baseType, IProcessingContext logContext)
+        internal static bool CompareSingleValues(string value1, string value2, BaseType baseType, IProcessingContext context)
         {
             if (string.IsNullOrEmpty(value1) || string.IsNullOrEmpty(value2))
             {
                 return false;
+            }
+            if ((baseType == BaseType.Int || baseType == BaseType.Float) &&
+                context.StripAlphanumericsFromNumericResponses.HasValue && context.StripAlphanumericsFromNumericResponses.Value) {
+                value1 = value1.StripAlphanumerics(true);
+                value2 = value2.StripAlphanumerics(true);
             }
             switch (baseType)
             {
@@ -114,7 +119,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                         }
                         else
                         {
-                            logContext.LogError($"Cannot convert {value1} and/or {value2} to int.");
+                            context.LogError($"Cannot convert {value1} and/or {value2} to int.");
                         }
                         break;
                     }
@@ -126,7 +131,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                         }
                         else
                         {
-                            logContext.LogError($"couldn't convert {value1} and/or {value2} to float.");
+                            context.LogError($"couldn't convert {value1} and/or {value2} to float.");
                         }
                         break;
                     }
@@ -148,7 +153,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                         }
                         else
                         {
-                            logContext.LogWarning($"compared two pair but one of the values does not have 2 values: 1: {value1} 2: {value2}");
+                            context.LogWarning($"compared two pair but one of the values does not have 2 values: 1: {value1} 2: {value2}");
                         }
                         break;
                     }

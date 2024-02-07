@@ -214,6 +214,106 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         }
 
         [Fact]
+        public void ResponseProcessing_DOE_numeric_correct()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var textScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE1");
+            var intScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE2");
+            var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");
+
+            Assert.Equal("1", textScore);
+            Assert.Equal("1", intScore);
+            Assert.Equal("1", floatScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_numeric_incorrect()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
+
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_1", "fout!");
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_2", "100cm");
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "2,14 denk ik");
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var textScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE1");
+            var intScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE2");
+            var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");
+
+            Assert.Equal("0", textScore);
+            Assert.Equal("0", intScore);
+            Assert.Equal("0", floatScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_numeric_as_string()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
+
+        
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "03,14");
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");
+
+            Assert.Equal("1", floatScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_numeric_without_removeAplhaNumerics()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
+
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_2", "100cm");
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "3,14 denk ik");
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var intScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE2");
+            var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");
+
+            Assert.Equal("0", intScore);
+            Assert.Equal("0", floatScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_numeric_with_removeAplhaNumerics()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
+
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_2", "100cm");
+            assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "3,14 denk ik");
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object, true);
+
+            var intScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE2");
+            var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");
+
+            Assert.Equal("1", intScore);
+            Assert.Equal("1", floatScore);
+        }
+
+        [Fact]
         public void ResponseProcessing_DST_Raw_score_correct()
         {
             var mockLogger = new Mock<ILogger>();

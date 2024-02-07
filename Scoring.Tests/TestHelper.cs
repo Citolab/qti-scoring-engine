@@ -34,7 +34,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
         {
             return GetDefaultResponseProcessingContextAndLogger(assessmentItem).Context;
         }
-        internal static (ResponseProcessorContext Context, Mock<ILogger> MockLog) GetDefaultResponseProcessingContextAndLogger(AssessmentItem assessmentItem)
+        internal static (ResponseProcessorContext Context, Mock<ILogger> MockLog) GetDefaultResponseProcessingContextAndLogger(AssessmentItem assessmentItem, bool stripAlphanumericsFromNumericResponses = false)
         {
             var mockLog = new Mock<ILogger>();
             var logger = mockLog.Object;
@@ -53,7 +53,7 @@ namespace Citolab.QTI.ScoringEngine.Tests
                 });
                 assessmentResult.ItemResults.Add(itemResult.Identifier, itemResult);
             }
-            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem);
+            var context = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, stripAlphanumericsFromNumericResponses);
             return (context, mockLog);
         }
 

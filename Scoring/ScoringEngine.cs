@@ -121,12 +121,12 @@ namespace Citolab.QTI.ScoringEngine
             return assessmentResult;
         }
 
-        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger)
+        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger, bool stripAlphanumericsFromNumericResponses = false)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
             foreach (var assessmentItem in assessmentItems)
             {
-                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger);
+                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, stripAlphanumericsFromNumericResponses);
             }
             return assessmentResult;
         }

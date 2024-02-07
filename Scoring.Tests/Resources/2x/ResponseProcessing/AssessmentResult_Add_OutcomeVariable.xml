@@ -12,7 +12,7 @@
     </outcomeVariable>
     <responseVariable identifier="RESPONSE" cardinality="single" baseType="identifier">
       <candidateResponse>
-        <value>A</value>
+        <value>A</value>Fcust
       </candidateResponse>
     </responseVariable>
   </itemResult>

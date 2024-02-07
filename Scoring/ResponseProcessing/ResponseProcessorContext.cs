@@ -17,7 +17,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
     {
         public AssessmentItem AssessmentItem { get; }
         public ItemResult ItemResult { get; set; }
-            internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem): base(logger, assessmentResult)
+            internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, bool stripAlphanumericsFromNumericResponses):
+             base(logger, assessmentResult, stripAlphanumericsFromNumericResponses)
         {
             _sessionIdentifier = $"{AssessmentItem?.Identifier} - {AssessmentResult?.SourcedId}";
             AssessmentItem = assessmentItem;
