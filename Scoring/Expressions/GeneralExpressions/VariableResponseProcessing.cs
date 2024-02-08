@@ -30,7 +30,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 {
                     BaseType = responseVariable.BaseType,
                     Value = cardinality == Cardinality.Single ? responseVariable.Value : "",
-                    Values = cardinality != Cardinality.Single ? responseVariable.Values : null,
+                    Values = responseVariable.Values?.Count > 1 ? responseVariable.Values : null, // WORKAROUND FOR INVALID RESPONSE DECLARATION!!
                     Identifier = identifer,
                     Cardinality = cardinality
                 };

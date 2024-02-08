@@ -103,7 +103,8 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 return false;
             }
             if ((baseType == BaseType.Int || baseType == BaseType.Float) &&
-                context.StripAlphanumericsFromNumericResponses.HasValue && context.StripAlphanumericsFromNumericResponses.Value) {
+                context.StripAlphanumericsFromNumericResponses.HasValue && context.StripAlphanumericsFromNumericResponses.Value)
+            {
                 value1 = value1.StripAlphanumerics(true);
                 value2 = value2.StripAlphanumerics(true);
             }
@@ -144,11 +145,12 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                         if (pair1.Count() == 2 && pair2.Count() == 2)
                         {
                             // sort values because order is not important
-                            if (baseType == BaseType.Pair)
-                            {
-                                pair1.Sort();
-                                pair2.Sort();
-                            }
+                            // WORKAROUND TO SUPPORT DIRECT PAIRS MIXED UP. ACTUALLY SHOULD ONLY BE SORTED FOR PAIRS
+                            // if (baseType == BaseType.Pair)
+                            // {
+                            pair1.Sort();
+                            pair2.Sort();
+                            // }
                             return string.Join(" ", pair1) == string.Join(" ", pair2);
                         }
                         else

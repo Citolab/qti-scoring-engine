@@ -1,0 +1,124 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<qti-assessment-item xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd
+                        http://www.w3.org/1998/Math/MathML https://purl.imsglobal.org/spec/mathml/v3p0/schema/xsd/mathml3.xsd
+                        http://www.w3.org/2001/10/synthesis https://purl.imsglobal.org/spec/ssml/v1p1/schema/xsd/ssmlv1p1-core.xsd'
+    title='Rd521127' time-dependent='false' adaptive='false'
+    identifier='_gap_match' label='Rd521127'
+    xmlns='http://www.imsglobal.org/xsd/imsqtiasi_v3p0'>
+    <qti-response-declaration identifier='RESPONSE' cardinality='single' base-type='directedPair'>
+        <qti-correct-response interpretation='B HSA&amp;D HSB&amp;C HSC&amp;A HSD'>
+            <qti-value>B HSA</qti-value>
+            <qti-value>D HSB</qti-value>
+            <qti-value>C HSC</qti-value>
+            <qti-value>A HSD</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-outcome-declaration identifier='RAWSCORE' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='SCORE' cardinality='single' base-type='float'>
+        <qti-interpolation-table>
+            <qti-interpolation-table-entry target-value='1' source-value='1' />
+            <qti-interpolation-table-entry target-value='0' source-value='0' />
+        </qti-interpolation-table>
+    </qti-outcome-declaration>
+    <qti-outcome-declaration identifier='MAXSCORE' cardinality='single' base-type='float'>
+        <qti-default-value>
+            <qti-value>1</qti-value>
+        </qti-default-value>
+    </qti-outcome-declaration>
+    <qti-response-processing>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-is-null>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-is-null>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+            <qti-response-else>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-else>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='directedPair'>B HSA</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='directedPair'>D HSB</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='directedPair'>C HSC</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='directedPair'>A HSD</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-lt>
+                    <qti-variable identifier='RAWSCORE' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-lt>
+                <qti-set-outcome-value identifier='RAWSCORE'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-lookup-outcome-value identifier='SCORE'>
+            <qti-variable identifier='RAWSCORE' />
+        </qti-lookup-outcome-value>
+    </qti-response-processing>
+</qti-assessment-item>

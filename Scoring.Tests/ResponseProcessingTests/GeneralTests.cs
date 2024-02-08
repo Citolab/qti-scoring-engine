@@ -214,6 +214,40 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         }
 
         [Fact]
+        public void ResponseProcessing_DOE_gapMatch()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/gap-match-result.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/gap-match-item.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_gap_match", "SCORE");
+            var rawScore = assessmentResult.GetScoreForItem("_gap_match", "RAWSCORE");
+            // variable should be untouched when human scored
+            Assert.Equal("1", scoreValue);
+            Assert.Equal("1", rawScore);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_gapMatch_fout()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/gap-match-result-fout.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/gap-match-item.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_gap_match", "SCORE");
+            var rawScore = assessmentResult.GetScoreForItem("_gap_match", "RAWSCORE");
+            // variable should be untouched when human scored
+            Assert.Equal("0", scoreValue);
+            Assert.Equal("0", rawScore);
+        }
+
+        [Fact]
         public void ResponseProcessing_DOE_numeric_correct()
         {
             var mockLogger = new Mock<ILogger>();
@@ -263,7 +297,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/result_numeric.xml")));
             var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/e726a093-a5dd-456e-8cc4-fd987cd05438.xml")), TestHelper.GetExpressionFactory());
 
-        
+
             assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "03,14");
 
             ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);

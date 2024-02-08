@@ -124,10 +124,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 responseDeclaration.CorrectResponse = correctValues?.FirstOrDefault();
             }
-            else
-            {
-                responseDeclaration.CorrectResponses = correctValues;
-            }
+            responseDeclaration.CorrectResponses = correctValues; // WORKAROUND TO SUPPORT INVALID RESPONSE DECLARATIOJN
             var mappingElement = el.FindElementsByName("qti-mapping").FirstOrDefault();
             if (mappingElement != null)
             {

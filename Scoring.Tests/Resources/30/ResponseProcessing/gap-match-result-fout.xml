@@ -1,0 +1,54 @@
+<assessmentResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0">
+    <context sourcedId="CANDIDATE-8b3a10b1-70d7-405f-bada-006ee4cb3574">
+        <sessionIdentifier sourceID="QADE.player"
+            identifier="SESSION-018d545a-e031-7e8f-b957-74dab2fad5d9" />
+        <sessionIdentifier sourceID="afnameId"
+            identifier="SESSION-d34bdb4b-3c87-42fd-b39c-b5ccb24d25c6" />
+        <sessionIdentifier sourceID="ketenId" identifier="SESSION-PLATFORM-CITOCTE-DOEDST" />
+    </context>
+    <testResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0"
+        identifier="_123"
+        datestamp="2024-01-29T09:18:40.720406644Z">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="integer">
+            <value>65</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="MAXSCORE" cardinality="single" baseType="float">
+            <value>283</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="SESSION_STATE" cardinality="single" baseType="string"></outcomeVariable>
+    </testResult>
+    <itemResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0"
+        identifier="_gap_match" sessionStatus="final"
+        datestamp="2024-01-29T09:13:52.803965965Z" sequenceIndex="115">
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>55.601</value>
+            </candidateResponse>
+        </responseVariable>
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+            <value>0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="MAXSCORE" cardinality="single" baseType="float">
+            <value>1</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="RAWSCORE" cardinality="single" baseType="float">
+            <value>0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="identifier">
+            <value>completed</value>
+        </outcomeVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="directedPair">
+            <candidateResponse>
+                <value>HSA A</value>
+                <value>HSB C</value>
+                <value>HSC D</value>
+                <value>HSD B</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+</assessmentResult>
