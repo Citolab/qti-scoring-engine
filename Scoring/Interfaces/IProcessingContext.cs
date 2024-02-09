@@ -14,8 +14,7 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
         Dictionary<string, ResponseVariable> ResponseVariables { get; set; }
         Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         HashSet<string> CalculatedOutcomes { get; set; }
-        
-        bool? StripAlphanumericsFromNumericResponses { get; set; }
+
         void LogInformation(string value);
         void LogWarning(string value);
         void LogError(string value);

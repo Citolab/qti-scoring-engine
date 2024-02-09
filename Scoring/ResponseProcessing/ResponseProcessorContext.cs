@@ -13,13 +13,16 @@ using Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions;
 
 namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
-    internal class ResponseProcessorContext :  ProcessorContextBase
+    internal class ResponseProcessorContext : ProcessorContextBase
     {
         public AssessmentItem AssessmentItem { get; }
+        public ResponseProcessingScoringsOptions Options { get; set; } = null;
         public ItemResult ItemResult { get; set; }
-            internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, bool stripAlphanumericsFromNumericResponses):
-             base(logger, assessmentResult, stripAlphanumericsFromNumericResponses)
+        internal ResponseProcessorContext(ILogger logger, AssessmentResult assessmentResult, AssessmentItem assessmentItem, ResponseProcessingScoringsOptions options = null) :
+         base(logger, assessmentResult)
+
         {
+            this.Options = options;
             _sessionIdentifier = $"{AssessmentItem?.Identifier} - {AssessmentResult?.SourcedId}";
             AssessmentItem = assessmentItem;
             if (AssessmentItem != null && AssessmentResult.ItemResults.ContainsKey(AssessmentItem.Identifier))
@@ -32,7 +35,8 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 
                 OutcomeVariables = ItemResult.OutcomeVariables;
                 ResponseVariables = ItemResult.ResponseVariables;
-            } else
+            }
+            else
             {
                 LogInformation("Cannot find item result");
             }

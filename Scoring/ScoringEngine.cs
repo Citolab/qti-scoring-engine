@@ -47,7 +47,8 @@ namespace Citolab.QTI.ScoringEngine
                       concurrentAssessmentResultList.Add(processedAssessmentResult);
                   });
                 ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
-            } else
+            }
+            else
             {
                 ctx.AssessmentmentResults = ctx.AssessmentmentResults.Select(assessmentResultDoc =>
                 {
@@ -58,12 +59,12 @@ namespace Citolab.QTI.ScoringEngine
               .ToList();
             }
 
-          
+
             //}
             return ctx.AssessmentmentResults;
         }
 
-        public List<XDocument> ProcessResponses(IResponseProcessingContext ctx)
+        public List<XDocument> ProcessResponses(IResponseProcessingContext ctx, ResponseProcessingScoringsOptions options = null)
         {
             if (ctx == null)
             {
@@ -91,24 +92,25 @@ namespace Citolab.QTI.ScoringEngine
                   index =>
                   {
                       var assessmentResultDoc = ctx.AssessmentmentResults[index];
-                      var assessmentResult = (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger);
+                      var assessmentResult = (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options);
                       concurrentAssessmentResultList.Add(assessmentResult);
                   });
                 ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
-            } else
+            }
+            else
             {
                 ctx.AssessmentmentResults = ctx.AssessmentmentResults
-              .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger))
+              .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options))
               .ToList();
             }
-              
+
             //}
             return ctx.AssessmentmentResults;
         }
 
-        public List<XDocument> ProcessResponsesAndOutcomes(IScoringContext ctx)
+        public List<XDocument> ProcessResponsesAndOutcomes(IScoringContext ctx, ResponseProcessingScoringsOptions options = null)
         {
-            ProcessResponses(ctx);
+            ProcessResponses(ctx, options);
             ProcessOutcomes(ctx);
             return ctx.AssessmentmentResults;
         }
@@ -121,12 +123,12 @@ namespace Citolab.QTI.ScoringEngine
             return assessmentResult;
         }
 
-        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger, bool stripAlphanumericsFromNumericResponses = false)
+        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger, ResponseProcessingScoringsOptions options = null)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
             foreach (var assessmentItem in assessmentItems)
             {
-                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, stripAlphanumericsFromNumericResponses);
+                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, options);
             }
             return assessmentResult;
         }

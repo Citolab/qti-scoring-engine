@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Citolab.QTI.ScoringEngine.Helpers;
+using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.ResponseProcessing;
 using Microsoft.Extensions.Logging;
@@ -247,7 +248,7 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             Assert.Equal("0", rawScore);
         }
 
-                [Fact]
+        [Fact]
         public void ResponseProcessing_DOE_sum_all_correct()
         {
             var mockLogger = new Mock<ILogger>();
@@ -395,8 +396,11 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
 
             assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_2", "100cm");
             assessmentResult.ChangeResponse("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RESPONSE_3", "3,14 denk ik");
-
-            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object, true);
+            var options = new ResponseProcessingScoringsOptions
+            {
+                StripAlphanumericsFromNumericResponses = true
+            };
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object, options);
 
             var intScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE2");
             var floatScore = assessmentResult.GetScoreForItem("_e726a093-a5dd-456e-8cc4-fd987cd05438", "RAWSCORE_RESPONSE3");

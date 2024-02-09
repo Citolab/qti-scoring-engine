@@ -102,8 +102,9 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             {
                 return false;
             }
+            var responseContext = context as ResponseProcessorContext;
             if ((baseType == BaseType.Int || baseType == BaseType.Float) &&
-                context.StripAlphanumericsFromNumericResponses.HasValue && context.StripAlphanumericsFromNumericResponses.Value)
+                responseContext != null && responseContext.Options != null && responseContext.Options.StripAlphanumericsFromNumericResponses)
             {
                 value1 = value1.StripAlphanumerics(true);
                 value2 = value2.StripAlphanumerics(true);

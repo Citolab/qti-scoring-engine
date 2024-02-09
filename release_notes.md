@@ -1,11 +1,17 @@
+## 1.3.0-beta2
+
+Added option to pass ResponseProcessingOptions instead of single stripAlphanumericsFromNumericResponses parameter
+
 ## 1.3.0-beta1
 
-+ support for qti-subtract
+- support for qti-subtract
 
 #### added work-arounds.
-+ added optional parameter: stripAlphanumericsFromNumericResponses to strip alphanumeric values in reponse variables of type int and float, before comparing with the correct response.
-- multiple values of correct responses will be loaded despite of cardinatity, so even if it's declared as single.
-- directedPair is sorted before comparing too. Because it has a source and a target it should not be sorted (only a normal pair) but to support a error in a delivery engine this is supported only in this version. Probably won't effect other scoring because in general target and sources will have different ids.
+
+- added optional parameter: stripAlphanumericsFromNumericResponses to strip alphanumeric values in reponse variables of type int and float, before comparing with the correct response.
+
+* multiple values of correct responses will be loaded despite of cardinatity, so even if it's declared as single.
+* directedPair is sorted before comparing too. Because it has a source and a target it should not be sorted (only a normal pair) but to support a error in a delivery engine this is supported only in this version. Probably won't effect other scoring because in general target and sources will have different ids.
 
 ## 1.2.5
 

@@ -14,9 +14,9 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 {
     internal static class ResponseProcessor
     {
-        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger, bool stripAlphanumericsFromNumericResponses = false)
+        internal static AssessmentResult Process(AssessmentItem assessmentItem, AssessmentResult assessmentResult, ILogger logger, ResponseProcessingScoringsOptions options = null)
         {
-            var ctx = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, stripAlphanumericsFromNumericResponses);
+            var ctx = new ResponseProcessorContext(logger, assessmentResult, assessmentItem, options);
             // Skip processing when there is no itemResult
             var containsItemResult = ctx.ItemResult != null;
 

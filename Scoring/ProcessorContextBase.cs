@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Citolab.QTI.ScoringEngine
 {
-    internal abstract class ProcessorContextBase: IProcessingContext
+    internal abstract class ProcessorContextBase : IProcessingContext
     {
         protected readonly ILogger _logger;
         protected string _sessionIdentifier;
@@ -22,13 +22,11 @@ namespace Citolab.QTI.ScoringEngine
         public Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
         public HashSet<string> CalculatedOutcomes { get; set; }
 
-        public bool? StripAlphanumericsFromNumericResponses { get; set; }
 
-        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult, bool stripAlphanumericsFromNumericResponses = false)
+        public ProcessorContextBase(ILogger logger, AssessmentResult assessmentResult)
         {
             _logger = logger;
             AssessmentResult = assessmentResult;
-            StripAlphanumericsFromNumericResponses = stripAlphanumericsFromNumericResponses;
         }
 
 
@@ -59,7 +57,7 @@ namespace Citolab.QTI.ScoringEngine
                 }
             }
         }
-             
+
         public void LogInformation(string value)
         {
             _logger.LogInformation($"{_sessionIdentifier}: {value}");
