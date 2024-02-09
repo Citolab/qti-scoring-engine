@@ -1,0 +1,68 @@
+<assessmentResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0">
+  <context sourcedId="CANDIDATE-123">
+    <sessionIdentifier sourceID="QADE.player" identifier="SESSION-018d8514-24b9-7cef-b1e4-b36a618aea4b"/>
+    <sessionIdentifier sourceID="afnameId" identifier="SESSION-3ba439f3-1b2d-4388-a694-a4778f9f0d06"/>
+    <sessionIdentifier sourceID="ketenId" identifier="SESSION-PLATFORM-CITOCTE-DOEDST"/>
+  </context>
+  <testResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0" identifier="_8c1512a5-95f0-422e-a4b8-5a399f424606" datestamp="2024-02-07T19:48:38.446775073Z">
+    <outcomeVariable identifier="SCORE" cardinality="single" baseType="integer">
+      <value>34</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="MAXSCORE" cardinality="single" baseType="float">
+      <value>231</value>
+    </outcomeVariable>
+  </testResult>
+  <itemResult xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0" identifier="_sum" sessionStatus="final" datestamp="2024-02-07T19:45:19.237043072Z" sequenceIndex="61">
+    <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+      <candidateResponse>
+        <value>2</value>
+      </candidateResponse>
+    </responseVariable>
+    <outcomeVariable identifier="RAWSCORE_RESPONSE2" cardinality="single" baseType="float">
+      <value>1</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="RAWSCORE_RESPONSE3" cardinality="single" baseType="float">
+      <value>0</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="RAWSCORE_RESPONSE4" cardinality="single" baseType="float">
+      <value>0</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+      <value>2</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="MAXSCORE" cardinality="single" baseType="float">
+      <value>4</value>
+    </outcomeVariable>
+    <outcomeVariable identifier="RAWSCORE_RESPONSE1" cardinality="single" baseType="float">
+      <value>1</value>
+    </outcomeVariable>
+    <responseVariable identifier="duration" cardinality="single" baseType="float">
+      <candidateResponse>
+        <value>197.048</value>
+      </candidateResponse>
+    </responseVariable>
+    <responseVariable identifier="RESPONSE_3" cardinality="single" baseType="identifier">
+      <candidateResponse>
+        <value>IC3_B</value>
+      </candidateResponse>
+    </responseVariable>
+    <responseVariable identifier="RESPONSE_2" cardinality="single" baseType="identifier">
+      <candidateResponse>
+        <value>IC2_C</value>
+      </candidateResponse>
+    </responseVariable>
+    <responseVariable identifier="RESPONSE_4" cardinality="single" baseType="identifier">
+      <candidateResponse>
+        <value>IC4_A</value>
+      </candidateResponse>
+    </responseVariable>
+    <outcomeVariable identifier="completionStatus" cardinality="single" baseType="identifier">
+      <value>completed</value>
+    </outcomeVariable>
+    <responseVariable identifier="RESPONSE_1" cardinality="single" baseType="identifier">
+      <candidateResponse>
+        <value>IC1_D</value>
+      </candidateResponse>
+    </responseVariable>
+  </itemResult>
+</assessmentResult>

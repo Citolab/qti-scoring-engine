@@ -247,6 +247,64 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
             Assert.Equal("0", rawScore);
         }
 
+                [Fact]
+        public void ResponseProcessing_DOE_sum_all_correct()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_result.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_item.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_sum", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+        [Fact]
+        public void ResponseProcessing_DOE_sum_3_correct()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_result.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_item.xml")), TestHelper.GetExpressionFactory());
+
+            assessmentResult.ChangeResponse("_sum", "RESPONSE_1", "fout");
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_sum", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+        [Fact]
+        public void ResponseProcessing_DOE_sum_2_correct_different_result_file()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_result_2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_item.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_sum", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+        [Fact]
+        public void ResponseProcessing_DOE_sum_0_correct()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_result.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/sum_item.xml")), TestHelper.GetExpressionFactory());
+            assessmentResult.ChangeResponse("_sum", "RESPONSE_1", "fout");
+            assessmentResult.ChangeResponse("_sum", "RESPONSE_2", "fout");
+            assessmentResult.ChangeResponse("_sum", "RESPONSE_3", "fout");
+            assessmentResult.ChangeResponse("_sum", "RESPONSE_4", "fout");
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_sum", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
         [Fact]
         public void ResponseProcessing_DOE_numeric_correct()
         {

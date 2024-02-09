@@ -61,7 +61,7 @@ namespace ScoringEngine.Tests.ResponseProcessingTests.ItemTypes
             var assessmentResult = TestHelper.GetBasicAssessmentResult();
             assessmentResult.AddCandidateResponses
                 (assessmentItem.Identifier, "RESPONSE", new List<string>{
-                    "R C",
+                    "P R",
                     "D M",
                     "L M",
                     "P T"
