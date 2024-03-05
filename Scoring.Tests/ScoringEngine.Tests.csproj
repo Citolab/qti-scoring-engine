@@ -64,6 +64,19 @@
     <None Remove="Resources\30\ResponseProcessing\sum_item.xml" />
     <None Remove="Resources\30\ResponseProcessing\sum_result.xml" />
     <None Remove="Resources\30\ResponseProcessing\sum_result_2.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs-result-correct-1.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs-result-correct-2.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs-result-incorrect-1.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs-result-incorrect-2.xml" />
+    <None Remove="Resources\30\ResponseProcessing\hs-workaround.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-result-correct-2.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-result-incorrect-1.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-result-incorrect-2.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-result-incorrect-3.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-result-correct-1.xml" />
+    <None Remove="Resources\30\ResponseProcessing\2gaps-workaround.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -222,34 +235,73 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\d3fc4cde-5dc0-451c-b2a5-3df3ba554e3e.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\assessmentresult_DOE.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\e726a093-a5dd-456e-8cc4-fd987cd05438.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\result_numeric.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\gap-match-item.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\gap-match-result-fout.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\gap-match-result.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\sum_item.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\sum_result_2.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\sum_result.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs-result-correct-1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs-result-correct-2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs-result-incorrect-1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs-result-incorrect-2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\hs-workaround.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-result-correct-2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-result-incorrect-1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-result-incorrect-2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-result-incorrect-3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-result-correct-1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-workaround.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

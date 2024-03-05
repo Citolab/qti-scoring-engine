@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.imsglobal.org/xsd/imsqti_result_v3p0">
+    <context sourcedId="CANDIDATE-1234">
+        <sessionIdentifier sourceID="1" identifier="SESSION-100000005" />
+        <sessionIdentifier sourceID="afnameId" identifier="SESSION-1" />
+    </context>
+    <testResult identifier="_2c5fa3d8-7a09-4df3-8e16-3dc4135858d6"
+        datestamp="2024-01-22T15:15:40.8538631+01:00">
+        <outcomeVariable identifier="AFNAME_DATUM" cardinality="single">
+            <value>2024-2-6</value>
+        </outcomeVariable>
+    </testResult>
+    <itemResult identifier="_2gaps" sequenceIndex="1"
+        datestamp="2024-01-22T15:15:40.8395938+01:00" sessionStatus="final">
+        <responseVariable identifier="numAttempts" cardinality="single">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single">
+            <value>completed</value>
+        </outcomeVariable>
+        <responseVariable identifier="RESPONSE_1" cardinality="single">
+            <candidateResponse>
+                <value>3</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE_2" cardinality="single">
+            <candidateResponse>
+                <value>4 [</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+</assessmentResult>

@@ -48,6 +48,8 @@ namespace Citolab.QTI.ScoringEngine.Const
                 { "qti-round", typeof (Round) },
                 { "qti-sum", typeof(Sum) },
                 { "qti-subtract", typeof(Subtract) },
+                { "qti-min", typeof(Min) },
+                { "qti-max", typeof(Max) },
                 { "qti-correct", typeof(Correct) },
                 { "qti-custom-operator", typeof(CustomOperator) },
                 { "qti-map-response", typeof(MapResponse) },

@@ -72,8 +72,12 @@ Supported:
 - qti-lte
 - qti-map-response
 - qti-map-response-point
+- qti-max
+- qti-min
 - qti-match
 - qti-member
+- qti-not
+- qti-null
 - qti-number-selected
 - qti-number-presented
 - qti-or
@@ -109,11 +113,7 @@ Unsupported:
 - qti-integer-to-float
 - qti-math-operator
 - qti-math-constant
-- qti-max
-- qti-min
 - qti-multiple
-- qti-not
-- qti-null
 - qti-outcome-maximum
 - qti-outcome-minimum
 - qti-pattern-match
@@ -133,6 +133,8 @@ The Scoring Engine implement IScoringEngine which contains 3 functions:
 - ProcessResponses: executes responseProcessing
 - ProcessOutcomes: executes outcomeProcessing
 - ProcessResponsesAndOutcomes: executes both outcomeProcessing and responseProcessing
+
+optional you can pass options, which for now just contains a parameter: StripAlphanumericsFromNumericResponses which can be used to do a best effort to remove non-numeric characters to numberic chars when comparing as numbers is the scoring.
 
 The provided list of assessmentResults is updated with scoring info. The functions also return this list of assessmentResults.
 

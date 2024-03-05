@@ -1,3 +1,7 @@
+## 1.3.0
+
+- support: qti-max + qti-min
+
 ## 1.3.0-beta2
 
 Added option to pass ResponseProcessingOptions instead of single stripAlphanumericsFromNumericResponses parameter

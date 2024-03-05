@@ -232,6 +232,262 @@ namespace Citolab.QTI.ScoringEngine.Tests.Business
         }
 
         [Fact]
+        public void ResponseProcessing_DOE_hotspot_correct_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-correct-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_workaround_hotspot_correct_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-correct-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_hotspot_correct_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-correct-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_workaround_hotspot_correct_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-correct-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+
+        [Fact]
+        public void ResponseProcessing_DOE_hotspot_incorrect_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-incorrect-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_workaround_hotspot_incorrect_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-incorrect-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_hotspot_incorrect_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-incorrect-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_workaround_hotspot_incorrect_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-result-incorrect-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/hs-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_111", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_correct_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-correct-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_workaround_correct_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-correct-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_correct_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-correct-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_workaround_correct_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-correct-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("1", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_incorrect_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_workaround_incorrect_1()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-1.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_incorrect_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_workaround_incorrect_2()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-2.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_incorrect_3()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-3.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+
+        [Fact]
+        public void ResponseProcessing_DOE_2gaps_workaround_incorrect_3()
+        {
+            var mockLogger = new Mock<ILogger>();
+
+            var assessmentResult = new AssessmentResult(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-result-incorrect-3.xml")));
+            var assessmentItem = new AssessmentItem(mockLogger.Object, XDocument.Load(File.OpenRead("Resources/30/ResponseProcessing/2gaps-workaround.xml")), TestHelper.GetExpressionFactory());
+
+            ResponseProcessor.Process(assessmentItem, assessmentResult, mockLogger.Object);
+
+            var scoreValue = assessmentResult.GetScoreForItem("_2gaps", "SCORE");
+            Assert.Equal("0", scoreValue);
+        }
+
+        [Fact]
         public void ResponseProcessing_DOE_gapMatch_fout()
         {
             var mockLogger = new Mock<ILogger>();

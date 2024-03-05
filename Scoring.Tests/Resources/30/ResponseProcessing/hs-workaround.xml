@@ -1,0 +1,748 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<qti-assessment-item xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd
+                        http://www.w3.org/1998/Math/MathML https://purl.imsglobal.org/spec/mathml/v3p0/schema/xsd/mathml3.xsd
+                        http://www.w3.org/2001/10/synthesis https://purl.imsglobal.org/spec/ssml/v1p1/schema/xsd/ssmlv1p1-core.xsd'
+    title='111' time-dependent='false' adaptive='false'
+    identifier='_111' label='111'
+    xmlns='http://www.imsglobal.org/xsd/imsqtiasi_v3p0'>
+    <qti-response-declaration identifier='RESPONSE' cardinality='multiple' base-type='identifier'>
+        <qti-correct-response interpretation='(A&amp;C)|(A&amp;D)|(B&amp;C)|(B&amp;D)'>
+            <qti-value>A</qti-value>
+            <qti-value>C</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-outcome-declaration identifier='RAWSCORE_ANSWERSET1' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='RAWSCORE_ANSWERSET2' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='RAWSCORE_ANSWERSET3' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='RAWSCORE_ANSWERSET4' cardinality='single' base-type='float' />
+    <qti-outcome-declaration identifier='SCORE' cardinality='single' base-type='float'>
+        <qti-interpolation-table>
+            <qti-interpolation-table-entry target-value='1' source-value='1' />
+            <qti-interpolation-table-entry target-value='0' source-value='0' />
+        </qti-interpolation-table>
+    </qti-outcome-declaration>
+    <qti-outcome-declaration identifier='MAXSCORE' cardinality='single' base-type='float'>
+        <qti-default-value>
+            <qti-value>4</qti-value>
+        </qti-default-value>
+    </qti-outcome-declaration>
+    <qti-item-body>
+        <div class='qti-layout-row'><div class='qti-layout-col6'><div><p
+                        xmlns='http://www.imsglobal.org/xsd/imsqtiasi_v3p0'><img
+                            src='Imagexx.png' alt='' width='425' height='325' /></p></div></div><div
+                class='qti-layout-col6'><qti-hotspot-interaction max-choices='10' min-choices='1'
+                    response-identifier='RESPONSE'>
+                    <img src='Image/img_xxx.png' alt=' ' width='420' height='180' />
+                    <qti-hotspot-choice coords='29,29,28' identifier='A' shape='circle' />
+                    <qti-hotspot-choice coords='88,29,28' identifier='B' shape='circle' />
+                    <qti-hotspot-choice coords='143,29,24' identifier='C' shape='circle' />
+                    <qti-hotspot-choice coords='194,29,24' identifier='D' shape='circle' />
+                    <qti-hotspot-choice coords='247,30,26' identifier='E' shape='circle' />
+                    <qti-hotspot-choice coords='300,29,24' identifier='F' shape='circle' />
+                    <qti-hotspot-choice coords='349,29,23' identifier='G' shape='circle' />
+                    <qti-hotspot-choice coords='396,30,23' identifier='H' shape='circle' />
+                    <qti-hotspot-choice coords='2,75,200,179' identifier='I' shape='rect' />
+                    <qti-hotspot-choice coords='219,75,417,179' identifier='J' shape='rect' />
+                </qti-hotspot-interaction></div></div>
+    </qti-item-body>
+    <qti-response-processing>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-is-null>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-is-null>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+            <qti-response-else>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-else>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>A</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>C</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>B</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>D</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>E</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>F</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>G</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>H</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>I</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>J</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>A</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>D</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>B</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>C</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>E</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>F</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>G</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>H</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>I</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>J</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>B</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>C</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>A</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>D</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>E</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>F</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>G</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>H</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>I</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>J</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>B</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-not>
+                    <qti-member>
+                        <qti-base-value base-type='identifier'>D</qti-base-value>
+                        <qti-variable identifier='RESPONSE' />
+                    </qti-member>
+                </qti-not>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>A</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>C</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>E</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>F</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>G</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>H</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>I</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-member>
+                    <qti-base-value base-type='identifier'>J</qti-base-value>
+                    <qti-variable identifier='RESPONSE' />
+                </qti-member>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-subtract>
+                        <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                        <qti-base-value base-type='float'>1</qti-base-value>
+                    </qti-subtract>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-lt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-lt>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET1'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-lt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-lt>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET2'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-lt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-lt>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET3'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-lt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-lt>
+                <qti-set-outcome-value identifier='RAWSCORE_ANSWERSET4'>
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-gt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET1' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-gt>
+                <qti-set-outcome-value identifier='SCORE'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-gt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET2' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-gt>
+                <qti-set-outcome-value identifier='SCORE'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-gt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET3' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-gt>
+                <qti-set-outcome-value identifier='SCORE'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+        <qti-response-condition>
+            <qti-response-if>
+                <qti-gt>
+                    <qti-variable identifier='RAWSCORE_ANSWERSET4' />
+                    <qti-base-value base-type='float'>0</qti-base-value>
+                </qti-gt>
+                <qti-set-outcome-value identifier='SCORE'>
+                    <qti-base-value base-type='float'>1</qti-base-value>
+                </qti-set-outcome-value>
+            </qti-response-if>
+        </qti-response-condition>
+    </qti-response-processing>
+</qti-assessment-item>
