@@ -1,3 +1,7 @@
+## 1.3.1
+
+- removed temp fix for delivery engine error to sort directPairs. Only pairs are sorted as the QTI spec describes.
+
 ## 1.3.0
 
 - support: qti-max + qti-min

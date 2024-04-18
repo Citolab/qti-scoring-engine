@@ -147,11 +147,11 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                         {
                             // sort values because order is not important
                             // WORKAROUND TO SUPPORT DIRECT PAIRS MIXED UP. ACTUALLY SHOULD ONLY BE SORTED FOR PAIRS
-                            // if (baseType == BaseType.Pair)
-                            // {
-                            pair1.Sort();
-                            pair2.Sort();
-                            // }
+                            if (baseType == BaseType.Pair)
+                            {
+                                pair1.Sort();
+                                pair2.Sort();
+                            }
                             return string.Join(" ", pair1) == string.Join(" ", pair2);
                         }
                         else

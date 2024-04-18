@@ -44,10 +44,10 @@
         </outcomeVariable>
         <responseVariable identifier="RESPONSE" cardinality="single" baseType="directedPair">
             <candidateResponse>
-                <value>HSA B</value>
-                <value>HSB D</value>
-                <value>HSC C</value>
-                <value>HSD A</value>
+                <value>B HSA</value>
+                <value>D HSB</value>
+                <value>C HSC</value>
+                <value>A HSD</value>
             </candidateResponse>
         </responseVariable>
     </itemResult>
