@@ -164,6 +164,12 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return false;
         }
 
+        internal static bool CompareSingleValues(MapEntry mapEntry, string value2, BaseType baseType,
+            IProcessingContext context)
+        {
+            return mapEntry.CaseSensitive ? CompareSingleValues(mapEntry.MapKey, value2, baseType, context) : CompareSingleValues(string.IsNullOrWhiteSpace(mapEntry.MapKey) ? mapEntry.MapKey : mapEntry.MapKey.ToUpper(), string.IsNullOrWhiteSpace(value2) ? value2 : value2.ToUpper(), baseType, context);
+        }
+
         public static OutcomeVariable GetOutcomeVariable(string id, OutcomeDeclaration outcomeDeclaration, IProcessingContext context, bool createIfNotExists = true)
         {
             if (string.IsNullOrEmpty(id))
