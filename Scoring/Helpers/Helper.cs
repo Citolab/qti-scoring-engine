@@ -164,10 +164,18 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             return false;
         }
 
-        internal static bool CompareSingleValues(MapEntry mapEntry, string value2, BaseType baseType,
-            IProcessingContext context)
+        internal static bool CompareSingleValues(MapEntry mapEntry, string value2, BaseType baseType, IProcessingContext context)
         {
-            return mapEntry.CaseSensitive ? CompareSingleValues(mapEntry.MapKey, value2, baseType, context) : CompareSingleValues(string.IsNullOrWhiteSpace(mapEntry.MapKey) ? mapEntry.MapKey : mapEntry.MapKey.ToUpper(), string.IsNullOrWhiteSpace(value2) ? value2 : value2.ToUpper(), baseType, context);
+            if (mapEntry.CaseSensitive)
+            {
+                return CompareSingleValues(mapEntry.MapKey, value2, baseType, context);
+            }
+            else
+            {
+                var mapKey = string.IsNullOrWhiteSpace(mapEntry.MapKey) ? mapEntry.MapKey : mapEntry.MapKey.ToUpper();
+                var value2Upper = string.IsNullOrWhiteSpace(value2) ? value2 : value2.ToUpper();
+                return CompareSingleValues(mapKey, value2Upper, baseType, context);
+            }
         }
 
         public static OutcomeVariable GetOutcomeVariable(string id, OutcomeDeclaration outcomeDeclaration, IProcessingContext context, bool createIfNotExists = true)

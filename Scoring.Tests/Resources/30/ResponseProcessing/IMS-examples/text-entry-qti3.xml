@@ -6,7 +6,7 @@
 			<qti-value>York</qti-value>
 		</qti-correct-response>
 		<qti-mapping default-value="0">
-			<qti-map-entry map-key="York" mapped-value="1"/>
+			<qti-map-entry map-key="York" mapped-value="1" case-sensitive="true"/>
 			<qti-map-entry map-key="york" mapped-value="0.5"/>
 		</qti-mapping>
 	</qti-response-declaration>
