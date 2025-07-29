@@ -166,10 +166,17 @@ namespace Citolab.QTI.ScoringEngine.Model
                 {
                     if (mapEntryElement.GetAttributeValue("mapped-value").TryParseFloat(out var mapValue))
                     {
+                        var caseSensitiveValue = mapEntryElement.GetAttributeValue("case-sensitive");
+                        var caseSensitive = false;
+                        if (!string.IsNullOrWhiteSpace(caseSensitiveValue))
+                        {
+                            bool.TryParse(caseSensitiveValue, out caseSensitive);
+                        }
                         return new MapEntry
                         {
                             MapKey = mapEntryElement.GetAttributeValue("map-key"),
-                            MappedValue = mapValue
+                            MappedValue = mapValue,
+                            CaseSensitive = caseSensitive
                         };
                     }
                     else

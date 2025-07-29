@@ -5,7 +5,7 @@
 		<RootNamespace>Citolab.QTI.ScoringEngine</RootNamespace>
 		<ProjectGuid>{2A7091CD-6A49-4B7B-85BB-A140C8B5397C}</ProjectGuid>
 		<PackageId>Citolab.QTI.ScoringEngine</PackageId>
-		<Version>1.3.1</Version>
+		<Version>1.3.2</Version>
 		<Company>Cito</Company>
 		<Copyright>Stichting Cito Instituut voor Toetsontwikkeling, Arnhem (2023)</Copyright>
 		<Authors>Citolab</Authors>

@@ -1,3 +1,7 @@
+## 1.3.2
+
+- String comparison supports case sensitive
+
 ## 1.3.1
 
 - removed temp fix for delivery engine error to sort directPairs. Only pairs are sorted as the QTI spec describes.

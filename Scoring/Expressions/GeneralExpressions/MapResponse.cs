@@ -33,7 +33,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                     foreach (var candidateValue in values)
                     {
                         var mappedValue = responseDeclaration.Mapping.MapEntries.FirstOrDefault(m =>
-                        Helper.CompareSingleValues(m.MapKey, candidateValue, responseDeclaration.BaseType, ctx));
+                        Helper.CompareSingleValues(m, candidateValue, responseDeclaration.BaseType, ctx));
                         if (mappedValue == null)
                         {
                             value += responseDeclaration.Mapping.DefaultValue;
