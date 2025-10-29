@@ -22,9 +22,9 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
          base(logger, assessmentResult)
 
         {
-            this.Options = options;
-            _sessionIdentifier = $"{AssessmentItem?.Identifier} - {AssessmentResult?.SourcedId}";
+            Options = options;
             AssessmentItem = assessmentItem;
+            _sessionIdentifier = $"{AssessmentItem?.Identifier} - {AssessmentResult?.SourcedId}";
             if (AssessmentItem != null && AssessmentResult.ItemResults.ContainsKey(AssessmentItem.Identifier))
             {
                 ItemResult = AssessmentResult.ItemResults[AssessmentItem.Identifier];
