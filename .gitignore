@@ -336,3 +336,4 @@ nuget.config
 # NCrunch extension
 *.ncrunchsolution
 *.DS_Store
+.opencode

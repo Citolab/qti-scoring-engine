@@ -35,6 +35,17 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
 
                 OutcomeVariables = ItemResult.OutcomeVariables;
                 ResponseVariables = ItemResult.ResponseVariables;
+
+                // Ensure every declared outcome has a variable initialized from its default,
+                // so expressions like <variable identifier="MAXSCORE"/> resolve even when the
+                // outcome is only read (never set) during responseProcessing.
+                foreach (var declaration in OutcomeDeclarations.Values)
+                {
+                    if (!OutcomeVariables.ContainsKey(declaration.Identifier))
+                    {
+                        OutcomeVariables.Add(declaration.Identifier, declaration.ToVariable());
+                    }
+                }
             }
             else
             {
