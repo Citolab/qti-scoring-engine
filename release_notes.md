@@ -1,3 +1,14 @@
+## 1.3.4
+
+- Enhanced ResponseProcessorContext to initialize outcome variables for declared outcomes
+- Ensures expressions like `<variable identifier="MAXSCORE"/>` resolve correctly even when the outcome is only read (never set) during responseProcessing
+
+## 1.3.3
+
+- Updated target framework to .NET 9.0
+- Refactored ResponseProcessorContext constructor for clarity
+- Updated target frameworks and version in project file
+
 ## 1.3.2
 
 - String comparison supports case sensitive
