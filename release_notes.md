@@ -1,3 +1,7 @@
+## 1.3.5
+
+- Null-safety fix in `AssessmentTest`: guard against missing `qti-set-outcome-value` elements and a null `OutcomeProcessingElement` when building calculated outcomes and expressions
+
 ## 1.3.4
 
 - Enhanced ResponseProcessorContext to initialize outcome variables for declared outcomes

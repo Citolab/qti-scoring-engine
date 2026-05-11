@@ -65,12 +65,15 @@ namespace Citolab.QTI.ScoringEngine.Model
 
             var setOutcomeElements = OutcomeProcessingElement?
               .FindElementsByName("qti-set-outcome-value");
-            var setOutcomes = setOutcomeElements?.Select(v => v.Identifier());
+            var setOutcomes = setOutcomeElements?.Select(v => v.Identifier()) ?? Enumerable.Empty<string>();
             CalculatedOutcomes = setOutcomes.Distinct().ToHashSet();
 
-            foreach (var outcomeProcessingChild in OutcomeProcessingElement.Elements())
+            if (OutcomeProcessingElement != null)
             {
-                Expressions.Add(expressionFactory.GetConditionExpression(outcomeProcessingChild, true));
+                foreach (var outcomeProcessingChild in OutcomeProcessingElement.Elements())
+                {
+                    Expressions.Add(expressionFactory.GetConditionExpression(outcomeProcessingChild, true));
+                }
             }
         }
 
