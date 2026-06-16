@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assessmentItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" timeDependent="false"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 ../controlxsds/imsqti_v2p1.xsd"
+  adaptive="false" title="vleermuizen" identifier="ITM-7281"
+  xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1">
+  <responseDeclaration baseType="directedPair" cardinality="multiple" identifier="RESPONSE">
+    <correctResponse interpretation="A G7">
+      <value>A G7</value>
+    </correctResponse>
+  </responseDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="SCORE" baseType="integer">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration cardinality="single" identifier="ItemFunctionalType" baseType="string">
+    <defaultValue>
+      <value>Regular</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <stylesheet href="../css/cito_userstyle.css" type="text/css" />
+  <stylesheet href="../css/cito_generated.css" type="text/css" />
+  <itemBody class="defaultBody">
+    <div class="content">
+
+      <object type="audio/mpeg" data="../audio/Open_PT.mp3" class="texttospeechcenter" /> z <div
+        class="itemcontainer">
+        <div class="itemcontent ">
+
+          <div class="questify_bodyWrapper">
+            <p class="UserSROpmerkingNietInAfname">
+              <span>
+                <span>In deze opgave ontbreekt één punt. </span>
+              </span>
+            </p><p
+              class="UserSROpmerkingNietInAfname">
+              <span>
+                <span>
+                  <span>
+                    <span>LKFJDjfdlkdjflkj flkjdflkjdlkj fdlfkjdkj lkjflkjdlkjf lkfjdlkjflkdjlk</span>
+                  </span>
+                </span>
+              </span>
+            </p><table
+              class="UserSROpmerkingNietInAfname cito_genclass_7281_1">
+              <colgroup>
+                <col class="cito_genclass_7281_2" />
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td class="cito_genclass_7281_3">
+                    <p class="cito_genclass_7281_4">
+                      <span>
+                        <span>
+                          <span>
+                            <span>
+                              <span class="cito_genclass_7281_5"><span>.</span></span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table><p>
+              <span>
+                <span>
+                  <span>
+                    <span> </span>
+                  </span>
+                </span>
+              </span> <span /></p>
+          </div>
+						
+							<div
+            class="questify_questionWrapper">
+            <p>In deze opgave ontbreekt één punt. <br />Sleep de punt naar de juiste plaats. </p>
+          </div>
+						
+						<div
+            class="questify_gapMatchWrapper punctuationRules">
+
+            <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+
+              <gapText identifier="A" matchMax="1">.</gapText>
+
+
+              <p>
+                <span>Koeken<span><gap identifier="G1" /></span> lalala<span><gap identifier="G2" /></span>
+      lalal<span><gap identifier="G3" /></span> zoals<span><gap identifier="G4" /></span> muggen<span><gap
+                      identifier="G5" /></span> en<span><gap identifier="G6" /></span> motten<span><gap
+                      identifier="G7" /></span> llala<span><gap identifier="G8" /></span> het<span><gap
+                      identifier="G9" /></span> 's avonds<span><gap identifier="G10" /></span><br /></span>
+            <span>
+      begint<span><gap identifier="G11" /></span> te</span> <span><span><gap identifier="G12" /></span>
+       schemeren<span><gap identifier="G13" /></span> komen<span><gap identifier="G14" /></span> de<span><gap
+                      identifier="G15" /></span> vleermuizen<span><gap identifier="G16" /></span>
+       dkjfkdroe<span><gap identifier="G17" /></span> om<span><gap identifier="G18" /></span> deze<span><gap
+                      identifier="G19" /></span> <br /></span><span>lala<span><gap identifier="G20" /></span>
+       al<span><gap identifier="G21" /></span> vliegend<span><gap identifier="G22" /></span> door<span><gap
+                      identifier="G23" /></span> de<span><gap identifier="G24" /></span> lucht<span><gap
+                      identifier="G25" /></span> te<span><gap identifier="G26" /></span>
+       fjkcjvkjekj.</span></p>
+
+            </gapMatchInteraction>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </itemBody>
+  <responseProcessing>
+    <responseCondition>
+      <responseIf>
+        <member>
+          <baseValue baseType="directedPair">A G7</baseValue>
+          <variable identifier="RESPONSE" />
+        </member>
+        <setOutcomeValue identifier="SCORE">
+          <sum>
+            <baseValue baseType="integer">1</baseValue>
+            <variable identifier="SCORE" />
+          </sum>
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+    <responseCondition>
+      <responseIf>
+        <gte>
+          <variable identifier="SCORE" />
+          <baseValue baseType="integer">1</baseValue>
+        </gte>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="integer">1</baseValue>
+        </setOutcomeValue>
+      </responseIf>
+      <responseElse>
+        <setOutcomeValue identifier="SCORE">
+          <baseValue baseType="integer">0</baseValue>
+        </setOutcomeValue>
+      </responseElse>
+    </responseCondition>
+  </responseProcessing>
+</assessmentItem>

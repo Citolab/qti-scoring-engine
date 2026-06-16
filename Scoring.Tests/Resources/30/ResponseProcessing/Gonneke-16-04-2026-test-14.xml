@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+      identifier="Gonneke-16-04-2026-test-14" title="Gonneke-16-04-2026 14" adaptive="false"
+      time-dependent="false" xml:lang="en">
+      <qti-response-declaration identifier="RESPONSE1" cardinality="single" base-type="identifier">
+            <qti-correct-response>
+                  <qti-value>SIMPLE_CHOICE_2fdfc1ee-4f98-46e6-bb13-7e768b885a3c</qti-value>
+            </qti-correct-response>
+      </qti-response-declaration>
+      <qti-response-declaration identifier="RESPONSE2" cardinality="single" base-type="string" />
+      <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+            <qti-default-value>
+                  <qti-value>0</qti-value>
+            </qti-default-value>
+      </qti-outcome-declaration>
+      <qti-outcome-declaration identifier="MAXSCORE" cardinality="single" base-type="float">
+            <qti-default-value>
+                  <qti-value>2</qti-value>
+            </qti-default-value>
+      </qti-outcome-declaration>
+      <qti-item-body>
+            <p> In de afbeeldingen 10 en 11 zijn foto's van een bloem van de Nachtschade afgebeeld. </p>
+            <img src="../assets/Gonneke-16-04-2026-test-14-image-3.jpeg"
+                  alt="Afbeelding met plant, bloem, bloemblaadje, Pedicellus  Door AI gegenereerde inhoud is mogelijk onjuist."
+                  width="311" height="191" />
+            <p>
+                  <strong> Afb. 10 </strong>
+            </p>
+            <img src="../assets/Gonneke-16-04-2026-test-14-image-4.jpeg"
+                  alt="Afbeelding met plant, Pedicellus, bloem, flora  Door AI gegenereerde inhoud is mogelijk onjuist."
+                  width="370" height="193" />
+            <p>
+                  <strong> Afb. 11 </strong>
+            </p>
+            <qti-choice-interaction max-choices="1" class="qti-labels-none"
+                  response-identifier="RESPONSE1"
+                  data-correct-response="SIMPLE_CHOICE_2fdfc1ee-4f98-46e6-bb13-7e768b885a3c"
+                  data-score="1">
+                  <qti-prompt>
+                        <p> In welk deel wordt er zuurstof gemaakt? </p>
+                  </qti-prompt>
+                  <qti-simple-choice identifier="SIMPLE_CHOICE_1c6812e2-c84f-4d63-91ba-e2dcba0bef7f">
+                        <p> Deel 1 </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="SIMPLE_CHOICE_5d788595-b581-40c6-906d-dd90ddac38fd">
+                        <p> Deel 2 </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="SIMPLE_CHOICE_23dd4de1-3d43-40fb-8dc7-07b5df88938d">
+                        <p> Deel 3 </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="SIMPLE_CHOICE_2fdfc1ee-4f98-46e6-bb13-7e768b885a3c">
+                        <p> Deel 4 </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="SIMPLE_CHOICE_4b897710-f829-4af1-a246-46447840525d">
+                        <p> Deel 5 </p>
+                  </qti-simple-choice>
+            </qti-choice-interaction>
+            <p>
+                  <strong> ANTW </strong> : Deel 4 &#8211; 1P </p>
+            <qti-extended-text-interaction response-identifier="RESPONSE2" expected-lines="6"
+                  data-correct-response="Dit deel is groen" data-score="1">
+                  <qti-prompt>
+                        <p> Leg je antwoord uit. </p>
+                  </qti-prompt>
+            </qti-extended-text-interaction>
+            <qti-rubric-block view="scorer" use="instructions">
+                  <qti-content-body>
+                        <div>
+                              <p>Dit deel is groen</p>
+                        </div>
+                  </qti-content-body>
+            </qti-rubric-block>
+            <p>
+                  <strong> ANTW </strong> : Dit deel is groen en hier kan dus fotosynthese
+                  plaatsvinden. &#8211; 1P </p>
+      </qti-item-body>
+      <qti-response-processing>
+            <qti-response-condition>
+                  <qti-response-if>
+                        <qti-match>
+                              <qti-variable identifier="RESPONSE1" />
+                              <qti-correct identifier="RESPONSE1" />
+                        </qti-match>
+                        <qti-set-outcome-value identifier="SCORE">
+                              <qti-sum>
+                                    <qti-variable identifier="SCORE" />
+                                    <qti-base-value base-type="float">1</qti-base-value>
+                              </qti-sum>
+                        </qti-set-outcome-value>
+                  </qti-response-if>
+            </qti-response-condition>
+      </qti-response-processing>
+</qti-assessment-item>

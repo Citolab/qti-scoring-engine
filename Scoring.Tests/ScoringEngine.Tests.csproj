@@ -77,6 +77,8 @@
     <None Remove="Resources\30\ResponseProcessing\2gaps.xml" />
     <None Remove="Resources\30\ResponseProcessing\2gaps-result-correct-1.xml" />
     <None Remove="Resources\30\ResponseProcessing\2gaps-workaround.xml" />
+    <None Remove="Resources\30\ResponseProcessing\Gonneke-16-04-2026-test-14.xml" />
+    <None Remove="Resources\30\ResponseProcessing\7281.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -301,6 +303,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\30\ResponseProcessing\2gaps-workaround.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\Gonneke-16-04-2026-test-14.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\30\ResponseProcessing\7281.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

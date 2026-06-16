@@ -30,7 +30,13 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 {
                     BaseType = responseVariable.BaseType,
                     Value = cardinality == Cardinality.Single ? responseVariable.Value : "",
-                    Values = responseVariable.Values?.Count > 1 ? responseVariable.Values : null, // WORKAROUND FOR INVALID RESPONSE DECLARATION!!
+                    // For multiple cardinality always expose the full list of values, even when it
+                    // contains a single value (e.g. a gapMatch with one correct pair). The Count > 1
+                    // check is a WORKAROUND FOR INVALID RESPONSE DECLARATION that only applies to
+                    // single-declared responses that unexpectedly carry multiple values.
+                    Values = cardinality == Cardinality.Single
+                        ? (responseVariable.Values?.Count > 1 ? responseVariable.Values : null)
+                        : responseVariable.Values,
                     Identifier = identifer,
                     Cardinality = cardinality
                 };
