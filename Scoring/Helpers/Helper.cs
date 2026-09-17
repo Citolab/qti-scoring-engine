@@ -113,6 +113,29 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             {
                 case BaseType.Identifier: return value1 == value2;
                 case BaseType.String: return value1 == value2;
+                // these have no richer comparison than their literal value
+                case BaseType.Uri:
+                case BaseType.file:
+                case BaseType.IntOrIdentifier: return value1 == value2;
+                case BaseType.Boolean:
+                    {
+                        if (bool.TryParse(value1, out var bool1) && bool.TryParse(value2, out var bool2))
+                        {
+                            return bool1 == bool2;
+                        }
+                        context.LogError($"Cannot convert {value1} and/or {value2} to boolean.");
+                        break;
+                    }
+                case BaseType.Duration:
+                    {
+                        // a duration is a number of seconds, so it compares like a float
+                        if (value1.TryParseFloat(out var duration1) && value2.TryParseFloat(out var duration2))
+                        {
+                            return duration1 == duration2;
+                        }
+                        context.LogError($"Cannot convert {value1} and/or {value2} to a duration.");
+                        break;
+                    }
                 case BaseType.Int:
                     {
                         if (value1.TryParseInt(out var int1) && value2.TryParseInt(out var int2))

@@ -112,7 +112,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                 Logger.LogError("missing identifier in responseDeclaration");
                 return null;
             }
-            responseDeclaration.BaseType = baseTypeString.ToBaseType();
+            responseDeclaration.BaseType = baseTypeString.ToBaseType(Logger);
             responseDeclaration.Cardinality = cardinalityString.ToCardinality();
             responseDeclaration.Identifier = identifier;
             var correctResponse = el.FindElementsByName("qti-correct-response")

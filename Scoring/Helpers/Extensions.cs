@@ -273,7 +273,9 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static XElement ToXElement(this BaseValue value)
         {
-            return XElement.Parse($"<qti-base-value base-type=\"{value.BaseType.GetString()}\">{value.Value}</qti-base-value>");
+            return new XElement("qti-base-value",
+                new XAttribute("base-type", value.BaseType.GetString()),
+                value.Value ?? string.Empty);
         }
 
         internal static OutcomeVariable ToVariable(this OutcomeDeclaration outcomeDeclaration)
@@ -289,14 +291,18 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static XElement ToVariableElement(this OutcomeDeclaration outcomeDeclaration)
         {
-            return XElement.Parse($"<qti-variable identifier=\"{outcomeDeclaration.Identifier}\" />");
+            return new XElement("qti-variable",
+                new XAttribute("identifier", outcomeDeclaration.Identifier ?? string.Empty));
         }
 
         internal static XElement ToElement(this OutcomeDeclaration outcomeDeclaration)
         {
-            return XElement.Parse($"<qti-outcome-declaration " +
-                $"identifier=\"{outcomeDeclaration.Identifier}\" cardinality=\"{outcomeDeclaration.Cardinality.GetString()}\" " +
-                $"base-type=\"{outcomeDeclaration.BaseType.GetString()}\"><qti-default-value><qti-value>{outcomeDeclaration.DefaultValue}</qti-value></qti-default-value></qti-outcome-declaration>");
+            return new XElement("qti-outcome-declaration",
+                new XAttribute("identifier", outcomeDeclaration.Identifier ?? string.Empty),
+                new XAttribute("cardinality", outcomeDeclaration.Cardinality.GetString()),
+                new XAttribute("base-type", outcomeDeclaration.BaseType.GetString()),
+                new XElement("qti-default-value",
+                    new XElement("qti-value", outcomeDeclaration.DefaultValue?.ToString() ?? string.Empty)));
         }
 
         internal static XElement ToValueElement(this string value)
@@ -306,7 +312,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 // prevent scores to be written as 0.0 but 0 instead.
                 value = v.ToString("0.############", CultureInfo.InvariantCulture);
             }
-            return XElement.Parse($"<Value>{value}</Value>");
+            return new XElement("Value", value ?? string.Empty);
         }
 
         internal static HashSet<T> ToHashSet<T>(
@@ -417,7 +423,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
                 if (outcomeProcessing == null)
                 {
-                    assessmentTest.Add(XElement.Parse("<qti-outcome-processing></qti-outcome-processing>"));
+                    assessmentTest.Add(new XElement("qti-outcome-processing"));
                     outcomeProcessing = assessmentTest.FindElementByName("qti-outcome-processing");
                 }
                 outcomeProcessing.Add(testVariableElement.AddDefaultNamespace(assessmentTest.Root.GetDefaultNamespace()));

@@ -80,6 +80,24 @@ namespace Citolab.QTI.ScoringEngine
             var assessmentItems = ctx.AssessmentItems
                 .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc, expressionFactory))
                 .ToList();
+            // Indexed once, so each result only walks the items it actually has a result for
+            // instead of every item in the test.
+            var assessmentItemsByIdentifier = new Dictionary<string, AssessmentItem>();
+            foreach (var assessmentItem in assessmentItems)
+            {
+                if (assessmentItem.Identifier == null)
+                {
+                    ctx.Logger.LogError("Skipping an assessmentItem without an identifier.");
+                }
+                else if (assessmentItemsByIdentifier.ContainsKey(assessmentItem.Identifier))
+                {
+                    ctx.Logger.LogWarning($"More than one assessmentItem has identifier: {assessmentItem.Identifier}. Using the first.");
+                }
+                else
+                {
+                    assessmentItemsByIdentifier.Add(assessmentItem.Identifier, assessmentItem);
+                }
+            }
             if (ctx.ProcessParallel == true)
             {
                 // written by index so the results come back in the order they were handed in.
@@ -88,14 +106,14 @@ namespace Citolab.QTI.ScoringEngine
                   index =>
                   {
                       var assessmentResultDoc = ctx.AssessmentmentResults[index];
-                      processed[index] = AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options);
+                      processed[index] = AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItemsByIdentifier, ctx.Logger, options);
                   });
                 ctx.AssessmentmentResults = processed.ToList();
             }
             else
             {
                 ctx.AssessmentmentResults = ctx.AssessmentmentResults
-              .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options))
+              .Select(assessmentResultDoc => (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItemsByIdentifier, ctx.Logger, options))
               .ToList();
             }
 
@@ -118,12 +136,17 @@ namespace Citolab.QTI.ScoringEngine
             return assessmentResult;
         }
 
-        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, List<AssessmentItem> assessmentItems, ILogger logger, ResponseProcessingScoringsOptions options = null)
+        private AssessmentResult AssessmentResultResponseProcessing(XDocument assessmentResultDocument, Dictionary<string, AssessmentItem> assessmentItemsByIdentifier, ILogger logger, ResponseProcessingScoringsOptions options = null)
         {
             var assessmentResult = new AssessmentResult(logger, assessmentResultDocument);
-            foreach (var assessmentItem in assessmentItems)
+            // An item the candidate has no itemResult for is a no-op in ResponseProcessor, so
+            // driving the loop from the result skips building a context for every unanswered item.
+            foreach (var itemIdentifier in assessmentResult.ItemResults.Keys)
             {
-                assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, options);
+                if (assessmentItemsByIdentifier.TryGetValue(itemIdentifier, out var assessmentItem))
+                {
+                    assessmentResult = ResponseProcessor.Process(assessmentItem, assessmentResult, logger, options);
+                }
             }
             return assessmentResult;
         }

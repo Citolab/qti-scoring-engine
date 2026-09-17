@@ -24,9 +24,13 @@ namespace Citolab.QTI.ScoringEngine.Model
                 // prevent scores to be written as 0.0 but 0 instead.
                 value = v.ToString("0.############", CultureInfo.InvariantCulture);
             }
-            return XElement.Parse($"<outcomeVariable identifier=\"{Identifier}\" " +
-                $"cardinality=\"{Cardinality.GetString()}\" " +
-                $"baseType=\"{BaseType.GetString()}\"><value>{value}</value></outcomeVariable>");
+            // built rather than parsed from a string: a string outcome holding & or < is
+            // ordinary data, and interpolating it into XML threw XmlException.
+            return new XElement("outcomeVariable",
+                new XAttribute("identifier", Identifier ?? string.Empty),
+                new XAttribute("cardinality", Cardinality.GetString()),
+                new XAttribute("baseType", BaseType.GetString()),
+                new XElement("value", value ?? string.Empty));
         }
     }
 }

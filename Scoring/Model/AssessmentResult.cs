@@ -189,7 +189,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                                    return new OutcomeVariable
                                    {
                                        Identifier = outcomeVariable.Identifier(),
-                                       BaseType = outcomeVariable.GetAttributeValue("baseType").ToBaseType(),
+                                       BaseType = outcomeVariable.GetAttributeValue("baseType").ToBaseType(_logger),
                                        Cardinality = outcomeVariable.GetAttributeValue("cardinality").ToCardinality(),
                                        Value = outcomeVariable.FindElementsByName("value").FirstOrDefault()?.Value?.RemoveXData()
                                    };
@@ -203,7 +203,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     return new ResponseVariable
                     {
                         Identifier = responseVariable.Identifier(),
-                        BaseType = responseVariable.GetAttributeValue("baseType").ToBaseType(),
+                        BaseType = responseVariable.GetAttributeValue("baseType").ToBaseType(_logger),
                         Value = string.Join("&", values.ToArray()),
                         Values = values
                     };

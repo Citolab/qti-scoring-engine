@@ -158,6 +158,51 @@ namespace ScoringEngine.Tests.EngineTests
         }
 
 
+
+        [Fact]
+        public void OnlyItemsTheCandidateAnsweredAreProcessed()
+        {
+            // Response processing is driven from the result's itemResults rather than from the
+            // full item list; an item with no itemResult must still be left completely alone.
+            var items = Items();
+            var answered = items[0].Root.Identifier();
+            var skipped = items[1].Root.Identifier();
+
+            var result = Results(1).Single();
+            result.RemoveItemResult(skipped);
+
+            var scored = new Citolab.QTI.ScoringEngine.ScoringEngine().ProcessResponses(new ResponseProcessingContext
+            {
+                AssessmentItems = items,
+                AssessmentmentResults = new List<XDocument> { result },
+                Logger = new Mock<ILogger>().Object
+            });
+
+            Assert.Equal("1", scored[0].GetScoreForItem(answered, "SCORE"));
+            Assert.Null(scored[0].GetScoreForItem(skipped, "SCORE"));
+            // and no empty itemResult was invented for it
+            Assert.DoesNotContain(scored[0].FindElementsByName("itemResult"), e => e.Identifier() == skipped);
+        }
+
+        [Fact]
+        public void DuplicateItemIdentifiersAreReportedAndTheFirstIsUsed()
+        {
+            var items = Items();
+            var duplicated = items.Concat(new List<XDocument> { XDocument.Parse(items[0].ToString()) }).ToList();
+            var log = new Mock<ILogger>();
+
+            var scored = new Citolab.QTI.ScoringEngine.ScoringEngine().ProcessResponses(new ResponseProcessingContext
+            {
+                AssessmentItems = duplicated,
+                AssessmentmentResults = Results(1),
+                Logger = log.Object
+            });
+
+            Assert.Equal(ExpectedScores, ScoresOf(scored[0], items));
+            log.Verify(l => l.Log(LogLevel.Warning, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(),
+                It.IsAny<System.Exception>(), It.IsAny<System.Func<It.IsAnyType, System.Exception, string>>()), Times.AtLeastOnce);
+        }
+
         /// <summary>
         /// Sets an outcome that has no outcomeDeclaration. ResetOutcomes then has to add the
         /// declaration, which is the write that used to land in the shared AssessmentItem.

@@ -46,7 +46,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                 LogError("missing identifier in outcomeDeclaration");
                 return null;
             }
-            outcome.BaseType = baseTypeString.ToBaseType();
+            outcome.BaseType = baseTypeString.ToBaseType(Logger);
             outcome.Cardinality = cardinalityString.ToCardinality();
             outcome.Identifier = identifier;
             var defaultValue = outcomeDeclaration.FindElementsByName("qti-default-value").FirstOrDefault()?.FindElementsByName("qti-value").FirstOrDefault();

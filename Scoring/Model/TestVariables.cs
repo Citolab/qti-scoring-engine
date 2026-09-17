@@ -18,13 +18,23 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public XElement ToSummedSetOutcomeElement()
         {
-            var includedCategory = IncludedCategories != null && IncludedCategories.Any() ? $"include-category=\"{ string.Join(" ", IncludedCategories) }\"" : "";
-            var excludeCategory = ExcludedCategories!= null && ExcludedCategories.Any() ? $"exclude-category=\"{ string.Join(" ", ExcludedCategories) }\"" : "";
-            var weigthIdentifier = !string.IsNullOrEmpty(WeightIdentifier) ? $"weight-identifier=\"{ WeightIdentifier }\"" : "";
-
-            var testVariable = $"<qti-test-variables { includedCategory } {excludeCategory} variable-identifier=\"{ItemIdentifier}\" {weigthIdentifier} />";
-            var setOutcome = $"<qti-set-outcome-value identifier=\"{Identifier}\"><qti-sum>{testVariable}</qti-sum></qti-set-outcome-value>";
-            return XElement.Parse(setOutcome);
+            var testVariable = new XElement("qti-test-variables",
+                new XAttribute("variable-identifier", ItemIdentifier ?? string.Empty));
+            if (IncludedCategories != null && IncludedCategories.Any())
+            {
+                testVariable.Add(new XAttribute("include-category", string.Join(" ", IncludedCategories)));
+            }
+            if (ExcludedCategories != null && ExcludedCategories.Any())
+            {
+                testVariable.Add(new XAttribute("exclude-category", string.Join(" ", ExcludedCategories)));
+            }
+            if (!string.IsNullOrEmpty(WeightIdentifier))
+            {
+                testVariable.Add(new XAttribute("weight-identifier", WeightIdentifier));
+            }
+            return new XElement("qti-set-outcome-value",
+                new XAttribute("identifier", Identifier ?? string.Empty),
+                new XElement("qti-sum", testVariable));
         }
 
         public XElement OutcomeElement()

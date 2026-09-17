@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -114,42 +115,53 @@ namespace Citolab.QTI.ScoringEngine.Model
                     }
                 case BaseType.Point:
                     return "point";
+                case BaseType.Boolean:
+                    return "boolean";
+                case BaseType.Duration:
+                    return "duration";
+                case BaseType.file:
+                    return "file";
+                case BaseType.Uri:
+                    return "uri";
+                case BaseType.IntOrIdentifier:
+                    return "intOrIdentifier";
             }
             return "string";
         }
 
 
-        internal static BaseType ToBaseType(this string baseTypeString)
-        {
-            switch (baseTypeString)
+        private static readonly Dictionary<string, BaseType> BaseTypesByName =
+            new Dictionary<string, BaseType>(StringComparer.OrdinalIgnoreCase)
             {
-                case "identifier":
-                    {
-                        return BaseType.Identifier;
-                    }
-                case "float":
-                    {
-                        return BaseType.Float;
-                    }
-                case "integer":
-                    {
-                        return BaseType.Int;
-                    }
-                case "string":
-                    {
-                        return BaseType.String;
-                    }
-                case "pair":
-                    {
-                        return BaseType.Pair;
-                    }
-                case "directedPair":
-                    {
-                        return BaseType.DirectedPair;
-                    }
-                case "point":
-                    return BaseType.Point;
+                { "identifier", BaseType.Identifier },
+                { "float", BaseType.Float },
+                { "integer", BaseType.Int },
+                { "string", BaseType.String },
+                { "pair", BaseType.Pair },
+                { "directedPair", BaseType.DirectedPair },
+                { "point", BaseType.Point },
+                { "boolean", BaseType.Boolean },
+                { "duration", BaseType.Duration },
+                { "file", BaseType.file },
+                { "uri", BaseType.Uri },
+                { "intOrIdentifier", BaseType.IntOrIdentifier }
+            };
+
+        /// <summary>
+        /// Falls back to string, as it always has, but says so: a base-type that is not
+        /// recognised used to be scored as a string with nothing written to the log.
+        /// </summary>
+        internal static BaseType ToBaseType(this string baseTypeString, ILogger logger = null)
+        {
+            if (string.IsNullOrEmpty(baseTypeString))
+            {
+                return BaseType.String;
             }
+            if (BaseTypesByName.TryGetValue(baseTypeString.Trim(), out var baseType))
+            {
+                return baseType;
+            }
+            logger?.LogWarning($"Unknown base-type: {baseTypeString}. Treating it as a string.");
             return BaseType.String;
         }
 

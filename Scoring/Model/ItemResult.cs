@@ -17,7 +17,10 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public XElement ToElement()
         {
-            return XElement.Parse($"<itemResult identifier=\"{Identifier}\" sessionStatus=\"final\" datestamp=\"{DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)}\"></itemResult>");
+            return new XElement("itemResult",
+                new XAttribute("identifier", Identifier ?? string.Empty),
+                new XAttribute("sessionStatus", "final"),
+                new XAttribute("datestamp", DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)));
         }
     }
 
