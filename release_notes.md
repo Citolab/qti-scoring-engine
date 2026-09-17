@@ -1,3 +1,25 @@
+﻿## 1.4.0
+
+### Added
+
+- Control flow: `qti-exit-response` ends the response processing of an attempt and keeps the outcomes that were already set; `qti-response-processing-fragment` is processed in place
+- Container operators: `qti-multiple`, `qti-container-size`, `qti-contains`, `qti-delete`, `qti-random`, `qti-repeat`
+- Numeric operators: `qti-product`, `qti-divide`, `qti-integer-divide`, `qti-integer-modulus`, `qti-power`, `qti-round-to`, `qti-truncate`, `qti-integer-to-float`, `qti-gcd`, `qti-lcm`, `qti-math-constant`, `qti-math-operator` (24 functions), `qti-stats-operator` (mean, median, popVariance, popSD, sampleVariance, sampleSD)
+- Logic, geometry and pattern operators: `qti-any-n`, `qti-pattern-match`, `qti-inside`, `qti-duration-lt`, `qti-duration-gte`
+- `qti-default`: the declared default value of an outcome or response variable
+- `qti-match-table` / `qti-match-table-entry` on an outcome declaration, used by `qti-lookup-outcome-value`
+- Record cardinality, end to end: record response and outcome variables are read from the assessmentResult, `qti-field-value` reads a field, `qti-set-outcome-value` writes a record back, a record `qti-default-value` is read, and a custom operator can return one
+- `QTI_CONTEXT`: a built-in record with `candidateIdentifier`, `testIdentifier` and `environmentIdentifier`, filled from the assessmentResult. Extra fields - and overrides - can be passed through the new `QtiContextFields` option
+
+### Fixed
+
+- `qti-map-response` and `qti-map-response-point` mapped the values of a multiple or ordered response as one string joined with `&` when the response was read from an assessmentResult, so those items could only score the default value of the mapping. The cardinality of a response variable is now read back from the result, and both operators map every value separately
+- `qti-lookup-outcome-value` threw a `NullReferenceException` when the outcome declaration it writes to has no lookup table at all; it now logs an error and leaves the outcome alone
+
+### Documentation
+
+- Rewrote the README: installation, a table of contents, the QTI_CONTEXT and record documentation, and corrections to the custom operator sample, the `IScoringEngine` signatures and the list of supported expressions
+
 ## 1.3.7
 
 - support: `qti-index` — take the value at position n from an ordered container
