@@ -15,6 +15,11 @@ namespace Citolab.QTI.ScoringEngine.Model
         public List<string> CorrectResponses { get; set; }
         public string CorrectResponseInterpretation { get; set; }
         public List<string> DefaultValues { get; set; }
+
+        /// <summary>
+        /// The default of a record declaration, by field identifier.
+        /// </summary>
+        public Dictionary<string, BaseValue> DefaultFields { get; set; }
         public Mapping Mapping { get; set; }
 
         public AreaMapping AreaMapping { get; set; }

@@ -1,4 +1,4 @@
-using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
+﻿using Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions;
 using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
@@ -23,6 +23,10 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             if (ctx.OutcomeDeclarations != null && ctx.OutcomeDeclarations.ContainsKey(identifier))
             {
                 var outcomeDeclaration = ctx.OutcomeDeclarations[identifier];
+                if (outcomeDeclaration.Cardinality == Cardinality.Record)
+                {
+                    return ToRecord(identifier, outcomeDeclaration.BaseType, outcomeDeclaration.DefaultFields);
+                }
                 var defaultValue = outcomeDeclaration.DefaultValue?.ToString();
                 if (defaultValue == null)
                 {
@@ -39,6 +43,10 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             if (ctx.ResponseDeclarations != null && ctx.ResponseDeclarations.ContainsKey(identifier))
             {
                 var responseDeclaration = ctx.ResponseDeclarations[identifier];
+                if (responseDeclaration.Cardinality == Cardinality.Record)
+                {
+                    return ToRecord(identifier, responseDeclaration.BaseType, responseDeclaration.DefaultFields);
+                }
                 if (responseDeclaration.DefaultValues == null || responseDeclaration.DefaultValues.Count == 0)
                 {
                     return null;
@@ -54,6 +62,21 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             }
             ctx.LogError($"qti-default cannot find a declaration for identifier: {identifier}");
             return null;
+        }
+
+        private static BaseValue ToRecord(string identifier, BaseType baseType, Dictionary<string, BaseValue> defaultFields)
+        {
+            if (defaultFields == null)
+            {
+                return null;
+            }
+            return new BaseValue
+            {
+                Identifier = identifier,
+                BaseType = baseType,
+                Cardinality = Cardinality.Record,
+                Fields = defaultFields.Copy()
+            };
         }
     }
 }

@@ -24,6 +24,10 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             {
                 return ctx.OutcomeVariables[identifier].ToBaseValue();
             }
+            else if (ctx.ContextVariables != null && ctx.ContextVariables.ContainsKey(identifier))
+            {
+                return ctx.ContextVariables[identifier];
+            }
             else                // it is probably itemResult outcome.
             {
                 // because IOutcomeProcessingExpression we can assume ctx is of type  OutcomeProcessingContext

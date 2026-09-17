@@ -40,6 +40,8 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             TestResult = assessmentResult.TestResults[assessmentTest.Identifier];
             OutcomeVariables = TestResult.OutcomeVariables;
             CalculatedOutcomes = new HashSet<string>(assessmentTest.CalculatedOutcomes);
+            // the base class reads this from the result, which has no testResult yet on a first run
+            SetQtiContextField("testIdentifier", assessmentTest.Identifier);
 
             ResetOutcomes();
         }

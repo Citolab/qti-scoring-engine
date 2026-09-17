@@ -18,6 +18,18 @@ namespace Citolab.QTI.ScoringEngine.Model
         }
         public XElement ToElement()
         {
+            if (Cardinality == Model.Cardinality.Record)
+            {
+                // a record has no base-type of its own: every field carries its own.
+                var recordElement = new XElement("outcomeVariable",
+                    new XAttribute("identifier", Identifier ?? string.Empty),
+                    new XAttribute("cardinality", Cardinality.GetString()));
+                foreach (var valueElement in Fields.ToRecordValueElements())
+                {
+                    recordElement.Add(valueElement);
+                }
+                return recordElement;
+            }
             var value = Value?.ToString();
             if (value.TryParseFloat(out var v))
             {

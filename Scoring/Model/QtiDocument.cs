@@ -88,13 +88,19 @@ namespace Citolab.QTI.ScoringEngine.Model
             outcome.BaseType = baseTypeString.ToBaseType(Logger);
             outcome.Cardinality = cardinalityString.ToCardinality();
             outcome.Identifier = identifier;
-            var defaultValue = outcomeDeclaration.FindElementsByName("qti-default-value").FirstOrDefault()?.FindElementsByName("qti-value").FirstOrDefault();
-            if (defaultValue != null)
+            var defaultValueElement = outcomeDeclaration.FindElementsByName("qti-default-value").FirstOrDefault();
+            if (outcome.Cardinality == Cardinality.Record)
+            {
+                // a record default holds one qti-value per field instead of a single value
+                outcome.DefaultFields = defaultValueElement?.FindElementsByName("qti-value").ToRecordFields(Logger);
+            }
+            var defaultValue = defaultValueElement?.FindElementsByName("qti-value").FirstOrDefault();
+            if (defaultValue != null && outcome.Cardinality != Cardinality.Record)
             {
                 // TODO: check type
                 outcome.DefaultValue = defaultValue.Value;
             }
-            else
+            else if (outcome.Cardinality != Cardinality.Record)
             {
                 outcome.DefaultValue = outcome.GetDefaultValueIfNoValueIsSet();
             }

@@ -36,7 +36,18 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 {
                     var childElement = expressions.FirstOrDefault();
                     var culture = CultureInfo.InvariantCulture;
-                    outcomeVariable.Value = childElement.Apply(ctx)?.Value.ToString(culture);
+                    var value = childElement.Apply(ctx);
+                    if (value?.Fields != null)
+                    {
+                        // a record is held in its fields, there is no single value to write
+                        outcomeVariable.Cardinality = Cardinality.Record;
+                        outcomeVariable.Fields = value.Fields;
+                        outcomeVariable.Value = null;
+                    }
+                    else
+                    {
+                        outcomeVariable.Value = value?.Value.ToString(culture);
+                    }
                 }
                 else
                 {

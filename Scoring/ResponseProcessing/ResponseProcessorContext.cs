@@ -58,6 +58,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             }
             ResetOutcomes();
 
+            if (Options?.QtiContextFields != null)
+            {
+                foreach (var contextField in Options.QtiContextFields)
+                {
+                    SetQtiContextField(contextField.Key, contextField.Value);
+                }
+            }
         }
 
 

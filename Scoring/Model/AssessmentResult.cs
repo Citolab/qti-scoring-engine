@@ -186,26 +186,35 @@ namespace Citolab.QTI.ScoringEngine.Model
                 OutcomeVariables = resultElement.FindElementsByName("outcomeVariable")
                                .Select(outcomeVariable =>
                                {
+                                   var cardinality = outcomeVariable.GetAttributeValue("cardinality").ToCardinality();
+                                   var isRecord = cardinality == Cardinality.Record;
                                    return new OutcomeVariable
                                    {
                                        Identifier = outcomeVariable.Identifier(),
                                        BaseType = outcomeVariable.GetAttributeValue("baseType").ToBaseType(_logger),
-                                       Cardinality = outcomeVariable.GetAttributeValue("cardinality").ToCardinality(),
-                                       Value = outcomeVariable.FindElementsByName("value").FirstOrDefault()?.Value?.RemoveXData()
+                                       Cardinality = cardinality,
+                                       Fields = isRecord ? outcomeVariable.FindElementsByName("value").ToRecordFields(_logger) : null,
+                                       Value = isRecord ? null : outcomeVariable.FindElementsByName("value").FirstOrDefault()?.Value?.RemoveXData()
                                    };
                                })?.ToDictionary(outcome => outcome.Identifier, outcome => outcome),
                 ResponseVariables = resultElement.FindElementsByName("responseVariable").Select(responseVariable =>
                 {
-                    var values = responseVariable.FindElementsByName("value").Select(value =>
+                    var valueElements = responseVariable.FindElementsByName("value").ToList();
+                    var values = valueElements.Select(value =>
                     {
                         return value.Value?.RemoveXData();
                     }).ToList();
+                    // Only a record cardinality is read back here: the other cardinalities have
+                    // always been left at the default Single and MapResponse(Point) branch on it.
+                    var isRecord = responseVariable.GetAttributeValue("cardinality").ToCardinality() == Cardinality.Record;
                     return new ResponseVariable
                     {
                         Identifier = responseVariable.Identifier(),
                         BaseType = responseVariable.GetAttributeValue("baseType").ToBaseType(_logger),
-                        Value = string.Join("&", values.ToArray()),
-                        Values = values
+                        Cardinality = isRecord ? Cardinality.Record : Cardinality.Single,
+                        Fields = isRecord ? valueElements.ToRecordFields(_logger) : null,
+                        Value = isRecord ? null : string.Join("&", values.ToArray()),
+                        Values = isRecord ? null : values
                     };
                 }).ToDictionary(r => r.Identifier, r => r)
             };

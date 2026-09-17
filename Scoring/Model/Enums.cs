@@ -53,6 +53,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return "ordered";
                     }
+                case Cardinality.Record:
+                    {
+                        return "record";
+                    }
             }
             return "single";
         }
@@ -181,6 +185,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return Cardinality.Ordered;
                     }
+                case "record":
+                    {
+                        return Cardinality.Record;
+                    }
             }
             return Cardinality.Single;
         }
@@ -219,7 +227,12 @@ namespace Citolab.QTI.ScoringEngine.Model
     {
         Single,
         Multiple,
-        Ordered
+        Ordered,
+        /// <summary>
+        /// A record holds named fields, each with its own base-type. Unlike the other
+        /// containers its values are in BaseValue.Fields rather than in BaseValue.Values.
+        /// </summary>
+        Record
     }
     public enum Shape
     {

@@ -68,8 +68,33 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 Identifier = outcomeDeclaration.Identifier,
                 BaseType = outcomeDeclaration.BaseType,
                 Cardinality = outcomeDeclaration.Cardinality,
+                Fields = outcomeDeclaration.DefaultFields.Copy(),
                 Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
+        }
+
+        /// <summary>
+        /// A copy of a record, so that a variable built from a declaration does not write
+        /// through to the declaration that every result shares.
+        /// </summary>
+        internal static Dictionary<string, BaseValue> Copy(this Dictionary<string, BaseValue> fields)
+        {
+            if (fields == null)
+            {
+                return null;
+            }
+            var copy = new Dictionary<string, BaseValue>();
+            foreach (var field in fields)
+            {
+                copy.Add(field.Key, new BaseValue
+                {
+                    Identifier = field.Value?.Identifier,
+                    BaseType = field.Value?.BaseType ?? BaseType.String,
+                    Cardinality = field.Value?.Cardinality,
+                    Value = field.Value?.Value
+                });
+            }
+            return copy;
         }
 
         internal static string Identifier(this XElement element) =>
@@ -86,6 +111,16 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         internal static BaseValue ToBaseValue(this OutcomeVariable outcomeVariable)
         {
+            if (outcomeVariable?.Cardinality == Model.Cardinality.Record)
+            {
+                return new BaseValue
+                {
+                    Identifier = outcomeVariable.Identifier,
+                    BaseType = outcomeVariable.BaseType,
+                    Cardinality = Model.Cardinality.Record,
+                    Fields = outcomeVariable.Fields
+                };
+            }
             var baseValue = new BaseValue
             {
                 BaseType = outcomeVariable.BaseType,
@@ -201,6 +236,65 @@ namespace Citolab.QTI.ScoringEngine.Helpers
         {
             return el.GetAttribute(name)?.Value ?? string.Empty;
         }
+
+        /// <summary>
+        /// An attribute that is spelled one way in 2.x results and another in 3.0, such as
+        /// fieldIdentifier and field-identifier. Results are not upgraded like items are, so
+        /// both spellings turn up in the wild.
+        /// </summary>
+        internal static string GetAttributeValue(this XElement el, string name, string alternativeName)
+        {
+            var value = el.GetAttributeValue(name);
+            return string.IsNullOrEmpty(value) ? el.GetAttributeValue(alternativeName) : value;
+        }
+
+        /// <summary>
+        /// The fields of a record, read from the value elements that carry a field identifier.
+        /// Returns null when none of them does, so a variable that is not a record is untouched.
+        /// </summary>
+        internal static Dictionary<string, BaseValue> ToRecordFields(this IEnumerable<XElement> valueElements, ILogger logger)
+        {
+            var fields = new Dictionary<string, BaseValue>();
+            foreach (var valueElement in valueElements)
+            {
+                var fieldIdentifier = valueElement.GetAttributeValue("fieldIdentifier", "field-identifier");
+                if (string.IsNullOrEmpty(fieldIdentifier))
+                {
+                    continue;
+                }
+                if (fields.ContainsKey(fieldIdentifier))
+                {
+                    logger?.LogWarning($"Record has more than one field: {fieldIdentifier}. Using the first.");
+                    continue;
+                }
+                fields.Add(fieldIdentifier, new BaseValue
+                {
+                    Identifier = fieldIdentifier,
+                    BaseType = valueElement.GetAttributeValue("baseType", "base-type").ToBaseType(logger),
+                    Cardinality = Model.Cardinality.Single,
+                    Value = valueElement.Value?.RemoveXData()
+                });
+            }
+            return fields.Count == 0 ? null : fields;
+        }
+
+        /// <summary>
+        /// The value elements of a record variable, as they are written back to a result.
+        /// </summary>
+        internal static IEnumerable<XElement> ToRecordValueElements(this Dictionary<string, BaseValue> fields)
+        {
+            if (fields == null)
+            {
+                yield break;
+            }
+            foreach (var field in fields)
+            {
+                yield return new XElement("value",
+                    new XAttribute("fieldIdentifier", field.Key),
+                    new XAttribute("baseType", (field.Value?.BaseType ?? BaseType.String).GetString()),
+                    field.Value?.Value ?? string.Empty);
+            }
+        }
         internal static XAttribute GetAttribute(this XElement el, string name)
         {
             return el.Attributes()
@@ -285,6 +379,7 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 BaseType = outcomeDeclaration.BaseType,
                 Cardinality = outcomeDeclaration.Cardinality,
                 Identifier = outcomeDeclaration.Identifier,
+                Fields = outcomeDeclaration.DefaultFields.Copy(),
                 Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
         }

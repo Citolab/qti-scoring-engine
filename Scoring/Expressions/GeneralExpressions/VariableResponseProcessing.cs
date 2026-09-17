@@ -21,6 +21,16 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             if (ctx.ResponseVariables != null && ctx.ResponseVariables.ContainsKey(identifer))
             {
                 var responseVariable = ctx.ResponseVariables[identifer];
+                if (responseVariable.Cardinality == Cardinality.Record)
+                {
+                    return new BaseValue
+                    {
+                        Identifier = identifer,
+                        BaseType = responseVariable.BaseType,
+                        Cardinality = Cardinality.Record,
+                        Fields = responseVariable.Fields
+                    };
+                }
                 var cardinality = Cardinality.Single;
                 if (ctx.ResponseDeclarations.ContainsKey(identifer))
                 {
@@ -46,6 +56,10 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(identifer))
                 {
                     return ctx.OutcomeVariables[identifer].ToBaseValue();
+                }
+                if (ctx.ContextVariables != null && ctx.ContextVariables.ContainsKey(identifer))
+                {
+                    return ctx.ContextVariables[identifer];
                 }
             }
             ctx.LogInformation($"Cannot find variable for identifier: {identifer}");

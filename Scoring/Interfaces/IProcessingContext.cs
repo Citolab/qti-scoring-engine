@@ -13,6 +13,11 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
         Dictionary<string, OutcomeDeclaration> OutcomeDeclarations { get; set; }
         Dictionary<string, ResponseVariable> ResponseVariables { get; set; }
         Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; }
+        /// <summary>
+        /// Variables the delivery engine provides rather than the result, QTI_CONTEXT above all.
+        /// qti-variable falls back to these when a response or outcome variable does not match.
+        /// </summary>
+        Dictionary<string, BaseValue> ContextVariables { get; set; }
         HashSet<string> CalculatedOutcomes { get; set; }
 
         void LogInformation(string value);

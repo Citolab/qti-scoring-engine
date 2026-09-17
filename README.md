@@ -14,6 +14,7 @@ Supported:
 - single
 - multiple
 - ordered
+- record (see [Records and QTI_CONTEXT](#records-and-qti_context))
 
 ## BaseType
 
@@ -82,6 +83,7 @@ Supported:
 - qti-duration-gte
 - qti-duration-lt
 - qti-equal\* (toleranceMode: exact only)
+- qti-field-value
 - qti-gcd
 - qti-gt
 - qti-gte
@@ -127,7 +129,6 @@ Supported:
 
 Unsupported:
 
-- qti-field-value (record cardinality is not modelled)
 - qti-number-correct
 - qti-number-incorrect
 - qti-number-responded
@@ -135,6 +136,58 @@ Unsupported:
 - qti-outcome-minimum
 - qti-random-float
 - qti-random-integer
+
+## Records and QTI_CONTEXT
+
+A record is a set of named fields, each with its own base-type. `qti-field-value` reads one
+field of a record:
+
+```XML
+<qti-field-value field-identifier="environmentIdentifier">
+    <qti-variable identifier="QTI_CONTEXT"/>
+</qti-field-value>
+```
+
+A record can come from:
+
+- `QTI_CONTEXT`, the built-in record described below.
+- A response or outcome variable of the assessmentResult that is declared
+  `cardinality="record"`. Its values carry a `fieldIdentifier` and their own `baseType`:
+  `<value fieldIdentifier="floatValue" baseType="float">1.5</value>`.
+- A custom operator that returns a `BaseValue` with `Cardinality.Record` and its `Fields` set.
+- The `qti-default-value` of a record declaration, read with `qti-default`.
+
+A record can be written back: `qti-set-outcome-value` on a record outcome stores the fields and
+they are written to the itemResult as one `value` element per field.
+
+`qti-field-value` is NULL when the record has no such field, so `qti-is-null` is the way to
+check whether a field is there.
+
+### QTI_CONTEXT
+
+`QTI_CONTEXT` is available to `qti-variable` in response and outcome processing. The engine
+fills what the assessmentResult knows:
+
+| field                   | source                                                         |
+| ----------------------- | -------------------------------------------------------------- |
+| `candidateIdentifier`   | the `sourcedId` of the `context` element                        |
+| `testIdentifier`        | the `testResult` of the result, or the test being processed     |
+| `environmentIdentifier` | the `environmentIdentifier` attribute of the `context` element  |
+
+Everything else is only known to the delivery engine, so fields can be passed in - and the ones
+above overridden - through the options of `ProcessResponses`:
+
+```C#
+qtiScoringEngine.ProcessResponses(ctx, new ResponseProcessingScoringsOptions
+{
+    QtiContextFields = new Dictionary<string, string>
+    {
+        { "environmentIdentifier", "ENV_1" }
+    }
+});
+```
+
+A field that has no value is left out of the record rather than set to an empty string.
 
 ### Notes on the numeric and container operators
 

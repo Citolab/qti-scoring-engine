@@ -56,6 +56,7 @@ namespace Citolab.QTI.ScoringEngine.Const
                 { "qti-default", typeof (Expressions.GeneralExpressions.Default) },
                 { "qti-delete", typeof (Delete) },
                 { "qti-divide", typeof (Divide) },
+                { "qti-field-value", typeof (FieldValue) },
                 { "qti-gcd", typeof (Gcd) },
                 { "qti-index", typeof (Expressions.BaseValueExpression.Index) },
                 { "qti-integer-divide", typeof (IntegerDivide) },
