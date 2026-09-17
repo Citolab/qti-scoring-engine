@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+      identifier="CHOICE-INTERACTION-CORRECT" title="Lorem ipsum dolor sit amet" adaptive="false"
+      time-dependent="false" xml:lang="en">
+      <qti-response-declaration identifier="RESPONSE1" cardinality="single" base-type="identifier">
+            <qti-correct-response>
+                  <qti-value>CHOICE_4</qti-value>
+            </qti-correct-response>
+      </qti-response-declaration>
+      <qti-response-declaration identifier="RESPONSE2" cardinality="single" base-type="string" />
+      <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+            <qti-default-value>
+                  <qti-value>0</qti-value>
+            </qti-default-value>
+      </qti-outcome-declaration>
+      <qti-outcome-declaration identifier="MAXSCORE" cardinality="single" base-type="float">
+            <qti-default-value>
+                  <qti-value>2</qti-value>
+            </qti-default-value>
+      </qti-outcome-declaration>
+      <qti-item-body>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            <img src="../assets/placeholder-image-1.jpeg"
+                  alt="Lorem ipsum placeholder image."
+                  width="311" height="191" />
+            <p>
+                  <strong> Fig. 1 </strong>
+            </p>
+            <img src="../assets/placeholder-image-2.jpeg"
+                  alt="Lorem ipsum placeholder image."
+                  width="370" height="193" />
+            <p>
+                  <strong> Fig. 2 </strong>
+            </p>
+            <qti-choice-interaction max-choices="1" class="qti-labels-none"
+                  response-identifier="RESPONSE1"
+                  data-correct-response="CHOICE_4"
+                  data-score="1">
+                  <qti-prompt>
+                        <p> Sed do eiusmod tempor incididunt ut labore? </p>
+                  </qti-prompt>
+                  <qti-simple-choice identifier="CHOICE_1">
+                        <p> Lorem ipsum unus </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="CHOICE_2">
+                        <p> Lorem ipsum duo </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="CHOICE_3">
+                        <p> Lorem ipsum tres </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="CHOICE_4">
+                        <p> Lorem ipsum quattuor </p>
+                  </qti-simple-choice>
+                  <qti-simple-choice identifier="CHOICE_5">
+                        <p> Lorem ipsum quinque </p>
+                  </qti-simple-choice>
+            </qti-choice-interaction>
+            <p>
+                  <strong> KEY </strong> : Lorem ipsum quattuor &#8211; 1P </p>
+            <qti-extended-text-interaction response-identifier="RESPONSE2" expected-lines="6"
+                  data-correct-response="Ut enim ad minim veniam" data-score="1">
+                  <qti-prompt>
+                        <p> Quis nostrud exercitation ullamco. </p>
+                  </qti-prompt>
+            </qti-extended-text-interaction>
+            <qti-rubric-block view="scorer" use="instructions">
+                  <qti-content-body>
+                        <div>
+                              <p>Ut enim ad minim veniam</p>
+                        </div>
+                  </qti-content-body>
+            </qti-rubric-block>
+            <p>
+                  <strong> KEY </strong> : Ut enim ad minim veniam, quis nostrud exercitation
+                  ullamco laboris. &#8211; 1P </p>
+      </qti-item-body>
+      <qti-response-processing>
+            <qti-response-condition>
+                  <qti-response-if>
+                        <qti-match>
+                              <qti-variable identifier="RESPONSE1" />
+                              <qti-correct identifier="RESPONSE1" />
+                        </qti-match>
+                        <qti-set-outcome-value identifier="SCORE">
+                              <qti-sum>
+                                    <qti-variable identifier="SCORE" />
+                                    <qti-base-value base-type="float">1</qti-base-value>
+                              </qti-sum>
+                        </qti-set-outcome-value>
+                  </qti-response-if>
+            </qti-response-condition>
+      </qti-response-processing>
+</qti-assessment-item>

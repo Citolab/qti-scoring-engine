@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd" identifier="ORDER-INTERACTION-INDEX" title="Lorem ipsum dolor sit amet" adaptive="false" time-dependent="false" xml:lang="en">
+  <qti-response-declaration identifier="RESPONSE" cardinality="ordered" base-type="identifier">
+    <qti-correct-response>
+      <qti-value>D</qti-value>
+      <qti-value>A</qti-value>
+      <qti-value>B</qti-value>
+      <qti-value>C</qti-value>
+      <qti-value>E</qti-value>
+    </qti-correct-response>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+    <qti-default-value>
+      <qti-value>0</qti-value>
+    </qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="MAXSCORE" cardinality="single" base-type="float">
+    <qti-default-value>
+      <qti-value>2</qti-value>
+    </qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="NCORRECT" cardinality="single" base-type="integer">
+    <qti-default-value>
+      <qti-value>0</qti-value>
+    </qti-default-value>
+  </qti-outcome-declaration>
+  <qti-item-body>
+        <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+        <qti-order-interaction response-identifier="RESPONSE" orientation="vertical">
+              <qti-prompt>
+                    <p>
+                          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?
+                    </p>
+              </qti-prompt>
+              <qti-simple-choice identifier="A">
+                    <p>
+                          Ut enim ad minim veniam.
+                    </p>
+              </qti-simple-choice>
+              <qti-simple-choice identifier="B">
+                    <p>
+                          Quis nostrud exercitation ullamco laboris nisi.
+                    </p>
+              </qti-simple-choice>
+              <qti-simple-choice identifier="C">
+                    <p>
+                          Duis aute irure dolor in reprehenderit.
+                    </p>
+              </qti-simple-choice>
+              <qti-simple-choice identifier="D">
+                    <p>
+                          Excepteur sint occaecat cupidatat non proident.
+                    </p>
+              </qti-simple-choice>
+              <qti-simple-choice identifier="E">
+                    <p>
+                          Sunt in culpa qui officia deserunt mollit.
+                    </p>
+              </qti-simple-choice>
+        </qti-order-interaction>
+      </qti-item-body>
+  <qti-response-processing>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-index n="1">
+            <qti-variable identifier="RESPONSE"/>
+          </qti-index>
+          <qti-base-value base-type="identifier">D</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="NCORRECT">
+          <qti-sum>
+            <qti-variable identifier="NCORRECT"/>
+            <qti-base-value base-type="integer">1</qti-base-value>
+          </qti-sum>
+        </qti-set-outcome-value>
+      </qti-response-if>
+    </qti-response-condition>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-index n="2">
+            <qti-variable identifier="RESPONSE"/>
+          </qti-index>
+          <qti-base-value base-type="identifier">A</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="NCORRECT">
+          <qti-sum>
+            <qti-variable identifier="NCORRECT"/>
+            <qti-base-value base-type="integer">1</qti-base-value>
+          </qti-sum>
+        </qti-set-outcome-value>
+      </qti-response-if>
+    </qti-response-condition>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-index n="3">
+            <qti-variable identifier="RESPONSE"/>
+          </qti-index>
+          <qti-base-value base-type="identifier">B</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="NCORRECT">
+          <qti-sum>
+            <qti-variable identifier="NCORRECT"/>
+            <qti-base-value base-type="integer">1</qti-base-value>
+          </qti-sum>
+        </qti-set-outcome-value>
+      </qti-response-if>
+    </qti-response-condition>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-index n="4">
+            <qti-variable identifier="RESPONSE"/>
+          </qti-index>
+          <qti-base-value base-type="identifier">C</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="NCORRECT">
+          <qti-sum>
+            <qti-variable identifier="NCORRECT"/>
+            <qti-base-value base-type="integer">1</qti-base-value>
+          </qti-sum>
+        </qti-set-outcome-value>
+      </qti-response-if>
+    </qti-response-condition>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-index n="5">
+            <qti-variable identifier="RESPONSE"/>
+          </qti-index>
+          <qti-base-value base-type="identifier">E</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="NCORRECT">
+          <qti-sum>
+            <qti-variable identifier="NCORRECT"/>
+            <qti-base-value base-type="integer">1</qti-base-value>
+          </qti-sum>
+        </qti-set-outcome-value>
+      </qti-response-if>
+    </qti-response-condition>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-variable identifier="NCORRECT"/>
+          <qti-base-value base-type="integer">5</qti-base-value>
+        </qti-match>
+        <qti-set-outcome-value identifier="SCORE">
+          <qti-base-value base-type="float">2</qti-base-value>
+        </qti-set-outcome-value>
+      </qti-response-if>
+      <qti-response-else-if>
+        <qti-gte>
+          <qti-variable identifier="NCORRECT"/>
+          <qti-base-value base-type="integer">3</qti-base-value>
+        </qti-gte>
+        <qti-set-outcome-value identifier="SCORE">
+          <qti-base-value base-type="float">1</qti-base-value>
+        </qti-set-outcome-value>
+      </qti-response-else-if>
+      <qti-response-else>
+        <qti-set-outcome-value identifier="SCORE">
+          <qti-base-value base-type="float">0</qti-base-value>
+        </qti-set-outcome-value>
+      </qti-response-else>
+    </qti-response-condition>
+  </qti-response-processing>
+</qti-assessment-item>

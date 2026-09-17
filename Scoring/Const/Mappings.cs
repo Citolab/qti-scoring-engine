@@ -44,6 +44,7 @@ namespace Citolab.QTI.ScoringEngine.Const
         internal static Dictionary<string, Type> ValueExpressions =
             new Dictionary<string, Type>
             {
+                { "qti-index", typeof (Expressions.BaseValueExpression.Index) },
                 { "qti-ordered", typeof (Ordered) },
                 { "qti-round", typeof (Round) },
                 { "qti-sum", typeof(Sum) },
