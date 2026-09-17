@@ -189,7 +189,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return Shape.Poly;
                     }
-                case "react":
+                case "rect":
                     {
                         return Shape.Rect;
                     }

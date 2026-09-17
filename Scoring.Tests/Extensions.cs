@@ -283,25 +283,5 @@ namespace Citolab.QTI.ScoringEngine.Tests
             return assessmentResult;
         }
 
-        internal static PointF? GetCorrectResponse(this AreaMapEntry areaMapEntry)
-        {
-            switch (areaMapEntry.Shape)
-            {
-                case Shape.Circle:
-                    {
-                        return new Circle(areaMapEntry.Coords, null).GetCenterPoint();
-                    }
-                case Shape.Poly:
-                    {
-                        return new Polygon(areaMapEntry.Coords, null).GetCenterPoint();
-                    }
-                case Shape.Rect:
-                    {
-                        return new Rect(areaMapEntry.Coords, null).GetCenterPoint();
-                    }
-            }
-            return null;
-        }
-
     }
 }
