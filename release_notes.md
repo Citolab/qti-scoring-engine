@@ -1,3 +1,12 @@
+## 1.3.7
+
+- support: `qti-index` — take the value at position n from an ordered container
+- Fixes order interactions that score each position separately with `qti-index` inside `qti-match`: these previously scored 0 for every response, including a fully correct one
+
+## 1.3.6
+
+- `VariableResponseProcessing` now always exposes the full list of values for multiple cardinality responses, also when the list holds a single value (e.g. a gapMatch with one correct pair)
+
 ## 1.3.5
 
 - Null-safety fix in `AssessmentTest`: guard against missing `qti-set-outcome-value` elements and a null `OutcomeProcessingElement` when building calculated outcomes and expressions
