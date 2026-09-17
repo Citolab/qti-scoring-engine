@@ -130,6 +130,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                 responseDeclaration.CorrectResponse = correctValues?.FirstOrDefault();
             }
             responseDeclaration.CorrectResponses = correctValues; // WORKAROUND TO SUPPORT INVALID RESPONSE DECLARATIOJN
+            var defaultValueElement = el.FindElementsByName("qti-default-value").FirstOrDefault();
+            responseDeclaration.DefaultValues = defaultValueElement?.FindElementsByName("qti-value")
+                .Select(v => v.Value.RemoveXData())
+                .ToList();
             var mappingElement = el.FindElementsByName("qti-mapping").FirstOrDefault();
             if (mappingElement != null)
             {

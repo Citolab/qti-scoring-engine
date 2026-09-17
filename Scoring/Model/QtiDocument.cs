@@ -121,6 +121,17 @@ namespace Citolab.QTI.ScoringEngine.Model
                     }).ToList();
                 outcome.InterpolationTable = interpolationTableEntries;
             }
+            var matchTable = outcomeDeclaration.FindElementsByName("qti-match-table").FirstOrDefault();
+            if (matchTable != null)
+            {
+                outcome.MatchTable = matchTable.FindElementsByName("qti-match-table-entry")?
+                    .Select(tableEntry => new MatchTableEntry
+                    {
+                        SourceValue = tableEntry.GetAttributeValue("source-value"),
+                        TargetValue = tableEntry.GetAttributeValue("target-value")
+                    })
+                    .ToList();
+            }
             return outcome;
         }
 

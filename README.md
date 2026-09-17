@@ -48,83 +48,112 @@ Supported:
 - qti-response-else
 - qti-response-condition
 - qti-set-outcome-value
+- qti-exit-response
+- qti-response-processing-fragment\*
+
+\* a fragment that is present in the item itself is processed in place; fragments in a
+separate file are not pulled in because qti-include is not resolved.
 
 Unsupported:
 
-- qti-exit-response
 - qti-include
-- qti-response-processing-fragment
+
+## Lookup tables
+
+Supported on qti-outcome-declaration, used by qti-lookup-outcome-value:
+
+- qti-interpolation-table / qti-interpolation-table-entry (exact source values)
+- qti-match-table / qti-match-table-entry
 
 ## Expressions:
 
 Supported:
 
 - qti-and
+- qti-any-n
 - qti-base-value
+- qti-container-size
+- qti-contains
 - qti-correct
 - qti-custom-operator
+- qti-default
+- qti-delete
+- qti-divide
+- qti-duration-gte
+- qti-duration-lt
 - qti-equal\* (toleranceMode: exact only)
+- qti-gcd
 - qti-gt
 - qti-gte
+- qti-index
+- qti-inside
+- qti-integer-divide
+- qti-integer-modulus
+- qti-integer-to-float
 - qti-isNull
 - qti-equal-rounded
+- qti-lcm
 - qti-lt
 - qti-lte
 - qti-map-response
 - qti-map-response-point
+- qti-math-constant
+- qti-math-operator
 - qti-max
 - qti-min
 - qti-match
 - qti-member
+- qti-multiple
 - qti-not
 - qti-null
 - qti-number-selected
 - qti-number-presented
 - qti-or
 - qti-ordered
-- qti-round
-- qti-string-match
-- qti-substring
-- qti-subtract
-- qti-sum
-- qti-variable
-
-Unsupported:
-
-- qti-any-n
-- qti-container-size
-- qti-contains
-- qti-default
-- qti-delete
-- qti-divide
-- qti-duration-gte
-- qti-duration-lt
-- qti-field-value
-- qti-gcd
-- qti-lcm
-- qti-number-correct
-- qti-number-incorrect
-- qti-number-responded
-- qti-repeat
-- qti-index
-- qti-inside
-- qti-integer-divide
-- qti-integer-modulus
-- qti-integer-to-float
-- qti-math-operator
-- qti-math-constant
-- qti-multiple
-- qti-outcome-maximum
-- qti-outcome-minimum
 - qti-pattern-match
 - qti-power
 - qti-product
 - qti-random
-- qti-random-float
-- qti-random-integer
+- qti-repeat
+- qti-round
 - qti-round-to
 - qti-stats-operator
+- qti-string-match
+- qti-substring
+- qti-subtract
+- qti-sum
 - qti-truncate
+- qti-variable
+
+Unsupported:
+
+- qti-field-value (record cardinality is not modelled)
+- qti-number-correct
+- qti-number-incorrect
+- qti-number-responded
+- qti-outcome-maximum
+- qti-outcome-minimum
+- qti-random-float
+- qti-random-integer
+
+### Notes on the numeric and container operators
+
+- The operators that take numbers (qti-product, qti-divide, qti-power, qti-math-operator, ...)
+  are NULL when a child is NULL, is not a number, or when the result is not finite: dividing by
+  zero, the square root of a negative number. Note that qti-sum and qti-subtract predate this
+  and count an unparsable child as 0 instead.
+- qti-integer-divide rounds down: integerDivide(7, 3) = 2 and the remainder of
+  qti-integer-modulus goes with it: integerModulus(7, 3) = 1.
+- qti-round-to takes rounding-mode decimalPlaces or significantFigures; significantFigures is
+  the default, as in qti-equal-rounded.
+- qti-math-operator supports: sin, cos, tan, secant, cosecant, cotangent, asin, acos, atan,
+  atan2, sinh, cosh, tanh, exp, log (base 10), ln, sqrt, abs, floor, ceil, signum, toDegrees
+  and toRadians. Angles are in radians.
+- qti-stats-operator supports: mean, median, popVariance, popSD, sampleVariance and sampleSD.
+- qti-pattern-match anchors the pattern to the whole value, as XML Schema patterns are, and
+  gives up on a pattern that takes more than a second to match.
+- qti-repeat evaluates its children at most 1000 times, so a number-repeats read from a
+  variable cannot build an endless container.
 
 ## Usage
 

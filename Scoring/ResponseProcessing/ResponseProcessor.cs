@@ -27,9 +27,18 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                 // loop through condition executors
                 if (assessmentItem.Expressions != null && assessmentItem.Expressions.Count > 0)
                 {
-                    foreach (var conditionalExpressions in assessmentItem.Expressions)
+                    try
                     {
-                        conditionalExpressions.Execute(ctx);
+                        foreach (var conditionalExpressions in assessmentItem.Expressions)
+                        {
+                            conditionalExpressions.Execute(ctx);
+                        }
+                    }
+                    catch (ExitResponseException)
+                    {
+                        // qti-exit-response: the rules that are left are skipped, but whatever
+                        // was set before it still belongs in the result.
+                        ctx.LogInformation("Response processing was ended by qti-exit-response.");
                     }
                 }
                 ctx.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>

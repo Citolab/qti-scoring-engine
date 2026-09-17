@@ -308,5 +308,84 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
 
 
+
+        /// <summary>
+        /// Resolves an attribute that is an integer or the identifier of a variable holding one,
+        /// as the spec allows for e.g. number-repeats, min/max and figures.
+        /// </summary>
+        internal static bool TryResolveInteger(string attributeValue, IProcessingContext ctx, out int result)
+        {
+            result = 0;
+            if (string.IsNullOrWhiteSpace(attributeValue))
+            {
+                return false;
+            }
+            var value = attributeValue.Trim();
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var literal))
+            {
+                result = literal;
+                return true;
+            }
+            string variableValue = null;
+            if (ctx.OutcomeVariables != null && ctx.OutcomeVariables.ContainsKey(value))
+            {
+                variableValue = ctx.OutcomeVariables[value].Value?.ToString();
+            }
+            else if (ctx.ResponseVariables != null && ctx.ResponseVariables.ContainsKey(value))
+            {
+                variableValue = ctx.ResponseVariables[value].Value;
+            }
+            if (variableValue != null && variableValue.TryParseDouble(out var referenced))
+            {
+                result = (int)referenced;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// The two durations a duration operator compares, in seconds. Returns null when there
+        /// are not exactly two or one of them is not a duration.
+        /// </summary>
+        internal static List<double> GetDurations(List<IValueExpression> expressions, IProcessingContext ctx, string operatorName)
+        {
+            if (expressions.Count != 2)
+            {
+                ctx.LogError($"{operatorName} should have two child expressions, found: {expressions.Count}");
+                return null;
+            }
+            var durations = GetNumbers(expressions, ctx, operatorName);
+            if (durations == null)
+            {
+                return null;
+            }
+            if (durations[0] < 0 || durations[1] < 0)
+            {
+                ctx.LogError($"{operatorName} compared a negative duration: {durations[0]} and {durations[1]}");
+                return null;
+            }
+            return durations;
+        }
+
+        /// <summary>
+        /// The numbers of every child of a numeric operator. Returns null when one of them is
+        /// NULL or not a number: the operator itself is then NULL, as the spec prescribes.
+        /// </summary>
+        internal static List<double> GetNumbers(List<IValueExpression> expressions, IProcessingContext ctx, string operatorName)
+        {
+            var numbers = new List<double>();
+            foreach (var expression in expressions)
+            {
+                var baseValue = expression.Apply(ctx);
+                if (!baseValue.TryGetNumber(out var number))
+                {
+                    ctx.LogInformation($"{operatorName}: '{baseValue?.Value}' is not a number, the result is null.");
+                    return null;
+                }
+                numbers.Add(number);
+            }
+            return numbers;
+        }
+
     }
 }

@@ -370,6 +370,57 @@ namespace Citolab.QTI.ScoringEngine.Helpers
             };
         }
 
+        internal static BaseValue ToBaseValue(this double value)
+        {
+            var culture = CultureInfo.InvariantCulture;
+            return new BaseValue
+            {
+                BaseType = BaseType.Float,
+                Value = value.ToString(culture)
+            };
+        }
+
+        internal static BaseValue ToBaseValue(this bool value)
+        {
+            return new BaseValue
+            {
+                BaseType = BaseType.Boolean,
+                Value = value ? "true" : "false"
+            };
+        }
+
+        /// <summary>
+        /// The members of a container. A single value is a container of one and NULL is no
+        /// container at all, which is how the container operators treat them.
+        /// </summary>
+        internal static List<string> ToValueList(this BaseValue baseValue)
+        {
+            if (baseValue == null)
+            {
+                return null;
+            }
+            if (baseValue.Values != null)
+            {
+                return baseValue.Values;
+            }
+            return baseValue.Value == null ? new List<string>() : new List<string> { baseValue.Value };
+        }
+
+        internal static bool TryParseDouble(this string value, out double result)
+        {
+            return double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out result);
+        }
+
+        /// <summary>
+        /// The numeric value of an expression result. A NULL or non-numeric value has none,
+        /// which makes the operator reading it NULL as well.
+        /// </summary>
+        internal static bool TryGetNumber(this BaseValue baseValue, out double result)
+        {
+            result = 0.0;
+            return baseValue != null && baseValue.Value != null && baseValue.Value.TryParseDouble(out result);
+        }
+
 
 
         /// <summary>

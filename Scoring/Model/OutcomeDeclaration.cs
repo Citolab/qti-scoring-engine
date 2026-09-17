@@ -16,5 +16,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public object DefaultValue { get; set; }
 
         public List<InterpolationTableEntry> InterpolationTable { get; set; }
+
+        public List<MatchTableEntry> MatchTable { get; set; }
     }
 }
