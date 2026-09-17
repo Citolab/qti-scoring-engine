@@ -204,14 +204,13 @@ namespace Citolab.QTI.ScoringEngine.Model
                     {
                         return value.Value?.RemoveXData();
                     }).ToList();
-                    // Only a record cardinality is read back here: the other cardinalities have
-                    // always been left at the default Single and MapResponse(Point) branch on it.
-                    var isRecord = responseVariable.GetAttributeValue("cardinality").ToCardinality() == Cardinality.Record;
+                    var cardinality = responseVariable.GetAttributeValue("cardinality").ToCardinality();
+                    var isRecord = cardinality == Cardinality.Record;
                     return new ResponseVariable
                     {
                         Identifier = responseVariable.Identifier(),
                         BaseType = responseVariable.GetAttributeValue("baseType").ToBaseType(_logger),
-                        Cardinality = isRecord ? Cardinality.Record : Cardinality.Single,
+                        Cardinality = cardinality,
                         Fields = isRecord ? valueElements.ToRecordFields(_logger) : null,
                         Value = isRecord ? null : string.Join("&", values.ToArray()),
                         Values = isRecord ? null : values

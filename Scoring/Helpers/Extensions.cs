@@ -485,6 +485,29 @@ namespace Citolab.QTI.ScoringEngine.Helpers
         }
 
         /// <summary>
+        /// The values of a response, one by one, the way the mapping operators need them.
+        /// Values holds them separately; Value holds them joined with an '&' once there is more
+        /// than one, which matches no map key and no point, so anything but a single response is
+        /// mapped from Values. A single response that carries several values is mapped from
+        /// Values as well - the same workaround for invalid response declarations that
+        /// qti-variable makes.
+        /// </summary>
+        internal static List<string> ToCandidateValues(this ResponseVariable responseVariable)
+        {
+            if (responseVariable == null)
+            {
+                return new List<string>();
+            }
+            var hasMoreThanOneValue = responseVariable.Values != null && responseVariable.Values.Count > 1;
+            if (responseVariable.Cardinality == Model.Cardinality.Single && !hasMoreThanOneValue)
+            {
+                // changing a response writes Value, so for a single response that is the one to map
+                return new List<string> { responseVariable.Value };
+            }
+            return responseVariable.Values ?? new List<string> { responseVariable.Value };
+        }
+
+        /// <summary>
         /// The members of a container. A single value is a container of one and NULL is no
         /// container at all, which is how the container operators treat them.
         /// </summary>

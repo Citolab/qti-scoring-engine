@@ -21,11 +21,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             {
                 var responseVariable = ctx.ResponseVariables[identifier];
 
-                var values = responseVariable.Values;
-                if (responseVariable.Cardinality == Cardinality.Single)
-                {
-                    values = new List<string> { responseVariable.Value };
-                }
+                var values = responseVariable.ToCandidateValues();
                 var responseDeclaration = ctx.ResponseDeclarations[identifier];
                 if (responseDeclaration.AreaMapping != null)
                 {
