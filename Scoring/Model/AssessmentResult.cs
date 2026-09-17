@@ -52,8 +52,10 @@ namespace Citolab.QTI.ScoringEngine.Model
                 OutcomeVariables = new Dictionary<string, OutcomeVariable>(),
                 ResponseVariables = new Dictionary<string, ResponseVariable>()
             };
+            var itemResultElement = itemResult.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
+            itemResult.SourceElement = itemResultElement;
             ItemResults.Add(itemIdentifier, itemResult);
-            Root.Add(itemResult.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
+            Root.Add(itemResultElement);
         }
 
         public void AddTestResult(string testIdentifier)
@@ -64,8 +66,39 @@ namespace Citolab.QTI.ScoringEngine.Model
                 OutcomeVariables = new Dictionary<string, OutcomeVariable>(),
                 ResponseVariables = new Dictionary<string, ResponseVariable>()
             };
+            var testResultElement = testResult.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
+            testResult.SourceElement = testResultElement;
             TestResults.Add(testIdentifier, testResult);
-            Root.Add(testResult.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
+            Root.Add(testResultElement);
+        }
+
+        /// <summary>
+        /// The element an itemResult was read from. Results built by a caller rather than by
+        /// InitItemResults have none yet, so it is looked up once and then kept - the point is
+        /// to stop rescanning every descendant of the document for each outcome written.
+        /// </summary>
+        private XElement GetItemResultElement(string itemIdentifier)
+        {
+            var itemResult = ItemResults[itemIdentifier];
+            if (itemResult.SourceElement == null)
+            {
+                itemResult.SourceElement = this
+                    .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
+                    .FirstOrDefault();
+            }
+            return itemResult.SourceElement;
+        }
+
+        private XElement GetTestResultElement(string testIdentifier)
+        {
+            var testResult = TestResults[testIdentifier];
+            if (testResult.SourceElement == null)
+            {
+                testResult.SourceElement = this
+                    .FindElementsByElementAndAttributeValue("testResult", "identifier", testIdentifier)
+                    .FirstOrDefault();
+            }
+            return testResult.SourceElement;
         }
 
         public void PersistItemResultOutcome(string itemIdentifier, string outcomeIdentifier, ResponseProcessorContext context)
@@ -75,14 +108,12 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 AddItemResult(itemIdentifier);
             }
-            var itemResultElement = this
-                .FindElementsByElementAndAttributeValue("itemResult", "identifier", itemIdentifier)
-                .FirstOrDefault();
+            var itemResultElement = GetItemResultElement(itemIdentifier);
             // if there is no outcome for this variable then add one.
             var outcomeExists = ItemResults[itemIdentifier].OutcomeVariables.ContainsKey(outcomeIdentifier);
             if (!outcomeExists)
             {
-                var outcomeDeclaration = context.AssessmentItem.OutcomeDeclarations[outcomeIdentifier];
+                var outcomeDeclaration = context.OutcomeDeclarations[outcomeIdentifier];
                 var newOutcomeVariable = outcomeDeclaration.ToVariable();
                 newOutcomeVariable.Value = string.IsNullOrWhiteSpace(outcomeDeclaration.DefaultValue?.ToString())
                     ? "0" : outcomeDeclaration.DefaultValue?.ToString();
@@ -97,8 +128,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                                .FirstOrDefault();
                 if (outcomeVariable == null)
                 {
-                    outcomeVariable = outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace());
-                    itemResultElement.Add(outcomeVariable.AddDefaultNamespace(Root.GetDefaultNamespace()));
+                    itemResultElement.Add(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
                 }
                 else if (outcomeVariable.GetAttributeValue("external-scored") == "human")
                 {
@@ -122,10 +152,13 @@ namespace Citolab.QTI.ScoringEngine.Model
             if (TestResults.ContainsKey(testIdentifier) && TestResults[testIdentifier].OutcomeVariables.ContainsKey(outcomeIdentifier))
             {
                 var outcome = TestResults[testIdentifier].OutcomeVariables[outcomeIdentifier];
-                var testResult = this
-                    .FindElementsByElementAndAttributeValue("testResult", "identifier", testIdentifier)
-                    .FirstOrDefault();
-                var outcomeVariable = testResult?
+                var testResultElement = GetTestResultElement(testIdentifier);
+                if (testResultElement == null)
+                {
+                    _logger.LogError($"{SourcedId}: - testResult: {testIdentifier} has no element to write outcome: {outcomeIdentifier} to.");
+                    return;
+                }
+                var outcomeVariable = testResultElement
                                .FindElementsByElementAndAttributeValue("outcomeVariable", "identifier", outcome.Identifier)
                                .FirstOrDefault();
 
@@ -135,11 +168,7 @@ namespace Citolab.QTI.ScoringEngine.Model
                 }
                 else
                 {
-                    if (testResult == null)
-                    {
-                        AddTestResult(testIdentifier);
-                    }
-                    testResult.Add(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
+                    testResultElement.Add(outcome.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
                 }
             }
             else
@@ -153,6 +182,7 @@ namespace Citolab.QTI.ScoringEngine.Model
             return new T
             {
                 Identifier = resultElement.Identifier(),
+                SourceElement = resultElement,
                 OutcomeVariables = resultElement.FindElementsByName("outcomeVariable")
                                .Select(outcomeVariable =>
                                {

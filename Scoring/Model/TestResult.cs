@@ -13,6 +13,7 @@ namespace Citolab.QTI.ScoringEngine.Model
         public string Identifier { get; set; }
         public Dictionary<string, ResponseVariable> ResponseVariables { get; set; } = new Dictionary<string, ResponseVariable>();
         public Dictionary<string, OutcomeVariable> OutcomeVariables { get; set; } = new Dictionary<string, OutcomeVariable>();
+        public XElement SourceElement { get; set; }
 
         public XElement ToElement()
         {

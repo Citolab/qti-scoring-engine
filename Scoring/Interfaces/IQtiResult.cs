@@ -13,6 +13,11 @@ namespace Citolab.QTI.ScoringEngine.Interfaces
         string Identifier { get; set; } 
         Dictionary<string, ResponseVariable> ResponseVariables { get; set; }
         Dictionary<string, OutcomeVariable> OutcomeVariables  { get; set; }
+        /// <summary>
+        /// The element this result was read from, kept so writing an outcome back does not
+        /// have to rescan the whole assessmentResult document to find it again.
+        /// </summary>
+        XElement SourceElement { get; set; }
         XElement ToElement();
 }
 }

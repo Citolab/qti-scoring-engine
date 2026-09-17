@@ -12,24 +12,21 @@ namespace Citolab.QTI.ScoringEngine.Helpers
     internal class ExpressionFactory : IExpressionFactory
     {
         private readonly ILogger _logger;
-
+        private readonly Dictionary<string, ICustomOperator> _customOperators;
 
         public ExpressionFactory(Dictionary<string, ICustomOperator> addedCustomOperators, ILogger logger)
         {
             _logger = logger;
+            // Each factory gets its own registry: the built-in operators overlaid with the
+            // caller's. Writing the added ones into Mappings.CustomOperators used to leak them
+            // into every other ScoringEngine in the process, for the life of the process.
+            _customOperators = new Dictionary<string, ICustomOperator>(Mappings.CustomOperators);
             if (addedCustomOperators != null)
             {
                 foreach (var addedCustomOperator in addedCustomOperators)
                 {
-                    if (Mappings.CustomOperators.ContainsKey(addedCustomOperator.Key))
-                    {
-                        // override with added value
-                        Mappings.CustomOperators[addedCustomOperator.Key] = addedCustomOperator.Value;
-                    }
-                    else
-                    {
-                        Mappings.CustomOperators.Add(addedCustomOperator.Key, addedCustomOperator.Value);
-                    }
+                    // an added operator overrides a built-in one with the same key
+                    _customOperators[addedCustomOperator.Key] = addedCustomOperator.Value;
                 }
             }
         }
@@ -55,9 +52,9 @@ namespace Citolab.QTI.ScoringEngine.Helpers
 
         public ICustomOperator GetCustomOperator(string defintion)
         {
-            if (Mappings.CustomOperators.ContainsKey(defintion))
+            if (_customOperators.TryGetValue(defintion, out var customOperator))
             {
-                return Mappings.CustomOperators[defintion];
+                return customOperator;
             }
             _logger.LogError($"Cannot find customOperator with key: {defintion}");
             return null;

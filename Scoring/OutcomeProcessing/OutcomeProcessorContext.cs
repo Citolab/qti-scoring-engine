@@ -30,15 +30,16 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             ResponseDeclarations = new Dictionary<string, ResponseDeclaration>();
             ResponseVariables = new Dictionary<string, ResponseVariable>();
 
-            // these will be used.
-            OutcomeDeclarations = assessmentTest.OutcomeDeclarations;
+            // these will be used. Copied rather than shared: ResetOutcomes writes to them and
+            // the AssessmentTest is shared by every result, across threads under ProcessParallel.
+            OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>(assessmentTest.OutcomeDeclarations);
             if (!assessmentResult.TestResults.ContainsKey(assessmentTest.Identifier))
             {
                 assessmentResult.AddTestResult(assessmentTest.Identifier);
             }
             TestResult = assessmentResult.TestResults[assessmentTest.Identifier];
             OutcomeVariables = TestResult.OutcomeVariables;
-            CalculatedOutcomes = assessmentTest.CalculatedOutcomes;
+            CalculatedOutcomes = new HashSet<string>(assessmentTest.CalculatedOutcomes);
 
             ResetOutcomes();
         }

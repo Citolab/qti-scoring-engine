@@ -15,7 +15,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
             // Reset all values that are recalculated;
             ctx.TestResult.OutcomeVariables.Where(o =>
             {
-                return assessmentTest.CalculatedOutcomes.Contains(o.Key);
+                return ctx.CalculatedOutcomes.Contains(o.Key);
             }).ToList()
             .ForEach(o =>
             {
@@ -27,7 +27,7 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
                 {
                     conditionalExpressions.Execute(ctx);
                 }
-                assessmentTest.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
+                ctx.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {
                     assessmentResult.PersistTestResultOutcome(assessmentTest.Identifier, outcomeIdentifier);
                 });

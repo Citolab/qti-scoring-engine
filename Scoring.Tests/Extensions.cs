@@ -280,6 +280,8 @@ namespace Citolab.QTI.ScoringEngine.Tests
             }
             responseVariable.Add(candidateResponseElement);
             assessmentResult.Root.Add(itemResultElement);
+            // this replaces the element the itemResult was pointing at, so re-register it
+            itemResult.SourceElement = itemResultElement;
             return assessmentResult;
         }
 

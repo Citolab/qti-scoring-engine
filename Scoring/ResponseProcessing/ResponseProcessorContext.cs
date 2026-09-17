@@ -29,9 +29,14 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             {
                 ItemResult = AssessmentResult.ItemResults[AssessmentItem.Identifier];
 
+                // ResponseDeclarations is only ever read, so it can stay shared.
                 ResponseDeclarations = AssessmentItem.ResponseDeclarations;
-                OutcomeDeclarations = AssessmentItem.OutcomeDeclarations;
-                CalculatedOutcomes = AssessmentItem.CalculatedOutcomes;
+                // These two are written during processing: ResetOutcomes can add a missing
+                // declaration and qti-number-correct removes a calculated outcome. The
+                // AssessmentItem is shared by every result being processed - and by every
+                // thread when ProcessParallel is on - so each context gets its own copy.
+                OutcomeDeclarations = new Dictionary<string, OutcomeDeclaration>(AssessmentItem.OutcomeDeclarations);
+                CalculatedOutcomes = new HashSet<string>(AssessmentItem.CalculatedOutcomes);
 
                 OutcomeVariables = ItemResult.OutcomeVariables;
                 ResponseVariables = ItemResult.ResponseVariables;

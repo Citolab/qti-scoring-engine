@@ -15,7 +15,6 @@ namespace Citolab.QTI.ScoringEngine
 {
     public class ScoringEngine : IScoringEngine
     {
-        private IExpressionFactory _expressionFactory;
         public List<XDocument> ProcessOutcomes(IOutcomeProcessingContext ctx)
         {
             if (ctx == null)
@@ -30,23 +29,21 @@ namespace Citolab.QTI.ScoringEngine
             {
                 ctx.Logger = ctx.Logger = new NullLogger<ScoringEngine>();
             }
-            if (_expressionFactory == null)
-            {
-                _expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
-            }
-            var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest, _expressionFactory);
+            // built per call: caching it meant CustomOperators passed to a later call were dropped.
+            var expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
+            var assessmentTest = new AssessmentTest(ctx.Logger, ctx.AssessmentTest, expressionFactory);
 
             if (ctx.ProcessParallel == true)
             {
-                var concurrentAssessmentResultList = new ConcurrentBag<XDocument>();
+                // written by index so the results come back in the order they were handed in.
+                var processed = new XDocument[ctx.AssessmentmentResults.Count];
                 Parallel.For(0, ctx.AssessmentmentResults.Count,
                   index =>
                   {
                       var assessmentResultDoc = ctx.AssessmentmentResults[index];
-                      var processedAssessmentResult = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
-                      concurrentAssessmentResultList.Add(processedAssessmentResult);
+                      processed[index] = AssessmentResultOutcomeProcessing(assessmentResultDoc, assessmentTest, ctx.Logger);
                   });
-                ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
+                ctx.AssessmentmentResults = processed.ToList();
             }
             else
             {
@@ -78,24 +75,22 @@ namespace Citolab.QTI.ScoringEngine
             {
                 ctx.Logger = ctx.Logger = new NullLogger<ScoringEngine>();
             }
-            if (_expressionFactory == null)
-            {
-                _expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
-            }
+            // built per call: caching it meant CustomOperators passed to a later call were dropped.
+            var expressionFactory = new ExpressionFactory(ctx.CustomOperators, ctx.Logger);
             var assessmentItems = ctx.AssessmentItems
-                .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc, _expressionFactory))
+                .Select(assessmentItemDoc => new AssessmentItem(ctx.Logger, assessmentItemDoc, expressionFactory))
                 .ToList();
             if (ctx.ProcessParallel == true)
             {
-                var concurrentAssessmentResultList = new ConcurrentBag<XDocument>();
+                // written by index so the results come back in the order they were handed in.
+                var processed = new XDocument[ctx.AssessmentmentResults.Count];
                 Parallel.For(0, ctx.AssessmentmentResults.Count,
                   index =>
                   {
                       var assessmentResultDoc = ctx.AssessmentmentResults[index];
-                      var assessmentResult = (XDocument)AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options);
-                      concurrentAssessmentResultList.Add(assessmentResult);
+                      processed[index] = AssessmentResultResponseProcessing(assessmentResultDoc, assessmentItems, ctx.Logger, options);
                   });
-                ctx.AssessmentmentResults = concurrentAssessmentResultList.ToList();
+                ctx.AssessmentmentResults = processed.ToList();
             }
             else
             {

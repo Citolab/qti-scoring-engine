@@ -32,7 +32,7 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
                         conditionalExpressions.Execute(ctx);
                     }
                 }
-                assessmentItem.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
+                ctx.CalculatedOutcomes.ToList().ForEach(outcomeIdentifier =>
                 {
                     assessmentResult.PersistItemResultOutcome(assessmentItem.Identifier, outcomeIdentifier, ctx);
                 });

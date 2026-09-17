@@ -63,7 +63,11 @@ namespace Citolab.QTI.ScoringEngine.Const
                 { "qti-variable", typeof(VariableProcessing) } // the implementation of outcome and responseprocessing differs, proxy class will init correct class
             };
 
-        internal static Dictionary<string, ICustomOperator> CustomOperators = new Dictionary<string, ICustomOperator>
+        /// <summary>
+        /// The built-in operators. Treated as a read-only template: ExpressionFactory copies
+        /// these into its own registry rather than adding the caller's operators here.
+        /// </summary>
+        internal static readonly Dictionary<string, ICustomOperator> CustomOperators = new Dictionary<string, ICustomOperator>
            {
                 { "depcp:ParseCommaDecimal", new ParseCommaDecimal() },
                 { "questify:ParseCommaDecimal", new ParseCommaDecimal() },
