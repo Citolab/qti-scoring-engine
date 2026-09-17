@@ -25,7 +25,46 @@ namespace Citolab.QTI.ScoringEngine.Model
             }
         }
 
-        public abstract void Upgrade();
+        public virtual void Upgrade() => UpgradeToQti3(Content);
+
+        /// <summary>
+        /// Rewrites a 2.x document to the 3.0 tag and attribute spelling.
+        /// Just converts what is needed to be able to process it; the result does not have to be
+        /// a valid 3.0 package. See https://github.com/Citolab/qti-converter for an attempt to
+        /// convert to valid 3.0 packages.
+        /// </summary>
+        protected static void UpgradeToQti3(XDocument doc)
+        {
+            XNamespace xNamespace = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
+            foreach (var element in doc.Descendants())
+            {
+                var tagName = element.Name.LocalName;
+                var kebabTagName = tagName.ToKebabCase();
+                element.Name = xNamespace + $"qti-{kebabTagName}";
+            }
+
+            // fix attributes
+            foreach (var element in doc.Descendants())
+            {
+                var attributesToRemove = new List<XAttribute>();
+                var attributesToAdd = new List<XAttribute>();
+                foreach (var attribute in element.Attributes()
+                    .Where(attr => !attr.IsNamespaceDeclaration && string.IsNullOrEmpty(attr.Name.NamespaceName)))
+                {
+                    var attributeName = attribute.Name.LocalName;
+                    var kebabAttributeName = attributeName.ToKebabCase();
+                    if (attributeName != kebabAttributeName)
+                    {
+                        var newAttr = new XAttribute($"{kebabAttributeName}", attribute.Value);
+                        attributesToRemove.Add(attribute);
+                        attributesToAdd.Add(newAttr);
+                    }
+                }
+                attributesToRemove.ForEach(a => a.Remove());
+                attributesToAdd.ForEach(a => element.Add(a));
+            }
+        }
+
 
         public OutcomeDeclaration GetOutcomeDeclaration(XElement outcomeDeclaration)
         {

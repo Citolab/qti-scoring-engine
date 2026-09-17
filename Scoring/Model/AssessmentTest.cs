@@ -72,46 +72,17 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 foreach (var outcomeProcessingChild in OutcomeProcessingElement.Elements())
                 {
-                    Expressions.Add(expressionFactory.GetConditionExpression(outcomeProcessingChild, true));
-                }
-            }
-        }
-
-        public override void Upgrade()
-        {
-            Upgrade(Content);
-        }
-
-        public static void Upgrade(XDocument doc)
-        {
-            XNamespace xNamespace = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
-            foreach (var element in doc.Descendants())
-            {
-                var tagName = element.Name.LocalName;
-                var kebabTagName = tagName.ToKebabCase();
-                element.Name = xNamespace + $"qti-{kebabTagName}";
-            }
-
-            // fix attributes
-            foreach (var element in doc.Descendants())
-            {
-                var attributesToRemove = new List<XAttribute>();
-                var attributesToAdd = new List<XAttribute>();
-                foreach (var attribute in element.Attributes()
-                    .Where(attr => !attr.IsNamespaceDeclaration && string.IsNullOrEmpty(attr.Name.NamespaceName)))
-                {
-                    var attributeName = attribute.Name.LocalName;
-                    var kebabAttributeName = attributeName.ToKebabCase();
-                    if (attributeName != kebabAttributeName)
+                    // an unknown or unsupported rule comes back null; it is already logged
+                    var expression = expressionFactory.GetConditionExpression(outcomeProcessingChild, true);
+                    if (expression != null)
                     {
-                        var newAttr = new XAttribute($"{kebabAttributeName}", attribute.Value);
-                        attributesToRemove.Add(attribute);
-                        attributesToAdd.Add(newAttr);
+                        Expressions.Add(expression);
                     }
                 }
-                attributesToRemove.ForEach(a => a.Remove());
-                attributesToAdd.ForEach(a => element.Add(a));
             }
         }
+
+        /// <summary>Upgrades a document that is not wrapped in an AssessmentTest yet.</summary>
+        public static void Upgrade(XDocument doc) => UpgradeToQti3(doc);
     }
 }

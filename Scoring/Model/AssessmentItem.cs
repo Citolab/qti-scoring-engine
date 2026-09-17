@@ -84,7 +84,12 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 foreach (var responseProcessingChild in responseProcessingElement.Elements())
                 {
-                    Expressions.Add(expressionFactory.GetConditionExpression(responseProcessingChild, true));
+                    // an unknown or unsupported rule comes back null; it is already logged
+                    var expression = expressionFactory.GetConditionExpression(responseProcessingChild, true);
+                    if (expression != null)
+                    {
+                        Expressions.Add(expression);
+                    }
                 }
             }
             else
@@ -249,43 +254,6 @@ namespace Citolab.QTI.ScoringEngine.Model
             return responseDeclaration;
         }
 
-
-        public override void Upgrade()
-        {
-            XNamespace xNamespace = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
-            // Just convert to what is need to be able to process.
-            // It does not have to be a valid 3.0 package
-            // see: https://github.com/Citolab/qti-converter for an 
-            // attempt to convert to valid 3.0 packages.
-
-            foreach (var element in Content.Descendants())
-            {
-                var tagName = element.Name.LocalName;
-                var kebabTagName = tagName.ToKebabCase();
-                element.Name = xNamespace + $"qti-{kebabTagName}";
-            }
-
-            // fix attributes
-            foreach (var element in Content.Descendants())
-            {
-                var attributesToRemove = new List<XAttribute>();
-                var attributesToAdd = new List<XAttribute>();
-                foreach (var attribute in element.Attributes()
-                    .Where(attr => !attr.IsNamespaceDeclaration && string.IsNullOrEmpty(attr.Name.NamespaceName)))
-                {
-                    var attributeName = attribute.Name.LocalName;
-                    var kebabAttributeName = attributeName.ToKebabCase();
-                    if (attributeName != kebabAttributeName)
-                    {
-                        var newAttr = new XAttribute($"{kebabAttributeName}", attribute.Value);
-                        attributesToRemove.Add(attribute);
-                        attributesToAdd.Add(newAttr);
-                    }
-                }
-                attributesToRemove.ForEach(a => a.Remove());
-                attributesToAdd.ForEach(a => element.Add(a));
-            }
-        }
 
     }
 }
