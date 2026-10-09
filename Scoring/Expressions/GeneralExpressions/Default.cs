@@ -3,6 +3,7 @@ using Citolab.QTI.ScoringEngine.Helpers;
 using Citolab.QTI.ScoringEngine.Interfaces;
 using Citolab.QTI.ScoringEngine.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
 {
@@ -26,6 +27,20 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
                 if (outcomeDeclaration.Cardinality == Cardinality.Record)
                 {
                     return ToRecord(identifier, outcomeDeclaration.BaseType, outcomeDeclaration.DefaultFields);
+                }
+                if (outcomeDeclaration.IsContainer)
+                {
+                    if (outcomeDeclaration.DefaultValues == null || outcomeDeclaration.DefaultValues.Count == 0)
+                    {
+                        return null;
+                    }
+                    return new BaseValue
+                    {
+                        Identifier = identifier,
+                        BaseType = outcomeDeclaration.BaseType,
+                        Cardinality = outcomeDeclaration.Cardinality,
+                        Values = outcomeDeclaration.DefaultValues.ToList()
+                    };
                 }
                 var defaultValue = outcomeDeclaration.DefaultValue?.ToString();
                 if (defaultValue == null)

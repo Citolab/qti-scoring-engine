@@ -44,9 +44,27 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                         outcomeVariable.Fields = value.Fields;
                         outcomeVariable.Value = null;
                     }
+                    else if (outcomeDeclaration.IsContainer)
+                    {
+                        // a multiple or ordered outcome holds every member; a single value is a
+                        // container of one and NULL (qti-null, an unset variable) empties it.
+                        outcomeVariable.Cardinality = outcomeDeclaration.Cardinality;
+                        outcomeVariable.Values = value.ToValueList()?.ToList() ?? new List<string>();
+                        outcomeVariable.Value = null;
+                    }
                     else
                     {
-                        outcomeVariable.Value = value?.Value.ToString(culture);
+                        // a container written to a single outcome: only a container of one fits
+                        var singleValue = value?.Value;
+                        if (singleValue == null && value?.Values != null && value.Values.Count > 0)
+                        {
+                            if (value.Values.Count > 1)
+                            {
+                                ctx.LogError($"A container of {value.Values.Count} values cannot be written to single outcome: {outcomeIdentifier}. Using the first value.");
+                            }
+                            singleValue = value.Values[0];
+                        }
+                        outcomeVariable.Value = singleValue?.ToString(culture);
                     }
                 }
                 else

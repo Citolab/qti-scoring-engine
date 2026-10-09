@@ -246,7 +246,12 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 ctx.LogInformation($"member check not case-sensitive");
                 values = values.Select(v =>
                 {
-                    v.Value = v.Value.ToLower();
+                    if (v != null)
+                    {
+                        // a container has no single Value, its members are in Values
+                        v.Value = v.Value?.ToLower();
+                        v.Values = v.Values?.Select(member => member?.ToLower()).ToList();
+                    }
                     return v;
                 }).ToList();
             }

@@ -69,7 +69,8 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 BaseType = outcomeDeclaration.BaseType,
                 Cardinality = outcomeDeclaration.Cardinality,
                 Fields = outcomeDeclaration.DefaultFields.Copy(),
-                Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
+                Values = outcomeDeclaration.DefaultValues?.ToList(),
+                Value = outcomeDeclaration.IsContainer ? null : outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
         }
 
@@ -119,6 +120,21 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                     BaseType = outcomeVariable.BaseType,
                     Cardinality = Model.Cardinality.Record,
                     Fields = outcomeVariable.Fields
+                };
+            }
+            if (outcomeVariable != null && outcomeVariable.IsContainer)
+            {
+                // an empty container is NULL
+                if (outcomeVariable.Values == null || outcomeVariable.Values.Count == 0)
+                {
+                    return null;
+                }
+                return new BaseValue
+                {
+                    Identifier = outcomeVariable.Identifier,
+                    BaseType = outcomeVariable.BaseType,
+                    Cardinality = outcomeVariable.Cardinality,
+                    Values = outcomeVariable.Values.ToList()
                 };
             }
             var baseValue = new BaseValue
@@ -380,7 +396,9 @@ namespace Citolab.QTI.ScoringEngine.Helpers
                 Cardinality = outcomeDeclaration.Cardinality,
                 Identifier = outcomeDeclaration.Identifier,
                 Fields = outcomeDeclaration.DefaultFields.Copy(),
-                Value = outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
+                // a copy, so that a variable does not write through to the shared declaration
+                Values = outcomeDeclaration.DefaultValues?.ToList(),
+                Value = outcomeDeclaration.IsContainer ? null : outcomeDeclaration.DefaultValue == null ? outcomeDeclaration.GetDefaultValueIfNoValueIsSet() : outcomeDeclaration.DefaultValue
             };
         }
 

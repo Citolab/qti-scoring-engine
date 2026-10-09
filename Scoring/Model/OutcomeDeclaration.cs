@@ -21,6 +21,14 @@ namespace Citolab.QTI.ScoringEngine.Model
         /// </summary>
         public Dictionary<string, BaseValue> DefaultFields { get; set; }
 
+        /// <summary>
+        /// The default of a multiple or ordered declaration: every qti-value of qti-default-value,
+        /// in order. Null when there is none, which makes the outcome start as NULL.
+        /// </summary>
+        public List<string> DefaultValues { get; set; }
+
+        public bool IsContainer => Cardinality == Cardinality.Multiple || Cardinality == Cardinality.Ordered;
+
         public List<InterpolationTableEntry> InterpolationTable { get; set; }
 
         public List<MatchTableEntry> MatchTable { get; set; }

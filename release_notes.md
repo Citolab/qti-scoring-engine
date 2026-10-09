@@ -1,4 +1,14 @@
-﻿## 1.4.0
+﻿## 1.4.1
+
+### Fixed
+
+- `qti-set-outcome-value` threw a `NullReferenceException` when it wrote an outcome of `multiple` or `ordered` cardinality, e.g. a `FEEDBACK` built with `qti-multiple`. A container outcome now holds all its values: a `qti-multiple` or `qti-ordered` (also one that adds to the outcome itself through `qti-variable`), a single value as a container of one, and `qti-null` as NULL. `qti-variable` reads it back as a container, so `qti-member`, `qti-contains`, `qti-match`, `qti-index` and `qti-container-size` work on it
+- A container outcome is written to the assessmentResult as one `value` per member - none when it is NULL - and read back that way on a rescore and by the outcome processing; it used to be read as its first value only
+- The `qti-default-value` of a container outcome declaration kept only its first `qti-value`, and a container outcome of a numeric base type without a default started as `0`; it now starts with every declared value, or as NULL. `qti-default` returns all of them
+- `qti-ordered` threw a `NullReferenceException` on a NULL child and did not flatten a container child; it now leaves NULL out and flattens, like `qti-multiple`
+- `qti-match` threw a `NullReferenceException` when its second child was NULL, `qti-lookup-outcome-value` when the value to look up was NULL or a container, and a case-insensitive comparison when one of its values was a container
+
+## 1.4.0
 
 ### Added
 

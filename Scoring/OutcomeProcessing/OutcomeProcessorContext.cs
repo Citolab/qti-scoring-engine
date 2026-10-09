@@ -60,7 +60,8 @@ namespace Citolab.QTI.ScoringEngine.OutcomeProcessing
                 {
                     var outcome = itemResult.OutcomeVariables[outcomeIdentifier];
                     var baseValue = outcome.ToBaseValue();
-                    if (!string.IsNullOrEmpty(weightIdentifier))
+                    // NULL (an empty container) has nothing to weigh
+                    if (baseValue != null && !string.IsNullOrEmpty(weightIdentifier))
                     {
                         if (AssessmentTest.AssessmentItemRefs.ContainsKey(itemIdentifier))
                         {

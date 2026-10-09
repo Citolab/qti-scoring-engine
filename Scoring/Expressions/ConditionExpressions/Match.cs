@@ -25,6 +25,11 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                     ctx.LogError("No value for first child of match element");
                     return false;
                 }
+                if (correctValueInfo == null)
+                {
+                    // NULL, e.g. a container outcome that was never set: matches nothing
+                    return false;
+                }
                 if (correctValueInfo.Cardinality == null || correctValueInfo.Cardinality == Cardinality.Single)
                 {
                     return Helper.CompareSingleValues(valueToMap?.Value, correctValueInfo?.Value, correctValueInfo.BaseType, ctx);

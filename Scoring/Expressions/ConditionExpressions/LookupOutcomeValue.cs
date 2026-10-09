@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Globalization;
+using Citolab.QTI.ScoringEngine.Model;
 using Citolab.QTI.ScoringEngine.Interfaces;
 
 namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
@@ -37,7 +39,7 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 var matchEntry = outcomeDeclaration.MatchTable.FirstOrDefault(m => IsSameSourceValue(m.SourceValue, rawValue));
                 if (matchEntry != null)
                 {
-                    outcomeVariable.Value = matchEntry.TargetValue;
+                    SetLookedUpValue(outcomeVariable, matchEntry.TargetValue);
                     return true;
                 }
                 ctx.LogError($"Could not find lookup value: {rawValue} in the match table of {outcomeIdentifier}");
@@ -48,12 +50,14 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 ctx.LogError($"Lookup refers to variable without interpolation or match table: {outcomeIdentifier}");
                 return false;
             }
-            if (rawOutcomeVariable.Value.ToString().TryParseFloat(out var value))
+            // a container (or NULL) has no single value to look up
+            var rawNumber = rawOutcomeVariable.Value?.ToString();
+            if (rawNumber != null && rawNumber.TryParseFloat(out var value))
             {
                 var lookupEntry = outcomeDeclaration.InterpolationTable.FirstOrDefault(i => i.SourceValue == value);
                 if (lookupEntry != null)
                 {
-                    outcomeVariable.Value = lookupEntry.TargetValue;
+                    SetLookedUpValue(outcomeVariable, lookupEntry.TargetValue);
                     return true;
                 }
                 else
@@ -66,6 +70,22 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 ctx.LogError($"Could not convert value: {rawOutcomeVariable.Value} to float. Cannot search for the interpolation value");
             }
             return false;
+        }
+
+        /// <summary>
+        /// A multiple or ordered outcome keeps its members in Values: the value looked up
+        /// becomes a container of one.
+        /// </summary>
+        private static void SetLookedUpValue(OutcomeVariable outcomeVariable, object targetValue)
+        {
+            if (outcomeVariable.IsContainer)
+            {
+                var member = Convert.ToString(targetValue, CultureInfo.InvariantCulture);
+                outcomeVariable.Values = member == null ? new List<string>() : new List<string> { member };
+                outcomeVariable.Value = null;
+                return;
+            }
+            outcomeVariable.Value = targetValue;
         }
 
         private static bool IsSameSourceValue(string sourceValue, string rawValue)

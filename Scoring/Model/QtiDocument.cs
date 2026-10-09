@@ -94,13 +94,21 @@ namespace Citolab.QTI.ScoringEngine.Model
                 // a record default holds one qti-value per field instead of a single value
                 outcome.DefaultFields = defaultValueElement?.FindElementsByName("qti-value").ToRecordFields(Logger);
             }
+            if (outcome.IsContainer)
+            {
+                // a container default holds one qti-value per member; there is no single value
+                var defaultValues = defaultValueElement?.FindElementsByName("qti-value")
+                    .Select(v => v.Value.RemoveXData())
+                    .ToList();
+                outcome.DefaultValues = defaultValues?.Count > 0 ? defaultValues : null;
+            }
             var defaultValue = defaultValueElement?.FindElementsByName("qti-value").FirstOrDefault();
-            if (defaultValue != null && outcome.Cardinality != Cardinality.Record)
+            if (defaultValue != null && outcome.Cardinality == Cardinality.Single)
             {
                 // TODO: check type
                 outcome.DefaultValue = defaultValue.Value;
             }
-            else if (outcome.Cardinality != Cardinality.Record)
+            else if (outcome.Cardinality == Cardinality.Single)
             {
                 outcome.DefaultValue = outcome.GetDefaultValueIfNoValueIsSet();
             }

@@ -115,8 +115,11 @@ namespace Citolab.QTI.ScoringEngine.Model
             {
                 var outcomeDeclaration = context.OutcomeDeclarations[outcomeIdentifier];
                 var newOutcomeVariable = outcomeDeclaration.ToVariable();
-                newOutcomeVariable.Value = string.IsNullOrWhiteSpace(outcomeDeclaration.DefaultValue?.ToString())
-                    ? "0" : outcomeDeclaration.DefaultValue?.ToString();
+                if (outcomeDeclaration.Cardinality == Cardinality.Single)
+                {
+                    newOutcomeVariable.Value = string.IsNullOrWhiteSpace(outcomeDeclaration.DefaultValue?.ToString())
+                        ? "0" : outcomeDeclaration.DefaultValue?.ToString();
+                }
                 ItemResults[itemIdentifier].OutcomeVariables.Add(outcomeIdentifier, newOutcomeVariable);
                 itemResultElement.Add(newOutcomeVariable.ToElement().AddDefaultNamespace(Root.GetDefaultNamespace()));
             }
@@ -188,13 +191,16 @@ namespace Citolab.QTI.ScoringEngine.Model
                                {
                                    var cardinality = outcomeVariable.GetAttributeValue("cardinality").ToCardinality();
                                    var isRecord = cardinality == Cardinality.Record;
+                                   var isContainer = cardinality == Cardinality.Multiple || cardinality == Cardinality.Ordered;
                                    return new OutcomeVariable
                                    {
                                        Identifier = outcomeVariable.Identifier(),
                                        BaseType = outcomeVariable.GetAttributeValue("baseType").ToBaseType(_logger),
                                        Cardinality = cardinality,
                                        Fields = isRecord ? outcomeVariable.FindElementsByName("value").ToRecordFields(_logger) : null,
-                                       Value = isRecord ? null : outcomeVariable.FindElementsByName("value").FirstOrDefault()?.Value?.RemoveXData()
+                                       // a container has one value element per member
+                                       Values = isContainer ? outcomeVariable.FindElementsByName("value").Select(v => v.Value?.RemoveXData()).ToList() : null,
+                                       Value = isRecord || isContainer ? null : outcomeVariable.FindElementsByName("value").FirstOrDefault()?.Value?.RemoveXData()
                                    };
                                })?.ToDictionary(outcome => outcome.Identifier, outcome => outcome),
                 ResponseVariables = resultElement.FindElementsByName("responseVariable").Select(responseVariable =>
