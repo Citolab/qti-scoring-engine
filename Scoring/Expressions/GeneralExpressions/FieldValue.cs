@@ -33,7 +33,13 @@ namespace Citolab.QTI.ScoringEngine.Expressions.GeneralExpressions
             {
                 return null;
             }
-            if (record.Cardinality != Cardinality.Record || record.Fields == null)
+            if (record.Cardinality == Cardinality.Record && record.Fields == null)
+            {
+                // a record without any field: no response yet, so every field is NULL.
+                ctx.LogInformation($"qti-field-value: record {record.Identifier} has no fields, returning null.");
+                return null;
+            }
+            if (record.Cardinality != Cardinality.Record)
             {
                 ctx.LogError($"qti-field-value: {record.Identifier} is not a record, field {fieldIdentifier} cannot be read from it.");
                 return null;

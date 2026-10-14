@@ -1,4 +1,11 @@
-﻿## 1.4.1
+﻿## 1.5.0
+
+### Fixed
+
+- Record responses from portable custom interactions score as expected: a `record` response declaration has no `base-type` of its own (each field carries one) and no longer logs "missing baseType"; a record without any field yet - no response - reads every field as NULL in `qti-field-value` instead of logging that it is not a record
+- `qti-gt`, `qti-gte`, `qti-lt` and `qti-lte` with a NULL operand are NULL (false), as QTI defines, instead of throwing a `NullReferenceException`; for instance a time range on a field of a record response the candidate did not give
+
+## 1.4.1
 
 ### Fixed
 

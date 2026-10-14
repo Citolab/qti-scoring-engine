@@ -104,7 +104,8 @@ namespace Citolab.QTI.ScoringEngine.Model
             var baseTypeString = el.GetAttributeValue("base-type");
             var cardinalityString = el.GetAttributeValue("cardinality");
             var identifier = el.Identifier();
-            if (string.IsNullOrEmpty(baseTypeString))
+            // a record has no base-type of its own: each field carries one.
+            if (string.IsNullOrEmpty(baseTypeString) && cardinalityString != "record")
             {
                 Logger.LogWarning("missing baseType, using default value");
             }

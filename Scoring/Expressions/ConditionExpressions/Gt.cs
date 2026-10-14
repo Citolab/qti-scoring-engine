@@ -17,6 +17,13 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
         {
 
             var values = expressions.Select(e => e.Apply(ctx)).ToList();
+            if (values.Count == 2 && values.Any(v => v?.Value == null))
+            {
+                // a comparison with NULL is NULL, and NULL is false in a condition: for instance a field
+                // of a record response that the candidate did not give.
+                ctx.LogInformation("gt check: one of the values is NULL, so the result is NULL (false).");
+                return false;
+            }
             ctx.LogInformation($"gt check. Values: {string.Join(", ", values.Select(v => v.Value).ToArray())}");
             if (values.Count != 2)
             {

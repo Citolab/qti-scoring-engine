@@ -138,6 +138,77 @@ namespace Citolab.QTI.ScoringEngine.Tests.ResponseProcessingTests
             Assert.Equal("1.5", result.GetScoreForItem(ItemIdentifier, "SCORE"));
         }
 
+        /// <summary>
+        /// A record response with the given values, as a PCI that reports several values (a moment and a
+        /// position) gives it. No values: the candidate did not respond.
+        /// </summary>
+        private static AssessmentResult ResultWithRecord(string values)
+        {
+            var logger = new Mock<ILogger>().Object;
+            return new AssessmentResult(logger, XDocument.Parse($@"
+                <assessmentResult xmlns=""http://www.imsglobal.org/xsd/imsqti_result_v2p2"">
+                    <context sourcedId=""900001""/>
+                    <itemResult identifier=""{ItemIdentifier}"" datestamp=""2026-10-14T10:00:00"" sessionStatus=""final"">
+                        <responseVariable identifier=""RESPONSE"" cardinality=""record"">
+                            <candidateResponse>{values}</candidateResponse>
+                        </responseVariable>
+                    </itemResult>
+                </assessmentResult>"));
+        }
+
+        private const string TimeBetween3And5 = @"<qti-and>
+                <qti-gte><qti-field-value field-identifier=""time""><qti-variable identifier=""RESPONSE""/></qti-field-value><qti-base-value base-type=""float"">3</qti-base-value></qti-gte>
+                <qti-lte><qti-field-value field-identifier=""time""><qti-variable identifier=""RESPONSE""/></qti-field-value><qti-base-value base-type=""float"">5</qti-base-value></qti-lte>
+            </qti-and>";
+
+        [Fact]
+        public void A_Comparison_On_A_Field_Of_A_Record_Without_A_Response_Is_False()
+        {
+            var itemXml = Item("", ScoreWhen(TimeBetween3And5));
+
+            var result = Process(itemXml, ResultWithRecord(""));
+
+            Assert.Equal("0", result.GetScoreForItem(ItemIdentifier, "SCORE"));
+        }
+
+        [Fact]
+        public void Every_Field_Of_A_Record_Without_A_Response_Is_Null()
+        {
+            var itemXml = Item("", ScoreWhen(@"<qti-is-null><qti-field-value field-identifier=""time""><qti-variable identifier=""RESPONSE""/></qti-field-value></qti-is-null>"));
+
+            var result = Process(itemXml, ResultWithRecord(""));
+
+            Assert.Equal("1", result.GetScoreForItem(ItemIdentifier, "SCORE"));
+        }
+
+        [Theory]
+        [InlineData("gt")]
+        [InlineData("gte")]
+        [InlineData("lt")]
+        [InlineData("lte")]
+        public void A_Comparison_With_A_Field_That_Is_Not_There_Is_False(string op)
+        {
+            var itemXml = Item("", ScoreWhen($@"<qti-{op}><qti-field-value field-identifier=""time""><qti-variable identifier=""RESPONSE""/></qti-field-value><qti-base-value base-type=""float"">3</qti-base-value></qti-{op}>"));
+
+            var result = Process(itemXml, ResultWithRecord(@"<value fieldIdentifier=""point"" baseType=""point"">455 250</value>"));
+
+            Assert.Equal("0", result.GetScoreForItem(ItemIdentifier, "SCORE"));
+        }
+
+        [Fact]
+        public void Scores_A_Moment_And_A_Position_From_One_Record()
+        {
+            var itemXml = Item("", ScoreWhen($@"<qti-and>{TimeBetween3And5}
+                <qti-inside shape=""circle"" coords=""460,245,60""><qti-field-value field-identifier=""point""><qti-variable identifier=""RESPONSE""/></qti-field-value></qti-inside>
+            </qti-and>"));
+
+            var hit = Process(itemXml, ResultWithRecord(@"<value fieldIdentifier=""time"" baseType=""float"">4.1</value><value fieldIdentifier=""point"" baseType=""point"">455 250</value>"));
+            var miss = Process(itemXml, ResultWithRecord(@"<value fieldIdentifier=""time"" baseType=""float"">4.1</value><value fieldIdentifier=""point"" baseType=""point"">100 100</value>"));
+
+            Assert.Equal("1", hit.GetScoreForItem(ItemIdentifier, "SCORE"));
+            Assert.Equal("0", miss.GetScoreForItem(ItemIdentifier, "SCORE"));
+        }
+
         [Fact]
         public void FieldValue_On_Something_That_Is_Not_A_Record_Is_Null()
         {
