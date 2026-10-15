@@ -18,6 +18,14 @@ namespace Citolab.QTI.ScoringEngine.Model
 
         public HashSet<string> CalculatedOutcomes;
 
+        /// <summary>
+        /// adaptive="true": the outcomes keep their values from one attempt to the next, and the response
+        /// processing ends the item by setting completionStatus to completed.
+        /// </summary>
+        public bool Adaptive { get; }
+
+        internal const string BuiltInCompletionStatus = "completionStatus";
+
         public List<IConditionExpression> Expressions { get; } = new List<IConditionExpression>();
 
         public AssessmentItem(ILogger logger, XDocument assessmentItem, IExpressionFactory expressionFactory) : base(logger, assessmentItem)
@@ -60,10 +68,26 @@ namespace Citolab.QTI.ScoringEngine.Model
                 return GetResponseDeclaration(responseDeclaration);
             }).ToDictionary(o => o.Identifier, o => o);
 
+            Adaptive = string.Equals(Content.Root?.GetAttributeValue("adaptive")?.Trim(), "true", StringComparison.OrdinalIgnoreCase);
+            // completionStatus is a built-in outcome: not declared in the item, but the response processing of
+            // an adaptive item sets it. Without a declaration it would be added as a float.
+            if (Adaptive && !OutcomeDeclarations.ContainsKey(BuiltInCompletionStatus))
+            {
+                OutcomeDeclarations.Add(BuiltInCompletionStatus, new OutcomeDeclaration
+                {
+                    Identifier = BuiltInCompletionStatus,
+                    BaseType = BaseType.Identifier,
+                    Cardinality = Cardinality.Single,
+                    DefaultValue = "unknown"
+                });
+            }
+
             // outcomes in the itemResult that are not in the qtiItem file are left unchanged.
             // outcomes that are defined in the qti-item, present in the itemResult and not used in responseProcessing are left unchanged.
             // outcomes that are defined in the qti-item, not present in the itemResult and not used in the responseProcessing get the defaultValue.
             // outcomes that are defined in the qti-item and are used responseProcessing are recalcuted.
+            // adaptive items: these start from their value in the itemResult (the previous attempt) instead of the
+            // default; see ResponseProcessorContext.
             var lookups = responseProcessing?
                 .FindElementsByName("qti-lookup-outcome-value")?
                 .Select(v => v.Identifier());

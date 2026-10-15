@@ -18,6 +18,7 @@ returns.
   - [The context](#the-context)
   - [Options](#options)
   - [What the engine changes](#what-the-engine-changes)
+  - [Adaptive items](#adaptive-items)
 - [What is supported](#what-is-supported)
   - [Cardinality](#cardinality)
   - [Base types](#base-types)
@@ -116,6 +117,7 @@ Per item result:
 
 - Outcomes that the response processing writes (`qti-set-outcome-value`, `qti-lookup-outcome-value`)
   are reset to the default of their declaration - `0` for a number without one - and recalculated.
+  Not for an adaptive item: see [Adaptive items](#adaptive-items).
 - Outcomes that the response processing does not write are left exactly as they are, so an
   outcome like `numAttempts` or a human scored outcome survives a rescore. An outcome variable
   marked `external-scored="human"` is never overwritten.
@@ -126,6 +128,42 @@ Per test result:
 
 - A `testResult` is added when the result does not have one yet.
 - The outcomes that the outcome processing writes are reset to 0 and recalculated.
+
+### Adaptive items
+
+An item with `adaptive="true"` is answered in several attempts, and its outcomes keep their values from one
+attempt to the next: the response processing of an attempt starts from the outcomes the previous attempt left. That
+is how an adaptive item shows a follow-up question, gives a hint or keeps the score of a step it already scored. The
+item is done when its response processing sets the built-in outcome `completionStatus` to `completed`.
+
+Score such an item **attempt by attempt**, and pass the state along: the `itemResult` of an attempt holds the
+`outcomeVariable`s that the previous attempt returned, next to the `candidateResponse`s of the new attempt.
+
+```C#
+// attempt 1: only responses; every outcome starts at its default
+var scored = scoringEngine.ProcessResponses(new ResponseProcessingContext
+{
+    AssessmentItems = [item],
+    AssessmentmentResults = [resultWithAttempt1Responses]
+}).Single();
+
+// attempt 2: the itemResult of `scored`, with its responseVariables replaced by those of attempt 2
+var scoredAgain = scoringEngine.ProcessResponses(new ResponseProcessingContext
+{
+    AssessmentItems = [item],
+    AssessmentmentResults = [scoredWithAttempt2Responses]
+}).Single();
+```
+
+For an adaptive item the engine:
+
+- does not reset the outcomes that the response processing writes. An outcome the `itemResult` does not hold yet -
+  on the first attempt, none - starts at its default;
+- knows `completionStatus` as an identifier outcome (default `unknown`) without a declaration in the item;
+- does not count attempts: when the response processing reads `numAttempts`, pass it as a response variable.
+
+Scoring all responses once at the end is not the same: the response processing of an adaptive item depends on the
+order of its attempts. A delivery system that scores on the server scores each attempt when it ends.
 
 ## What is supported
 

@@ -1,4 +1,15 @@
-﻿## 1.5.0
+﻿## 1.6.0
+
+### Added
+
+- Adaptive items (`adaptive="true"`): the outcomes keep their values from one attempt to the next. The engine no longer resets the outcomes the response processing writes; it starts from the `outcomeVariable`s in the `itemResult` - the state the previous attempt left - and an outcome that is not there yet starts at its default. Score such an item attempt by attempt, passing the scored `itemResult` along with the responses of the next attempt (README: Adaptive items)
+- The built-in outcome `completionStatus` of an adaptive item: an identifier (default `unknown`) without a declaration in the item. It used to be added as a float, so `completed` was written as `0`
+
+### Fixed
+
+- `qti-is-null` was never true for an outcome variable: `qti-variable` returns an outcome without a value as a value object, not as NULL. An outcome without a value - no default, or not set yet - is now NULL
+
+## 1.5.0
 
 ### Fixed
 

@@ -23,7 +23,11 @@ namespace Citolab.QTI.ScoringEngine.Expressions.ConditionExpressions
                 return false;
             };
             var value = expressions.First().Apply(ctx);
-            return value == null;
+            // qti-variable gives an outcome that is NULL as a BaseValue without a value.
+            return value == null
+                || (value.Value == null
+                    && (value.Values == null || value.Values.Count == 0)
+                    && (value.Fields == null || value.Fields.Count == 0));
         }
     }
 }

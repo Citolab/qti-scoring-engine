@@ -56,7 +56,13 @@ namespace Citolab.QTI.ScoringEngine.ResponseProcessing
             {
                 LogInformation("Cannot find item result");
             }
-            ResetOutcomes();
+            // An adaptive item continues where the previous attempt left off: its outcomes "retain their values
+            // across multiple attempts and are only updated by subsequent response processing" (QTI 3 impl guide
+            // 3.7.2). The outcomes in the itemResult are that state; the ones it lacks got their default above.
+            if (AssessmentItem?.Adaptive != true)
+            {
+                ResetOutcomes();
+            }
 
             if (Options?.QtiContextFields != null)
             {
